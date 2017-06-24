@@ -3,7 +3,6 @@ import jinja2
 import json
 import logging.config
 
-import string_validator
 
 logger = logging.getLogger("hatms.file")
 
@@ -21,6 +20,11 @@ def setup_logging(default_path='log_config.json', default_level=logging.INFO):
     if os.path.exists(path):
         with open(path, 'r') as f:
             config = json.load(f)
+
+	# Removing old log file
+	if os.path.exists(config['handlers']['file']['filename']:
+           os.remov(config['handlers']['file']['filename'])
+
         logging.config.dictConfig(config)
     else:
         logging.basicConfig(level=default_level)
@@ -28,7 +32,7 @@ def setup_logging(default_path='log_config.json', default_level=logging.INFO):
 
 def main():
 
-    logger.info("Mother fucking logging is enabled")
+    logger.info("Logging is enabled")
     load = []
     with open('borrow.txt', 'r') as inp:
 
@@ -43,15 +47,13 @@ def main():
         "payload": load
     }
 
-    # logging.error("Before rendering", context)
     result = render(context)
 
     logger.debug("Writing to file")
     with open("result.html", 'w') as out:
         out.write(result)
 
-    logger.info("Wrote to file")
-    string_validator.validate("Mac12")
+    logger.debug("Wrote to file")
 
 if __name__ == '__main__':
     setup_logging()
