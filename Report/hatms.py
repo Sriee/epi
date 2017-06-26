@@ -3,7 +3,7 @@ import jinja2
 import json
 import logging.config
 
-import string_validator
+import borrower
 
 logger = logging.getLogger("hatms.file")
 
@@ -28,14 +28,21 @@ def setup_logging(default_path='log_config.json', default_level=logging.INFO):
 
 def main():
 
-    logger.info("Mother fucking logging is enabled")
+    logger.error("logging is enabled")
     load = []
     with open('borrow.txt', 'r') as inp:
 
         for line in inp:
             l = line.split(',')
-            load.append((l[2], l[3], l[4]))
+            load.append(borrower.Borrower(l[2], l[3], l[4]))
 
+        print load[0]._secret
+        nm = load[0].name
+        print nm, nm.firstname, nm.lastname
+        for i in nm:
+            print i, 
+
+    """   
     context = {
         "branch": "master",
         "harley": "harley-dev3",
@@ -43,15 +50,14 @@ def main():
         "payload": load
     }
 
-    # logging.error("Before rendering", context)
     result = render(context)
-
+   
     logger.debug("Writing to file")
     with open("result.html", 'w') as out:
         out.write(result)
 
     logger.info("Wrote to file")
-    string_validator.validate("Mac12")
+    """
 
 if __name__ == '__main__':
     setup_logging()
