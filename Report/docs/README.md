@@ -1,58 +1,71 @@
-Harley Test Automation Management System 
+# Harley Test Automation Management System 
 
-This system allows you to generate reports based on the 5 options. Once the report is generated you can run harley for the protocols which are
-not tested for a release or the ones which failed. 
+Harley Test Automation Management System (HATMS) is a framework used to generate reports and run batch jobs using the Harley front end.
 
-HATMS supports three commands
-1. generate - For generating the report 
-2. run - Execute scheduled job
-3. edit - Edit settings for generating the report
+## Features
 
-Help 
+HATMS supports the following two feature
 
-Use `python hatms.py -h` or `python hatms.py --help` to know about the commands
+1. Generate Reports 
+2. Run scheduled jobs
 
-You can detailed help for a particular command by using `python hatms.py {command} -h` or `python hatms.py {command} --help`
-where commands = ['edit', generate', 'run']
+## Help 
+
+#### To know the list of commands supported by HATMS
+`python hatms.py -h` or `python hatms.py --help`
+
+#### To know the options for `edit` command
+
+`python hatms.py edit -h` or `python hatms.py edit --help`
+
+#### To know the options for `generate` command
+
+`python hatms.py generate -h` or `python hatms.py generate --help`
+
+#### To know the options for `run` command 
+
+`python hatms.py run -h` or `python hatms.py run --help`
 
 
-Receipe 1 - To generate protocol status for a release for a single test type
+## Documentation and Recipes
 
-python hatms.py generate --type 'smoke'
+Please refer **docs** folder for detailed documentation of the framework and recipes link for using the commands
 
-The above command will generate report for all the protocols in branch='master', for release 1.4.0 and for 'smoke' test type
+### Edit Command
 
-Receipe 2 - To generate protocol status for a release for all test types
+[Recipe 1: To edit Harley development machine name](https://github.com/Sriee/epi/tree/master/Report/docs/sample.gif)
 
-python hatms.py generate
+Recipe 2: To toggle database update
 
-Receipe 3 - To change the harley user
+Recipe 3: To toggle pagination for HTML report
 
-python hatms.py edit user admin
+Recipe 4: To edit Harley user name
 
-Receipe 4 - To change the harley machine name
+Recipe 5: To edit Harley development machine
 
-python hatms.py edit harley harley-dev3
+Recipe 6: To edit output file name
 
-Receipe 5 - To toggle any of the configuration 
+Recipe 7: To edit output file format
+---
 
-Change the values in settins.json or 
+### Generate Command 
 
-python hatms.py edit {option_name} {option_value}
+Recipe 8: To generate protocol status for a release and for a test type
 
-where {option_name} 
+Recipe 9: To generate protocol status for a release and for all test type
 
-1. enable_save_diag_bundle 
-2. enable_hold_test_passed
-3. enable_hold_test_failed
-4. enable_hold_test_
-5. enable_swimlane_recyclying
-6. enable_send_notification_fast
-7. user
-9. template
-10. test_type
+---
 
-TODO 
+### Run Command 
 
-1. Have a test suite having a list of settings to run
-2. Add multi-threading for loading harley database
+Recipe 10: To run the job schedule
+
+Recipe 12: To input the job schedule for the runner
+
+
+### TODO 
+
+-[x] Populate test type table by calling REST API
+-[] Fix database update bug 
+-[] Add multi-threading for loading harley database
+
