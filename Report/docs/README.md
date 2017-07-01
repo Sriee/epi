@@ -46,7 +46,8 @@ Recipe 5: To edit Harley development machine
 Recipe 6: To edit output file name
 
 Recipe 7: To edit output file format
----
+
+___
 
 ### Generate Command 
 
@@ -62,10 +63,13 @@ Recipe 10: To run the job schedule
 
 Recipe 12: To input the job schedule for the runner
 
+---
 
 ### TODO 
 
--[x] Populate test type table by calling REST API
--[] Fix database update bug 
--[] Add multi-threading for loading harley database
+- [x] Populate test type table by calling REST API
+- [ ] Fix database update bug 
+- [ ] Create gif's for the recipes
+- [ ] Add correct links to each recipes, Remove the sample gif
+- [ ] Add multi-threading for loading harley database
 
