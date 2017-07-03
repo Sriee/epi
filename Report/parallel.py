@@ -1,6 +1,6 @@
 import os
 import shutil
-from queue import Queue, Empty
+from Queue import Queue, Empty
 import threading
 import sqlite3
 import json
@@ -54,7 +54,7 @@ class ParallelLoader(object):
 
                     self.populated += load_length
                     consoleLogger.info('{}-{} entries'.format(stat, self.populated))
-                    thread_local.load.clear()
+                    thread_local.load = []
                     cursor.close()
                     connection.close()
 
