@@ -24,32 +24,21 @@ class ParallelLoader(object):
     def populate_test_case(self):
         statement = 'INSERT INTO Borrower VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)'
         setattr(thread_local, 'load', [])
-        thread_local.line, thread_local.each_line = '', ''
+
         while True:
             try:
-                task = self.test_case_queue.get()
-
-                if task is None:
-                    fileLogger.debug(
-                        'Exiting {}'.format(threading.current_thread().getName()))
-                    break
+                task = self.test_case_queue.get(True, 0.10)
 
                 name = 'borrow_{}.csv'.format(task // 100)
 
                 with open(os.path.join('files', name), 'r') as fp:
                     for thread_local.line in fp:
                         thread_local.each_line = thread_local.line.split(',')
-                        thread_local.each_line[5] = thread_local.each_line[5][1:-1]
-                        thread_local.each_line[8] = thread_local.each_line[8][1:-2]
-
                         thread_local.load.append(tuple(thread_local.each_line))
 
                 fileLogger.info('{0} processed \'{1}\''
-                                    .format(threading.current_thread().getName(), name))
+                                .format(threading.current_thread().getName(), name))
                 load_length = len(thread_local.load)
-                fileLogger.info('Will load {0}-{1}'
-                                    .format(thread_local.load[0][0],
-                                            thread_local.load[load_length - 1][0]))
 
                 lock = threading.Lock()
 
@@ -63,21 +52,26 @@ class ParallelLoader(object):
                     stat = '{} added {}'.format(threading.current_thread().getName(),
                                                 self.populated)
 
-                    self.populated += 100
-                    print('{}-{} entries'.format(stat, self.populated))
-
+                    self.populated += load_length
+                    consoleLogger.info('{}-{} entries'.format(stat, self.populated))
                     thread_local.load.clear()
                     cursor.close()
                     connection.close()
 
+                    # Marking the task 'done'
                     self.test_case_queue.task_done()
             except (sqlite3.OperationalError, sqlite3.IntegrityError) as e:
-                print(thread_local.load[0])
+                fileLogger.error('Failed at: {} for offset {}'.
+                                 format(threading.current_thread().getName(),
+                                        thread_local.load[0]))
                 print(e)
-
+            except Empty:
+                fileLogger.debug(
+                    'Exiting {}'.format(threading.current_thread().getName()))
+                break
 
     def start(self):
-        num_threads, offset, count, threads = -1, 0, 1000, []
+        num_threads, offset, count, thread_pool = -1, 0, 1000, []
 
         if count < 100:
             num_threads = 1
@@ -92,12 +86,12 @@ class ParallelLoader(object):
 
         for i in range(1, num_threads + 1):
             t = threading.Thread(target=self.populate_test_case)
-            threads.append(t)
+            thread_pool.append(t)
 
         fileLogger.debug('Starting the threads.')
         # Start the threads
-        for j in range(num_threads):
-            threads[j].start()
+        for thread in thread_pool:
+            thread.start()
 
         # Load the tasks
         while offset < count:
@@ -107,13 +101,9 @@ class ParallelLoader(object):
         # Block until all the items in the queue are completed
         self.test_case_queue.join()
 
-        # Stop test case loader threads 
-        for l in range(num_threads):
-            self.test_case_queue.put(None)
-
         # Kill the threads after loading the test case table
-        for k in range(num_threads):
-            threads[k].join()
+        for thread in thread_pool:
+            thread.join()
 
         fileLogger.info('Threads completed tasks.')
 
@@ -129,6 +119,10 @@ class ParallelLoader(object):
         self.connection.commit()
 
         return entries == self.cursor.fetchone()[0]
+
+    def finish(self):
+        self.cursor.close()
+        self.connection.close()
 
 
 def create_files():
@@ -173,22 +167,18 @@ if __name__ == '__main__':
     os.mkdir('files')
     create_files()
 
-    conn = sqlite3.connect(os.path.join('database', 'test.db'))
-    cur = conn.cursor()
-
     try:
         # Delete entries
-        cur.execute('SELECT COUNT(*) FROM BORROWER')
-        conn.commit()
+        pl.cursor.execute('SELECT COUNT(*) FROM BORROWER')
+        pl.connection.commit()
 
-        num_entries = cur.fetchone()
+        num_entries = pl.cursor.fetchone()
 
         if num_entries[0] != 0:
-            cur.execute('DELETE FROM BORROWER')
-            conn.commit()
+            pl.cursor.execute('DELETE FROM BORROWER')
+            pl.connection.commit()
 
         pl.start()
     finally:
-        cur.close()
-        conn.close()
+        pl.finish()
         logging.shutdown()
