@@ -25,7 +25,6 @@ public class DecodeExcel {
 		
 		for(char ch: inputChar){
 			result = result * 26 + ch - 'A' + 1;
-			System.out.println(ch + " : " + result);
 		}
 		return result;
 	}

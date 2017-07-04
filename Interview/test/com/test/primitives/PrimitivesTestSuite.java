@@ -12,7 +12,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		PowerSetTest.class,
 		ReverseBitsTest.class,
 		StringIntTest.class,
-		SwapBitsTest.class
+		SwapBitsTest.class,
+		GCDTest.class
 })
 
 public class PrimitivesTestSuite {
