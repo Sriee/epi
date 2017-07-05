@@ -18,7 +18,7 @@ class DatabaseLoader(object):
             sys.exit(-1)
 
     def load_database(self):
-        regex = r"^(?:DROP|CREATE)(?:[^;']|(?:'[^']+'   ))+;\s*$"
+        regex = r"^(?:DROP|CREATE)(?:[^;']|(?:'[^']+'))+;\s*$"
 
         with open('loader.sql', 'r') as fp:
             test_str = fp.read()

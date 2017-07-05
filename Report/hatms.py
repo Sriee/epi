@@ -4,15 +4,16 @@ import json
 import logging.config
 
 import borrower
+from context import Context
 
 logger = logging.getLogger("hatms.file")
 
 
 def render(data):
     filename = 'index.html'
-    return jinja2.Environment(
-        loader=jinja2.FileSystemLoader('./')
-    ).get_template(filename).render(data)
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader('./'), 
+        trim_blocks=True, lstrip_blocks=True)
+    return env.get_template(filename).render(data)
 
 
 def setup_logging(default_path='log_config.json', default_level=logging.INFO):
@@ -22,10 +23,6 @@ def setup_logging(default_path='log_config.json', default_level=logging.INFO):
         with open(path, 'r') as f:
             config = json.load(f)
 
-	# Removing old log file
-	if os.path.exists(config['handlers']['file']['filename']:
-           os.remov(config['handlers']['file']['filename'])
-
         logging.config.dictConfig(config)
     else:
         logging.basicConfig(level=default_level)
@@ -33,29 +30,20 @@ def setup_logging(default_path='log_config.json', default_level=logging.INFO):
 
 def main():
 
-    logger.info("Logging is enabled")
+    start, end = 'Logging is', 'enabled'
+    logger.info('%s%s', start, end)
+    
     load = []
+
     with open('borrow.txt', 'r') as inp:
 
         for line in inp:
             l = line.split(',')
             load.append(borrower.Borrower(l[2], l[3], l[4]))
+   
+    context = Context('master', 'harley-dev3', 'latest', load)
 
-        print load[0]._secret
-        nm = load[0].name
-        print nm, nm.firstname, nm.lastname
-        for i in nm:
-            print i, 
-
-    """   
-    context = {
-        "branch": "master",
-        "harley": "harley-dev3",
-        "version": "Latest Version",
-        "payload": load
-    }
-
-    result = render(context)
+    result = render(context.toDict())
 
     logger.debug("Writing to file")
     with open("result.html", 'w') as out:
@@ -63,7 +51,9 @@ def main():
 
     logger.debug("Wrote to file")
 
+
 if __name__ == '__main__':
     setup_logging()
-    main()
+    logger.info('{0} New Run {0}'.format('*' * 20))
+    test()
     logging.shutdown()

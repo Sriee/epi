@@ -26,9 +26,6 @@ def setup_parsing():
                                               'Management System')
 
     # Optional arguments
-    ifc.add_argument('--show', choices=['settings', 'scheduled'],
-                     help='Shows JSON output')
-
     ifc.add_argument('--info', action='version', version='Harley Test '
                      'Automation Management System v1.0')
     # Generate Group
@@ -36,9 +33,9 @@ def setup_parsing():
     generate_group = sub_parser.add_parser('generate', help='Generate Report')
 
     # Generate Group - Optional Flags
-    generate_group.add_argument('-b', '--branch', default='master',
+    generate_group.add_argument('-b', '--branch', default=['master'], choices=['master', 'all'],
                                 help='Branch Name')
-    generate_group.add_argument('-p', '--protocol', default='all',
+    generate_group.add_argument('-p', '--protocol', nargs='+', default=['all'],
                                 help='Protocol Name')
     generate_group.add_argument('-t', '--type', default='smoke',
                                 help='Test Type')
@@ -121,13 +118,15 @@ if __name__ == '__main__':
 
     if check is False:
         consoleLogger.error('Failed Rain check.')
-        sys.exit(-1)
+    #    sys.exit(-1)
 
     cli = setup_parsing()
 
     args = cli.parse_args()
 
     if args.subparser_name == 'generate':
+        print(args.branch)
+        print type(args.branch[0])
         print('Generate command ba')
     else:
         print('Run command ba')
