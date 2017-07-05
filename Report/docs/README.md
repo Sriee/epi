@@ -33,73 +33,71 @@ Please refer **docs** folder for detailed documentation of the framework and rec
 
 ### Edit Command
 
-To edit Harley development machine name
+- To edit Harley development machine name
 
-`python hatms.py edit --harley harley-dev1`
+   `python hatms.py edit --harley harley-dev1`
 
-To toggle database update
+- To toggle database update
 
-_set_   - `python hatms.py edit --db_update True`
+   _set_   - `python hatms.py edit --db_update True`
 
-_reset_ - `python hatms.py edit --db_update False`
+   _reset_ - `python hatms.py edit --db_update False`
 
-To toggle pagination for HTML report
+- To toggle pagination for HTML report
 
-_set_   - `python hatms.py edit --pagination True`
+   _set_   - `python hatms.py edit --pagination True`
 
-_reset_ - `python hatms.py edit --pagination False`
+   _reset_ - `python hatms.py edit --pagination False`
 
-To edit Harley user name
+- To edit Harley user name
 
-`python hatms.py edit --user admin`
+   `python hatms.py edit --user admin`
 
-To edit output file name
+- To edit output file name
 
-`python hatms.py edit -o status_release` or `python hatms.py edit --output status_release`
+   `python hatms.py edit -o status_release` or `python hatms.py edit --output status_release`
 
-To edit output file format
+- To edit output file format
 
-_html_ - `python hatms.py edit -f html` or `python hatms.py edit --format html` 
+   _html_ - `python hatms.py edit -f html` or `python hatms.py edit --format html` 
 
-_json_ - `python hatms.py edit -f json` or `python hatms.py edit --format json`
+   _json_ - `python hatms.py edit -f json` or `python hatms.py edit --format json`
 
 ___
 
 ### Generate Command 
 
-To generate protocol status for a release and **_for a test type_**
+- To generate protocol status for a release and **_for a test type_**
 
-`python hatms.py generate -b master -p all -t smoke-pim -r 1.4.0`  (or)
+   `python hatms.py generate -b master -p all -t smoke-pim -r 1.4.0`  (or)
 
-`python hatms.py generate --branch master --protocol all --type smoke --release 1.4.0`
+   `python hatms.py generate --branch master --protocol all --type smoke --release 1.4.0`
 
-To generate protocol status for a release and for **_all test type_**
+- To generate protocol status for a release and for **_all test type_**
 
-`python hatms.py generate -b master -p all -r 1.4.0`  (or)
+   `python hatms.py generate -b master -p all -r 1.4.0`  (or)
 
-`python hatms.py generate --branch master --protocol all --release 1.4.0`
+   `python hatms.py generate --branch master --protocol all --release 1.4.0`
 
 ---
 
 ### Run Command 
 
-To run the job schedule
+- To run the job schedule
 
-`python hatms.py run`
+   `python hatms.py run`
 
-To input the job schedule for the runner
+- To input the job schedule for the runner
 
-`python hatms.py run -i /path/to/new_schedule.json` or 
+   `python hatms.py run -i /path/to/new_schedule.json` or 
 
-`python hatms.py run --infile /path/to/new_schedule.json`
+   `python hatms.py run --infile /path/to/new_schedule.json`
 
 ---
 
 ### TODO 
 
 - [x] Populate test type table by calling REST API
-- [ ] Fix database update bug 
-- [ ] Create gif's for the recipes
-- [ ] Add correct links to each recipes, Remove the sample gif
+- [x] Fix Database update
 - [ ] Add multi-threading for loading harley database
 
