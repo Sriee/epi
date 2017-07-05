@@ -33,35 +33,65 @@ Please refer **docs** folder for detailed documentation of the framework and rec
 
 ### Edit Command
 
-[Recipe 1: To edit Harley development machine name](https://github.com/Sriee/epi/tree/master/Report/docs/sample.gif)
+To edit Harley development machine name
 
-Recipe 2: To toggle database update
+`python hatms.py edit --harley harley-dev1`
 
-Recipe 3: To toggle pagination for HTML report
+To toggle database update
 
-Recipe 4: To edit Harley user name
+_set_   - `python hatms.py edit --db_update True`
 
-Recipe 5: To edit Harley development machine
+_reset_ - `python hatms.py edit --db_update False`
 
-Recipe 6: To edit output file name
+To toggle pagination for HTML report
 
-Recipe 7: To edit output file format
+_set_   - `python hatms.py edit --pagination True`
+
+_reset_ - `python hatms.py edit --pagination False`
+
+To edit Harley user name
+
+`python hatms.py edit --user admin`
+
+To edit output file name
+
+`python hatms.py edit -o status_release` or `python hatms.py edit --output status_release`
+
+To edit output file format
+
+_html_ - `python hatms.py edit -f html` or `python hatms.py edit --format html` 
+
+_json_ - `python hatms.py edit -f json` or `python hatms.py edit --format json`
 
 ___
 
 ### Generate Command 
 
-Recipe 8: To generate protocol status for a release and for a test type
+To generate protocol status for a release and **_for a test type_**
 
-Recipe 9: To generate protocol status for a release and for all test type
+`python hatms.py generate -b master -p all -t smoke-pim -r 1.4.0`  (or)
+
+`python hatms.py generate --branch master --protocol all --type smoke --release 1.4.0`
+
+To generate protocol status for a release and for **_all test type_**
+
+`python hatms.py generate -b master -p all -r 1.4.0`  (or)
+
+`python hatms.py generate --branch master --protocol all --release 1.4.0`
 
 ---
 
 ### Run Command 
 
-Recipe 10: To run the job schedule
+To run the job schedule
 
-Recipe 12: To input the job schedule for the runner
+`python hatms.py run`
+
+To input the job schedule for the runner
+
+`python hatms.py run -i /path/to/new_schedule.json` or 
+
+`python hatms.py run --infile /path/to/new_schedule.json`
 
 ---
 
