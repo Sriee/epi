@@ -1,0 +1,53 @@
+{
+  "status": "FAILED",
+  "protocol": "DHCPv4",
+  "branch": "master",
+  "version": "0.0.2",
+  "test_type": "smoke-pim",
+  "testcases": [
+    {
+      "status": "PASSED",
+      "passed": true,
+      "failed_reason": null,
+      "name": "dhcpv4-ipv4-server-passthru",
+      "iterations": 50,
+      "event_count": 213,
+      "version": "1.4.0",
+      "version_detail": "C=237 E=86",
+      "total_time": 310,
+      "exceptions": "State change: reason=stopped",
+      "item_id": 4348
+    },
+    {
+      "status": "FAILED",
+      "passed": false,
+      "failed_reason": "Last state should be stopped",
+      "name": "dhcpv4-ipv4-client-endpoint",
+      "iterations": 1,
+      "event_count": 16,
+      "version": "1.4.0",
+      "version_detail": "C=237 E=86",
+      "total_time": 18,
+      "exceptions": "State change: reason=failed; message=Unable to receive packet from 192.168.1.162 and port 67",
+      "item_id": 4346
+    },
+    {
+      "status": "PASSED",
+      "passed": true,
+      "failed_reason": null,
+      "name": "dhcpv4-ipv4-client-passthru",
+      "iterations": 86,
+      "event_count": 357,
+      "version": "1.4.0",
+      "version_detail": "C=237 E=86",
+      "total_time": 307,
+      "exceptions": "State change: reason=stopped",
+      "item_id": 4347
+    }
+  ],
+  "template": {
+    "id": 4,
+    "name": "Production 1.4.0",
+    "template_id": "ghost-endpoint-prod-1.4.0-template"
+  }
+}
