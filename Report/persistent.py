@@ -3,19 +3,21 @@ import sys
 import shelve
 
 
-root_dir, with_pts, without_pts, choice = '', [], [], ('with_pts', 'without_pts')
+root_dir, option, with_pts, without_pts, choice = '', -1, [], [], ('with_pts', 'without_pts')
 
 
 def is_shelve_file():
-    return os.path.isfile('.pts')
+    return os.path.isfile('.pts.db')
 
 
-def shelve_data(len_1, len_2):
-    with shelve.open('.pts', writeback=True) as db:
+def shelve_data():
+    db = None
+    try:
+        db = shelve.open('.pts', writeback=True)
         db['with_pts'] = with_pts
         db['without_pts'] = without_pts
-        db['0'] = len_1
-        db['1'] = len_2
+    finally:
+        db.close()
 
 
 def un_shelve_data(opt):
@@ -24,74 +26,75 @@ def un_shelve_data(opt):
         print('Could not find shelved file')
         return
 
-    read = shelve.open('.pts', writeback=True)
+    read = shelve.open('.pts.db', writeback=True)
     try:
         return read[opt]
     finally:
         read.close()
 
 
-def main(opt):
+def print_values(data):
+    data_length = len(data)
+    for i in range(0, data_length, 6):
+        print('{0:<{length}}\t{1:<{length}}\t{2:<{length}}\t{3:<{length}}\t{4:<{length}}\t{5:<{length}}'
+              .format(data[i] if i < data_length else '', data[i + 1] if i + 1 < data_length else '',
+                      data[i + 2] if i + 2 < data_length else '', data[i + 3] if i + 3 < data_length else '',
+                      data[i + 4] if i + 4 < data_length else '', data[i + 5] if i + 5 < data_length else '',
+                      length=8))
+
+
+def create_new_shelf():
+    sub_directories = filter(lambda file_name: file_name not in ['README.md', '.DS_Store', '.gitignore'],
+                             os.listdir(root_dir))
+    for sub in sub_directories:
+        current_version = filter(lambda file_name: file_name not in ['README.md', '.DS_Store', '.gitignore'], 
+                                 os.listdir(os.path.join(root_dir, sub)))[-1]
+
+        if os.path.isdir(os.path.join(root_dir, sub, current_version, 'test')):
+            if len(filter(lambda name: name.endswith('.pts'),
+                          os.listdir(os.path.join(root_dir, sub, current_version, 'test')))) == 1:
+                with_pts.append(sub)
+            else:
+                without_pts.append(sub)
+        else:
+            without_pts.append(sub)
+
+    # Shelve the file
+    shelve_data()
+
+
+def main():
 
     # Use the persistent storage
     if is_shelve_file():
-        data = un_shelve_data(choice[opt - 1])
-        fmt_length = un_shelve_data(str(opt - 1))
-        for i in range(0, len(data), 3):
-            print('{0:<{length}}\t{1:<{length}}\t{2:<{length}}'
-                  .format(data[i], data[i + 1], data[i + 2], length=fmt_length))
+        print 'Protocols with PTS files.' if option == 1 else 'Protocols without PTS files.'
+        print_values(un_shelve_data(choice[option - 1]))
         return
-
-    max_length, max_length_n = -1, -1
-    files = os.listdir(root_dir)
-    for file_name in files:
-        if str(file_name).endswith('.mp3'):
-            with_pts.append(file_name)
-
-            if len(file_name) > max_length:
-                max_length = len(file_name)
-        else:
-            without_pts.append(file_name)
-            if len(file_name) > max_length_n:
-                max_length_n = len(file_name)
-
-    # Shelve the file
-    shelve_data(max_length, max_length_n)
-
-    # Print values
-    print('Protocols with PTS')
-    length_with_pts = len(with_pts)
-    for i in range(0, length_with_pts, 3):
-        print('{0:<{length}}\t{1:<{length}}\t{2:<{length}}'
-              .format(with_pts[i] if i < length_with_pts else '',
-                      with_pts[i + 1] if i + 1 < length_with_pts else '',
-                      with_pts[i + 2] if i + 2 < length_with_pts else '',
-                      length=max_length))
-
-    print('\nProtocols without PTS')
-    length_without_pts = len(without_pts)
-    for i in range(0, length_without_pts, 3):
-        print('{0:<{length}}\t{1:<{length}}\t{2:<{length}}'
-              .format(without_pts[i] if i < length_without_pts else '',
-                      without_pts[i + 1] if i + 1 < length_without_pts else '',
-                      without_pts[i + 2] if i + 2 < length_without_pts else '',
-                      length=max_length_n))
-
+    else: 
+        create_new_shelf()
+        print 'Protocols with PTS files.' if option == 1 else 'Protocols without PTS files.'
+        print_values(un_shelve_data(choice[option - 1]))
 
 if __name__ == '__main__':
 
     if len(sys.argv) != 3:
-        print('Invalid Number of arguments.')
+        print 'ERROR: Invalid Number of arguments.\nSyntax:'
+        print 'python check_for_pts.py \'path/to/protocols/folder\' {1, 2}'
         sys.exit(-1)
 
     root_dir, option = sys.argv[1], int(sys.argv[2])
 
+    if not str(root_dir).startswith('/'):
+        root_dir = os.path.join(os.curdir, root_dir)
+
     if not os.path.isdir(root_dir):
-        print('{} not a directory'.format(root_dir))
+        print 'ERROR: {} not a directory.\nSyntax:'.format(root_dir)
+        print 'python check_for_pts.py \'path/to/protocols/folder\' {1, 2}'
         sys.exit(-1)
 
     if option not in (1, 2):
-        print('Incorrect option, choose between [1, 2]')
+        print 'ERROR: Incorrect option, choose between [1, 2].\nSyntax:'
+        print 'python check_for_pts.py \'path/to/protocols/folder\' {1, 2}'
         sys.exit(-1)
 
-    main(option)
+    main()
