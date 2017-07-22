@@ -37,7 +37,8 @@ class ParallelLoader(object):
                         thread_local.load.append(tuple(thread_local.each_line))
 
                 fileLogger.info('{0} processed \'{1}\''
-                                .format(threading.current_thread().getName(), name))
+                                .format(threading.current_thread().getName(),
+                                        name))
                 load_length = len(thread_local.load)
 
                 lock = threading.Lock()
@@ -49,11 +50,13 @@ class ParallelLoader(object):
                     connection.commit()
 
                     # Print status
-                    stat = '{} added {}'.format(threading.current_thread().getName(),
+                    stat = '{} added {}'.format(threading.current_thread()
+                                                .getName(),
                                                 self.populated)
 
                     self.populated += load_length
-                    consoleLogger.info('{}-{} entries'.format(stat, self.populated))
+                    consoleLogger.info(
+                        '{}-{} entries'.format(stat, self.populated))
                     thread_local.load = []
                     cursor.close()
                     connection.close()
@@ -136,14 +139,16 @@ def create_files():
             if line_count % 100 == 0:
                 file_out.close()
                 file_count += 1
-                file_name = os.path.join('files', 'borrow_{}.csv'.format(file_count))
+                file_name = os.path.join(
+                    'files', 'borrow_{}.csv'.format(file_count))
                 file_out = open(file_name, "w")
 
         file_out.close()
         os.remove(file_name)
 
 
-def setup_logging(default_path='config/log_config.json', default_level=logging.INFO):
+def setup_logging(default_path='config/log_config.json',
+                  default_level=logging.INFO):
     """Setup logging configuration"""
     path = default_path
     if os.path.exists(path):
