@@ -1,5 +1,4 @@
 import os
-import sys
 import json
 import argparse
 import logging.config
@@ -53,8 +52,6 @@ def setup_parsing():
     report_group = sub_parser.add_parser('run', help='Run scheduled Jobs')
     report_group.add_argument('-i', '--infile',
                               help='Input of schedule job template')
-
-
     return ifc
 
 

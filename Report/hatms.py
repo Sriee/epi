@@ -11,8 +11,8 @@ logger = logging.getLogger("hatms.file")
 
 def render(data):
     filename = 'index.html'
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader('./'), 
-        trim_blocks=True, lstrip_blocks=True)
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader('./'),
+                             trim_blocks=True, lstrip_blocks=True)
     return env.get_template(filename).render(data)
 
 
@@ -32,15 +32,14 @@ def main():
 
     start, end = 'Logging is', 'enabled'
     logger.info('%s%s', start, end)
-    
     load = []
 
     with open('borrow.txt', 'r') as inp:
 
         for line in inp:
-            l = line.split(',')
-            load.append(borrower.Borrower(l[2], l[3], l[4]))
-   
+            ln = line.split(',')
+            load.append(borrower.Borrower(ln[2], ln[3], ln[4]))
+
     context = Context('master', 'harley-dev3', 'latest', load)
 
     result = render(context.toDict())
@@ -55,5 +54,4 @@ def main():
 if __name__ == '__main__':
     setup_logging()
     logger.info('{0} New Run {0}'.format('*' * 20))
-    test()
     logging.shutdown()
