@@ -32,6 +32,7 @@ def main():
 
     start, end = 'Logging is', 'enabled'
     logger.info('%s%s', start, end)
+
     load = []
 
     with open('borrow.txt', 'r') as inp:

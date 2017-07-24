@@ -32,7 +32,8 @@ def setup_parsing():
     generate_group = sub_parser.add_parser('generate', help='Generate Report')
 
     # Generate Group - Optional Flags
-    generate_group.add_argument('-b', '--branch', default=['master'], choices=['master', 'all'],
+    generate_group.add_argument('-b', '--branch', default=['master'],
+                                choices=['master', 'all'],
                                 help='Branch Name')
     generate_group.add_argument('-p', '--protocol', nargs='+', default=['all'],
                                 help='Protocol Name')
@@ -52,6 +53,7 @@ def setup_parsing():
     report_group = sub_parser.add_parser('run', help='Run scheduled Jobs')
     report_group.add_argument('-i', '--infile',
                               help='Input of schedule job template')
+
     return ifc
 
 

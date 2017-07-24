@@ -18,13 +18,28 @@ public class Division {
 	
 	public Division divide(int divident, int divisor){
 		int q = 0;
+		boolean isNegative = (divident < 0) ^ (divisor < 0);
+		divident = Math.abs(divident); divisor = Math.abs(divisor);
+		if(divisor == 0){
+			return null;
+		}
+		
+		if((divident == 0) && (divisor == 0)){
+			return null;
+		}
+		
+		if(divident == 0){
+			this.setQuotient(0);
+			this.setRemainder(0);
+			return this;
+		}
 		
 		while((divident - divisor) >= 0){
 			divident -= divisor;
 			++q;
 		}
 		
-		this.setQuotient(q);
+		this.setQuotient((isNegative) ? (0 - q) : q);
 		this.setRemainder(divident);
 		return this;
 	}
@@ -64,7 +79,7 @@ public class Division {
 	 */
 	public static void main(String[] args) {
 		Division d = new Division();
-		System.out.println(d.divide(1176, 308));
+		System.out.println(d.divide(22848, -19));
 	}
 
 }

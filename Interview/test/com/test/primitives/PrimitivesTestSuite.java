@@ -13,7 +13,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		ReverseBitsTest.class,
 		StringIntTest.class,
 		SwapBitsTest.class,
-		GCDTest.class
+		GCDTest.class,
+		PrimeGeneratorTest.class
 })
 
 public class PrimitivesTestSuite {
