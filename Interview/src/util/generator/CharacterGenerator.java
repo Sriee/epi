@@ -1,4 +1,4 @@
-package generator.number;
+package util.generator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,21 +8,16 @@ import java.util.List;
 public class CharacterGenerator implements Iterable<Character>, Iterator<Character>, Generator {
 
     private int size = 0;
-    private Case letterCase;
     private int index = 0;
     private Random rand = null;
+    private Case letterCase = Case.LOWER_CASE;
     private final char[] LOWER_CASE_ALPHABETS = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     private final char[] UPPER_CASE_ALPHABETS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
     private final char[] MIXED_CASE_ALPHABETS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
     public CharacterGenerator() { }
 
-    public CharacterGenerator(int size) { this.size = size; }
-
-    public CharacterGenerator(int size, Case letterCase) {
-        this.size = size;
-        this.letterCase = letterCase;
-    }
+    public CharacterGenerator(Case letterCase) { this.letterCase = letterCase; }
 
     @Override
     public char[] generate(int size) {
@@ -31,8 +26,7 @@ public class CharacterGenerator implements Iterable<Character>, Iterator<Charact
             throw new IllegalArgumentException("Size should not be <= 0");
 
         char result[] = new char[size];
-        Random rand = new Random();
-
+        this.rand = new Random();
         for (int i = 0; i < size; i++) {
             result[i] = this.getChar();
         }
@@ -41,15 +35,14 @@ public class CharacterGenerator implements Iterable<Character>, Iterator<Charact
     }
 
     @Override
-    public List<Integer> generateAsList(int size) {
+    public List<Character> generateAsList(int size) {
         if (size < 0)
             throw new IllegalArgumentException("Size should not be <= 0");
 
-        List<Integer> resultList = new ArrayList<Integer>();
-        Random rand = new Random();
-
+        List<Character> resultList = new ArrayList<Character>();
+        this.rand = new Random();
         for (int i = 0; i < size; i++) {
-            resultList.add(rand.nextInt(this.size));
+            resultList.add(this.getChar());
         }
         return resultList;
     }
@@ -86,11 +79,11 @@ public class CharacterGenerator implements Iterable<Character>, Iterator<Charact
     @Override
     public Character next() {
         this.index++;
-        return 'a';
+        return this.getChar();
     }
 
     @Override
-    public void remove() { }
+    public void remove() { throw new UnsupportedOperationException("Cannot Remove values while iterating."); }
 
     @Override
     public String toString() { return "CharacterGenerator(size= " + this.size + ")"; }
