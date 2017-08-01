@@ -1,0 +1,47 @@
+{
+    "version": 1,
+    "disable_existing_loggers": false,
+    "formatters": {
+        "default":{
+            "format": "%(levelname)s: %(message)s"
+        },
+        "timestamp": {
+            "format": "%(asctime)s:%(levelname)s: %(message)s",
+            "datefmt": "[%m-%d-%Y][%I:%M]"
+        }
+    },
+
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",
+            "formatter": "default",
+            "stream": "ext://sys.stdout"
+        },
+        "file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "DEBUG",
+            "formatter": "timestamp",
+            "filename": "log/harley.log",
+            "maxBytes": 10485760,
+            "backupCount": 20,
+            "encoding": "utf8"
+        }
+    },
+
+    "loggers": {
+        "hatms.console":{
+            "level": "INFO",
+            "handlers": ["console"]
+        },
+        "hatms.file": {
+            "level": "DEBUG",
+            "handlers": ["file"],
+            "propagate": "no"
+        }
+    },
+    "root": {
+        "level": "INFO"
+    }
+}
+
