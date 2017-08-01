@@ -25,6 +25,12 @@ public class DoubleGenerator implements Iterable<Double>, Iterator<Double>, Gene
         this.max = max;
     }
 
+    public DoubleGenerator(int places){
+        if(places <= 0)
+            throw new IllegalArgumentException("Places should be > 0.");
+        this.places = places;
+    }
+
     public DoubleGenerator(int min, int max, int places){
         this.min = min;
         this.max = max;
