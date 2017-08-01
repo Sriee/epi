@@ -1,4 +1,4 @@
-package generator.number;
+package util.generator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -89,7 +89,7 @@ public class DoubleGenerator implements Iterable<Double>, Iterator<Double>, Gene
     }
 
     @Override
-    public void remove() { }
+    public void remove() { throw new UnsupportedOperationException("Cannot Remove values while iterating."); }
 
     @Override
     public String toString() { return "DoubleGenerator(min= " + this.min + ", max= " + this.max +")"; }

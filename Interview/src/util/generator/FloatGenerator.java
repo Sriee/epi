@@ -1,4 +1,4 @@
-package generator.number;
+package util.generator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -92,7 +92,7 @@ public class FloatGenerator implements Iterable<Float>, Iterator<Float>, Generat
     }
 
     @Override
-    public void remove() { }
+    public void remove() { throw new UnsupportedOperationException("Cannot Remove values while iterating."); }
 
     @Override
     public String toString() { return "FloatGenerator(min= " + this.min + ", max= " + this.max +")"; }

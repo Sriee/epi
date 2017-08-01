@@ -1,4 +1,4 @@
-package generator.number;
+package util.generator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -73,7 +73,7 @@ public class BooleanGenerator implements Iterable<Boolean>, Iterator<Boolean>, G
     }
 
     @Override
-    public void remove() { }
+    public void remove() { throw new UnsupportedOperationException("Cannot Remove values while iterating."); }
 
     @Override
     public String toString() {

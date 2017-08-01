@@ -1,4 +1,4 @@
-package generator.number;
+package util.generator;
 
 import java.util.List;
 
