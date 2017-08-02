@@ -134,6 +134,7 @@ public class ArrayUtil {
      * Performs deep copy of the contents of the array
      * This method returns null for a null input array or an empty array.
      *
+     * @param clazz Data Type
      * @param arr the array to clone
      * @return the cloned array, null if input is null
      */
@@ -153,10 +154,10 @@ public class ArrayUtil {
      * @param value the value to find
      * @return true if the value is present; false if the value is not present or array is null or array is empty
      */
-    public static boolean contains(short[] arr, short value){
+    public static boolean contains(byte[] arr, byte value){
         if(isEmpty(arr)) return false;
 
-        for(short n : arr){
+        for(byte n : arr){
             if(arr[n] == value) return true;
         }
         return false;
@@ -169,10 +170,41 @@ public class ArrayUtil {
      * @param value the value to find
      * @return true if the value is present; false if the value is not present or array is null or array is empty
      */
-    public static boolean contains(byte[] arr, byte value){
+    public static boolean contains(short[] arr, short value){
         if(isEmpty(arr)) return false;
 
-        for(byte n : arr){
+        for(short n : arr){
+            if(arr[n] == value) return true;
+        }
+        return false;
+    }
+    /**
+     * Checks if the value is in the given array.
+     *
+     * @param arr the array to search through
+     * @param value the value to find
+     * @return true if the value is present; false if the value is not present or array is null or array is empty
+     */
+    public static boolean contains(boolean[] arr, boolean value){
+        if(isEmpty(arr)) return false;
+
+        for(int n = 0; n < arr.length; n++){
+            if(arr[n] == value) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the value is in the given array.
+     *
+     * @param arr the array to search through
+     * @param value the value to find
+     * @return true if the value is present; false if the value is not present or array is null or array is empty
+     */
+    public static boolean contains(char[] arr, char value){
+        if(isEmpty(arr)) return false;
+
+        for(int n = 0; n < arr.length; n++){
             if(arr[n] == value) return true;
         }
         return false;
@@ -234,22 +266,6 @@ public class ArrayUtil {
      * @return true if the value is present; false if the value is not present or array is null or array is empty
      */
     public static boolean contains(double[] arr, double value){
-        if(isEmpty(arr)) return false;
-
-        for(int n = 0; n < arr.length; n++){
-            if(arr[n] == value) return true;
-        }
-        return false;
-    }
-
-    /**
-     * Checks if the value is in the given array.
-     *
-     * @param arr the array to search through
-     * @param value the value to find
-     * @return true if the value is present; false if the value is not present or array is null or array is empty
-     */
-    public static boolean contains(char[] arr, char value){
         if(isEmpty(arr)) return false;
 
         for(int n = 0; n < arr.length; n++){
