@@ -1037,6 +1037,8 @@ public class ArrayUtil {
      * @return a Byte array, 'null' if 'null' array input
      */
     public static Byte[] toObject(byte[] arr){
+        if(isEmpty(arr)) return null;
+
         Byte result[] = new Byte[arr.length];
         for(int j = 0; j < arr.length; j++)
             result[j] = arr[j];
@@ -1051,6 +1053,8 @@ public class ArrayUtil {
      * @return a Short array, 'null' if 'null' array input
      */
     public static Short[] toObject(short[] arr){
+        if(isEmpty(arr)) return null;
+
         Short result[] = new Short[arr.length];
         for(int j = 0; j < arr.length; j++)
             result[j] = arr[j];
@@ -1065,6 +1069,8 @@ public class ArrayUtil {
      * @return a Boolean array, 'null' if 'null' array input
      */
     public static Boolean[] toObject(boolean[] arr){
+        if(isEmpty(arr)) return null;
+
         Boolean result[] = new Boolean[arr.length];
         for(int j = 0; j < arr.length; j++)
             result[j] = arr[j];
@@ -1079,6 +1085,8 @@ public class ArrayUtil {
      * @return a Character array, 'null' if 'null' array input
      */
     public static Character[] toObject(char[] arr){
+        if(isEmpty(arr)) return null;
+
         Character result[] = new Character[arr.length];
         for(int j = 0; j < arr.length; j++)
             result[j] = arr[j];
@@ -1093,6 +1101,8 @@ public class ArrayUtil {
      * @return an Integer array, 'null' if 'null' array input
      */
     public static Integer[] toObject(int[] arr){
+        if(isEmpty(arr)) return null;
+
         Integer result[] = new Integer[arr.length];
         for(int j = 0; j < arr.length; j++)
             result[j] = arr[j];
@@ -1107,6 +1117,8 @@ public class ArrayUtil {
      * @return a Long array, 'null' if 'null' array input
      */
     public static Long[] toObject(long[] arr){
+        if(isEmpty(arr)) return null;
+
         Long result[] = new Long[arr.length];
         for(int j = 0; j < arr.length; j++)
             result[j] = arr[j];
@@ -1121,6 +1133,8 @@ public class ArrayUtil {
      * @return a Float array, 'null' if 'null' array input
      */
     public static Float[] toObject(float[] arr){
+        if(isEmpty(arr)) return null;
+
         Float result[] = new Float[arr.length];
         for(int j = 0; j < arr.length; j++)
             result[j] = arr[j];
@@ -1135,6 +1149,8 @@ public class ArrayUtil {
      * @return a Double array, 'null' if 'null' array input
      */
     public static Double[] toObject(double[] arr){
+        if(isEmpty(arr)) return null;
+
         Double result[] = new Double[arr.length];
         for(int j = 0; j < arr.length; j++)
             result[j] = arr[j];
