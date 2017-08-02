@@ -7,54 +7,6 @@ import java.util.Map.Entry;
 
 public class Compare {
 
-    public Integer[] toObject(int[] arr){
-        Integer result[] = new Integer[arr.length];
-        for(int j = 0; j < arr.length; j++)
-            result[j] = arr[j];
-
-        return result;
-    }
-
-    public Long[] toObject(long[] arr){
-        Long result[] = new Long[arr.length];
-        for(int j = 0; j < arr.length; j++)
-            result[j] = arr[j];
-
-        return result;
-    }
-
-    public Float[] toObject(float[] arr){
-        Float result[] = new Float[arr.length];
-        for(int j = 0; j < arr.length; j++)
-            result[j] = arr[j];
-
-        return result;
-    }
-
-    public Double[] toObject(double[] arr){
-        Double result[] = new Double[arr.length];
-        for(int j = 0; j < arr.length; j++)
-            result[j] = arr[j];
-
-        return result;
-    }
-
-    public Boolean[] toObject(boolean[] arr){
-        Boolean result[] = new Boolean[arr.length];
-        for(int j = 0; j < arr.length; j++)
-            result[j] = arr[j];
-
-        return result;
-    }
-
-    public Character[] toObject(char[] arr){
-        Character result[] = new Character[arr.length];
-        for(int j = 0; j < arr.length; j++)
-            result[j] = arr[j];
-
-        return result;
-    }
-
     public <T> boolean compare(T first[], T second[]){
 
         if(first == null) return false;
