@@ -1,5 +1,7 @@
 package util;
 
+import java.lang.reflect.Array;
+
 public class ArrayUtil {
 
     /**
@@ -289,4 +291,95 @@ public class ArrayUtil {
         }
         return false;
     }
+
+    /**
+     * Checks if an array of primitive type is empty or null.
+     *
+     * @param arr the array to test
+     * @return true if the array is empty or null; false otherwise
+     */
+    public static boolean isEmpty(byte[] arr){
+        return (arr == null || arr.length == 0);
+    }
+
+    /**
+     * Checks if an array of primitive type is empty or null.
+     *
+     * @param arr the array to test
+     * @return true if the array is empty or null; false otherwise
+     */
+    public static boolean isEmpty(short[] arr){
+        return (arr == null || arr.length == 0);
+    }
+
+    /**
+     * Checks if an array of primitive type is empty or null.
+     *
+     * @param arr the array to test
+     * @return true if the array is empty or null; false otherwise
+     */
+    public static boolean isEmpty(boolean[] arr){
+        return (arr == null || arr.length == 0);
+    }
+
+    /**
+     * Checks if an array of primitive type is empty or null.
+     *
+     * @param arr the array to test
+     * @return true if the array is empty or null; false otherwise
+     */
+    public static boolean isEmpty(char[] arr){
+        return (arr == null || arr.length == 0);
+    }
+
+    /**
+     * Checks if an array of primitive type is empty or null.
+     *
+     * @param arr the array to test
+     * @return true if the array is empty or null; false otherwise
+     */
+    public static boolean isEmpty(int[] arr){
+        return (arr == null || arr.length == 0);
+    }
+
+    /**
+     * Checks if an array of primitive type is empty or null.
+     *
+     * @param arr the array to test
+     * @return true if the array is empty or null; false otherwise
+     */
+    public static boolean isEmpty(long[] arr){
+        return (arr == null || arr.length == 0);
+    }
+
+    /**
+     * Checks if an array of primitive type is empty or null.
+     *
+     * @param arr the array to test
+     * @return true if the array is empty or null; false otherwise
+     */
+    public static boolean isEmpty(float[] arr){
+        return (arr == null || arr.length == 0);
+    }
+
+    /**
+     * Checks if an array of primitive type is empty or null.
+     *
+     * @param arr the array to test
+     * @return true if the array is empty or null; false otherwise
+     */
+    public static boolean isEmpty(double[] arr){
+        return (arr == null || arr.length == 0);
+    }
+
+    /**
+     * Checks if an array of generic type is empty or null.
+     *
+     * @param arr the array to test
+     * @return true if the array is empty or null; false otherwise
+     */
+    public static <T> boolean isEmpty(T[] arr){
+        return (arr == null || arr.length == 0);
+    }
+
 }
