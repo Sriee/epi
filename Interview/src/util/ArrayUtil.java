@@ -145,4 +145,132 @@ public class ArrayUtil {
 
         return result;
     }
+
+    /**
+     * Checks if the value is in the given array.
+     *
+     * @param arr the array to search through
+     * @param value the value to find
+     * @return true if the value is present; false if the value is not present or array is null or array is empty
+     */
+    public static boolean contains(short[] arr, short value){
+        if(isEmpty(arr)) return false;
+
+        for(short n : arr){
+            if(arr[n] == value) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the value is in the given array.
+     *
+     * @param arr the array to search through
+     * @param value the value to find
+     * @return true if the value is present; false if the value is not present or array is null or array is empty
+     */
+    public static boolean contains(byte[] arr, byte value){
+        if(isEmpty(arr)) return false;
+
+        for(byte n : arr){
+            if(arr[n] == value) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the value is in the given array.
+     *
+     * @param arr the array to search through
+     * @param value the value to find
+     * @return true if the value is present; false if the value is not present or array is null or array is empty
+     */
+    public static boolean contains(int[] arr, int value){
+        if(isEmpty(arr)) return false;
+
+        for(int n : arr){
+            if(arr[n] == value) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the value is in the given array.
+     *
+     * @param arr the array to search through
+     * @param value the value to find
+     * @return true if the value is present; false if the value is not present or array is null or array is empty
+     */
+    public static boolean contains(long[] arr, long value){
+        if(isEmpty(arr)) return false;
+
+        for(int n = 0; n < arr.length; n++){
+            if(arr[n] == value) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the value is in the given array.
+     *
+     * @param arr the array to search through
+     * @param value the value to find
+     * @return true if the value is present; false if the value is not present or array is null or array is empty
+     */
+    public static boolean contains(float[] arr, float value){
+        if(isEmpty(arr)) return false;
+
+        for(int n = 0; n < arr.length; n++){
+            if(arr[n] == value) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the value is in the given array.
+     *
+     * @param arr the array to search through
+     * @param value the value to find
+     * @return true if the value is present; false if the value is not present or array is null or array is empty
+     */
+    public static boolean contains(double[] arr, double value){
+        if(isEmpty(arr)) return false;
+
+        for(int n = 0; n < arr.length; n++){
+            if(arr[n] == value) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the value is in the given array.
+     *
+     * @param arr the array to search through
+     * @param value the value to find
+     * @return true if the value is present; false if the value is not present or array is null or array is empty
+     */
+    public static boolean contains(char[] arr, char value){
+        if(isEmpty(arr)) return false;
+
+        for(int n = 0; n < arr.length; n++){
+            if(arr[n] == value) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the value is in the given array.
+     *
+     * @param arr the array to search through
+     * @param value the value to find
+     * @return true if the value is present; false if the value is not present or array is null or array is empty
+     */
+    public static <Y> boolean contains(Y[] arr, Y value){
+        if(isEmpty(arr)) return false;
+
+        for(int n = 0; n < arr.length; n++){
+            if(arr[n] == value) return true;
+        }
+        return false;
+    }
 }
