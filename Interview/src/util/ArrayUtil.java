@@ -564,12 +564,156 @@ public class ArrayUtil {
 
     /**
      * Checks whether two arrays are the same type. Handles only one-dimensional array
-     * 
+     *
      * @param first the first array
      * @param second the second array
      * @return true if type of arrays matches; false if the array type mismatches or either of the array is null
      */
     public static boolean isSameType(Object first, Object second) {
         return first != null && second != null && first.getClass().equals(second.getClass());
+    }
+
+    /**
+     * Changes 'null' reference to an empty one based on it's type.
+     *
+     * @param arr the array to check for 'null'
+     * @return the same array with 'null' fields replaced
+     */
+    public static Byte[] nullToEmpty(Byte[] arr){
+        if(arr == null)
+            return null;
+
+        for(int j = 0; j < arr.length; j++){
+            if(arr[j] == null) arr[j] = 0;
+        }
+        return arr;
+    }
+
+    /**
+     * Changes 'null' reference to an empty one based on it's type.
+     *
+     * @param arr the array to check for 'null'
+     * @return the same array with 'null' fields replaced
+     */
+    public static Short[] nullToEmpty(Short[] arr){
+        if(arr == null)
+            return null;
+
+        for(int j = 0; j < arr.length; j++){
+            if(arr[j] == null) arr[j] = 0;
+        }
+        return arr;
+    }
+
+    /**
+     * Changes 'null' reference to an empty one based on it's type.
+     *
+     * @param arr the array to check for 'null'
+     * @return the same array with 'null' fields replaced
+     */
+    public static Boolean[] nullToEmpty(Boolean[] arr){
+        if(arr == null)
+            return null;
+
+        for(int j = 0; j < arr.length; j++){
+            if(arr[j] == null) arr[j] = false;
+        }
+        return arr;
+    }
+
+    /**
+     * Changes 'null' reference to an empty one based on it's type.
+     *
+     * @param arr the array to check for 'null'
+     * @return the same array with 'null' fields replaced
+     */
+    public static Character[] nullToEmpty(Character[] arr){
+        if(arr == null)
+            return null;
+
+        for(int j = 0; j < arr.length; j++){
+            if(arr[j] == null) arr[j] = ' ';
+        }
+        return arr;
+    }
+
+    /**
+     * Changes 'null' reference to an empty one based on it's type.
+     *
+     * @param arr the array to check for 'null'
+     * @return the same array with 'null' fields replaced
+     */
+    public static Integer[] nullToEmpty(Integer[] arr){
+        if(arr == null)
+            return null;
+
+        for(int j = 0; j < arr.length; j++){
+            if(arr[j] == null) arr[j] = 0;
+        }
+        return arr;
+    }
+
+    /**
+     * Changes 'null' reference to an empty one based on it's type.
+     *
+     * @param arr the array to check for 'null'
+     * @return the same array with 'null' fields replaced
+     */
+    public static Long[] nullToEmpty(Long[] arr){
+        if(arr == null)
+            return null;
+
+        for(int j = 0; j < arr.length; j++){
+            if(arr[j] == null) arr[j] = (long)0;
+        }
+        return arr;
+    }
+
+    /**
+     * Changes 'null' reference to an empty one based on it's type.
+     *
+     * @param arr the array to check for 'null'
+     * @return the same array with 'null' fields replaced
+     */
+    public static Float[] nullToEmpty(Float[] arr){
+        if(arr == null)
+            return null;
+
+        for(int j = 0; j < arr.length; j++){
+            if(arr[j] == null) arr[j] = (float)0.0;
+        }
+        return arr;
+    }
+
+    /**
+     * Changes 'null' reference to an empty one based on it's type.
+     *
+     * @param arr the array to check for 'null'
+     * @return the same array with 'null' fields replaced
+     */
+    public static Double[] nullToEmpty(Double[] arr){
+        if(arr == null)
+            return null;
+
+        for(int j = 0; j < arr.length; j++){
+            if(arr[j] == null) arr[j] = 0.0;
+        }
+        return arr;
+    }
+
+    /**
+     * Changes 'null' reference to an empty one based on it's type.
+     *
+     * @param arr the array to check for 'null'
+     * @return the same array with 'null' fields replaced
+     */
+    public static String[] nullToEmpty(String[] arr){
+        if(arr == null)
+            return null;
+
+        for(int j = 0; j < arr.length; j++){
+            if(arr[j] == null) arr[j] = " ";
+        }
+        return arr;
     }
 }
