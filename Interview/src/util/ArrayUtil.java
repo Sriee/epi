@@ -870,6 +870,25 @@ public class ArrayUtil {
     }
 
     /**
+     * Reverses the order of the given generic array.
+     *
+     * @param arr the array to reverse
+     * @return array in reversed order; 'null' if input is 'null'
+     */
+    public static <R> R[] reverse(R[] arr){
+        if(isEmpty(arr)) return null;
+        int start = 0, end = arr.length - 1;
+        R temp = null;
+
+        while(start <= end){
+            temp = arr[start]; arr[start] = arr[end]; arr[end] = temp;
+            start++; end--;
+        }
+
+        return arr;
+    }
+
+    /**
      * Produces a new byte array containing the elements between the start and end indices.
      *
      * @param input the array
