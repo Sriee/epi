@@ -462,4 +462,103 @@ public class ArrayUtil {
     public static <T> boolean isNotEmpty(T[] arr){
         return !isEmpty(arr);
     }
+
+    /**
+     * Checks whether two arrays are the same length
+     *
+     * @param array1 the first array,
+     * @param array2 the second array
+     * @return true if length of arrays matches; false if either of the array is null or empty
+     */
+    public static boolean isSameLength(short[] array1, short[] array2) {
+        return array1 != null && array2 != null && array1.length == array2.length;
+    }
+
+    /**
+     * Checks whether two arrays are the same length
+     *
+     * @param array1 the first array,
+     * @param array2 the second array
+     * @return true if length of arrays matches; false if either of the array is null or empty
+     */
+    public static boolean isSameLength(byte[] array1, byte[] array2) {
+        return array1 != null && array2 != null && array1.length == array2.length;
+    }
+
+    /**
+     * Checks whether two arrays are the same length
+     *
+     * @param array1 the first array,
+     * @param array2 the second array
+     * @return true if length of arrays matches; false if either of the array is null or empty
+     */
+    public static boolean isSameLength(boolean[] array1, boolean[] array2) {
+        return array1 != null && array2 != null && array1.length == array2.length;
+    }
+
+    /**
+     * Checks whether two arrays are the same length
+     *
+     * @param array1 the first array,
+     * @param array2 the second array
+     * @return true if length of arrays matches; false if either of the array is null or empty
+     */
+    public static boolean isSameLength(char[] array1, char[] array2) {
+        return array1 != null && array2 != null && array1.length == array2.length;
+    }
+
+    /**
+     * Checks whether two arrays are the same length
+     *
+     * @param array1 the first array,
+     * @param array2 the second array
+     * @return true if length of arrays matches; false if either of the array is null or empty
+     */
+    public static boolean isSameLength(int[] array1, int[] array2) {
+        return array1 != null && array2 != null && array1.length == array2.length;
+    }
+
+    /**
+     * Checks whether two arrays are the same length
+     *
+     * @param array1 the first array,
+     * @param array2 the second array
+     * @return true if length of arrays matches; false if either of the array is null or empty
+     */
+    public static boolean isSameLength(long[] array1, long[] array2) {
+        return array1 != null && array2 != null && array1.length == array2.length;
+    }
+
+    /**
+     * Checks whether two arrays are the same length
+     *
+     * @param array1 the first array,
+     * @param array2 the second array
+     * @return true if length of arrays matches; false if either of the array is null or empty
+     */
+    public static boolean isSameLength(float[] array1, float[] array2) {
+        return array1 != null && array2 != null && array1.length == array2.length;
+    }
+
+    /**
+     * Checks whether two arrays are the same length
+     *
+     * @param array1 the first array,
+     * @param array2 the second array
+     * @return true if length of arrays matches; false if either of the array is null or empty
+     */
+    public static boolean isSameLength(double[] array1, double[] array2) {
+        return array1 != null && array2 != null && array1.length == array2.length;
+    }
+
+    /**
+     * Checks whether two arrays are the same length
+     *
+     * @param array1 the first array,
+     * @param array2 the second array
+     * @return true if length of arrays matches; false if either of the array is null or empty
+     */
+    public static <S> boolean isSameLength(S[] array1, S[] array2) {
+        return array1 != null && array2 != null && array1.length == array2.length;
+    }
 }
