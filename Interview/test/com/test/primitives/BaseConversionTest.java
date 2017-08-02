@@ -54,6 +54,6 @@ public class BaseConversionTest {
 		assertEquals(bc.baseConversion(10, "468", 8), "724");
 		assertEquals(bc.baseConversion(10, "77853", 16), "1301D");
 		assertEquals(bc.baseConversion(2, "1011011111", 16), "2DF");
-		assertEquals(bc.baseConversion(8, "-4356435", 13), "-31CB42");
+		assertEquals(bc.baseConversion(8, "-4356435", 13), "-31CB42");	
 	}
 }
