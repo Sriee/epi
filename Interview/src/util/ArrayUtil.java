@@ -1029,4 +1029,116 @@ public class ArrayUtil {
         System.arraycopy(input, start, result,0,stop - start + 1);
         return result;
     }
+
+    /**
+     * Converts an array of primitive bytes to objects.
+     *
+     * @param arr a byte array
+     * @return a Byte array, 'null' if 'null' array input
+     */
+    public static Byte[] toObject(byte[] arr){
+        Byte result[] = new Byte[arr.length];
+        for(int j = 0; j < arr.length; j++)
+            result[j] = arr[j];
+
+        return result;
+    }
+
+    /**
+     * Converts an array of primitive short to objects.
+     *
+     * @param arr a short array
+     * @return a Short array, 'null' if 'null' array input
+     */
+    public static Short[] toObject(short[] arr){
+        Short result[] = new Short[arr.length];
+        for(int j = 0; j < arr.length; j++)
+            result[j] = arr[j];
+
+        return result;
+    }
+
+    /**
+     * Converts an array of primitive boolean to objects.
+     *
+     * @param arr a boolean array
+     * @return a Boolean array, 'null' if 'null' array input
+     */
+    public static Boolean[] toObject(boolean[] arr){
+        Boolean result[] = new Boolean[arr.length];
+        for(int j = 0; j < arr.length; j++)
+            result[j] = arr[j];
+
+        return result;
+    }
+
+    /**
+     * Converts an array of primitive char to objects.
+     *
+     * @param arr a char array
+     * @return a Character array, 'null' if 'null' array input
+     */
+    public static Character[] toObject(char[] arr){
+        Character result[] = new Character[arr.length];
+        for(int j = 0; j < arr.length; j++)
+            result[j] = arr[j];
+
+        return result;
+    }
+
+    /**
+     * Converts an array of primitive int to objects.
+     *
+     * @param arr a int array
+     * @return an Integer array, 'null' if 'null' array input
+     */
+    public static Integer[] toObject(int[] arr){
+        Integer result[] = new Integer[arr.length];
+        for(int j = 0; j < arr.length; j++)
+            result[j] = arr[j];
+
+        return result;
+    }
+
+    /**
+     * Converts an array of primitive long to objects.
+     *
+     * @param arr a long array
+     * @return a Long array, 'null' if 'null' array input
+     */
+    public static Long[] toObject(long[] arr){
+        Long result[] = new Long[arr.length];
+        for(int j = 0; j < arr.length; j++)
+            result[j] = arr[j];
+
+        return result;
+    }
+
+    /**
+     * Converts an array of primitive float to objects.
+     *
+     * @param arr a float array
+     * @return a Float array, 'null' if 'null' array input
+     */
+    public static Float[] toObject(float[] arr){
+        Float result[] = new Float[arr.length];
+        for(int j = 0; j < arr.length; j++)
+            result[j] = arr[j];
+
+        return result;
+    }
+
+    /**
+     * Converts an array of primitive double to objects.
+     *
+     * @param arr a double array
+     * @return a Double array, 'null' if 'null' array input
+     */
+    public static Double[] toObject(double[] arr){
+        Double result[] = new Double[arr.length];
+        for(int j = 0; j < arr.length; j++)
+            result[j] = arr[j];
+
+        return result;
+    }
 }
