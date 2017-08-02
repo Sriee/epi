@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.List;
 
-public class CharacterGenerator implements Iterable<Character>, Iterator<Character>, Generator {
+public class CharacterGenerator implements Iterable<Character>, Iterator<Character>, Generator<Character> {
 
     private int size = 0;
     private int index = 0;
@@ -19,7 +19,6 @@ public class CharacterGenerator implements Iterable<Character>, Iterator<Charact
 
     public CharacterGenerator(Case letterCase) { this.letterCase = letterCase; }
 
-    @Override
     public char[] generate(int size) {
 
         if (size < 0)

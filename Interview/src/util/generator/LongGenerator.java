@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class LongGenerator implements Iterable<Long>, Iterator<Long>, Generator {
+public class LongGenerator implements Iterable<Long>, Iterator<Long>, Generator<Long> {
 
     private long min = Long.MIN_VALUE;
     private long max = Long.MAX_VALUE;
@@ -22,9 +22,7 @@ public class LongGenerator implements Iterable<Long>, Iterator<Long>, Generator 
         this.max = max;
     }
 
-    @Override
     public long[] generate(int size) {
-
         if (size < 0)
             throw new IllegalArgumentException("Size should not be <= 0");
         long result[] = new long[size];

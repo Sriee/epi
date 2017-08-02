@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class DoubleGenerator implements Iterable<Double>, Iterator<Double>, Generator {
+public class DoubleGenerator implements Iterable<Double>, Iterator<Double>, Generator<Double> {
 
     private int min = Integer.MIN_VALUE;
     private int max = Integer.MAX_VALUE;
@@ -40,7 +40,6 @@ public class DoubleGenerator implements Iterable<Double>, Iterator<Double>, Gene
         this.places = places;
     }
 
-    @Override
     public double[] generate(int size){
 
         if(size < 0)

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class FloatGenerator implements Iterable<Float>, Iterator<Float>, Generator {
+public class FloatGenerator implements Iterable<Float>, Iterator<Float>, Generator<Float> {
 
     private int min = Integer.MIN_VALUE;
     private int max = Integer.MAX_VALUE;
@@ -34,9 +34,7 @@ public class FloatGenerator implements Iterable<Float>, Iterator<Float>, Generat
         this.places = places;
     }
 
-    @Override
     public float[] generate(int size){
-
         if(size < 0)
             throw new IllegalArgumentException("Size should not be <= 0");
 

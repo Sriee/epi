@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.List;
 
-public class IntegerGenerator implements Iterable<Integer>, Iterator<Integer>, Generator {
+public class IntegerGenerator implements Iterable<Integer>, Iterator<Integer>, Generator<Integer> {
 
     private int min = Integer.MIN_VALUE;
     private int max = Integer.MAX_VALUE;
@@ -23,9 +23,7 @@ public class IntegerGenerator implements Iterable<Integer>, Iterator<Integer>, G
         this.max = max;
     }
 
-    @Override
     public int[] generate(int size) {
-
         if (size < 0)
             throw new IllegalArgumentException("Size should not be <= 0");
 

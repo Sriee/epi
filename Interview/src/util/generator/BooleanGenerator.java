@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.List;
 
-public class BooleanGenerator implements Iterable<Boolean>, Iterator<Boolean>, Generator {
+public class BooleanGenerator implements Iterable<Boolean>, Iterator<Boolean>, Generator<Boolean> {
 
     private int size = 0;
     private int index = 0;
@@ -16,8 +16,7 @@ public class BooleanGenerator implements Iterable<Boolean>, Iterator<Boolean>, G
     public BooleanGenerator(int size){
         this.size = size;
     }
-
-    @Override
+    
     public boolean[] generate(int size){
 
         if(size < 0)
