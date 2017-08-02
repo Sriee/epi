@@ -1,4 +1,4 @@
-package util;
+package util.range;
 
 import java.util.Iterator;
 import java.util.List;
