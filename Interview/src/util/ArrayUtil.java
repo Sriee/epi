@@ -1141,4 +1141,125 @@ public class ArrayUtil {
 
         return result;
     }
+
+    /**
+     * Converts an array of object Byte to primitives
+     *
+     * @param arr a Byte array
+     * @return a byte array, 'null' if 'null' array input
+     */
+    public static byte[] toPrimitive(Byte[] arr){
+        if(isEmpty(arr)) return null;
+
+        byte[] result = new byte[arr.length];
+        for(int k = 0; k < arr.length; k++)
+            result[k] = arr[k];
+        return result;
+    }
+
+    /**
+     * Converts an array of object Shorts to primitives
+     *
+     * @param arr a Short array
+     * @return a short array, 'null' if 'null' array input
+     */
+    public static short[] toPrimitive(Short[] arr){
+        if(isEmpty(arr)) return null;
+
+        short[] result = new short[arr.length];
+        for(int k = 0; k < arr.length; k++)
+            result[k] = arr[k];
+        return result;
+    }
+
+    /**
+     * Converts an array of object Boolean to primitives
+     *
+     * @param arr a Boolean array
+     * @return a boolean array, 'null' if 'null' array input
+     */
+    public static boolean[] toPrimitive(Boolean[] arr){
+        if(isEmpty(arr)) return null;
+
+        boolean[] result = new boolean[arr.length];
+        for(int k = 0; k < arr.length; k++)
+            result[k] = arr[k];
+        return result;
+    }
+
+    /**
+     * Converts an array of object Character to primitives
+     *
+     * @param arr a Character array
+     * @return a char array, 'null' if 'null' array input
+     */
+    public static char[] toPrimitive(Character[] arr){
+        if(isEmpty(arr)) return null;
+
+        char[] result = new char[arr.length];
+        for(int k = 0; k < arr.length; k++)
+            result[k] = arr[k];
+        return result;
+    }
+
+    /**
+     * Converts an array of object Integer to primitives
+     *
+     * @param arr an Integer array
+     * @return an int array, 'null' if 'null' array input
+     */
+    public static int[] toPrimitive(Integer[] arr){
+        if(isEmpty(arr)) return null;
+
+        int[] result = new int[arr.length];
+        for(int k = 0; k < arr.length; k++)
+            result[k] = arr[k];
+        return result;
+    }
+
+    /**
+     * Converts an array of object Long to primitives
+     *
+     * @param arr a Long array
+     * @return a long array, 'null' if 'null' array input
+     */
+    public static long[] toPrimitive(Long[] arr){
+        if(isEmpty(arr)) return null;
+
+        long[] result = new long[arr.length];
+        for(int k = 0; k < arr.length; k++)
+            result[k] = arr[k];
+        return result;
+    }
+
+    /**
+     * Converts an array of object Float to primitives
+     *
+     * @param arr a Float array
+     * @return a float array, 'null' if 'null' array input
+     */
+    public static float[] toPrimitive(Float[] arr){
+        if(isEmpty(arr)) return null;
+
+        float[] result = new float[arr.length];
+        for(int k = 0; k < arr.length; k++)
+            result[k] = arr[k];
+        return result;
+    }
+
+    /**
+     * Converts an array of object Double to primitives
+     *
+     * @param arr a Double array
+     * @return a double array, 'null' if 'null' array input
+     */
+    public static double[] toPrimitive(Double[] arr){
+        if(isEmpty(arr)) return null;
+
+        double[] result = new double[arr.length];
+        for(int k = 0; k < arr.length; k++)
+            result[k] = arr[k];
+        return result;
+    }
+
 }
