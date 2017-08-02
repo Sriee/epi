@@ -868,4 +868,165 @@ public class ArrayUtil {
 
         return arr;
     }
+
+    /**
+     * Produces a new byte array containing the elements between the start and end indices.
+     *
+     * @param input the array
+     * @param start the starting index (inclusive)
+     * @param stop the end index (inclusive)
+     * @return a new array containing the elements between the start and end indices.
+     *         'null' array input produces 'null' output.
+     */
+    public static byte[] subarray(byte[] input, int start, int stop){
+        if(start < 0 || stop < 0 || isEmpty(input) || stop >= input.length || start > stop) return null;
+        byte[] result = new byte[stop - start + 1];
+        System.arraycopy(input, start, result,0,stop - start + 1);
+        return result;
+    }
+
+    /**
+     * Produces a new short array containing the elements between the start and end indices.
+     *
+     * @param input the array
+     * @param start the starting index (inclusive)
+     * @param stop the end index (inclusive)
+     * @return a new array containing the elements between the start and end indices.
+     *         'null' array input produces 'null' output.
+     */
+    public static short[] subarray(short[] input, int start, int stop){
+        if(start < 0 || stop < 0 || isEmpty(input) || stop >= input.length || start > stop) return null;
+        short[] result = new short[stop - start + 1];
+        System.arraycopy(input, start, result,0,stop - start + 1);
+        return result;
+    }
+
+    /**
+     * Produces a new boolean array containing the elements between the start and end indices.
+     *
+     * @param input the array
+     * @param start the starting index (inclusive)
+     * @param stop the end index (inclusive)
+     * @return a new array containing the elements between the start and end indices.
+     *         'null' array input produces 'null' output.
+     */
+    public static boolean[] subarray(boolean[] input, int start, int stop){
+        if(start < 0 || stop < 0 || isEmpty(input) || stop >= input.length || start > stop) return null;
+        boolean[] result = new boolean[stop - start + 1];
+        System.arraycopy(input, start, result,0,stop - start + 1);
+        return result;
+    }
+
+    /**
+     * Produces a new char array containing the elements between the start and end indices.
+     *
+     * @param input the array
+     * @param start the starting index (inclusive)
+     * @param stop the end index (inclusive)
+     * @return a new array containing the elements between the start and end indices.
+     *         'null' array input produces 'null' output.
+     */
+    public static char[] subarray(char[] input, int start, int stop){
+        if(start < 0 || stop < 0 || isEmpty(input) || stop >= input.length || start > stop) return null;
+        char[] result = new char[stop - start + 1];
+        System.arraycopy(input, start, result,0,stop - start + 1);
+        return result;
+    }
+
+    /**
+     * Produces a new integer array containing the elements between the start and end indices.
+     *
+     * @param input the array
+     * @param start the starting index (inclusive)
+     * @param stop the end index (inclusive)
+     * @return a new array containing the elements between the start and end indices.
+     *         'null' array input produces 'null' output.
+     */
+    public static int[] subarray(int[] input, int start, int stop){
+        if(start < 0 || stop < 0 || isEmpty(input) || stop >= input.length || start > stop) return null;
+        int[] result = new int[stop - start + 1];
+        System.arraycopy(input, start, result,0,stop - start + 1);
+        return result;
+    }
+
+    /**
+     * Produces a new long array containing the elements between the start and end indices.
+     *
+     * @param input the array
+     * @param start the starting index (inclusive)
+     * @param stop the end index (inclusive)
+     * @return a new array containing the elements between the start and end indices.
+     *         'null' array input produces 'null' output.
+     */
+    public static long[] subarray(long[] input, int start, int stop){
+        if(start < 0 || stop < 0 || isEmpty(input) || stop >= input.length || start > stop) return null;
+        long[] result = new long[stop - start + 1];
+        System.arraycopy(input, start, result,0,stop - start + 1);
+        return result;
+    }
+
+    /**
+     * Produces a new float array containing the elements between the start and end indices.
+     *
+     * @param input the array
+     * @param start the starting index (inclusive)
+     * @param stop the end index (inclusive)
+     * @return a new array containing the elements between the start and end indices.
+     *         'null' array input produces 'null' output.
+     */
+    public static float[] subarray(float[] input, int start, int stop){
+        if(start < 0 || stop < 0 || isEmpty(input) || stop >= input.length || start > stop) return null;
+        float[] result = new float[stop - start + 1];
+        System.arraycopy(input, start, result,0,stop - start + 1);
+        return result;
+    }
+
+    /**
+     * Produces a new double array containing the elements between the start and end indices.
+     *
+     * @param input the array
+     * @param start the starting index (inclusive)
+     * @param stop the end index (inclusive)
+     * @return a new array containing the elements between the start and end indices.
+     *         'null' array input produces 'null' output.
+     */
+    public static double[] subarray(double[] input, int start, int stop){
+        if(start < 0 || stop < 0 || isEmpty(input) || stop >= input.length || start > stop) return null;
+        double[] result = new double[stop - start + 1];
+        System.arraycopy(input, start, result,0,stop - start + 1);
+        return result;
+    }
+
+    /**
+     * Produces a new generic array containing the elements between the start and end indices.
+     *
+     * @param input the array
+     * @param start the starting index (inclusive)
+     * @param stop the end index (inclusive)
+     * @return a new array containing the elements between the start and end indices.
+     *         'null' array input produces 'null' output.
+     */
+    public static <N> N[] subarray(Class<N> clazz, N[] input, int start, int stop){
+        if(start < 0 || stop < 0 || isEmpty(input) || start > stop) return null;
+        @SuppressWarnings("unchecked")
+        N[] result = (N[])Array.newInstance(clazz, stop - start + 1);
+        System.arraycopy(input, start, result,0,stop - start + 1);
+        return result;
+    }
+
+    /**
+     * Produces a new Object array containing the elements between the start and end indices.
+     *
+     * @param input the array
+     * @param start the starting index (inclusive)
+     * @param stop the end index (inclusive)
+     * @return a new array containing the elements between the start and end indices.
+     *         'null' array input produces 'null' output.
+     */
+    public static Object[] subarray(Object[] input, int start, int stop){
+        if(start < 0 || stop < 0 || isEmpty(input) || stop >= input.length || start > stop) return null;
+        Object[] result = new Object[stop - start + 1];
+        System.arraycopy(input, start, result,0,stop - start + 1);
+        return result;
+    }
 }
