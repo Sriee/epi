@@ -716,4 +716,156 @@ public class ArrayUtil {
         }
         return arr;
     }
+
+    /**
+     * Reverses the order of the given array.
+     *
+     * @param arr the array to reverse
+     * @return array in reversed order; 'null' if input is 'null'
+     */
+    public static byte[] reverse(byte[] arr){
+        if(isEmpty(arr)) return null;
+        int start = 0, end = arr.length - 1;
+        byte temp = -1;
+
+        while(start <= end){
+            temp = arr[start]; arr[start] = arr[end]; arr[end] = temp;
+            start++; end--;
+        }
+
+        return arr;
+    }
+
+    /**
+     * Reverses the order of the given array.
+     *
+     * @param arr the array to reverse
+     * @return array in reversed order; 'null' if input is 'null'
+     */
+    public static short[] reverse(short[] arr){
+        if(isEmpty(arr)) return null;
+        int start = 0, end = arr.length - 1;
+        short temp = -1;
+
+        while(start <= end){
+            temp = arr[start]; arr[start] = arr[end]; arr[end] = temp;
+            start++; end--;
+        }
+
+        return arr;
+    }
+
+    /**
+     * Reverses the order of the given array.
+     *
+     * @param arr the array to reverse
+     * @return array in reversed order; 'null' if input is 'null'
+     */
+    public static boolean[] reverse(boolean[] arr){
+        if(isEmpty(arr)) return null;
+        int start = 0, end = arr.length - 1;
+        boolean temp;
+
+        while(start <= end){
+            temp = arr[start]; arr[start] = arr[end]; arr[end] = temp;
+            start++; end--;
+        }
+
+        return arr;
+    }
+
+    /**
+     * Reverses the order of the given array.
+     *
+     * @param arr the array to reverse
+     * @return array in reversed order; 'null' if input is 'null'
+     */
+    public static char[] reverse(char[] arr){
+        if(isEmpty(arr)) return null;
+        int start = 0, end = arr.length - 1;
+        char temp = ' ';
+
+        while(start <= end){
+            temp = arr[start]; arr[start] = arr[end]; arr[end] = temp;
+            start++; end--;
+        }
+
+        return arr;
+    }
+
+    /**
+     * Reverses the order of the given array.
+     *
+     * @param arr the array to reverse
+     * @return array in reversed order; 'null' if input is 'null'
+     */
+    public static int[] reverse(int[] arr){
+        if(isEmpty(arr)) return null;
+        int start = 0, end = arr.length - 1;
+        int temp = -1;
+
+        while(start <= end){
+            temp = arr[start]; arr[start] = arr[end]; arr[end] = temp;
+            start++; end--;
+        }
+
+        return arr;
+    }
+
+    /**
+     * Reverses the order of the given array.
+     *
+     * @param arr the array to reverse
+     * @return array in reversed order; 'null' if input is 'null'
+     */
+    public static long[] reverse(long[] arr){
+        if(isEmpty(arr)) return null;
+        int start = 0, end = arr.length - 1;
+        long temp = -1;
+
+        while(start <= end){
+            temp = arr[start]; arr[start] = arr[end]; arr[end] = temp;
+            start++; end--;
+        }
+
+        return arr;
+    }
+
+    /**
+     * Reverses the order of the given array.
+     *
+     * @param arr the array to reverse
+     * @return array in reversed order; 'null' if input is 'null'
+     */
+    public static float[] reverse(float[] arr){
+        if(isEmpty(arr)) return null;
+        int start = 0, end = arr.length - 1;
+        float temp = -1;
+
+        while(start <= end){
+            temp = arr[start]; arr[start] = arr[end]; arr[end] = temp;
+            start++; end--;
+        }
+
+        return arr;
+    }
+
+    /**
+     * Reverses the order of the given array.
+     *
+     * @param arr the array to reverse
+     * @return array in reversed order; 'null' if input is 'null'
+     */
+    public static double[] reverse(double[] arr){
+        if(isEmpty(arr)) return null;
+        int start = 0, end = arr.length - 1;
+        double temp = -1;
+
+        while(start <= end){
+            temp = arr[start]; arr[start] = arr[end]; arr[end] = temp;
+            start++; end--;
+        }
+
+        return arr;
+    }
 }
