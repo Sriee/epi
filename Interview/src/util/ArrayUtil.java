@@ -4,6 +4,8 @@ import java.lang.reflect.Array;
 
 public class ArrayUtil {
 
+    private static final int INDEX_NOT_FOUND = -1;
+
     /**
      * Performs deep copy of the contents of the array
      * This method returns null for a null input array or an empty array.
@@ -380,6 +382,168 @@ public class ArrayUtil {
      */
     public static <T> boolean isEmpty(T[] arr){
         return (arr == null || arr.length == 0);
+    }
+
+    /**
+     * Finds the index of the given value in the array
+     *
+     * @param arr the array to search
+     * @param value the value to find
+     * @return the index of the value if present else -1; 'null' and empty array returns -1
+     */
+    public static int indexOf(byte[] arr, byte value){
+        if(isEmpty(arr)) return INDEX_NOT_FOUND;
+        int index = 0;
+        for(byte b: arr){
+            if(b == value) return index;
+            index++;
+        }
+
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Finds the index of the given value in the array
+     *
+     * @param arr the array to search
+     * @param value the value to find
+     * @return the index of the value if present else -1; 'null' and empty array returns -1
+     */
+    public static int indexOf(short[] arr, short value){
+        if(isEmpty(arr)) return INDEX_NOT_FOUND;
+        int index = 0;
+        for(short s: arr){
+            if(s == value) return index;
+            index++;
+        }
+
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Finds the index of the given value in the array
+     *
+     * @param arr the array to search
+     * @param value the value to find
+     * @return the index of the value if present else -1; 'null' and empty array returns -1
+     */
+    public static int indexOf(boolean[] arr, boolean value){
+        if(isEmpty(arr)) return INDEX_NOT_FOUND;
+        int index = 0;
+        for(boolean b: arr){
+            if(b == value) return index;
+            index++;
+        }
+
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Finds the index of the given value in the array
+     *
+     * @param arr the array to search
+     * @param value the value to find
+     * @return the index of the value if present else -1; 'null' and empty array returns -1
+     */
+    public static int indexOf(char[] arr, char value){
+        if(isEmpty(arr)) return INDEX_NOT_FOUND;
+        int index = 0;
+        for(char ch: arr){
+            if(ch == value) return index;
+            index++;
+        }
+
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Finds the index of the given value in the array
+     *
+     * @param arr the array to search
+     * @param value the value to find
+     * @return the index of the value if present else -1; 'null' and empty array returns -1
+     */
+    public static int indexOf(int[] arr, int value){
+        if(isEmpty(arr)) return INDEX_NOT_FOUND;
+        int index = 0;
+        for(int i: arr){
+            if(i == value) return index;
+            index++;
+        }
+
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Finds the index of the given value in the array
+     *
+     * @param arr the array to search
+     * @param value the value to find
+     * @return the index of the value if present else -1; 'null' and empty array returns -1
+     */
+    public static int indexOf(long[] arr, long value){
+        if(isEmpty(arr)) return INDEX_NOT_FOUND;
+        int index = 0;
+        for(long l: arr){
+            if(l == value) return index;
+            index++;
+        }
+
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Finds the index of the given value in the array
+     *
+     * @param arr the array to search
+     * @param value the value to find
+     * @return the index of the value if present else -1; 'null' and empty array returns -1
+     */
+    public static int indexOf(float[] arr, float value){
+        if(isEmpty(arr)) return INDEX_NOT_FOUND;
+        int index = 0;
+        for(float f: arr){
+            if(f == value) return index;
+            index++;
+        }
+
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Finds the index of the given value in the array
+     *
+     * @param arr the array to search
+     * @param value the value to find
+     * @return the index of the value if present else -1; 'null' and empty array returns -1
+     */
+    public static int indexOf(double[] arr, double value){
+        if(isEmpty(arr)) return INDEX_NOT_FOUND;
+        int index = 0;
+        for(double d: arr){
+            if(d == value) return index;
+            index++;
+        }
+
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Finds the index of the given value in the array
+     *
+     * @param arr the array to search
+     * @param value the value to find
+     * @return the index of the value if present else -1; 'null' and empty array returns -1
+     */
+    public static <I> int indexOf(I[] arr, I value){
+        if(isEmpty(arr)) return INDEX_NOT_FOUND;
+        int index = 0;
+        for(I item: arr){
+            if(item == value) return index;
+            index++;
+        }
+
+        return INDEX_NOT_FOUND;
     }
 
     /**
