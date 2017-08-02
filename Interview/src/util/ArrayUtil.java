@@ -382,4 +382,84 @@ public class ArrayUtil {
         return (arr == null || arr.length == 0);
     }
 
+    /**
+     * Checks if an array of primitive type is not empty or not null.
+     * @param arr the array to test
+     * @return true if the array is not empty or not null; false otherwise
+     */
+    public static boolean isNotEmpty(byte[] arr){
+        return !isEmpty(arr);
+    }
+
+    /**
+     * Checks if an array of primitive type is not empty or not null.
+     * @param arr the array to test
+     * @return true if the array is not empty or not null; false otherwise
+     */
+    public static boolean isNotEmpty(short[] arr){
+        return !isEmpty(arr);
+    }
+
+    /**
+     * Checks if an array of primitive type is not empty or not null.
+     * @param arr the array to test
+     * @return true if the array is not empty or not null; false otherwise
+     */
+    public static boolean isNotEmpty(boolean[] arr){
+        return !isEmpty(arr);
+    }
+
+    /**
+     * Checks if an array of primitive type is not empty or not null.
+     * @param arr the array to test
+     * @return true if the array is not empty or not null; false otherwise
+     */
+    public static boolean isNotEmpty(char[] arr){
+        return !isEmpty(arr);
+    }
+
+    /**
+     * Checks if an array of primitive type is not empty or not null.
+     * @param arr the array to test
+     * @return true if the array is not empty or not null; false otherwise
+     */
+    public static boolean isNotEmpty(int[] arr){
+        return !isEmpty(arr);
+    }
+
+    /**
+     * Checks if an array of primitive type is not empty or not null.
+     * @param arr the array to test
+     * @return true if the array is not empty or not null; false otherwise
+     */
+    public static boolean isNotEmpty(long[] arr){
+        return !isEmpty(arr);
+    }
+
+    /**
+     * Checks if an array of primitive type is not empty or not null.
+     * @param arr the array to test
+     * @return true if the array is not empty or not null; false otherwise
+     */
+    public static boolean isNotEmpty(float[] arr){
+        return !isEmpty(arr);
+    }
+
+    /**
+     * Checks if an array of primitive type is not empty or not null.
+     * @param arr the array to test
+     * @return true if the array is not empty or not null; false otherwise
+     */
+    public static boolean isNotEmpty(double[] arr){
+        return !isEmpty(arr);
+    }
+
+    /**
+     * Checks if an array of generic type is not empty or not null.
+     * @param arr the array to test
+     * @return true if the array is not empty or not null; false otherwise
+     */
+    public static <T> boolean isNotEmpty(T[] arr){
+        return !isEmpty(arr);
+    }
 }
