@@ -144,8 +144,9 @@ public class ArrayUtil {
      */
     public static <Z> Z[] clone(Class<Z> clazz, Z[] arr){
         if(isEmpty(arr)) return null;
-
-        Z[] result = (Z[]) Array.newInstance(clazz, arr.length);
+        
+        @SuppressWarnings("unchecked")
+		Z[] result = (Z[]) Array.newInstance(clazz, arr.length);
         System.arraycopy(arr, 0, result, 0, arr.length);
 
         return result;
