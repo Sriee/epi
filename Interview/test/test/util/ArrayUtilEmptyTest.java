@@ -147,6 +147,4 @@ public class ArrayUtilEmptyTest {
 		assertTrue(ArrayUtil.isEmpty(dEmpty));
 		assertTrue(ArrayUtil.isEmpty(sEmpty));
 	}
-
-
 }
