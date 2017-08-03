@@ -163,7 +163,7 @@ public class ArrayUtil {
         if(isEmpty(arr)) return false;
 
         for(byte n : arr){
-            if(arr[n] == value) return true;
+            if(n == value) return true;
         }
         return false;
     }
@@ -179,7 +179,7 @@ public class ArrayUtil {
         if(isEmpty(arr)) return false;
 
         for(short n : arr){
-            if(arr[n] == value) return true;
+            if(n == value) return true;
         }
         return false;
     }
@@ -226,7 +226,7 @@ public class ArrayUtil {
         if(isEmpty(arr)) return false;
 
         for(int n : arr){
-            if(arr[n] == value) return true;
+            if(n == value) return true;
         }
         return false;
     }
@@ -290,7 +290,7 @@ public class ArrayUtil {
         if(isEmpty(arr)) return false;
 
         for(int n = 0; n < arr.length; n++){
-            if(arr[n] == value) return true;
+            if(arr[n].equals(value)) return true;
         }
         return false;
     }
