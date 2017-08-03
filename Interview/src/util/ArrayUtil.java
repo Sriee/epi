@@ -193,8 +193,8 @@ public class ArrayUtil {
     public static boolean contains(boolean[] arr, boolean value){
         if(isEmpty(arr)) return false;
 
-        for(int n = 0; n < arr.length; n++){
-            if(arr[n] == value) return true;
+        for(boolean bool : arr){
+            if(bool == value) return true;
         }
         return false;
     }
@@ -209,8 +209,8 @@ public class ArrayUtil {
     public static boolean contains(char[] arr, char value){
         if(isEmpty(arr)) return false;
 
-        for(int n = 0; n < arr.length; n++){
-            if(arr[n] == value) return true;
+        for(char ch : arr){
+            if(ch == value) return true;
         }
         return false;
     }
@@ -241,8 +241,8 @@ public class ArrayUtil {
     public static boolean contains(long[] arr, long value){
         if(isEmpty(arr)) return false;
 
-        for(int n = 0; n < arr.length; n++){
-            if(arr[n] == value) return true;
+        for(long l: arr){
+            if(l == value) return true;
         }
         return false;
     }
@@ -257,8 +257,8 @@ public class ArrayUtil {
     public static boolean contains(float[] arr, float value){
         if(isEmpty(arr)) return false;
 
-        for(int n = 0; n < arr.length; n++){
-            if(arr[n] == value) return true;
+        for(float f : arr){
+            if(f == value) return true;
         }
         return false;
     }
@@ -273,8 +273,8 @@ public class ArrayUtil {
     public static boolean contains(double[] arr, double value){
         if(isEmpty(arr)) return false;
 
-        for(int n = 0; n < arr.length; n++){
-            if(arr[n] == value) return true;
+        for(double d : arr){
+            if(d == value) return true;
         }
         return false;
     }
@@ -289,8 +289,8 @@ public class ArrayUtil {
     public static <Y> boolean contains(Y[] arr, Y value){
         if(isEmpty(arr)) return false;
 
-        for(int n = 0; n < arr.length; n++){
-            if(arr[n].equals(value)) return true;
+        for(Y element : arr){
+            if(element.equals(value)) return true;
         }
         return false;
     }
@@ -540,7 +540,7 @@ public class ArrayUtil {
         if(isEmpty(arr)) return INDEX_NOT_FOUND;
         int index = 0;
         for(I item: arr){
-            if(item == value) return index;
+            if(item.equals(value)) return index;
             index++;
         }
 
