@@ -7,6 +7,205 @@ public class ArrayUtil {
     private static final int INDEX_NOT_FOUND = -1;
 
     /**
+     * Appends the given element at the end of the new array.
+     *
+     * @param src the array, can be null
+     * @param valueToAppend the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     */
+    public static byte[] append(byte[] src, byte valueToAppend){
+
+        byte[] dst = null;
+        if(isEmpty(src)){
+            dst = new byte[1];
+            dst[0] = valueToAppend;
+            return dst;
+        }
+
+        dst = new byte[src.length + 1];
+        System.arraycopy(src, 0, dst, 0, src.length);
+        dst[src.length] = valueToAppend;
+        return dst;
+    }
+
+    /**
+     * Appends the given element at the end of the new array.
+     *
+     * @param src the array, can be null
+     * @param valueToAppend the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     */
+    public static short[] append(short[] src, short valueToAppend){
+
+        short[] dst = null;
+        if(isEmpty(src)){
+            dst = new short[1];
+            dst[0] = valueToAppend;
+            return dst;
+        }
+
+        dst = new short[src.length + 1];
+        System.arraycopy(src, 0, dst, 0, src.length);
+        dst[src.length] = valueToAppend;
+        return dst;
+    }
+
+    /**
+     * Appends the given element at the end of the new array.
+     *
+     * @param src the array, can be null
+     * @param valueToAppend the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     */
+    public static boolean[] append(boolean[] src, boolean valueToAppend){
+
+        boolean[] dst = null;
+        if(isEmpty(src)){
+            dst = new boolean[1];
+            dst[0] = valueToAppend;
+            return dst;
+        }
+
+        dst = new boolean[src.length + 1];
+        System.arraycopy(src, 0, dst, 0, src.length);
+        dst[src.length] = valueToAppend;
+        return dst;
+    }
+
+    /**
+     * Appends the given element at the end of the new array.
+     *
+     * @param src the array, can be null
+     * @param valueToAppend the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     */
+    public static char[] append(char[] src, char valueToAppend){
+
+        char[] dst = null;
+        if(isEmpty(src)){
+            dst = new char[1];
+            dst[0] = valueToAppend;
+            return dst;
+        }
+
+        dst = new char[src.length + 1];
+        System.arraycopy(src, 0, dst, 0, src.length);
+        dst[src.length] = valueToAppend;
+        return dst;
+    }
+
+    /**
+     * Appends the given element at the end of the new array.
+     *
+     * @param src the array, can be null
+     * @param valueToAppend the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     */
+    public static int[] append(int[] src, int valueToAppend){
+
+        int[] dst = null;
+        if(isEmpty(src)){
+            dst = new int[1];
+            dst[0] = valueToAppend;
+            return dst;
+        }
+
+        dst = new int[src.length + 1];
+        System.arraycopy(src, 0, dst, 0, src.length);
+        dst[src.length] = valueToAppend;
+        return dst;
+    }
+
+    /**
+     * Appends the given element at the end of the new array.
+     *
+     * @param src the array, can be null
+     * @param valueToAppend the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     */
+    public static long[] append(long[] src, long valueToAppend){
+
+        long[] dst = null;
+        if(isEmpty(src)){
+            dst = new long[1];
+            dst[0] = valueToAppend;
+            return dst;
+        }
+
+        dst = new long[src.length + 1];
+        System.arraycopy(src, 0, dst, 0, src.length);
+        dst[src.length] = valueToAppend;
+        return dst;
+    }
+
+    /**
+     * Appends the given element at the end of the new array.
+     *
+     * @param src the array, can be null
+     * @param valueToAppend the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     */
+    public static float[] append(float[] src, float valueToAppend){
+
+        float[] dst = null;
+        if(isEmpty(src)){
+            dst = new float[1];
+            dst[0] = valueToAppend;
+            return dst;
+        }
+
+        dst = new float[src.length + 1];
+        System.arraycopy(src, 0, dst, 0, src.length);
+        dst[src.length] = valueToAppend;
+        return dst;
+    }
+
+    /**
+     * Appends the given element at the end of the new array.
+     *
+     * @param src the array, can be null
+     * @param valueToAppend the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     */
+    public static double[] append(double[] src, double valueToAppend){
+
+        double[] dst = null;
+        if(isEmpty(src)){
+            dst = new double[1];
+            dst[0] = valueToAppend;
+            return dst;
+        }
+
+        dst = new double[src.length + 1];
+        System.arraycopy(src, 0, dst, 0, src.length);
+        dst[src.length] = valueToAppend;
+        return dst;
+    }
+
+    /**
+     * Appends the given element at the end of the new array.
+     *
+     * @param src the array, can be null
+     * @param valueToAppend the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     */
+    public static <Q> Q[] append(Class<Q> clazz, Q[] src, Q valueToAppend){
+
+        Q[] dst = null;
+        if(isEmpty(src)){
+            dst = (Q[])Array.newInstance(clazz, 1);;
+            dst[0] = valueToAppend;
+            return dst;
+        }
+
+        dst = (Q[])Array.newInstance(clazz, src.length + 1);
+
+        System.arraycopy(src, 0, dst, 0, src.length);
+        dst[src.length] = valueToAppend;
+        return dst;
+    }
+
+    /**
      * Performs deep copy of the contents of the array
      * This method returns null for a null input array or an empty array.
      *
