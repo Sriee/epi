@@ -7,6 +7,205 @@ public class ArrayUtil {
     private static final int INDEX_NOT_FOUND = -1;
 
     /**
+     * Adds all the elements of the given arrays into a new array.
+     * The new array contains all of the element of array1 followed by all of the elements array2. 
+     * When an array is returned, it is always a new array. 
+     * 
+     * @param first the first array
+     * @param second the second array
+     * @return new byte[] array
+     */
+    public static byte[] addAll(byte[] first, byte[] second){
+    	int firstLen = 0, secondLen = 0; 
+    	firstLen = (first == null)? 0 : first.length;
+    	secondLen = (second == null)? 0 : second.length;
+    	
+    	if(firstLen == 0 && secondLen == 0) return new byte[] {};
+    	
+    	byte[] united = new byte[firstLen + secondLen];
+    	System.arraycopy(first, 0, united, 0, firstLen);
+    	System.arraycopy(second, 0, united, firstLen, secondLen);
+    	return united;
+    }
+    
+    /**
+     * Adds all the elements of the given arrays into a new array.
+     * The new array contains all of the element of array1 followed by all of the elements array2. 
+     * When an array is returned, it is always a new array. 
+     * 
+     * @param first the first array
+     * @param second the second array
+     * @return new byte[] array
+     */
+    public static short[] addAll(short[] first, short[] second){
+    	int firstLen = 0, secondLen = 0; 
+    	firstLen = (first == null)? 0 : first.length;
+    	secondLen = (second == null)? 0 : second.length;
+    	
+    	if(firstLen == 0 && secondLen == 0) return new short[] {};
+    	
+    	short[] united = new short[firstLen + secondLen];
+    	System.arraycopy(first, 0, united, 0, firstLen);
+    	System.arraycopy(second, 0, united, firstLen, secondLen);
+    	return united;
+    }
+    
+    /**
+     * Adds all the elements of the given arrays into a new array.
+     * The new array contains all of the element of array1 followed by all of the elements array2. 
+     * When an array is returned, it is always a new array. 
+     * 
+     * @param first the first array
+     * @param second the second array
+     * @return new byte[] array
+     */
+    public static boolean[] addAll(boolean[] first, boolean[] second){
+    	int firstLen = 0, secondLen = 0; 
+    	firstLen = (first == null)? 0 : first.length;
+    	secondLen = (second == null)? 0 : second.length;
+    	
+    	if(firstLen == 0 && secondLen == 0) return new boolean[] {};
+    	
+    	boolean[] united = new boolean[firstLen + secondLen];
+    	System.arraycopy(first, 0, united, 0, firstLen);
+    	System.arraycopy(second, 0, united, firstLen, secondLen);
+    	return united;
+    }
+    
+    /**
+     * Adds all the elements of the given arrays into a new array.
+     * The new array contains all of the element of array1 followed by all of the elements array2. 
+     * When an array is returned, it is always a new array. 
+     * 
+     * @param first the first array
+     * @param second the second array
+     * @return new byte[] array
+     */
+    public static char[] addAll(char[] first, char[] second){
+    	int firstLen = 0, secondLen = 0; 
+    	firstLen = (first == null)? 0 : first.length;
+    	secondLen = (second == null)? 0 : second.length;
+    	
+    	if(firstLen == 0 && secondLen == 0) return new char[] {};
+    	
+    	char[] united = new char[firstLen + secondLen];
+    	System.arraycopy(first, 0, united, 0, firstLen);
+    	System.arraycopy(second, 0, united, firstLen, secondLen);
+    	return united;
+    }
+    
+    /**
+     * Adds all the elements of the given arrays into a new array.
+     * The new array contains all of the element of array1 followed by all of the elements array2. 
+     * When an array is returned, it is always a new array. 
+     * 
+     * @param first the first array
+     * @param second the second array
+     * @return new byte[] array
+     */
+    public static int[] addAll(int[] first, int[] second){
+    	int firstLen = 0, secondLen = 0; 
+    	firstLen = (first == null)? 0 : first.length;
+    	secondLen = (second == null)? 0 : second.length;
+    	
+    	if(firstLen == 0 && secondLen == 0) return new int[] {};
+    	
+    	int[] united = new int[firstLen + secondLen];
+    	System.arraycopy(first, 0, united, 0, firstLen);
+    	System.arraycopy(second, 0, united, firstLen, secondLen);
+    	return united;
+    }
+    
+    /**
+     * Adds all the elements of the given arrays into a new array.
+     * The new array contains all of the element of array1 followed by all of the elements array2. 
+     * When an array is returned, it is always a new array. 
+     * 
+     * @param first the first array
+     * @param second the second array
+     * @return new byte[] array
+     */
+    public static long[] addAll(long[] first, long[] second){
+    	int firstLen = 0, secondLen = 0; 
+    	firstLen = (first == null)? 0 : first.length;
+    	secondLen = (second == null)? 0 : second.length;
+    	
+    	if(firstLen == 0 && secondLen == 0) return new long[] {};
+    	
+    	long[] united = new long[firstLen + secondLen];
+    	System.arraycopy(first, 0, united, 0, firstLen);
+    	System.arraycopy(second, 0, united, firstLen, secondLen);
+    	return united;
+    }
+    
+    /**
+     * Adds all the elements of the given arrays into a new array.
+     * The new array contains all of the element of array1 followed by all of the elements array2. 
+     * When an array is returned, it is always a new array. 
+     * 
+     * @param first the first array
+     * @param second the second array
+     * @return new byte[] array
+     */
+    public static float[] addAll(float[] first, float[] second){
+    	int firstLen = 0, secondLen = 0; 
+    	firstLen = (first == null)? 0 : first.length;
+    	secondLen = (second == null)? 0 : second.length;
+    	
+    	if(firstLen == 0 && secondLen == 0) return new float[] {};
+    	
+    	float[] united = new float[firstLen + secondLen];
+    	System.arraycopy(first, 0, united, 0, firstLen);
+    	System.arraycopy(second, 0, united, firstLen, secondLen);
+    	return united;
+    }
+    
+    /**
+     * Adds all the elements of the given arrays into a new array.
+     * The new array contains all of the element of array1 followed by all of the elements array2. 
+     * When an array is returned, it is always a new array. 
+     * 
+     * @param first the first array
+     * @param second the second array
+     * @return new byte[] array
+     */
+    public static double[] addAll(double[] first, double[] second){
+    	int firstLen = 0, secondLen = 0; 
+    	firstLen = (first == null)? 0 : first.length;
+    	secondLen = (second == null)? 0 : second.length;
+    	
+    	if(firstLen == 0 && secondLen == 0) return new double[] {};
+    	
+    	double[] united = new double[firstLen + secondLen];
+    	System.arraycopy(first, 0, united, 0, firstLen);
+    	System.arraycopy(second, 0, united, firstLen, secondLen);
+    	return united;
+    }
+    
+    /**
+     * Adds all the elements of the given arrays into a new array.
+     * The new array contains all of the element of array1 followed by all of the elements array2. 
+     * When an array is returned, it is always a new array. 
+     * 
+     * @param first the first array
+     * @param second the second array
+     * @return new byte[] array
+     */
+    @SuppressWarnings("unchecked")
+    public static <W> W[] addAll(Class<W> clazz, W[] first, W[] second){
+    	int firstLen = 0, secondLen = 0; 
+    	firstLen = (first == null)? 0 : first.length;
+    	secondLen = (second == null)? 0 : second.length;
+    	
+    	if(firstLen == 0 && secondLen == 0) return (W[])Array.newInstance(clazz, 0);
+    	
+    	W[] united = (W[])Array.newInstance(clazz, firstLen + secondLen);
+    	System.arraycopy(first, 0, united, 0, firstLen);
+    	System.arraycopy(second, 0, united, firstLen, secondLen);
+    	return united;
+    }
+    
+    /**
      * Appends the given element at the end of the new array.
      *
      * @param src the array, can be null
@@ -495,6 +694,11 @@ public class ArrayUtil {
         return false;
     }
 
+    public static byte[] insert(byte[] src, byte valueToInsert){
+    	byte[] insertedArray = null;
+    	return insertedArray;
+    }
+    
     /**
      * Checks if an array of primitive type is empty or null.
      *
