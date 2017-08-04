@@ -189,7 +189,8 @@ public class ArrayUtil {
      * @param valueToAppend the object to add at the last index of the new array
      * @return A new array containing the existing elements plus the new element
      */
-    public static <Q> Q[] append(Class<Q> clazz, Q[] src, Q valueToAppend){
+    @SuppressWarnings("unchecked")
+	public static <Q> Q[] append(Class<Q> clazz, Q[] src, Q valueToAppend){
 
         Q[] dst = null;
         if(isEmpty(src)){
