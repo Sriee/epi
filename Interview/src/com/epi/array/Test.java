@@ -4,30 +4,28 @@ import java.util.Arrays;
 
 public class Test {
 	
-	private static void how(int... varargs){
-		for(int i: varargs)
-			System.out.print(i + " ");
+	private static void how(int[] array, int index, int... varargs){
+		int arrayLength = -1, pos = 0;
+		if(index > array.length || index < 0)
+			throw new ArrayIndexOutOfBoundsException();
 		
-		System.out.println();
+		arrayLength = (array == null) ? 0 : array.length;
+		int[] inserted = new int[arrayLength + varargs.length];
+		
+		System.arraycopy(array, 0, inserted, 0, index);
+		
+		for(int i: varargs){
+			inserted[pos + index] = i;
+			pos++;
+		}
+		
+		System.out.println(Arrays.toString(inserted));
+		System.arraycopy(array, pos, inserted, index + pos, array.length - varargs.length);
+		System.out.println(Arrays.toString(inserted));
 	}		
 	
 	public static void main(String[] args) {
-		int[] arr = {1,2,4,5};
-		int[] inserted = new int[arr.length + 1];
-		int pos = 4;
-		
-		if(pos > arr.length || pos < 0)
-			throw new ArrayIndexOutOfBoundsException();
-		
-		System.arraycopy(arr, 0, inserted, 0, pos);
-		inserted[pos] = 3;
-		System.arraycopy(arr, pos, inserted, pos + 1, arr.length - pos);
-		
-		System.out.println(Arrays.toString(inserted));
-		
-		how(1, 2, 3);
-		how(1, 2, 3, 4, 5, 6, 7, 8, 9);
-		how(1, 2, 3, 4);
-		how(1, 2, 3, -2);
+		int[] arr = {1, 2, 5, 6};		
+		how(arr, 2, 3, 4);
 	}
 }
