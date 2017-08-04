@@ -6,6 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
+		ArrayUtilAddAllTest.class,
 		ArrayUtilAppendTest.class,
 		ArrayUtilCloneTest.class,
 		ArrayUtilContainsTest.class,
