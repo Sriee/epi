@@ -1,6 +1,7 @@
 package util;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class ArrayUtil {
 
@@ -694,11 +695,445 @@ public class ArrayUtil {
         return false;
     }
 
-    public static byte[] insert(byte[] src, byte valueToInsert){
-    	byte[] insertedArray = null;
-    	return insertedArray;
+    /**
+     * Inserts the element(s) at the specified position in the array. Shifts the element currently at that
+     * position (if any) and any subsequent elements to the right.
+     *
+     * Example:
+     *
+     *  ArrayUtil.insert(null, 3, -12)      = [-12]
+     *  ArrayUtil.insert([1], 0, 2)         = [2, 1]
+     *  ArrayUtil.insert([1], 1, 2, -12, 3) = [1, 2, -12, 3]
+     *
+     * @param array - the array to insert the element
+     * @param index - the position of the new object
+     * @param valuesToInsert - the object to add
+     * @return A new array containing the existing elements and the new element
+     */
+    public static byte[] insert(byte[] array, int index, byte... valuesToInsert) {
+        byte[] result = null;
+        int k = 0;
+
+        if (array == null || array.length == 0) {
+            result = new byte[valuesToInsert.length];
+            for (byte element : valuesToInsert) {
+                result[k] = element;
+                k++;
+            }
+            return result;
+        }
+
+        if (index < 0 || index > array.length)
+            return null;
+
+        result = new byte[array.length + valuesToInsert.length];
+        k = index;
+        System.arraycopy(array, 0, result, 0, index);
+
+        for (byte element : valuesToInsert) {
+            result[k] = element;
+            k++;
+        }
+
+        System.arraycopy(array, index, result, index + valuesToInsert.length, array.length - index);
+        return result;
     }
-    
+
+    /**
+     * Inserts the element(s) at the specified position in the array. Shifts the element currently at that
+     * position (if any) and any subsequent elements to the right.
+     *
+     * Example:
+     *
+     *  ArrayUtil.insert(null, 3, -12)      = [-12]
+     *  ArrayUtil.insert([1], 0, 2)         = [2, 1]
+     *  ArrayUtil.insert([1], 1, 2, -12, 3) = [1, 2, -12, 3]
+     *
+     * @param array - the array to insert the element
+     * @param index - the position of the new object
+     * @param valuesToInsert - the object to add
+     * @return A new array containing the existing elements and the new element
+     */
+    public static short[] insert(short[] array, int index, short... valuesToInsert) {
+        short[] result = null;
+        int k = 0;
+
+        if (array == null || array.length == 0) {
+            result = new short[valuesToInsert.length];
+            for (short element : valuesToInsert) {
+                result[k] = element;
+                k++;
+            }
+            return result;
+        }
+
+        if (index < 0 || index > array.length)
+            return null;
+
+        result = new short[array.length + valuesToInsert.length];
+        k = index;
+        System.arraycopy(array, 0, result, 0, index);
+
+        for (short element : valuesToInsert) {
+            result[k] = element;
+            k++;
+        }
+
+        System.arraycopy(array, index, result, index + valuesToInsert.length, array.length - index);
+        return result;
+    }
+
+    /**
+     * Inserts the element(s) at the specified position in the array. Shifts the element currently at that
+     * position (if any) and any subsequent elements to the right.
+     *
+     * Example:
+     *
+     *  ArrayUtil.insert(null, 3, -12)      = [-12]
+     *  ArrayUtil.insert([1], 0, 2)         = [2, 1]
+     *  ArrayUtil.insert([1], 1, 2, -12, 3) = [1, 2, -12, 3]
+     *
+     * @param array - the array to insert the element
+     * @param index - the position of the new object
+     * @param valuesToInsert - the object to add
+     * @return A new array containing the existing elements and the new element
+     */
+    public static boolean[] insert(boolean[] array, int index, boolean... valuesToInsert) {
+        boolean[] result = null;
+        int k = 0;
+
+        if (array == null || array.length == 0) {
+            result = new boolean[valuesToInsert.length];
+            for (boolean element : valuesToInsert) {
+                result[k] = element;
+                k++;
+            }
+            return result;
+        }
+
+        if (index < 0 || index > array.length)
+            return null;
+
+        result = new boolean[array.length + valuesToInsert.length];
+        k = index;
+        System.arraycopy(array, 0, result, 0, index);
+
+        for (boolean element : valuesToInsert) {
+            result[k] = element;
+            k++;
+        }
+
+        System.arraycopy(array, index, result, index + valuesToInsert.length, array.length - index);
+        return result;
+    }
+
+    /**
+     * Inserts the element(s) at the specified position in the array. Shifts the element currently at that
+     * position (if any) and any subsequent elements to the right.
+     *
+     * Example:
+     *
+     *  ArrayUtil.insert(null, 3, -12)      = [-12]
+     *  ArrayUtil.insert([1], 0, 2)         = [2, 1]
+     *  ArrayUtil.insert([1], 1, 2, -12, 3) = [1, 2, -12, 3]
+     *
+     * @param array - the array to insert the element
+     * @param index - the position of the new object
+     * @param valuesToInsert - the object to add
+     * @return A new array containing the existing elements and the new element
+     */
+    public static char[] insert(char[] array, int index, char... valuesToInsert) {
+        char[] result = null;
+        int k = 0;
+
+        if (array == null || array.length == 0) {
+            result = new char[valuesToInsert.length];
+            for (char element : valuesToInsert) {
+                result[k] = element;
+                k++;
+            }
+            return result;
+        }
+
+        if (index < 0 || index > array.length)
+            return null;
+
+        result = new char[array.length + valuesToInsert.length];
+        k = index;
+        System.arraycopy(array, 0, result, 0, index);
+
+        for (char element : valuesToInsert) {
+            result[k] = element;
+            k++;
+        }
+
+        System.arraycopy(array, index, result, index + valuesToInsert.length, array.length - index);
+        return result;
+    }
+
+    /**
+     * Inserts the element(s) at the specified position in the array. Shifts the element currently at that
+     * position (if any) and any subsequent elements to the right.
+     *
+     * Example:
+     *
+     *  ArrayUtil.insert(null, 3, -12)      = [-12]
+     *  ArrayUtil.insert([1], 0, 2)         = [2, 1]
+     *  ArrayUtil.insert([1], 1, 2, -12, 3) = [1, 2, -12, 3]
+     *
+     * @param array - the array to insert the element
+     * @param index - the position of the new object
+     * @param valuesToInsert - the object to add
+     * @return A new array containing the existing elements and the new element
+     */
+    public static int[] insert(int[] array, int index, int... valuesToInsert){
+        int[] result = null;
+        int k = 0;
+
+        if(array == null || array.length == 0){
+            result = new int[valuesToInsert.length];
+            for(int element : valuesToInsert) {
+                result[k] = element; k++;
+            }
+            return result;
+        }
+
+        if(index < 0 || index > array.length)
+            return null;
+
+        result = new int[array.length + valuesToInsert.length]; k = index;
+        System.arraycopy(array, 0, result, 0, index);
+
+        for(int element : valuesToInsert) {
+            result[k] = element; k++;
+        }
+
+        System.arraycopy(array, index, result, index + valuesToInsert.length, array.length - index);
+        return result;
+    }
+
+    /**
+     * Inserts the element(s) at the specified position in the array. Shifts the element currently at that
+     * position (if any) and any subsequent elements to the right.
+     *
+     * Example:
+     *
+     *  ArrayUtil.insert(null, 3, -12)      = [-12]
+     *  ArrayUtil.insert([1], 0, 2)         = [2, 1]
+     *  ArrayUtil.insert([1], 1, 2, -12, 3) = [1, 2, -12, 3]
+     *
+     * @param array - the array to insert the element
+     * @param index - the position of the new object
+     * @param valuesToInsert - the object to add
+     * @return A new array containing the existing elements and the new element
+     */
+    public static long[] insert(long[] array, int index, long... valuesToInsert) {
+        long[] result = null;
+        int k = 0;
+
+        if (array == null || array.length == 0) {
+            result = new long[valuesToInsert.length];
+            for (long element : valuesToInsert) {
+                result[k] = element;
+                k++;
+            }
+            return result;
+        }
+
+        if (index < 0 || index > array.length)
+            return null;
+
+        result = new long[array.length + valuesToInsert.length];
+        k = index;
+        System.arraycopy(array, 0, result, 0, index);
+
+        for (long element : valuesToInsert) {
+            result[k] = element;
+            k++;
+        }
+
+        System.arraycopy(array, index, result, index + valuesToInsert.length, array.length - index);
+        return result;
+    }
+
+    /**
+     * Inserts the element(s) at the specified position in the array. Shifts the element currently at that
+     * position (if any) and any subsequent elements to the right.
+     *
+     * Example:
+     *
+     *  ArrayUtil.insert(null, 3, -12)      = [-12]
+     *  ArrayUtil.insert([1], 0, 2)         = [2, 1]
+     *  ArrayUtil.insert([1], 1, 2, -12, 3) = [1, 2, -12, 3]
+     *
+     * @param array - the array to insert the element
+     * @param index - the position of the new object
+     * @param valuesToInsert - the object to add
+     * @return A new array containing the existing elements and the new element
+     */
+    public static float[] insert(float[] array, int index, float... valuesToInsert) {
+        float[] result = null;
+        int k = 0;
+
+        if (array == null || array.length == 0) {
+            result = new float[valuesToInsert.length];
+            for (float element : valuesToInsert) {
+                result[k] = element;
+                k++;
+            }
+            return result;
+        }
+
+        if (index < 0 || index > array.length)
+            return null;
+
+        result = new float[array.length + valuesToInsert.length];
+        k = index;
+        System.arraycopy(array, 0, result, 0, index);
+
+        for (float element : valuesToInsert) {
+            result[k] = element;
+            k++;
+        }
+
+        System.arraycopy(array, index, result, index + valuesToInsert.length, array.length - index);
+        return result;
+    }
+
+    /**
+     * Inserts the element(s) at the specified position in the array. Shifts the element currently at that
+     * position (if any) and any subsequent elements to the right.
+     *
+     * Example:
+     *
+     *  ArrayUtil.insert(null, 3, -12)      = [-12]
+     *  ArrayUtil.insert([1], 0, 2)         = [2, 1]
+     *  ArrayUtil.insert([1], 1, 2, -12, 3) = [1, 2, -12, 3]
+     *
+     * @param array - the array to insert the element
+     * @param index - the position of the new object
+     * @param valuesToInsert - the object to add
+     * @return A new array containing the existing elements and the new element
+     */
+    public static double[] insert(double[] array, int index, double... valuesToInsert) {
+        double[] result = null;
+        int k = 0;
+
+        if (array == null || array.length == 0) {
+            result = new double[valuesToInsert.length];
+            for (double element : valuesToInsert) {
+                result[k] = element;
+                k++;
+            }
+            return result;
+        }
+
+        if (index < 0 || index > array.length)
+            return null;
+
+        result = new double[array.length + valuesToInsert.length];
+        k = index;
+        System.arraycopy(array, 0, result, 0, index);
+
+        for (double element : valuesToInsert) {
+            result[k] = element;
+            k++;
+        }
+
+        System.arraycopy(array, index, result, index + valuesToInsert.length, array.length - index);
+        return result;
+    }
+
+    /**
+     * Inserts the element(s) at the specified position in the array. Shifts the element currently at that
+     * position (if any) and any subsequent elements to the right.
+     *
+     * Example:
+     *
+     *  ArrayUtil.insert(null, 3, -12)      = [-12]
+     *  ArrayUtil.insert([1], 0, 2)         = [2, 1]
+     *  ArrayUtil.insert([1], 1, 2, -12, 3) = [1, 2, -12, 3]
+     *
+     * @param array - the array to insert the element
+     * @param index - the position of the new object
+     * @param valuesToInsert - the object to add
+     * @return A new array containing the existing elements and the new element
+     */
+    public static Object[] insert(Object[] array, int index, Object... valuesToInsert) {
+        Object[] result = null;
+        int k = 0;
+
+        if (array == null || array.length == 0) {
+            result = new Object[valuesToInsert.length];
+            for (Object element : valuesToInsert) {
+                result[k] = element;
+                k++;
+            }
+            return result;
+        }
+
+        if (index < 0 || index > array.length)
+            return null;
+
+        result = new Object[array.length + valuesToInsert.length];
+        k = index;
+        System.arraycopy(array, 0, result, 0, index);
+
+        for (Object element : valuesToInsert) {
+            result[k] = element;
+            k++;
+        }
+
+        System.arraycopy(array, index, result, index + valuesToInsert.length, array.length - index);
+        return result;
+    }
+
+    /**
+     * Inserts the element(s) at the specified position in the array. Shifts the element currently at that
+     * position (if any) and any subsequent elements to the right.
+     *
+     * Example:
+     *
+     *  ArrayUtil.insert(null, 3, -12)      = [-12]
+     *  ArrayUtil.insert([1], 0, 2)         = [2, 1]
+     *  ArrayUtil.insert([1], 1, 2, -12, 3) = [1, 2, -12, 3]
+     *
+     * @param clazz - Type of Array
+     * @param array - the array to insert the element
+     * @param index - the position of the new object
+     * @param valuesToInsert - the object to add
+     * @param <I> - type of element
+     * @return A new array containing the existing elements and the new element
+     */
+    public static <I> I[] insert(Class<I> clazz, I[] array, int index, I... valuesToInsert) {
+        I[] result = null;
+        int k = 0;
+
+        if (array == null || array.length == 0) {
+            result = (I[]) Array.newInstance(clazz, valuesToInsert.length);
+            for (I element : valuesToInsert) {
+                result[k] = element;
+                k++;
+            }
+            return result;
+        }
+
+        if (index < 0 || index > array.length)
+            return null;
+
+        result = (I[]) Array.newInstance(clazz, array.length + valuesToInsert.length);
+        k = index;
+        System.arraycopy(array, 0, result, 0, index);
+
+        for (I element : valuesToInsert) {
+            result[k] = element;
+            k++;
+        }
+
+        System.arraycopy(array, index, result, index + valuesToInsert.length, array.length - index);
+        return result;
+    }
+
     /**
      * Checks if an array of primitive type is empty or null.
      *
@@ -1322,6 +1757,468 @@ public class ArrayUtil {
         }
 
         return arr;
+    }
+
+    /**
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to
+     * the left.
+     *
+     * Example:
+     *  ArrayUtils.remove([1], 0)          = []
+     *  ArrayUtils.remove([2, 6, 3], 1, 2) = [2]
+     *
+     * @param array the array to remove the element(s) from
+     * @param index the position(s) of the element to be removed
+     * @throws NullPointerException if input array is null
+     * @throws IndexOutOfBoundsException if (index < 0 || index >= array.length)
+     * @return A new array containing the existing elements except the element at the specified position(s).
+     */
+    public static short[] remove(short[] array, int... index){
+        short[] removedArray = new short[array.length - index.length];
+
+        if(array == null) throw new NullPointerException();
+
+        if(index.length == 1){
+            System.arraycopy(array, 0, removedArray, 0, index[0]);
+            System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+        }
+
+        int k = 0, m = 0, prev = -1;
+
+        // Sort the indexes
+        Arrays.sort(index);
+
+        for(int j = 0; j < array.length; j++){
+
+            if(prev != m) {
+                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
+                prev = m;
+            }
+
+            if(j == index[m]){
+                m++;
+                continue;
+            }
+            removedArray[k] = array[j]; k++;
+        }
+
+        return removedArray;
+    }
+
+    /**
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to
+     * the left.
+     *
+     * Example:
+     *  ArrayUtils.remove([1], 0)          = []
+     *  ArrayUtils.remove([2, 6, 3], 1, 2) = [2]
+     *
+     * @param array the array to remove the element(s) from
+     * @param index the position(s) of the element to be removed
+     * @throws NullPointerException if input array is null
+     * @throws IndexOutOfBoundsException if (index < 0 || index >= array.length)
+     * @return A new array containing the existing elements except the element at the specified position(s).
+     */
+    public static byte[] remove(byte[] array, int... index){
+        byte[] removedArray = new byte[array.length - index.length];
+
+        if(array == null) throw new NullPointerException();
+
+        if(index.length == 1){
+            System.arraycopy(array, 0, removedArray, 0, index[0]);
+            System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+        }
+
+        int k = 0, m = 0, prev = -1;
+
+        // Sort the indexes
+        Arrays.sort(index);
+
+        for(int j = 0; j < array.length; j++){
+
+            if(prev != m) {
+                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
+                prev = m;
+            }
+
+            if(j == index[m]){
+                m++;
+                continue;
+            }
+            removedArray[k] = array[j]; k++;
+        }
+
+        return removedArray;
+    }
+
+    /**
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to
+     * the left.
+     *
+     * Example:
+     *  ArrayUtils.remove([1], 0)          = []
+     *  ArrayUtils.remove([2, 6, 3], 1, 2) = [2]
+     *
+     * @param array the array to remove the element(s) from
+     * @param index the position(s) of the element to be removed
+     * @throws NullPointerException if input array is null
+     * @throws IndexOutOfBoundsException if (index < 0 || index >= array.length)
+     * @return A new array containing the existing elements except the element at the specified position(s).
+     */
+    public static boolean[] remove(boolean[] array, int... index){
+        boolean[] removedArray = new boolean[array.length - index.length];
+
+        if(array == null) throw new NullPointerException();
+
+        if(index.length == 1){
+            System.arraycopy(array, 0, removedArray, 0, index[0]);
+            System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+        }
+
+        int k = 0, m = 0, prev = -1;
+
+        // Sort the indexes
+        Arrays.sort(index);
+
+        for(int j = 0; j < array.length; j++){
+
+            if(prev != m) {
+                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
+                prev = m;
+            }
+
+            if(j == index[m]){
+                m++;
+                continue;
+            }
+            removedArray[k] = array[j]; k++;
+        }
+
+        return removedArray;
+    }
+
+    /**
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to
+     * the left.
+     *
+     * Example:
+     *  ArrayUtils.remove([1], 0)          = []
+     *  ArrayUtils.remove([2, 6, 3], 1, 2) = [2]
+     *
+     * @param array the array to remove the element(s) from
+     * @param index the position(s) of the element to be removed
+     * @throws NullPointerException if input array is null
+     * @throws IndexOutOfBoundsException if (index < 0 || index >= array.length)
+     * @return A new array containing the existing elements except the element at the specified position(s).
+     */
+    public static char[] remove(char[] array, int... index){
+        char[] removedArray = new char[array.length - index.length];
+
+        if(array == null) throw new NullPointerException();
+
+        if(index.length == 1){
+            System.arraycopy(array, 0, removedArray, 0, index[0]);
+            System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+        }
+
+        int k = 0, m = 0, prev = -1;
+
+        // Sort the indexes
+        Arrays.sort(index);
+
+        for(int j = 0; j < array.length; j++){
+
+            if(prev != m) {
+                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
+                prev = m;
+            }
+
+            if(j == index[m]){
+                m++;
+                continue;
+            }
+            removedArray[k] = array[j]; k++;
+        }
+
+        return removedArray;
+    }
+
+    /**
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to
+     * the left.
+     *
+     * Example:
+     *  ArrayUtils.remove([1], 0)          = []
+     *  ArrayUtils.remove([2, 6, 3], 1, 2) = [2]
+     *
+     * @param array the array to remove the element(s) from
+     * @param index the position(s) of the element to be removed
+     * @throws NullPointerException if input array is null
+     * @throws IndexOutOfBoundsException if (index < 0 || index >= array.length)
+     * @return A new array containing the existing elements except the element at the specified position(s).
+     */
+    public static int[] remove(int[] array, int... index){
+        int[] removedArray = new int[array.length - index.length];
+
+        if(array == null) throw new NullPointerException();
+
+        if(index.length == 1){
+            System.arraycopy(array, 0, removedArray, 0, index[0]);
+            System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+        }
+
+        int k = 0, m = 0, prev = -1;
+
+        // Sort the indexes
+        Arrays.sort(index);
+
+        for(int j = 0; j < array.length; j++){
+
+            if(prev != m) {
+                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
+                prev = m;
+            }
+
+            if(j == index[m]){
+                m++;
+                continue;
+            }
+            removedArray[k] = array[j]; k++;
+        }
+
+        return removedArray;
+    }
+
+    /**
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to
+     * the left.
+     *
+     * Example:
+     *  ArrayUtils.remove([1], 0)          = []
+     *  ArrayUtils.remove([2, 6, 3], 1, 2) = [2]
+     *
+     * @param array the array to remove the element(s) from
+     * @param index the position(s) of the element to be removed
+     * @throws NullPointerException if input array is null
+     * @throws IndexOutOfBoundsException if (index < 0 || index >= array.length)
+     * @return A new array containing the existing elements except the element at the specified position(s).
+     */
+    public static long[] remove(long[] array, int... index){
+        long[] removedArray = new long[array.length - index.length];
+
+        if(array == null) throw new NullPointerException();
+
+        if(index.length == 1){
+            System.arraycopy(array, 0, removedArray, 0, index[0]);
+            System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+        }
+
+        int k = 0, m = 0, prev = -1;
+
+        // Sort the indexes
+        Arrays.sort(index);
+
+        for(int j = 0; j < array.length; j++){
+
+            if(prev != m) {
+                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
+                prev = m;
+            }
+
+            if(j == index[m]){
+                m++;
+                continue;
+            }
+            removedArray[k] = array[j]; k++;
+        }
+
+        return removedArray;
+    }
+
+    /**
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to
+     * the left.
+     *
+     * Example:
+     *  ArrayUtils.remove([1], 0)          = []
+     *  ArrayUtils.remove([2, 6, 3], 1, 2) = [2]
+     *
+     * @param array the array to remove the element(s) from
+     * @param index the position(s) of the element to be removed
+     * @throws NullPointerException if input array is null
+     * @throws IndexOutOfBoundsException if (index < 0 || index >= array.length)
+     * @return A new array containing the existing elements except the element at the specified position(s).
+     */
+    public static float[] remove(float[] array, int... index){
+        float[] removedArray = new float[array.length - index.length];
+
+        if(array == null) throw new NullPointerException();
+
+        if(index.length == 1){
+            System.arraycopy(array, 0, removedArray, 0, index[0]);
+            System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+        }
+
+        int k = 0, m = 0, prev = -1;
+
+        // Sort the indexes
+        Arrays.sort(index);
+
+        for(int j = 0; j < array.length; j++){
+
+            if(prev != m) {
+                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
+                prev = m;
+            }
+
+            if(j == index[m]){
+                m++;
+                continue;
+            }
+            removedArray[k] = array[j]; k++;
+        }
+
+        return removedArray;
+    }
+
+    /**
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to
+     * the left.
+     *
+     * Example:
+     *  ArrayUtils.remove([1], 0)          = []
+     *  ArrayUtils.remove([2, 6, 3], 1, 2) = [2]
+     *
+     * @param array the array to remove the element(s) from
+     * @param index the position(s) of the element to be removed
+     * @throws NullPointerException if input array is null
+     * @throws IndexOutOfBoundsException if (index < 0 || index >= array.length)
+     * @return A new array containing the existing elements except the element at the specified position(s).
+     */
+    public static double[] remove(double[] array, int... index){
+        double[] removedArray = new double[array.length - index.length];
+
+        if(array == null) throw new NullPointerException();
+
+        if(index.length == 1){
+            System.arraycopy(array, 0, removedArray, 0, index[0]);
+            System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+        }
+
+        int k = 0, m = 0, prev = -1;
+
+        // Sort the indexes
+        Arrays.sort(index);
+
+        for(int j = 0; j < array.length; j++){
+
+            if(prev != m) {
+                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
+                prev = m;
+            }
+
+            if(j == index[m]){
+                m++;
+                continue;
+            }
+            removedArray[k] = array[j]; k++;
+        }
+
+        return removedArray;
+    }
+
+    /**
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to
+     * the left.
+     *
+     * Example:
+     *  ArrayUtils.remove([1], 0)          = []
+     *  ArrayUtils.remove([2, 6, 3], 1, 2) = [2]
+     *
+     * @param array the array to remove the element(s) from
+     * @param index the position(s) of the element to be removed
+     * @throws NullPointerException if input array is null
+     * @throws IndexOutOfBoundsException if (index < 0 || index >= array.length)
+     * @return A new array containing the existing elements except the element at the specified position(s).
+     */
+    public static Object[] remove(Object[] array, int... index){
+        Object[] removedArray = new Object[array.length - index.length];
+
+        if(array == null) throw new NullPointerException();
+
+        if(index.length == 1){
+            System.arraycopy(array, 0, removedArray, 0, index[0]);
+            System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+        }
+
+        int k = 0, m = 0, prev = -1;
+
+        // Sort the indexes
+        Arrays.sort(index);
+
+        for(int j = 0; j < array.length; j++){
+
+            if(prev != m) {
+                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
+                prev = m;
+            }
+
+            if(j == index[m]){
+                m++;
+                continue;
+            }
+            removedArray[k] = array[j]; k++;
+        }
+
+        return removedArray;
+    }
+
+    /**
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to
+     * the left.
+     *
+     * Example:
+     *  ArrayUtils.remove([1], 0)          = []
+     *  ArrayUtils.remove([2, 6, 3], 1, 2) = [2]
+     *
+     * @param clazz Class type
+     * @param array the array to remove the element(s) from
+     * @param index the position(s) of the element to be removed
+     * @param <B> type of element
+     * @throws NullPointerException if input array is null
+     * @throws IndexOutOfBoundsException if (index < 0 || index >= array.length)
+     * @return A new array containing the existing elements except the element at the specified position(s).
+     */
+    public static <B> B[] remove(Class<B> clazz, B[] array, int... index){
+        B[] removedArray = (B[])Array.newInstance(clazz,array.length - index.length);
+
+        if(array == null) throw new NullPointerException();
+
+        if(index.length == 1){
+            System.arraycopy(array, 0, removedArray, 0, index[0]);
+            System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+        }
+
+        int k = 0, m = 0, prev = -1;
+
+        // Sort the indexes
+        Arrays.sort(index);
+
+        for(int j = 0; j < array.length; j++){
+
+            if(prev != m) {
+                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
+                prev = m;
+            }
+
+            if(j == index[m]){
+                m++;
+                continue;
+            }
+            removedArray[k] = array[j]; k++;
+        }
+
+        return removedArray;
     }
 
     /**
