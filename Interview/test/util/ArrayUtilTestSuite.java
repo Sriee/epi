@@ -16,6 +16,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		ArrayUtilLengthTest.class,
 		ArrayUtilNotEmptyTest.class,
 		ArrayUtilNullEmptyTest.class,
+		ArrayUtilRemoveTest.class,
 		ArrayUtilReverseTest.class,
 		ArrayUtilSubarrayTest.class,
 		ArrayUtilToObjectAndTypeTest.class,
