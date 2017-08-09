@@ -2679,4 +2679,22 @@ public class ArrayUtil {
         return result;
     }
 
+    /**
+     * Converts an object array to custom class array
+     *
+     * @param clazz Custom class type
+     * @param arr an Object array
+     * @param <C> Custom class type parameter
+     * @return  a Custom array, 'null' if 'null' array input
+     */
+    @SuppressWarnings("unchecked")
+    public static <C> C[] toPrimitive(Class<C> clazz, Object[] arr){
+        if(isEmpty(arr)) return null;
+        C[] result = (C[])Array.newInstance(clazz, arr.length);
+        int i = 0;
+        for(Object obj : arr){
+            result[i++] = (C) obj;
+        }
+        return result;
+    }
 }
