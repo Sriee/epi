@@ -1105,6 +1105,7 @@ public class ArrayUtil {
      * @param <I> - type of element
      * @return A new array containing the existing elements and the new element
      */
+    @SuppressWarnings("unchecked")
     public static <I> I[] insert(Class<I> clazz, I[] array, int index, I... valuesToInsert) {
         I[] result = null;
         int k = 0;
@@ -1776,8 +1777,6 @@ public class ArrayUtil {
     public static short[] remove(short[] array, int... index){
         short[] removedArray = new short[array.length - index.length];
 
-        if(array == null) throw new NullPointerException();
-
         if(index.length == 1){
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
@@ -1821,8 +1820,6 @@ public class ArrayUtil {
      */
     public static byte[] remove(byte[] array, int... index){
         byte[] removedArray = new byte[array.length - index.length];
-
-        if(array == null) throw new NullPointerException();
 
         if(index.length == 1){
             System.arraycopy(array, 0, removedArray, 0, index[0]);
@@ -1868,8 +1865,6 @@ public class ArrayUtil {
     public static boolean[] remove(boolean[] array, int... index){
         boolean[] removedArray = new boolean[array.length - index.length];
 
-        if(array == null) throw new NullPointerException();
-
         if(index.length == 1){
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
@@ -1913,8 +1908,6 @@ public class ArrayUtil {
      */
     public static char[] remove(char[] array, int... index){
         char[] removedArray = new char[array.length - index.length];
-
-        if(array == null) throw new NullPointerException();
 
         if(index.length == 1){
             System.arraycopy(array, 0, removedArray, 0, index[0]);
@@ -1960,8 +1953,6 @@ public class ArrayUtil {
     public static int[] remove(int[] array, int... index){
         int[] removedArray = new int[array.length - index.length];
 
-        if(array == null) throw new NullPointerException();
-
         if(index.length == 1){
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
@@ -2005,8 +1996,6 @@ public class ArrayUtil {
      */
     public static long[] remove(long[] array, int... index){
         long[] removedArray = new long[array.length - index.length];
-
-        if(array == null) throw new NullPointerException();
 
         if(index.length == 1){
             System.arraycopy(array, 0, removedArray, 0, index[0]);
@@ -2052,8 +2041,6 @@ public class ArrayUtil {
     public static float[] remove(float[] array, int... index){
         float[] removedArray = new float[array.length - index.length];
 
-        if(array == null) throw new NullPointerException();
-
         if(index.length == 1){
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
@@ -2097,8 +2084,6 @@ public class ArrayUtil {
      */
     public static double[] remove(double[] array, int... index){
         double[] removedArray = new double[array.length - index.length];
-
-        if(array == null) throw new NullPointerException();
 
         if(index.length == 1){
             System.arraycopy(array, 0, removedArray, 0, index[0]);
@@ -2144,8 +2129,6 @@ public class ArrayUtil {
     public static Object[] remove(Object[] array, int... index){
         Object[] removedArray = new Object[array.length - index.length];
 
-        if(array == null) throw new NullPointerException();
-
         if(index.length == 1){
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
@@ -2189,10 +2172,9 @@ public class ArrayUtil {
      * @throws IndexOutOfBoundsException if (index < 0 || index >= array.length)
      * @return A new array containing the existing elements except the element at the specified position(s).
      */
+    @SuppressWarnings("unchecked")
     public static <B> B[] remove(Class<B> clazz, B[] array, int... index){
         B[] removedArray = (B[])Array.newInstance(clazz,array.length - index.length);
-
-        if(array == null) throw new NullPointerException();
 
         if(index.length == 1){
             System.arraycopy(array, 0, removedArray, 0, index[0]);
