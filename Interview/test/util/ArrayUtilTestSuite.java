@@ -12,6 +12,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		ArrayUtilContainsTest.class,
 		ArrayUtilEmptyTest.class,
 		ArrayUtilIndexOfTest.class,
+		ArrayUtilInsertTest.class,
+		ArrayUtilLengthTest.class,
 		ArrayUtilNotEmptyTest.class,
 		ArrayUtilNullEmptyTest.class,
 		ArrayUtilReverseTest.class,
