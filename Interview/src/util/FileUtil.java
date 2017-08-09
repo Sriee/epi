@@ -7,7 +7,7 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileUtil {
+public class FileUtil{
 
     private String fileName;
     private long headLength;
@@ -29,27 +29,27 @@ public class FileUtil {
         this.sleep = sleep;
     }
 
-    public String getFileName() {
+    private String getFileName() {
         return fileName;
     }
 
-    public void setFileName(String fileName) {
+    private void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
-    public long getHeadLength() {
+    private long getHeadLength() {
         return headLength;
     }
 
-    public void setHeadLength(long headLength) {
+    private void setHeadLength(long headLength) {
         this.headLength = headLength;
     }
 
-    public long getTailLength() {
+    private long getTailLength() {
         return tailLength;
     }
 
-    public void setTailLength(long tailLength) {
+    private void setTailLength(long tailLength) {
         this.tailLength = tailLength;
     }
 
@@ -60,8 +60,6 @@ public class FileUtil {
     public void setSleep(long sleep) {
         this.sleep = sleep;
     }
-
-    /******************* HEAD *******************************/
 
     /**
      * Displays the first [count] lines of the specified file.  If count is omitted it defaults to 10.
@@ -128,7 +126,6 @@ public class FileUtil {
         }
     }
 
-    /******************* TAIL *******************************/
     public void tail(){
         tailFunctionality();
     }
