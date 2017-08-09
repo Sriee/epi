@@ -103,8 +103,6 @@ public class FileUtil{
      */
     private void headFunctionality(){
         BufferedReader bufferedReader = null;
-        FileReader fileReader = null;
-
         try {
             bufferedReader = new BufferedReader(new FileReader(this.getFileName()));
             String currentLine;
@@ -119,33 +117,54 @@ public class FileUtil{
         } finally {
             try {
                 if (bufferedReader != null) bufferedReader.close();
-                if (fileReader != null) fileReader.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
     }
 
+    /**
+     * Displays the last [count] lines of the specified file.  If count is omitted it defaults to 10.
+     */
     public void tail(){
         tailFunctionality();
     }
 
+    /**
+     * Displays the last [count] lines of the specified file.  If count is omitted it defaults to 10.
+     *
+     * @param fileName Name of the file
+     */
     public void tail(String fileName){
         this.setFileName(fileName);
         tailFunctionality();
     }
 
+    /**
+     * Displays the last [count] lines of the specified file.  If count is omitted it defaults to 10.
+     *
+     * @param tailLength number of lines to display
+     */
     public void tail(long tailLength){
         this.setTailLength(tailLength);
         tailFunctionality();
     }
 
+    /**
+     * Displays the last [count] lines of the specified file.  If count is omitted it defaults to 10.
+     *
+     * @param fileName Name of the file
+     * @param tailLength number of lines to display
+     */
     public void tail(String fileName, long tailLength){
         this.setFileName(fileName);
         this.setTailLength(tailLength);
         tailFunctionality();
     }
 
+    /**
+     * 'tail' command feature implementation
+     */
     private void tailFunctionality(){
         RandomAccessFile raf = null;
         List<String> lines = new ArrayList<String>();
@@ -180,10 +199,16 @@ public class FileUtil{
         }
     }
 
+    @Override
+    public String toString() {
+        return "FileUtil [File Name=\'" + this.getFileName() + "\', Head Count=" + this.getHeadLength() +
+                ", Tail Count=" + this.getTailLength() + ", Sleep=" + this.getSleep() + "]";
+    }
+
     public static void main(String[] args) {
-    	FileUtil fu = new FileUtil("/Users/sriee/epi/Interview/src/util/data/harley.txt");
-        System.out.println("Starting...");
-    	fu.head();
+        FileUtil fu = new FileUtil("/Users/sriee/epi/Interview/src/util/data/harley.txt");
+        System.out.println("(START)...");
+        System.out.println(fu);
         System.out.println("(END)...");
     }
 }
