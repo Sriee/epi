@@ -12,6 +12,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		ArrayUtilContainsTest.class,
 		ArrayUtilEmptyTest.class,
 		ArrayUtilIndexOfTest.class,
+		ArrayUtilInsertRemoveObjectTest.class,
 		ArrayUtilInsertTest.class,
 		ArrayUtilLengthTest.class,
 		ArrayUtilNotEmptyTest.class,
