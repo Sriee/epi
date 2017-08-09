@@ -1,7 +1,7 @@
 package util;
 
 import java.lang.reflect.Array;
-import java.util.Arrays;
+import java.util.TreeSet;
 
 public class ArrayUtil {
 
@@ -1774,30 +1774,25 @@ public class ArrayUtil {
      * @throws IndexOutOfBoundsException if (index < 0 || index >= array.length)
      * @return A new array containing the existing elements except the element at the specified position(s).
      */
-    public static short[] remove(short[] array, int... index){
-        short[] removedArray = new short[array.length - index.length];
+    public static byte[] remove(byte[] array, int... index){
+        byte[] removedArray = new byte[array.length - index.length];
 
         if(index.length == 1){
+        	removedArray = new byte[array.length - 1];
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+            return removedArray;
         }
 
-        int k = 0, m = 0, prev = -1;
-
-        // Sort the indexes
-        Arrays.sort(index);
-
+        TreeSet<Integer> indices = new TreeSet<>();
+        for(int element : index){
+        	indices.add(element);
+        }
+        
+        removedArray = new byte[array.length - indices.size()];
+        int k = 0;
         for(int j = 0; j < array.length; j++){
-
-            if(prev != m) {
-                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
-                prev = m;
-            }
-
-            if(j == index[m]){
-                m++;
-                continue;
-            }
+        	if(indices.contains(j)) continue;
             removedArray[k] = array[j]; k++;
         }
 
@@ -1818,36 +1813,30 @@ public class ArrayUtil {
      * @throws IndexOutOfBoundsException if (index < 0 || index >= array.length)
      * @return A new array containing the existing elements except the element at the specified position(s).
      */
-    public static byte[] remove(byte[] array, int... index){
-        byte[] removedArray = new byte[array.length - index.length];
+    public static short[] remove(short[] array, int... index){
+        short[] removedArray = null;
 
         if(index.length == 1){
+        	removedArray = new short[array.length - 1];
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+            return removedArray;
         }
 
-        int k = 0, m = 0, prev = -1;
-
-        // Sort the indexes
-        Arrays.sort(index);
-
+        TreeSet<Integer> indices = new TreeSet<>();
+        for(int element : index){
+        	indices.add(element);
+        }
+        
+        removedArray = new short[array.length - indices.size()];
+        int k = 0;
         for(int j = 0; j < array.length; j++){
-
-            if(prev != m) {
-                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
-                prev = m;
-            }
-
-            if(j == index[m]){
-                m++;
-                continue;
-            }
+        	if(indices.contains(j)) continue;
             removedArray[k] = array[j]; k++;
         }
-
         return removedArray;
     }
-
+    
     /**
      * Removes the element at the specified position from the specified array. All subsequent elements are shifted to
      * the left.
@@ -1863,32 +1852,26 @@ public class ArrayUtil {
      * @return A new array containing the existing elements except the element at the specified position(s).
      */
     public static boolean[] remove(boolean[] array, int... index){
-        boolean[] removedArray = new boolean[array.length - index.length];
+        boolean[] removedArray = null;
 
         if(index.length == 1){
+        	removedArray = new boolean[array.length - 1];
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+            return removedArray;
         }
 
-        int k = 0, m = 0, prev = -1;
-
-        // Sort the indexes
-        Arrays.sort(index);
-
+        TreeSet<Integer> indices = new TreeSet<>();
+        for(int element : index){
+        	indices.add(element);
+        }
+        
+        int k = 0;
+        removedArray = new boolean[array.length - indices.size()];
         for(int j = 0; j < array.length; j++){
-
-            if(prev != m) {
-                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
-                prev = m;
-            }
-
-            if(j == index[m]){
-                m++;
-                continue;
-            }
+        	if(indices.contains(j)) continue;
             removedArray[k] = array[j]; k++;
         }
-
         return removedArray;
     }
 
@@ -1907,33 +1890,26 @@ public class ArrayUtil {
      * @return A new array containing the existing elements except the element at the specified position(s).
      */
     public static char[] remove(char[] array, int... index){
-        char[] removedArray = new char[array.length - index.length];
+        char[] removedArray = null;
 
         if(index.length == 1){
+        	removedArray = new char[array.length - 1];
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+            return removedArray;
         }
 
-        int k = 0, m = 0, prev = -1;
-
-        // Sort the indexes
-        Arrays.sort(index);
-
+        TreeSet<Integer> indices = new TreeSet<>();
+        for(int element : index){
+        	indices.add(element);
+        }
+        
+        int k = 0;
+        removedArray = new char[array.length - indices.size()];
         for(int j = 0; j < array.length; j++){
-
-            if(prev != m) {
-                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
-                prev = m;
-            }
-
-            if(j == index[m]){
-                m++;
-                continue;
-            }
+        	if(indices.contains(j)) continue;
             removedArray[k] = array[j]; k++;
-        }
-
-        return removedArray;
+        }        return removedArray;
     }
 
     /**
@@ -1954,30 +1930,23 @@ public class ArrayUtil {
         int[] removedArray = new int[array.length - index.length];
 
         if(index.length == 1){
+        	removedArray = new int[array.length - 1];
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+            return removedArray;
         }
 
-        int k = 0, m = 0, prev = -1;
-
-        // Sort the indexes
-        Arrays.sort(index);
-
+        TreeSet<Integer> indices = new TreeSet<>();
+        for(int element : index){
+        	indices.add(element);
+        }
+        
+        int k = 0;
+        removedArray = new int[array.length - indices.size()];
         for(int j = 0; j < array.length; j++){
-
-            if(prev != m) {
-                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
-                prev = m;
-            }
-
-            if(j == index[m]){
-                m++;
-                continue;
-            }
+        	if(indices.contains(j)) continue;
             removedArray[k] = array[j]; k++;
-        }
-
-        return removedArray;
+        }        return removedArray;
     }
 
     /**
@@ -1998,30 +1967,23 @@ public class ArrayUtil {
         long[] removedArray = new long[array.length - index.length];
 
         if(index.length == 1){
+        	removedArray = new long[array.length - 1];
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+            return removedArray;
         }
 
-        int k = 0, m = 0, prev = -1;
-
-        // Sort the indexes
-        Arrays.sort(index);
-
+        TreeSet<Integer> indices = new TreeSet<>();
+        for(int element : index){
+        	indices.add(element);
+        }
+        
+        int k = 0;
+        removedArray = new long[array.length - indices.size()];
         for(int j = 0; j < array.length; j++){
-
-            if(prev != m) {
-                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
-                prev = m;
-            }
-
-            if(j == index[m]){
-                m++;
-                continue;
-            }
+        	if(indices.contains(j)) continue;
             removedArray[k] = array[j]; k++;
-        }
-
-        return removedArray;
+        }        return removedArray;
     }
 
     /**
@@ -2039,33 +2001,26 @@ public class ArrayUtil {
      * @return A new array containing the existing elements except the element at the specified position(s).
      */
     public static float[] remove(float[] array, int... index){
-        float[] removedArray = new float[array.length - index.length];
+        float[] removedArray = null;
 
         if(index.length == 1){
+        	removedArray = new float[array.length - 1];
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+            return removedArray;
         }
 
-        int k = 0, m = 0, prev = -1;
-
-        // Sort the indexes
-        Arrays.sort(index);
-
+        TreeSet<Integer> indices = new TreeSet<>();
+        for(int element : index){
+        	indices.add(element);
+        }
+        
+        int k = 0;
+        removedArray = new float[array.length - indices.size()];
         for(int j = 0; j < array.length; j++){
-
-            if(prev != m) {
-                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
-                prev = m;
-            }
-
-            if(j == index[m]){
-                m++;
-                continue;
-            }
+        	if(indices.contains(j)) continue;
             removedArray[k] = array[j]; k++;
-        }
-
-        return removedArray;
+        }        return removedArray;
     }
 
     /**
@@ -2083,33 +2038,26 @@ public class ArrayUtil {
      * @return A new array containing the existing elements except the element at the specified position(s).
      */
     public static double[] remove(double[] array, int... index){
-        double[] removedArray = new double[array.length - index.length];
+        double[] removedArray = null;
 
         if(index.length == 1){
+        	removedArray = new double[array.length - 1];
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+            return removedArray;
         }
 
-        int k = 0, m = 0, prev = -1;
-
-        // Sort the indexes
-        Arrays.sort(index);
-
+        TreeSet<Integer> indices = new TreeSet<>();
+        for(int element : index){
+        	indices.add(element);
+        }
+        
+        int k = 0;
+        removedArray = new double[array.length - indices.size()];
         for(int j = 0; j < array.length; j++){
-
-            if(prev != m) {
-                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
-                prev = m;
-            }
-
-            if(j == index[m]){
-                m++;
-                continue;
-            }
+        	if(indices.contains(j)) continue;
             removedArray[k] = array[j]; k++;
-        }
-
-        return removedArray;
+        }        return removedArray;
     }
 
     /**
@@ -2127,33 +2075,26 @@ public class ArrayUtil {
      * @return A new array containing the existing elements except the element at the specified position(s).
      */
     public static Object[] remove(Object[] array, int... index){
-        Object[] removedArray = new Object[array.length - index.length];
+        Object[] removedArray = null;
 
         if(index.length == 1){
+        	removedArray = new Object[array.length - 1];
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+            return removedArray;
         }
 
-        int k = 0, m = 0, prev = -1;
-
-        // Sort the indexes
-        Arrays.sort(index);
-
+        TreeSet<Integer> indices = new TreeSet<>();
+        for(int element : index){
+        	indices.add(element);
+        }
+        
+        int k = 0;
+        removedArray = new Object[array.length - indices.size()];
         for(int j = 0; j < array.length; j++){
-
-            if(prev != m) {
-                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
-                prev = m;
-            }
-
-            if(j == index[m]){
-                m++;
-                continue;
-            }
+        	if(indices.contains(j)) continue;
             removedArray[k] = array[j]; k++;
-        }
-
-        return removedArray;
+        }        return removedArray;
     }
 
     /**
@@ -2174,33 +2115,26 @@ public class ArrayUtil {
      */
     @SuppressWarnings("unchecked")
     public static <B> B[] remove(Class<B> clazz, B[] array, int... index){
-        B[] removedArray = (B[])Array.newInstance(clazz,array.length - index.length);
+        B[] removedArray = null;
 
         if(index.length == 1){
+        	removedArray = (B[])Array.newInstance(clazz,array.length - 1);
             System.arraycopy(array, 0, removedArray, 0, index[0]);
             System.arraycopy(array, index[0] + 1, removedArray, index[0], array.length - index[0] - 1);
+            return removedArray;
         }
 
-        int k = 0, m = 0, prev = -1;
-
-        // Sort the indexes
-        Arrays.sort(index);
-
+        TreeSet<Integer> indices = new TreeSet<>();
+        for(int element : index){
+        	indices.add(element);
+        }
+        
+        int k = 0;
+        removedArray = (B[])Array.newInstance(clazz,array.length - indices.size());
         for(int j = 0; j < array.length; j++){
-
-            if(prev != m) {
-                if (index[m] < 0 || index[m] > array.length) throw new IndexOutOfBoundsException();
-                prev = m;
-            }
-
-            if(j == index[m]){
-                m++;
-                continue;
-            }
+        	if(indices.contains(j)) continue;
             removedArray[k] = array[j]; k++;
-        }
-
-        return removedArray;
+        }        return removedArray;
     }
 
     /**
