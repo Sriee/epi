@@ -201,6 +201,57 @@ public class FileUtil{
         }
     }
 
+    /**
+     * Displays the last [count] lines of the specified file. If count is omitted it defaults to 10. After printing
+     * monitors the file for further additions
+     *
+     * Warning: This is a daemon thread. User should send SIGTERM to quit the program.
+     */
+    public void tailFeed(){
+        tail();
+        new Thread(new TailFeed(this.getFileName(), this.getTailLength())).start();
+    }
+
+    /**
+     * Displays the last [count] lines of the specified file. If count is omitted it defaults to 10. After printing
+     * monitors the file for further additions
+     *
+     * Warning: This is a daemon thread. User should send SIGTERM to quit the program.
+     *
+     * @param fileName Name of the file
+     */
+    public void tailFeed(String fileName){
+        tail(fileName);
+        new Thread(new TailFeed(this.getFileName(), this.getTailLength())).start();
+    }
+
+    /**
+     * Displays the last [count] lines of the specified file. If count is omitted it defaults to 10. After printing
+     * monitors the file for further additions
+     *
+     * Warning: This is a daemon thread. User should send SIGTERM to quit the program.
+     *
+     * @param tailLength number of lines to display
+     */
+    public void tailFeed(long tailLength){
+        tail(tailLength);
+        new Thread(new TailFeed(this.getFileName(), this.getTailLength())).start();
+    }
+
+    /**
+     * Displays the last [count] lines of the specified file. If count is omitted it defaults to 10. After printing
+     * monitors the file for further additions
+     *
+     * Warning: This is a daemon thread. User should send SIGTERM to quit the program.
+     *
+     * @param fileName Name of the file
+     * @param tailLength number of lines to display
+     */
+    public void tailFeed(String fileName, long tailLength){
+        tail(fileName, tailLength);
+        new Thread(new TailFeed(this.getFileName(), this.getTailLength())).start();
+    }
+
     @Override
     public String toString() {
         return "FileUtil [File Name=\'" + this.getFileName() + "\', Head Count=" + this.getHeadLength() +
