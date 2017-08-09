@@ -167,7 +167,7 @@ public class FileUtil{
      */
     private void tailFunctionality(){
         RandomAccessFile raf = null;
-        List<String> lines = new ArrayList<String>();
+        List<String> lines = new ArrayList<>();
         StringBuilder builder = new StringBuilder();
 
         try {
@@ -177,12 +177,14 @@ public class FileUtil{
             for(long seek = length-1; seek >= 0; --seek){
                 raf.seek(seek);
                 char ch = (char)raf.read();
-                builder.insert(0, ch);
+
                 if(ch == '\n'){ // Encountered new line
-                    lines.add(0, builder.toString());
+                    lines.add(0, builder.toString() + "\n");
                     builder = new StringBuilder();
 
                     if(lines.size() == this.getTailLength()) break;
+                } else {
+                    builder.insert(0, ch);
                 }
             }
             for(String line : lines)
