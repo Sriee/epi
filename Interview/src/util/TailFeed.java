@@ -1,6 +1,5 @@
 package util;
 
-import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class TailFeed implements Runnable{
@@ -24,17 +23,13 @@ public class TailFeed implements Runnable{
     @Override
     public void run(){
         RandomAccessFile raf = null;
-        long filePointer = -1;
+        long filePointer = 0;
         try {
-            raf = new RandomAccessFile(this.getFileName(), "r");
             while (true) {
                 Thread.sleep(this.getUpdateInterval());
-                long len = raf.length() - 1;
-
-                if (len < filePointer) {
-                    System.out.println("File reset. Stopping tail feed.");
-                    break;
-                } else if (len > filePointer) {
+                raf = new RandomAccessFile(this.getFileName(), "r");
+                long length = raf.length() - 1;
+                if (length > filePointer) {
                     raf.seek(filePointer);
                     String line = null;
                     while ((line = raf.readLine()) != null) {
@@ -43,15 +38,10 @@ public class TailFeed implements Runnable{
 
                     filePointer = raf.getFilePointer();
                 }
+                raf.close();
             }
         } catch (Exception e) {
             System.out.println("Tail feed has stopped.");
-        } finally {
-            try {
-                if (raf != null) raf.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
+		}
     }
 }
