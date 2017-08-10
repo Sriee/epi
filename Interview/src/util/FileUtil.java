@@ -272,7 +272,27 @@ public class FileUtil{
         return "FileUtil [File Name=\'" + this.getFileName() + "\', Head Count=" + this.getHeadLength() +
                 ", Tail Count=" + this.getTailLength() + ", Sleep=" + this.getSleep() + "]";
     }
-    
+
+    /**
+     * Calculates the number of lines in a file. Empty lines will also be considered. If there is an empty line at the
+     * End of File, it won't be considered
+     *
+     * @return Number of lines in a file, -1 if any error occurred
+     */
+    public long length(){
+        BufferedReader bufferedReader = null;
+        long numLines = 0;
+        try{
+            bufferedReader = new BufferedReader(new FileReader(this.getFileName()));
+            while(bufferedReader.readLine() != null) numLines++;
+            bufferedReader.close();
+            return numLines;
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
 	/**
      * Driver program for testing tail feed.
      * @param args
