@@ -1,7 +1,9 @@
 package util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
@@ -273,4 +275,43 @@ public class FileUtil{
         return "FileUtil [File Name=\'" + this.getFileName() + "\', Head Count=" + this.getHeadLength() +
                 ", Tail Count=" + this.getTailLength() + ", Sleep=" + this.getSleep() + "]";
     }
+    
+	/**
+     * Driver program for testing tail feed.
+     * @param args
+     */
+    public static void main(String[] args) {
+    	final String fileName = "/home/sriee/data/test.txt";
+        FileUtil fu = new FileUtil(fileName);
+        fu.tailFeed();
+        
+    	String dummy[] = {
+    			"------------------------------ Start ----------------------------------\n",
+    			"07-05-2017 12:25 PM:DEBUG: Paths: ../template ../config ../reports\n",
+    			"07-05-2017 12:25 PM:INFO: Opening file at ../config/settings.json \n",
+    			"------------------------------- End ------------------------------------\n"
+    			};
+    	BufferedWriter bw = null;
+		try{
+			Thread.sleep(1000);
+			for(int i = 0; i < 10; i++){
+				Thread.sleep(1500);
+				bw = new BufferedWriter(
+						new FileWriter(fileName, true));
+				for(String line : dummy) {
+					bw.write(line);	
+				}
+				bw.close();
+			}
+		} catch (IOException | InterruptedException e){
+			e.printStackTrace();
+		} finally {
+			try {
+				if(bw != null) bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}	
+    }
+
 }
