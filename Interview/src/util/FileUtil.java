@@ -303,26 +303,6 @@ public class FileUtil{
     public void tailFeed(String fileName, long sleep){
         new Thread(new TailFeed(this.getFileName(), this.getSleep())).start();
     }
-
-    public void testFeed(){
-    	RandomAccessFile raf = null;
-    	long filePointer = -1;
-    	try{
-    		raf = new RandomAccessFile(this.getFileName(), "r");
-    		System.out.println(raf.length());
-    		long length = raf.length() - 2;
-    		String line = null;
-    		raf.seek(length);
-    		System.out.println(raf.getFilePointer());
-    		if((line = raf.readLine()) != null)
-    			System.out.println(line);
-    		
-    		filePointer = raf.getFilePointer();
-    		System.out.println(filePointer);
-    	} catch(IOException e){
-    		e.printStackTrace();
-    	}
-    }
     
     @Override
     public String toString() {
