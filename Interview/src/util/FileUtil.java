@@ -30,41 +30,61 @@ public class FileUtil{
         this.tailLength = tailLength;
         this.sleep = sleep;
     }
-
-    private String getFileName() {
-        return fileName;
-    }
-
-    private void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    private long getHeadLength() {
-        return headLength;
-    }
-
-    private void setHeadLength(long headLength) {
-        this.headLength = headLength;
-    }
-
-    private long getTailLength() {
-        return tailLength;
-    }
-
-    private void setTailLength(long tailLength) {
-        this.tailLength = tailLength;
-    }
-
-    public long getSleep() {
-        return sleep;
-    }
-
-    public void setSleep(long sleep) {
-        this.sleep = sleep;
-    }
-
+    
     /**
+	 * @return the fileName
+	 */
+	private String getFileName() {
+		return fileName;
+	}
+
+	/**
+	 * @param fileName the fileName to set
+	 */
+	private void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	/**
+	 * @return the headLength
+	 */
+	private long getHeadLength() {
+		return headLength;
+	}
+
+	/**
+	 * @param headLength the headLength to set
+	 */
+	private void setHeadLength(long headLength) {
+		this.headLength = headLength;
+	}
+
+	/**
+	 * @return the tailLength
+	 */
+	private long getTailLength() {
+		return tailLength;
+	}
+
+	/**
+	 * @param tailLength the tailLength to set
+	 */
+	private void setTailLength(long tailLength) {
+		this.tailLength = tailLength;
+	}
+
+	/**
+	 * @return the sleep
+	 */
+	private long getSleep() {
+		return sleep;
+	}
+
+	/**
      * Displays the first [count] lines of the specified file.  If count is omitted it defaults to 10.
+     * 
+     * @throws IOException
+     * @throws FileNotFoundException
      */
     public void head(){ headFunctionality(); }
 
@@ -72,6 +92,8 @@ public class FileUtil{
      * Displays the first [count] lines of the specified file.  If count is omitted it defaults to 10.
      *
      * @param fileName Name of the file
+     * @throws IOException
+     * @throws FileNotFoundException
      */
     public void head(String fileName){
         this.setFileName(fileName);
@@ -82,6 +104,8 @@ public class FileUtil{
      * Displays the first [count] lines of the specified file.  If count is omitted it defaults to 10.
      *
      * @param headLength number of lines to display
+     * @throws IOException
+     * @throws FileNotFoundException
      */
     public void head(long headLength){
         this.setHeadLength(headLength);
@@ -93,6 +117,8 @@ public class FileUtil{
      *
      * @param fileName Name of the file
      * @param headLength number of lines to display
+     * @throws IOException
+     * @throws FileNotFoundException
      */
     public void head(String fileName, long headLength){
         this.setFileName(fileName);
@@ -102,6 +128,9 @@ public class FileUtil{
 
     /**
      * 'head' command feature implementation
+     * 
+     * @throws IOException
+     * @throws FileNotFoundException
      */
     private void headFunctionality(){
         BufferedReader bufferedReader = null;
@@ -127,6 +156,9 @@ public class FileUtil{
 
     /**
      * Displays the last [count] lines of the specified file.  If count is omitted it defaults to 10.
+     * 
+     * @throws IOException
+     * @throws FileNotFoundException
      */
     public void tail(){
         tailFunctionality();
@@ -136,6 +168,8 @@ public class FileUtil{
      * Displays the last [count] lines of the specified file.  If count is omitted it defaults to 10.
      *
      * @param fileName Name of the file
+     * @throws IOException
+     * @throws FileNotFoundException
      */
     public void tail(String fileName){
         this.setFileName(fileName);
@@ -146,6 +180,8 @@ public class FileUtil{
      * Displays the last [count] lines of the specified file.  If count is omitted it defaults to 10.
      *
      * @param tailLength number of lines to display
+     * @throws IOException
+     * @throws FileNotFoundException
      */
     public void tail(long tailLength){
         this.setTailLength(tailLength);
@@ -157,6 +193,8 @@ public class FileUtil{
      *
      * @param fileName Name of the file
      * @param tailLength number of lines to display
+     * @throws IOException
+     * @throws FileNotFoundException
      */
     public void tail(String fileName, long tailLength){
         this.setFileName(fileName);
@@ -166,6 +204,9 @@ public class FileUtil{
 
     /**
      * 'tail' command feature implementation
+     * 
+     * @throws IOException
+     * @throws FileNotFoundException
      */
     private void tailFunctionality(){
         RandomAccessFile raf = null;
@@ -208,6 +249,10 @@ public class FileUtil{
      * monitors the file for further additions
      *
      * Warning: This is a daemon thread. User should send SIGTERM to quit the program.
+     * 
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws FileNotFoundException
      */
     public void tailFeed(){
         new Thread(new TailFeed(this.getFileName(), this.getSleep())).start();
@@ -220,6 +265,9 @@ public class FileUtil{
      * Warning: This is a daemon thread. User should send SIGTERM to quit the program.
      *
      * @param fileName Name of the file
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws FileNotFoundException
      */
     public void tailFeed(String fileName){
         new Thread(new TailFeed(this.getFileName(), this.getSleep())).start();
@@ -232,6 +280,9 @@ public class FileUtil{
      * Warning: This is a daemon thread. User should send SIGTERM to quit the program.
      *
      * @param tailLength number of lines to display
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws FileNotFoundException
      */
     public void tailFeed(long sleep){
         new Thread(new TailFeed(this.getFileName(), this.getSleep())).start();
@@ -245,6 +296,9 @@ public class FileUtil{
      *
      * @param fileName Name of the file
      * @param tailLength number of lines to display
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws FileNotFoundException
      */
     public void tailFeed(String fileName, long sleep){
         new Thread(new TailFeed(this.getFileName(), this.getSleep())).start();
