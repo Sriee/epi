@@ -208,8 +208,7 @@ public class FileUtil{
      * Warning: This is a daemon thread. User should send SIGTERM to quit the program.
      */
     public void tailFeed(){
-        tail();
-        new Thread(new TailFeed(this.getFileName(), this.getTailLength())).start();
+        new Thread(new TailFeed(this.getFileName(), this.getSleep())).start();
     }
 
     /**
@@ -221,8 +220,7 @@ public class FileUtil{
      * @param fileName Name of the file
      */
     public void tailFeed(String fileName){
-        tail(fileName);
-        new Thread(new TailFeed(this.getFileName(), this.getTailLength())).start();
+        new Thread(new TailFeed(this.getFileName(), this.getSleep())).start();
     }
 
     /**
@@ -233,9 +231,8 @@ public class FileUtil{
      *
      * @param tailLength number of lines to display
      */
-    public void tailFeed(long tailLength){
-        tail(tailLength);
-        new Thread(new TailFeed(this.getFileName(), this.getTailLength())).start();
+    public void tailFeed(long sleep){
+        new Thread(new TailFeed(this.getFileName(), this.getSleep())).start();
     }
 
     /**
@@ -247,11 +244,30 @@ public class FileUtil{
      * @param fileName Name of the file
      * @param tailLength number of lines to display
      */
-    public void tailFeed(String fileName, long tailLength){
-        tail(fileName, tailLength);
-        new Thread(new TailFeed(this.getFileName(), this.getTailLength())).start();
+    public void tailFeed(String fileName, long sleep){
+        new Thread(new TailFeed(this.getFileName(), this.getSleep())).start();
     }
 
+    public void testFeed(){
+    	RandomAccessFile raf = null;
+    	long filePointer = -1;
+    	try{
+    		raf = new RandomAccessFile(this.getFileName(), "r");
+    		System.out.println(raf.length());
+    		long length = raf.length() - 2;
+    		String line = null;
+    		raf.seek(length);
+    		System.out.println(raf.getFilePointer());
+    		if((line = raf.readLine()) != null)
+    			System.out.println(line);
+    		
+    		filePointer = raf.getFilePointer();
+    		System.out.println(filePointer);
+    	} catch(IOException e){
+    		e.printStackTrace();
+    	}
+    }
+    
     @Override
     public String toString() {
         return "FileUtil [File Name=\'" + this.getFileName() + "\', Head Count=" + this.getHeadLength() +
@@ -259,9 +275,9 @@ public class FileUtil{
     }
 
     public static void main(String[] args) {
-        FileUtil fu = new FileUtil("/Users/sriee/epi/Interview/src/util/data/harley.txt");
+        FileUtil fu = new FileUtil("/home/sriee/Git/epi/Interview/src/util/data/harley.txt");
         System.out.println("(START)...");
-        System.out.println(fu);
+        fu.testFeed();
         System.out.println("(END)...");
     }
 }
