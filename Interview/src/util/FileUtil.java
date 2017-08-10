@@ -293,9 +293,76 @@ public class FileUtil{
         return -1;
     }
 
+    /**
+     * Calculates the number of words in a file. The default word separator is "space"
+     *
+     * @return number of space separated words in a file, -1 if any error occurred
+     */
+    public long word_count(){
+        return this.word_count(null);
+    }
+
+    /**
+     * Calculates the number of words in a file. The default word separator is "space"
+     *
+     * @param separator new word separator. Overrides the default separator
+     * @return number of words in a file separated by separator, -1 if any error occurred
+     */
+    public long word_count(String separator){
+        BufferedReader bufferedReader = null;
+        if(separator == null) separator = " ";
+        String line;
+        long wordCount = 0;
+        try{
+            bufferedReader = new BufferedReader(new FileReader(this.getFileName()));
+
+            while((line = bufferedReader.readLine()) != null) {
+                if(line.trim().length() != 0) wordCount += line.split(separator).length;
+            }
+            bufferedReader.close();
+            return wordCount;
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    /**
+     * Counts the number of characters in a file. Line breaks are also considered as characters
+     *
+     * Line breaks correspond to the Operating system in use
+     *  Unix and modern Mac's   : LF     (\n)     -- will be counted as 1
+     *  Windows                 : CR LF  (\r\n)   -- will be counted as 2
+     *  Older Macintosh Systems : CR     (\r)     -- will be counted as 1
+     *
+     * @return number of characters in the file, -1 if any error occurred
+     */
+    public long character_count(){
+        RandomAccessFile randomAccessFile = null;
+        long filePointer = 0, length = 0;
+        try{
+            randomAccessFile = new RandomAccessFile(this.getFileName(), "r");
+            length = randomAccessFile.length();
+            while(filePointer < length) randomAccessFile.seek(filePointer++);
+            return filePointer;
+        } catch (EOFException e){
+            return filePointer;
+        } catch (IOException e){
+            e.printStackTrace();
+        } finally {
+            try{
+                if(randomAccessFile != null) randomAccessFile.close();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        return -1;
+    }
+
 	/**
      * Driver program for testing tail feed.
-     * @param args
+     *
+     * @param args null
      */
     public static void main(String[] args) {
     	final String fileName = "/home/sriee/data/test.txt";
