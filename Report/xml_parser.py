@@ -59,13 +59,14 @@ class XML_Parser(object):
 def main():
     file_name = 'data/feed.xml'
     parser = XML_Parser(file_name)
-    print repr(parser) 
+    print repr(parser)
     print parser
     print parser.keys
     for child in parser.child('link'):
         print child.tag
 
-    print parser.child('howdy')    
+    print parser.child('howdy')
+
 
 if __name__ == '__main__':
     main()
