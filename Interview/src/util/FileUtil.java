@@ -1,9 +1,9 @@
 package util;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -272,12 +272,5 @@ public class FileUtil{
     public String toString() {
         return "FileUtil [File Name=\'" + this.getFileName() + "\', Head Count=" + this.getHeadLength() +
                 ", Tail Count=" + this.getTailLength() + ", Sleep=" + this.getSleep() + "]";
-    }
-
-    public static void main(String[] args) {
-        FileUtil fu = new FileUtil("/home/sriee/Git/epi/Interview/src/util/data/harley.txt");
-        System.out.println("(START)...");
-        fu.testFeed();
-        System.out.println("(END)...");
     }
 }
