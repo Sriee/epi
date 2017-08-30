@@ -11,6 +11,11 @@ ReportConfig = namedtuple('ReportConfig', 'output_file_type output_file_name tem
 class ConfigParser(object):
 
     def __init__(self, file_name):
+        """ Mapper class for mapping the configuration data in file. Exposes properties to
+        access individual elements.
+
+        :param file_name: Name of the config file in xml format
+        """
         self._root = None
         self._parser = None
         self.file_name = file_name
@@ -77,6 +82,12 @@ class ConfigParser(object):
                             self._template, self._user)
 
     def parse(self):
+        """ Parse the information from the configuration file to appropriate private
+        methods. These methods can be accessed outside the class using 'getter'
+        properties
+
+        :return: None
+        """
         db_element = self.root.find('database')
 
         if db_element is not None:
@@ -109,6 +120,11 @@ class ConfigParser(object):
                 self._user = report_element.find('user').text
 
     def as_dict(self):
+        """ Map the configuration in xml file as python dictionary. The tree structure
+        is maintained
+
+        :return: dictionary of the xml tree
+        """
         tree = {}
 
         for element in self.root:
@@ -118,6 +134,7 @@ class ConfigParser(object):
 
         return tree
 
+    # Context Management
     def __enter__(self):
         return self
 
