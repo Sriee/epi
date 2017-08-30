@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="config_schema.xsd">
+    <report>
+        <output_type>html</output_type>
+        <template>production</template>
+        <user>tom</user>
+    </report>
+    <database>
+        <machine>dev1</machine>
+        <update>true</update>
+    </database>
+</config>
