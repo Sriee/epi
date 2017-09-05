@@ -71,7 +71,7 @@ class Stats(object):
             self.stat = self.data.get('fuzzing_statistics', None)
         except json.JSONDecoder:
             print 'hi'
-            
+
         return self
 
     def __exit__(self, *args):
