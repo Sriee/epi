@@ -8,15 +8,18 @@ public class Flip {
 
         int mask = 2;
 
-        while(mask < number){
-            mask = mask << 1;
+        while(mask <= number){
+            mask = mask << 1;            
+            if(mask <= 0) break;
         }
-
+        
+        System.out.println(mask);
         mask -= 1;
+        System.out.println(mask);
         return (mask ^ number);
     }
 
     public static void main(String[] args) {
-        System.out.println(flipBit(2017));
+        System.out.println(flipBit(2147483647));
     }
 }
