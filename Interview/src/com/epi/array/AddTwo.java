@@ -123,6 +123,8 @@ public class AddTwo {
         System.out.println(firstNumber);
         System.out.println(secondNumber);
         ListNode head = calculate(first, second);
+        ListNode node = getListNode(firstNumber + secondNumber);
+        printList(node);
         printList(head);
     }
 }
