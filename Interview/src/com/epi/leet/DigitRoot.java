@@ -11,6 +11,14 @@ public class DigitRoot {
         return sum(a, b, carry);
     }
 
+    private static int revised_sum(int a, int b){
+        while(b != 0){
+            int carry = a & b;
+            a = a ^ b;
+            b = carry << 1;
+        }
+        return a;
+    }
     private static int sum(int a, int b, int carry){
         if(a == 0 && b == 0)
             return carry;
@@ -22,7 +30,8 @@ public class DigitRoot {
     }
 
     public static void main(String[] args) {
-        System.out.println(dr(35));
-        System.out.println(add(226,4567));
+        // System.out.println(dr(35));
+        // System.out.println(add(226,4567));
+        System.out.println(revised_sum(0, -2));
     }
 }
