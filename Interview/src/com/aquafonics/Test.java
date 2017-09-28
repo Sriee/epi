@@ -13,7 +13,8 @@ public class Test {
 		this.conflictList = new LinkedList<>();
 	}
 
-	private void add(int thresholdValue, String operator, String sensorId, String actuatorId, String ruleId) {
+	private void add(String action, String actuator, int thresholdValue, String operator, String sensorId, String ruleId,
+			String actuatorId) {
 		int min = 0, max = 150;
 		Rule rule = null;
 		IntervalTree it = null;
@@ -53,17 +54,26 @@ public class Test {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aquafonics", "root", "welcome");
-			String query = "SELECT ST.Threshold_Value, OP.Operator_Name, ST.Rule_RID, ST.Sensor_ID "
-					+ "FROM STATEMENTS AS ST, OPERATORS AS OP " + "WHERE ST.OID = OP.OID;";
+
+			String query = 
+			"SELECT AC.Action_Name, AC.Action_Parameters, ST.Threshold_Value, OP.Operator_Name, ST.Rule_RID, ST.Sensor_ID"
+			+ " FROM actions AS AC" 
+			+ " JOIN STATEMENTS AS ST ON ST.rule_RID = AC.rule_RID" 
+			+ " JOIN OPERATORS AS OP ON OP.oid = ST.oid"
+			+ " WHERE AC.ATID in (5, 6);";
+			
 			PreparedStatement stmt = connection.prepareStatement(query);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				t.add(Integer.parseInt(rs.getString("threshold_value")), rs.getString("operator_name"), 
-						rs.getString("sensor_id"), null, rs.getString("rule_rid"));
+				/* t.add(Integer.parseInt(rs.getString("threshold_value")), rs.getString("operator_name"), 
+						rs.getString("sensor_id"), null, rs.getString("rule_rid")); */
+				System.out.println(rs.getString("Action_Name") + " " + rs.getString("Action_Parameters") + " "
+						+ Integer.parseInt(rs.getString("threshold_value")) + " " + rs.getString("operator_name") + " "
+						+ rs.getString("rule_rid") + " " + rs.getString("sensor_id"));
 			}
 			
-			// Print conflicts 
+			/* Print conflicts 
 			if(t.conflictList.isEmpty()) {
 				System.out.println("Rules have no conflict.");
 			} else {
@@ -71,7 +81,7 @@ public class Test {
 				for(String item : t.conflictList) {
 					System.out.println(item);
 				}
-			}
+			} */
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
