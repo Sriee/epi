@@ -2,38 +2,48 @@ package com.epi.leet;
 
 public class StringToInt {
 
-    private static int stringToInt(String inp){
-
-        if(inp.isEmpty() || inp == null) return 0;
+    private static int atoi(String inp) {
         inp = inp.trim();
-        long num = 0;
-        int len = inp.length(), literal;
-        boolean isNeg = false;
+        int literal;
+        long num = 0, dummy = 0;
+        boolean isNegative = false;
 
-        if(inp.startsWith("+")){
-            if(inp.length() == 1 || inp.charAt(1) - '0' < 0 || inp.charAt(1) - '0' > 9) return 0;
-        }
-        if(inp.startsWith("-")){    // Handle negative number
-            if(inp.length() == 1 || inp.charAt(1) - '0' < 0 || inp.charAt(1) - '0' > 9) return 0;
-            inp = inp.substring(1);
-            isNeg = true;
-            len = inp.length();
-        }
-
-        for(int i = 0; i < len; i++){
+        for (int i = 0; i < inp.length(); i++) {
             literal = inp.charAt(i) - '0';
-            if(literal < 0 || literal > 9) break;
-            num =literal + (num * 10);
-        }
-        if(isNeg) num = 0 - num;    // Negate the number
 
-        if(num > Integer.MAX_VALUE) return Integer.MAX_VALUE;
-        if(num < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+            if (inp.charAt(i) == '+' && i == 0)
+                continue;
+
+            if (inp.charAt(i) == '-' && i == 0) {
+                isNegative = true;
+                continue;
+            }
+
+            if (literal < 0 || literal > 9)
+                break;
+
+            num = literal + (num * 10);
+
+            if(isNegative) dummy = 0 - num;
+
+            if (dummy <= Integer.MIN_VALUE) {
+                return Integer.MIN_VALUE;
+            }
+
+            if (num >= Integer.MAX_VALUE){
+                num = Integer.MAX_VALUE;
+                break;
+            }
+        }
+
+        if (isNegative) num = 0 - num;
         return (int)num;
     }
 
     public static void main(String[] args) {
-        System.out.println(stringToInt("+"));
-        System.out.println(stringToInt("34567890-87654345678"));
+        System.out.println(atoi("-2147483649"));
+        System.out.println(atoi("2147483647"));
+        System.out.println(atoi("-2147483647"));
+        System.out.println(atoi("2147483648"));
     }
 }
