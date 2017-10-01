@@ -16,89 +16,105 @@ public class Test {
 	}
 
 	/**
-	 * TODO: Add call to check with opposite actions
-	 * @param action
-	 * @param actuator
-	 * @param thresholdValue
-	 * @param operator
+	 * Add the range interval to the interval tree
+	 * 
+	 * @param rule Rule containing (action, actuator) key
+	 * @param interval range
 	 * @param ruleId
 	 * @param sensorId
 	 */
-	private void add(String action, String actuator, int thresholdValue, String operator, String ruleId, String sensorId) {
-		int min = 0, max = 150;
-		Rule rule = null;
+	private void add(Rule rule, Interval interval, String ruleId, String sensorId) {
 		IntervalTree it = null;
-		String oppositeAction = getOppositeAction(action);
-		
-		if(oppositeAction == null) {
-			System.out.println("Received 'null' for " + action);
-		}
 		try {
-			rule = new Rule(action, actuator);
 			it = (this.map.containsKey(rule)) ? this.map.get(rule) : new IntervalTree();
-			switch (operator) {
-			case "<":
-				it.put(min, thresholdValue - 1, ruleId, sensorId);
-				this.map.put(rule, it);
-				
-				// Check for the presence of opposite action
-				rule = new Rule(oppositeAction, actuator);
-				
-				if(oppositeAction != null) {
-					if(this.map.containsKey(rule)) {
-						this.check(thresholdValue, max, oppositeAction, ruleId, sensorId);	
-					} else {
-						this.add(oppositeAction, actuator, thresholdValue, ">=", ruleId, sensorId);
-					}
-				} 
-				break;
-			case "<=":
-				it.put(min, thresholdValue, ruleId, sensorId);
-				this.map.put(rule, it);
-				
-				break;
-			case ">":
-				it.put(thresholdValue + 1, max, ruleId, sensorId);
-				this.map.put(rule, it);
-				break;
-			case ">=":
-				it.put(thresholdValue, max, ruleId, sensorId);
-				this.map.put(rule, it);
-				break;
-			case "=":
-				break;
-			case "!=":
-				break;
-			}
+			it.put(interval, ruleId, sensorId);
+			this.map.put(rule, it); 	
 		} catch (RuleWarnings r) {
 			this.warningList.add("WARNING: " + sensorId + " in conflict with" + r.getMessage());
+		} catch (RuleConflictException e) {
+			this.warningList.add("ERROR: " + sensorId + " in conflict with" + e.getMessage());
 		}
 	}
-
-	private void check(int min, int max, String action, String ruleId, String sensorId) {
-		/*try {
-			
-		} catch (RuleConflictException e) {
-			this.conflictList.add(ruleId + " in conflict with " + e.getMessage());
-		}*/
-	}
 	
+	/**
+	 * Helper function to retrieve opposite action 
+	 * 
+	 * @param action 
+	 * @return opposite Action
+	 */
 	private String getOppositeAction(String action) {
 		String oppositeAction = null;
 		switch(action) {
-		case "turn on" : 
-			oppositeAction = "turn off";
-			break;
-		case "turn off":
-			oppositeAction = "turn on";
-			break;
+		case "turn on" : oppositeAction = "turn off"; break;
+		case "turn off": oppositeAction = "turn on"; break;
 		}
 		return oppositeAction;
+	}
+	
+	/**
+	 * Helper function to retrieve the opposite operator 
+	 * 
+	 * @param operator (<, <=, >, >=)
+	 * @return opposite operator
+	 */
+	private String getOppositeOperator(String operator) {
+		String oppositeOperator = null;
+		switch(operator){
+		case "<": oppositeOperator = ">="; break;
+		case ">": oppositeOperator = "<="; break;
+		case "<=": oppositeOperator = ">"; break;
+		case ">=": oppositeOperator = "<"; break;
+		}
+		return oppositeOperator;
+	}
+	
+	/**
+	 * Helper function to create the interval based on operator and threshold value
+	 * 
+	 * @param operator (<, <=, >, >=) 
+	 * @param thresholdValue
+	 * @param flag true: while adding action
+	 * 			  false: while adding opposite actions
+	 * @return Interval object
+	 */
+	private Interval getInterval(String operator, int thresholdValue, boolean flag) {
+		Interval newInterval = null;
+		int min = 0, max = 150;
+		switch (operator) {
+		case "<":
+			if(flag)
+				newInterval = new Interval(min, thresholdValue - 1);
+			else
+				newInterval = new Interval(thresholdValue, max);
+			break;
+		case "<=":
+			if(flag)
+				newInterval = new Interval(min, thresholdValue);
+			else
+				newInterval = new Interval(thresholdValue + 1, max);
+			break;
+		case ">":
+			if(flag)
+				newInterval = new Interval(thresholdValue + 1, max);
+			else
+				newInterval = new Interval(min, thresholdValue);
+			break;
+		case ">=":
+			if(flag)
+				newInterval = new Interval(thresholdValue, max);
+			else
+				newInterval = new Interval(min, thresholdValue - 1);
+			break;
+		}
+		return newInterval;
 	}
 	
 	public static void main(String[] args) {
 		Connection connection = null;
 		Test t = new Test();
+		Interval interval = null, oppositeInterval = null;
+		String action = null, operator = null;
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aquafonics", "root", "welcome");
@@ -114,20 +130,53 @@ public class Test {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				t.add(rs.getString("Action_Name"), rs.getString("Action_Parameters"), 
-						Integer.parseInt(rs.getString("threshold_value")), rs.getString("operator_name"),
+				action = rs.getString("Action_Name"); 
+				operator = rs.getString("operator_name");
+				
+				// Not handling '=' & '!=' operators
+				if(operator.equals("=") || operator.equals("!=")) continue;
+				
+				// Interval for action, actuator 
+				interval = t.getInterval(operator, Integer.parseInt(rs.getString("threshold_value")), true);
+				
+				// Add action
+				t.add(new Rule(action, rs.getString("Action_Parameters")), interval, 
 						rs.getString("rule_rid"), rs.getString("sensor_id"));
+				
+				// Add Opposite Action
+				String oppositeAction = t.getOppositeAction(rs.getString("Action_Name"));
+				
+				if(oppositeAction != null) {
+					// Interval for opposite Action
+					oppositeInterval = t.getInterval(t.getOppositeOperator(rs.getString("operator_name")),
+							Integer.parseInt(rs.getString("threshold_value")), false);
+				
+					// Add opposite action
+					t.add(new Rule(oppositeAction, rs.getString("Action_Parameters")), oppositeInterval, 
+							rs.getString("rule_rid"), rs.getString("sensor_id"));
+						
+				} else {
+					System.out.println("Received 'null' for " + action);
+				}
 			}
 			
 			// Print conflicts 
 			if(t.conflictList.isEmpty()) {
 				System.out.println("Rules have no conflict.");
 			} else {
-				System.out.println("Rule conflict is present in the following.");
 				for(String item : t.conflictList) {
 					System.out.println(item);
 				}
 			} 
+			
+			// Print warnings
+			if(t.warningList.isEmpty()) {
+				System.out.println("Rules have no warnings.");
+			} else {
+				for(String item : t.warningList) {
+					System.out.println(item);
+				}
+			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
