@@ -9,12 +9,12 @@ public class IntervalTree {
 	private int size = 0;
 	private List<String> warnings = null; 
 	
-	public void put(int min, int max, String ruleId, String sensorId) throws RuleWarnings{
+	public void put(Interval interval, String ruleId, String sensorId) throws RuleConflictException, RuleWarnings{
 		warnings = new ArrayList<>();
 		if(this.isEmpty()) {
-			this.root = new IntervalNode(new Interval(min, max), ruleId, sensorId); 
+			this.root = new IntervalNode(interval, ruleId, sensorId); 
 		} else {
-			this.put(new Interval(min, max), root, ruleId, sensorId);
+			this.put(interval, root, ruleId, sensorId);
 		}
 		this.size += 1;
 		if(!warnings.isEmpty())
@@ -22,19 +22,25 @@ public class IntervalTree {
 	}
 	
 	/**
-	 * While inserting don't need to check  for conflict as put is used for actuators with the same 
-	 * action  
+	 * Check for conflict if the ranges intersect for the same sensors, interval won't be added if rule
+	 * conflict arises 
+	 *  
+	 * If the interval ranges intersect for different sensors then add the sensor Id's to the warning
+	 * list. The interval will be added to the interval tree 
+	 *   
 	 * @param currentInterval
 	 * @param currentNode
 	 * @param ruleId
 	 * @param sensorId
-	 * @throws RuleConflictException
-	 * @throws RuleWarnings
+	 * @throws RuleConflictException if intervals of the same sensor intersect
 	 */
-	private void put(Interval currentInterval, IntervalNode currentNode, String ruleId, String sensorId) {
+	private void put(Interval currentInterval, IntervalNode currentNode, String ruleId, String sensorId) throws RuleConflictException{
 		// Check for overlapping intervals
 		if(currentInterval.intersects(currentNode.interval)) {
-			this.warnings.add(currentNode.sensors.toString());
+			if(currentNode.sensors.contains(sensorId))	 
+				throw new RuleConflictException(currentNode.rules.toString());
+			else
+				this.warnings.add(currentNode.sensors.toString());
 		}
 		
 		int cmp = currentInterval.compareTo(currentNode.interval);
@@ -53,10 +59,6 @@ public class IntervalTree {
 		}
 		// update N & max end point
 		this.update(currentNode);
-	}
-	
-	public void check(Interval currentInterval, String ruleId, String sensorId) {
-		
 	}
 	
 	public boolean contains(int min, int max) { return this.contains(new Interval(min, max)); }
@@ -124,11 +126,13 @@ public class IntervalTree {
 		IntervalTree it = new IntervalTree();
 		
 		try {
-			it.put(20, 25, "second", "21");
-			it.put(1, 15, "first", "22");
-			it.put(20, 22, "fourth", "23");
-			it.put(30, 50, "third", "24");
+			it.put(new Interval(20, 25), "second", "21");
+			it.put(new Interval(1, 15), "first", "22");
+			it.put(new Interval(20, 22), "fourth", "23");
+			it.put(new Interval(30, 50), "third", "24");
 		} catch (RuleWarnings e) {
+			e.printStackTrace();
+		} catch (RuleConflictException e) {
 			e.printStackTrace();
 		}
 		
