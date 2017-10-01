@@ -1,40 +1,62 @@
 package com.aquafonics;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class IntervalTree {
 
 	private IntervalNode root = null;
 	private int size = 0;
-		
-	public void put(int min, int max, String ruleId) throws RuleConflictException{
+	private List<String> warnings = null; 
+	
+	public void put(int min, int max, String ruleId, String sensorId) throws RuleWarnings{
+		warnings = new ArrayList<>();
 		if(this.isEmpty()) {
-			this.root = new IntervalNode(new Interval(min, max), ruleId); 
+			this.root = new IntervalNode(new Interval(min, max), ruleId, sensorId); 
 		} else {
-			this.put(new Interval(min, max), root, ruleId);
+			this.put(new Interval(min, max), root, ruleId, sensorId);
 		}
 		this.size += 1;
+		if(!warnings.isEmpty())
+			throw new RuleWarnings(warnings.toString());
 	}
 	
-	private void put(Interval currentInterval, IntervalNode currentNode, String ruleId) throws RuleConflictException {
+	/**
+	 * While inserting don't need to check  for conflict as put is used for actuators with the same 
+	 * action  
+	 * @param currentInterval
+	 * @param currentNode
+	 * @param ruleId
+	 * @param sensorId
+	 * @throws RuleConflictException
+	 * @throws RuleWarnings
+	 */
+	private void put(Interval currentInterval, IntervalNode currentNode, String ruleId, String sensorId) {
 		// Check for overlapping intervals
-		if(currentInterval.intersects(currentNode.interval))
-			throw new RuleConflictException(currentNode.rules.toString());
+		if(currentInterval.intersects(currentNode.interval)) {
+			this.warnings.add(currentNode.sensors.toString());
+		}
 		
 		int cmp = currentInterval.compareTo(currentNode.interval);
 		if(cmp < 0) {
 			if(currentNode.hasLeftChild())
-				this.put(currentNode.interval, currentNode.left, ruleId);
+				this.put(currentNode.interval, currentNode.left, ruleId, sensorId);
 			else
-				currentNode.left = new IntervalNode(currentInterval, ruleId);
+				currentNode.left = new IntervalNode(currentInterval, ruleId, sensorId);
 		} else if (cmp > 0) {
 			if(currentNode.hasRightChild())
-				this.put(currentNode.interval, currentNode.right, ruleId);
+				this.put(currentNode.interval, currentNode.right, ruleId, sensorId);
 			else
-				currentNode.right = new IntervalNode(currentInterval, ruleId);
+				currentNode.right = new IntervalNode(currentInterval, ruleId, sensorId);
 		} else { 				// For sensors having the same interval  
 			currentNode.addRule(ruleId);
 		}
 		// update N & max end point
 		this.update(currentNode);
+	}
+	
+	public void check(Interval currentInterval, String ruleId, String sensorId) {
+		
 	}
 	
 	public boolean contains(int min, int max) { return this.contains(new Interval(min, max)); }
@@ -102,11 +124,11 @@ public class IntervalTree {
 		IntervalTree it = new IntervalTree();
 		
 		try {
-			it.put(20, 25, "second");
-			it.put(1, 15, "first");
-			it.put(20, 22, "fourth");
-			it.put(30, 50, "third");
-		} catch (RuleConflictException e) {
+			it.put(20, 25, "second", "21");
+			it.put(1, 15, "first", "22");
+			it.put(20, 22, "fourth", "23");
+			it.put(30, 50, "third", "24");
+		} catch (RuleWarnings e) {
 			e.printStackTrace();
 		}
 		
