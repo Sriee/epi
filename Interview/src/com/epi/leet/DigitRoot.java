@@ -30,8 +30,8 @@ public class DigitRoot {
     }
 
     public static void main(String[] args) {
-        // System.out.println(dr(35));
-        // System.out.println(add(226,4567));
+        System.out.println(dr(35));
+        System.out.println(add(226,4567));
         System.out.println(revised_sum(0, -2));
     }
 }

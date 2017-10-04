@@ -159,7 +159,11 @@ public class Test {
 					System.out.println("Received 'null' for " + action);
 				}
 			}
-			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			// Print conflicts 
 			if(t.conflictList.isEmpty()) {
 				System.out.println("Rules have no conflict.");
@@ -177,11 +181,7 @@ public class Test {
 					System.out.println(item);
 				}
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
+			
 			try {
 				if (connection != null && !connection.isClosed())
 					connection.close();
