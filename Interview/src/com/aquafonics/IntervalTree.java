@@ -1,7 +1,6 @@
 package com.aquafonics;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 public class IntervalTree {
 
@@ -46,12 +45,12 @@ public class IntervalTree {
 		int cmp = currentInterval.compareTo(currentNode.interval);
 		if(cmp < 0) {
 			if(currentNode.hasLeftChild())
-				this.put(currentNode.interval, currentNode.left, ruleId, sensorId);
+				this.put(currentInterval, currentNode.left, ruleId, sensorId);
 			else
 				currentNode.left = new IntervalNode(currentInterval, ruleId, sensorId);
 		} else if (cmp > 0) {
 			if(currentNode.hasRightChild())
-				this.put(currentNode.interval, currentNode.right, ruleId, sensorId);
+				this.put(currentInterval, currentNode.right, ruleId, sensorId);
 			else
 				currentNode.right = new IntervalNode(currentInterval, ruleId, sensorId);
 		} else { 				// For sensors having the same interval  
@@ -122,20 +121,56 @@ public class IntervalTree {
 	
 	private int max(int a, int b, int c) { return Math.max(a, Math.max(b, c)); }
 	
+	private void print() {
+		if(this.isEmpty()) {
+			System.out.println("Empty.");
+			return;
+		}
+		
+		int currentLevel = 1, nextLevel = 0, height = 1;
+		boolean print = true;
+		Queue<IntervalNode> queue = new LinkedList<>();
+		queue.add(this.root);
+		while(!queue.isEmpty()) {
+			currentLevel--;
+			IntervalNode node = queue.remove();
+			
+			if(node != null) {
+				if(print) {
+					System.out.println("Height " + height);
+					print = false;
+				}
+				System.out.println("\t" + node);
+				queue.add(node.left);
+				queue.add(node.right);
+				nextLevel += 2;
+			}
+			if(currentLevel == 0) {
+				height++;
+				print = true;
+				currentLevel = nextLevel;
+				nextLevel = 0;
+			}
+			
+		}
+	}
+	
 	public static void main(String[] args) {
 		IntervalTree it = new IntervalTree();
 		
 		try {
-			it.put(new Interval(20, 25), "second", "21");
-			it.put(new Interval(1, 15), "first", "22");
-			it.put(new Interval(20, 22), "fourth", "23");
-			it.put(new Interval(30, 50), "third", "24");
+			it.put(new Interval(15, 20), "first", "21");
+			it.put(new Interval(10, 30), "second", "22");
+			it.put(new Interval(17, 19), "third", "23");
+			it.put(new Interval(5, 20), "fourth", "24");
+			it.put(new Interval(12, 15), "fifth", "25");
+			it.put(new Interval(30, 40), "sixth", "26");
 		} catch (RuleWarnings e) {
 			e.printStackTrace();
 		} catch (RuleConflictException e) {
 			e.printStackTrace();
 		}
 		
-		System.out.println(String.format("%s %d %d", it.contains(20, 25), it.height(), it.size()));
+		it.print();
 	}	
 }
