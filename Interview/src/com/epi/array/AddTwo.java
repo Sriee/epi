@@ -100,13 +100,41 @@ public class AddTwo {
             sb.append(" -> ");
             current = current.next;
         }
-        sb.setLength(sb.toString().length() - 2);
+        sb.setLength(sb.toString().length() - 4);
         System.out.println(sb.toString());
     }
 
+    public static boolean hasLoop(ListNode head) {
+    	ListNode slow = head, fast = head;
+    	
+    	while(slow != null && fast != null  && fast.next != null) {
+    		slow = slow.next;
+    		fast = fast.next.next;
+    		if(slow == fast) {
+    			removeLoop(head, slow);
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    private static ListNode removeLoop(ListNode head, ListNode node) {
+    	ListNode current = head;
+    	System.out.println(node.val);
+    	while(current != null) {
+    		if(current.next == node) {
+    			current.next = null;
+    			break;
+    		}
+    		current = current.next;
+    	}
+    	
+    	return head; 
+    }
+    
     public static void main(String[] args) {
 
-        ListNode first = new ListNode(9);
+/*        ListNode first = new ListNode(9);
 
         ListNode second = new ListNode(1);
         second.next = new ListNode(9);
@@ -117,14 +145,25 @@ public class AddTwo {
         second.next.next.next.next.next.next = new ListNode(9);
         second.next.next.next.next.next.next.next = new ListNode(9);
         second.next.next.next.next.next.next.next.next = new ListNode(9);
-        second.next.next.next.next.next.next.next.next.next = new ListNode(9);
+        second.next.next.next.next.next.next.next.next.next = new ListNode(9);*/
 
-        long firstNumber = getNumber(first), secondNumber = getNumber(second);
+        ListNode looped = new ListNode(2);
+        looped.next = new ListNode(567);
+        looped.next.next = new ListNode(48);
+        looped.next.next.next = new ListNode(74);
+        looped.next.next.next.next = new ListNode(5);
+        looped.next.next.next.next.next = new ListNode(9);
+        
+        looped.next.next.next.next.next.next = looped.next.next;
+
+/*        long firstNumber = getNumber(first), secondNumber = getNumber(second);
         System.out.println(firstNumber);
         System.out.println(secondNumber);
         ListNode head = calculate(first, second);
         ListNode node = getListNode(firstNumber + secondNumber);
         printList(node);
-        printList(head);
+        printList(head);*/
+        System.out.println(hasLoop(looped));
+        printList(looped);
     }
 }
