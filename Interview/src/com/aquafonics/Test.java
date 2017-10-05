@@ -33,7 +33,7 @@ public class Test {
 			this.warningList.add("WARNING: Sensor Id " + sensorId + " conflict's with: " + 
 									r.getMessage().substring(1, r.getMessage().length()-1));
 		} catch (RuleConflictException e) {
-			this.conflictList.add("ERROR: Sensor Id" + sensorId + " conflict's with: " + e.getMessage());
+			this.conflictList.add("ERROR: Rule Id " + ruleId + " conflict's with: " + e.getMessage());
 		}
 	}
 	
