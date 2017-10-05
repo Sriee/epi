@@ -118,6 +118,7 @@ public class AddTwo {
     	return false;
     }
     
+    // TODO : Implement remove a duplicate node
     private static ListNode removeLoop(ListNode head, ListNode node) {
     	ListNode current = head;
     	System.out.println(node.val);
@@ -134,7 +135,7 @@ public class AddTwo {
     
     public static void main(String[] args) {
 
-/*        ListNode first = new ListNode(9);
+        ListNode first = new ListNode(9);
 
         ListNode second = new ListNode(1);
         second.next = new ListNode(9);
@@ -145,7 +146,7 @@ public class AddTwo {
         second.next.next.next.next.next.next = new ListNode(9);
         second.next.next.next.next.next.next.next = new ListNode(9);
         second.next.next.next.next.next.next.next.next = new ListNode(9);
-        second.next.next.next.next.next.next.next.next.next = new ListNode(9);*/
+        second.next.next.next.next.next.next.next.next.next = new ListNode(9);
 
         ListNode looped = new ListNode(2);
         looped.next = new ListNode(567);
@@ -156,13 +157,13 @@ public class AddTwo {
         
         looped.next.next.next.next.next.next = looped.next.next;
 
-/*        long firstNumber = getNumber(first), secondNumber = getNumber(second);
+        long firstNumber = getNumber(first), secondNumber = getNumber(second);
         System.out.println(firstNumber);
         System.out.println(secondNumber);
         ListNode head = calculate(first, second);
         ListNode node = getListNode(firstNumber + secondNumber);
+        printList(head);
         printList(node);
-        printList(head);*/
         System.out.println(hasLoop(looped));
         printList(looped);
     }
