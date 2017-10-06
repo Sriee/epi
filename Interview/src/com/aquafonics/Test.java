@@ -30,9 +30,10 @@ public class Test {
 			it.put(interval, ruleId, sensorId);
 			this.map.put(rule, it); 	
 		} catch (RuleWarnings r) {
-			this.warningList.add("WARNING: " + sensorId + " in conflict with" + r.getMessage());
+			this.warningList.add("WARNING: Sensor Id " + sensorId + " conflict's with: " + 
+									r.getMessage().substring(1, r.getMessage().length()-1));
 		} catch (RuleConflictException e) {
-			this.warningList.add("ERROR: " + sensorId + " in conflict with" + e.getMessage());
+			this.conflictList.add("ERROR: Rule Id " + ruleId + " conflict's with: " + e.getMessage());
 		}
 	}
 	
@@ -117,7 +118,8 @@ public class Test {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aquafonics", "root", "welcome");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aquafonics?autoReconnect=true&useSSL=false",
+					"root", "welcome");
 
 			String query = 
 			"SELECT AC.Action_Name, AC.Action_Parameters, ST.Threshold_Value, OP.Operator_Name, ST.Rule_RID, ST.Sensor_ID"
@@ -130,6 +132,10 @@ public class Test {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
+				
+				// TODO: Remove code, using only for demo
+				if(Integer.parseInt(rs.getString("rule_rid")) < 500) continue;
+				
 				action = rs.getString("Action_Name"); 
 				operator = rs.getString("operator_name");
 				
@@ -154,12 +160,15 @@ public class Test {
 					// Add opposite action
 					t.add(new Rule(oppositeAction, rs.getString("Action_Parameters")), oppositeInterval, 
 							rs.getString("rule_rid"), rs.getString("sensor_id"));
-						
 				} else {
 					System.out.println("Received 'null' for " + action);
 				}
 			}
-			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			// Print conflicts 
 			if(t.conflictList.isEmpty()) {
 				System.out.println("Rules have no conflict.");
@@ -177,11 +186,7 @@ public class Test {
 					System.out.println(item);
 				}
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
+			
 			try {
 				if (connection != null && !connection.isClosed())
 					connection.close();

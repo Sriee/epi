@@ -95,14 +95,14 @@ public class KReverse{
 	}
 
 	public static void main(String[] args){
-		// System.out.println("abcdef " + kReverse("abcdef", 2));
-		// System.out.println("ab " + kReverse("ab", 4));
-		// System.out.println("Thisisaline " + kReverse("Thisisaline", 1));	
-		// System.out.println("Thiscouldbeasentenceabcdef " + kReverse("Thiscouldbeasentenceabcdef", 3));
-		// System.out.println(majority(new int[]{2, 2, 2, 3}));
-		// System.out.println(romanToInt("xxXvi"));
-		// System.out.println(romanToInt("MDCCCLXXXIV"));
-		// System.out.println(romanToInt("MmXII"));
+		System.out.println("abcdef " + kReverse("abcdef", 2));
+		System.out.println("ab " + kReverse("ab", 4));
+		System.out.println("Thisisaline " + kReverse("Thisisaline", 1));	
+		System.out.println("Thiscouldbeasentenceabcdef " + kReverse("Thiscouldbeasentenceabcdef", 3));
+		System.out.println(majority(new int[]{2, 2, 2, 3}));
+		System.out.println(romanToInt("xxXvi"));
+		System.out.println(romanToInt("MDCCCLXXXIV"));
+		System.out.println(romanToInt("MmXII"));
 		System.out.println(base7(100));
 		System.out.println(base7(-7));
 	}
