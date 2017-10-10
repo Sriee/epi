@@ -58,7 +58,7 @@ public class CitrixCodeMaster {
 			category  = 0;
 			idx++;
 		}
-		
+		System.out.println(prev);
 		System.out.println((current[1] + 1));
 		scan.close();
 	}
@@ -165,8 +165,8 @@ public class CitrixCodeMaster {
 	public static void main(String[] args) {
 		CitrixCodeMaster ccm = new CitrixCodeMaster();
 		ccm.priority();
-//		ccm.serverGridFailure();
-//		ccm.failingTests();
+		ccm.serverGridFailure();
+		ccm.failingTests();
 	}
 
 }
