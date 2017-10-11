@@ -1,9 +1,40 @@
 package com.aquafonics;
 
 import java.util.Stack;
+import java.util.Map;
 
 public class Eval {
-
+	
+	public Map<String, Condition> map = null;
+	
+	public void evaluateBoolean(String[] tokens) {
+		Stack<Boolean> value = new Stack<>();
+		Stack<String> operator = new Stack<>();
+		
+		for(String token : tokens) {
+			
+			if(token.equals("(")) {
+				operator.push("(");
+			} else if (token.equals("&&") || token.equals("||")) {
+				if(!operator.isEmpty() && this.hasPrecedence(token, operator.peek())) 
+					value.push(this.evaluateOperator(operator.pop(), value.pop(), value.pop()));
+				
+				operator.push(token);
+			} else if (token.equals(")")) {
+				while(!operator.peek().equals("(")) {
+					value.push(this.evaluateOperator(operator.pop(), value.pop(), value.pop()));
+				}
+				operator.pop();
+			} else {
+				value.push(this.map.get(token).isValue());
+			}
+		}
+		while(!operator.isEmpty()) {
+			value.push(this.evaluateOperator(operator.pop(), value.pop(), value.pop()));
+		}
+		System.out.println(value.pop());
+	}
+	
 	private void evaluate(String expression) {
 		if(expression == null) {
 			System.out.println();
@@ -77,6 +108,21 @@ public class Eval {
 		return result;
 	}
 	
+	private boolean evaluateOperator(String operator, boolean b, boolean a) {
+		boolean result = false;
+		char op = operator.equals("&&") ? '&' : '|';
+		
+		switch(op) {
+		case '&':
+			result = a && b; 
+			break;
+		case '|':
+			result = a || b;
+			break;
+		}
+		return result;
+	}
+	
 	private boolean hasPrecedence(char existingOp, char newOp) {
 		if(newOp == '(' || newOp == ')') 
 			return false;
@@ -84,13 +130,21 @@ public class Eval {
 			return false;
 		return true;
 	}
+
+	private boolean hasPrecedence(String existingOp, String newOp) {
+		if(newOp.equals("(") || newOp.equals(")")) 
+			return false;
+		else if(existingOp.equals("&&")  && newOp.equals("||"))
+			return false;
+		return true;
+	}
 	
 	public static void main(String[] args) {
 		Eval e = new Eval();
-		e.evaluate("(1 + 2) * 3");
+		/*e.evaluate("(1 + 2) * 3");
 		e.evaluate("100 * 2 + 12");
-	    e.evaluate("100 * ( 2 + 12 )");
-	    e.evaluate("100 * ( 2 + 12 ) / 14");
+	    e.evaluate("100 * ( 2 + 12 )");*/
+	    e.evaluate("100 * ( 2 + (12+23-(28-5)))/ 14");
 	}
 
 }
