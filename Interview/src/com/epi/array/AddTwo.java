@@ -1,5 +1,6 @@
 package com.epi.array;
 
+
 public class AddTwo {
 
     /**
@@ -118,18 +119,14 @@ public class AddTwo {
     	return false;
     }
     
-    // TODO : Implement remove a duplicate node
     private static ListNode removeLoop(ListNode head, ListNode node) {
-    	ListNode current = head;
-    	System.out.println(node.val);
-    	while(current != null) {
-    		if(current.next == node) {
-    			current.next = null;
-    			break;
-    		}
-    		current = current.next;
-    	}
+    	ListNode first = head, second = node;
     	
+    	while(second.next != first.next) {
+    		first = first.next;
+    		second = second.next;
+    	}
+    	second.next = null;
     	return head; 
     }
     
