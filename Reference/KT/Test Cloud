@@ -10,5 +10,14 @@ Process
    protocols present
 2. They will create a PR. Ask Suma & Johnny to review them
 3. Create a branch in fuzz_protocols. 
-	a. If it is a new version copy the "bundle folder & meta.json" file to "testlounge@10.141.41.116:/var/lib/avnext-contents/AdvancedFuzzing/protocol"
-	   to respective folder. 
+	a. If it is a new version copy the "bundle folder & meta.json" to the repository. 
+	b. Create PR, Squash and merge. 
+
+To directly push the contents to client system.
+
+1. In the Team Viewer session got to "testlounge@[client_address]:/var/lib/avnext-contents/AdvancedFuzzing/protoco" to copy the 
+   zipped content. 
+2. Use "afsecure" to create a secure zip file. Remove the old zip file content and place the new zip file. No need to extract the contents
+   The UI will take care of unzipping the contents
+ 
+If the protocol itself is new, changes needed to made in couchDB
