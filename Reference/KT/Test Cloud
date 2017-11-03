@@ -1,0 +1,14 @@
+Upload contents in test cloud
+
+2 repositories is used
+	1. ghost_fuzzer_content - Protocol updates/visible to Phitech
+	2. fuzz_protocols - Used by cyberflood/Updates here will be published to customers
+
+Process
+
+1. [Phitech] protocol developers make updates to the protocols in ghost_fuzzer_content. There will be different version of 
+   protocols present
+2. They will create a PR. Ask Suma & Johnny to review them
+3. Create a branch in fuzz_protocols. 
+	a. If it is a new version copy the "bundle folder & meta.json" file to "testlounge@10.141.41.116:/var/lib/avnext-contents/AdvancedFuzzing/protocol"
+	   to respective folder. 

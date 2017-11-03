@@ -1,0 +1,52 @@
+Starting a test in Cyber flood
+------------------------------------------------------------------------
+
+Pre - requisites
+------------------------------------------------------------------------
+
+1. Should have a test queue. Test queue is the VM running ghost controller. If it is not present clone from the 'OVA template' provided by Spirent
+2. The Dut should be in the same folder as your ghost controller
+3. Turn of multiple running duts. There may be a conflict in the IP addresses
+4. If there is no dut present, then clone the vm from templates folder. If the template doesn't contain the name of the protocol which you are searching 	for. You can find the details of the template in "ghost_fuzzer_content/protocol/[protocol_name]/[latest_version]/[protocol_name].pts" file
+5. Steps to follow while cloning
+	a. Enter name for the virtual machine 
+	b. Location of virtual machine - "SJC Datacenter/Security Research/Fuzz Development/swimlanes/esha/"
+	c. Compute Resource - "SecLab Clusters/Sec Lab-Proto Dev Cluster"
+	d. Select Storage - "nas-dev"
+	e. Select clone options - Skip
+	f. Customize Hardware
+		* Network Adapter 1 - VM Network
+		* Network Adapter 2 - etsvetanov Swimlane 1
+6. eth0 - Management interface, where we can log into the VM to look at service status and take tcpdump
+   eth1 - IP which we given in Cyberflood
+
+------------------------------------------------------------------------
+
+1. Login to the cyberflood controller.
+2. Test Builder -> Advanced Fuzzing
+3. Max Duration - Time for the test
+   Mutation Settings - Seed value & Starting Iteration - to replay a test scenario
+4. Test Type
+	a. Endpoint
+	b. Pass through
+5. Test Queue (Improtant)
+	a. This the place where the ghost controller is running
+	b. Client subnet, Server Subnet - Choose any IP address
+	c. DUT configuration is important
+
+	Note: Don't delete other test queues. The cyberflood login is being shared by all the team members.
+6. DUT
+	1. For how to configure proxy refer - "HTTP and HTTPS proxy discussion.txt"
+	2. Location of logs are in 2 places
+		a. Ghost logs - /var/log/ghost
+		b. Monitor and Restarter logs - /tmp/ghost/sessions/[new_session_for_every_run]/agent1/	 
+7. Select the protocol that is required for testing
+8. Configuring Monitors - There many be many monitors for registered for the test. Configure parameters required for the 
+   selected monitors
+9. Restartes - It is optional. Only one restarter is allowed. "Remote Command" Restarter is the one which is used often
+	
+------------------------------------------------------------------------
+To download the diagnostic bundlic from Cyber flood UI 
+------------------------------------------------------------------------
+	- Type '10.141.41.116/system' in the web browser 
+	- Select ghost controller to download the diagnostic bundle
