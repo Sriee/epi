@@ -1,1 +1,11 @@
 Advanced Fuzzing Concepts
+
+Monitors
+
+Monitors are used to watch the service execution, whether the service crashed for a particular malformed
+
+#TODO
+
+1. Monitor functionality and it types
+2. Explanation of each type
+3. Restarter and it types
