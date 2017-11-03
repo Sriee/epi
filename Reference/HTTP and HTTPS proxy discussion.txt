@@ -1,0 +1,207 @@
+1. HTTP Proxy - squid3
+
+Player page Configuration
+Client subnet - For IPv4 192.168.1.160/24, For IPv6 fdbd:24d2:4f90::2/48
+Server subnet - For IPv4 192.168.1.162/24, For Ipv6 fdbd:24d2:4f90::5/48
+
+DUT setting on player page
+DUT private IPV4 - 192.168.1.169
+DUT private IPV6 - fdbd:24d2:4f90::10
+
+Proxy setting on player page
+Ip - or IPv4 192.168.1.169, For Ipv6 fdbd:24d2:4f90::10
+Port - 3129
+
+Protocol profile setting
+Server port - 8080 without ssl, 443 with ssl
+Ssl - enable or disable
+
+HTTP proxy monitor
+Username - ghost
+Password - spirent
+Prompt - :~#
+Command - /home/ghost/servers/http_proxy/HTTP_proxy_monitor.sh
+Fault pattern -  STOPPED
+
+HTTP proxy restarter
+Username - ghost
+Password - spirent
+Prompt - :~#
+Command - /home/ghost/servers/http_proxy/HTTP_proxy_restarter.sh
+
+
+For HTTP proxy logs go to /var/log/squid3/access.log on DUT
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2. FTP Proxy - delegate
+
+Player page Configuration
+Client subnet - For IPv4 192.168.1.160/24, For IPv6 fdbd:24d2:4f90::2/48
+Server subnet - For IPv4 192.168.1.162/24, For Ipv6 fdbd:24d2:4f90::5/48
+
+DUT setting on player page
+DUT private IPV4 - 192.168.1.169
+DUT private IPV6 - fdbd:24d2:4f90::10
+
+Proxy setting on player page
+Ip - or IPv4 192.168.1.169, For Ipv6 fdbd:24d2:4f90::10
+Port - 8021
+
+Protocol profile setting
+Server port - 5010
+username - For Ipv4 ghost@192.168.1.162:5010, For Ipv6 ghost@fdbd_24d2_4f90__5:5010
+password - ftp
+
+FTP proxy monitor
+Username - ghost
+Password - spirent
+Prompt - :~#
+Command - /home/ghost/servers/ftp_proxy/FTP_proxy_monitor.sh
+Fault pattern -  STOPPED
+
+FTP proxy restarter
+Username - ghost
+Password - spirent
+Prompt - :~#
+Command - /home/ghost/servers/ftp_proxy/FTP_proxy_restarter.sh
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3. SIP Proxy - open sips
+
+Player page Configuration
+Client subnet - For IPv4 192.168.1.160/24, For IPv6 fdbd:24d2:4f90::2/48
+Server subnet - For IPv4 192.168.1.162/24, For Ipv6 fdbd:24d2:4f90::5/48
+
+DUT setting on player page
+DUT private IPV4 - 192.168.1.169
+DUT private IPV6 - fdbd:24d2:4f90::10
+
+Proxy setting on player page
+Ip - or IPv4 192.168.1.169, For Ipv6 fdbd:24d2:4f90::10
+Port - Depends on Transport protocol in protocol profile page
+
+Protocol profile setting
+server_port - 5060
+Transport protocol - TCP or UDP (select any option but remember to change the proxy port in DUT to corresponding once using the mapping below)Request URI - For Ipv4 (sip:siproxd@192.168.1.162:5060), For Ipv6 (sip:siproxd@fdbd:24d2:4f90::5:5060)
+Mapping for proxy port based on Transport protocol used
+IPv4
+tcp - 5060
+udp - 5061
+IPv6
+tcp - 5062
+udp - 5063SIP proxy monitor
+Username - ghost
+Password - spirent
+Prompt - :~#
+Command - /home/ghost/servers/sip_proxy/SipProxy_monitor.sh 5060 (you have to change 5060 based to Transport protocol used using the mapping given above)
+Fault pattern -  STOPPED
+
+SIP proxy restarter
+Username - ghost
+Password - spirent
+Prompt - :~#
+Command - /home/ghost/servers/sip_proxy/SipProxy_restarter.sh-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+4. HTTP-2 Proxy - nghttpx proxy
+
+Player page Configuration
+Client subnet - For IPv4 192.168.1.160/24, For IPv6 fdbd:24d2:4f90::2/48
+Server subnet - For IPv4 192.168.1.162/24, For Ipv6 fdbd:24d2:4f90::5/48
+
+DUT setting on player page
+DUT private IPV4 - 192.168.1.169
+DUT private IPV6 - fdbd:24d2:4f90::10
+
+Proxy setting on player page
+Ip - or IPv4 192.168.1.169, For Ipv6 fdbd:24d2:4f90::10
+Port - Depends on ip version and ssl use the mapping below to configure it 
+
+Proxy port mapping
+http2_proxy_v4 - 8888
+http2_proxy_v4_ssl - 4443
+http2_proxy_v6 - 8889
+http2_proxy_v4_ssl - 4444
+
+Protocol profile setting
+server_port - 443 if ssl is enabled, 80 if ssl is disabled
+Ssl - enable or diable
+
+HTTP-2 proxy monitor
+Username - ghost
+Password - spirent
+Prompt - :~#
+Command - Depends on the test see below
+For http2_proxy_v4
+/home/ghost/servers/http2_proxy/http2_proxy_v4_monitor.sh
+For http2_proxy_v4_ssl
+/home/ghost/servers/http2_proxy/http2_proxy_v4_ssl_monitor.sh
+For http2_proxy_v6
+/home/ghost/servers/http2_proxy/http2_proxy_v6_monitor.sh
+For http2_proxy_v6_ssl
+/home/ghost/servers/http2_proxy/http2_proxy_v6_ssl_monitor.sh
+
+Fault pattern -  STOPPED
+
+HTTP-2 proxy restarter
+Username - ghost
+Password - spirent
+Prompt - :~#
+Command - Depends on the test see below
+For http2_proxy_v4
+/home/ghost/servers/http2_proxy/http2_proxy_v4_restarter.sh
+For http2_proxy_v4_ssl
+/home/ghost/servers/http2_proxy/http2_proxy_v4_ssl_restarter.sh
+For http2_proxy_v6
+/home/ghost/servers/http2_proxy/http2_proxy_v6_restarter.sh
+For http2_proxy_v6_ssl
+/home/ghost/servers/http2_proxy/http2_proxy_v6_ssl_restarter.sh
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5. Radius
+
+Protocol profile setting
+server_port - 1812
+
+Radius proxy monitor
+Username - ghost
+Password - spirent
+Prompt - :~#
+Command - /home/ghost/servers/radius/RadiusServer_monitor.sh
+Fault pattern -  STOPPED
+
+Radius proxy restarter
+Username - ghost
+Password - spirent
+Prompt - :~#
+Command - /home/ghost/servers/radius/RadiusServer_restarter.sh
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+6. HTTP
+
+Server Port based on ip version and ssl
+http_ipv4 - 8080
+http_ipv6 - 8081
+https_ipv4 - 4430
+https_ipv6 - 4431
+
+HTTP proxy monitor
+Username - ghost
+Password - spirent
+Prompt - :~#
+Command - /home/ghost/servers/http_server/HttpProxy_monitor.sh 8080 (8080 server port is based on the test configuration)
+Fault pattern -  STOPPED
+
+Radius proxy restarter
+Username - ghost
+Password - spirent
+Prompt - :~#
+Command - Depends on the test configuration see
+For ipv4 with SSL disabled
+supervisorctl start http_ipv4
+For ipv6 with SSL disabled
+supervisorctl start http_ipv6
+For ipv4 with SSL enabled
+supervisorctl start https_ipv4
+For ipv6 with SSL enabled
+supervisorctl start https_ipv6
+
