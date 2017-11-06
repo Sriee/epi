@@ -13,9 +13,16 @@ Process
 	a. If it is a new version copy the "bundle folder & meta.json" to the repository. 
 	b. Create PR, Squash and merge. 
 
+
+To test any changes to the protocol
+1. Go to "testlounge@avn-controller-stage1.spirenteng.com:/var/lib/avnext-contents/AdvancedFuzzing/protocol"
+2. Go to the protocol folder where changes has to be made
+3. Zip the protocol contents (changed one), if it is not already zipped
+4. Place the new zip file in the folder
+
 To directly push the contents to client system.
 
-1. In the Team Viewer session got to "testlounge@[client_address]:/var/lib/avnext-contents/AdvancedFuzzing/protoco" to copy the 
+1. In the Team Viewer session got to "testlounge@[client_address]:/var/lib/avnext-contents/AdvancedFuzzing/protocol" to copy the 
    zipped content. 
 2. Use "afsecure" to create a secure zip file. Remove the old zip file content and place the new zip file. No need to extract the contents
    The UI will take care of unzipping the contents
