@@ -2,10 +2,43 @@ Advanced Fuzzing Concepts
 
 Monitors
 
-Monitors are used to watch the service execution, whether the service crashed for a particular malformed
+Monitors are used to watch the service execution, whether the service has crashed for a particular malformed input. 
+Once the monitor has detected a fault, it will go back iterations to see whether it could re-produce the fault. 
+The number of iterations it will go back is hard coded in the code. The reason for going back iteration is to know, whether
+a series of states has caused the exception. 
+
+When the fault is able to be re-product it will be declared as fault in the cyber-flood. Once the fault is d
+
+Types of monitors
+1. Remote Command
+2. Ping monitor
+3. Listen monitor
+4. Protocol Instrumentation monitor
+
+Overview of how the monitor checks for the service
+
+1. We use `service [service_name] status` to know the status of the service. [START, STOPPED, FAILED, WAITING]
+2. Use a pattern for searching one of the strings 
+3. If the pattern is found, then we declare the service has failed. 
+
+Monitor and its functionalities
+
+Remote Command monitor - Run a command in the dut. Ex: service squid3 status
+Ping Monitor - Routinely ping the routine to see whether it is up or not
+Listen monitor - Endpoint keeps listening for the inputs from Dut
+Protocol Instrumentation Monitor:
+	- Protocol Instrumentation Monitor is recently added feature. The very first iteration is a control iteration. 
+	- If the dut has crashed after the control iteration the fault which is produced in the DUT is ignored. There are 2 types of fault
+	  Re-producable fault and non-re-producible fault. Control iteration will try to reproduce the fault. Non control iteration won't reproduce the fault. 
+	- Hence to detect the re-producable fault. PIM introduces control iteration between non-controlled iterations
+
+
+Restarters
+
+Restarters are used to restart the service, once it is crashed. 
 
 #TODO
 
 1. Monitor functionality and it types
-2. Explanation of each type
+2. PIM need to ask questions
 3. Restarter and it types
