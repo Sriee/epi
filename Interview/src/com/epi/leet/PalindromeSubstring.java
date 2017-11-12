@@ -142,6 +142,7 @@ public class PalindromeSubstring {
 		ps.manachersAlgorithm(s);
 		ps.manachersAlgorithm("babcbabcbaccba");
 		ps.manachersAlgorithm("");
+		ps.manachersAlgorithm("abbaeae");
 	}
 
 }
