@@ -92,6 +92,7 @@ public class InsertionSort {
 		}
 		return count;
 	}
+	
 	private void print(ListNode head){
 		if(head == null) return;
 		ListNode cursor = head;
