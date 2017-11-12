@@ -48,12 +48,12 @@ public class PureStorage {
 	
 	@Test
 	public void testCountPalindromes() {
-		assertEquals(ps.countPalindromes("abcd"), 4);
-		assertEquals(ps.countPalindromes(""), 0);
-		assertEquals(ps.countPalindromes(null), 0);
+		assertEquals(4, ps.countPalindromes("abcd"));
+		assertEquals(0, ps.countPalindromes(""));
+		assertEquals(0, ps.countPalindromes(null));
 		assertEquals(11, ps.countPalindromes("abbaeae"));
-		assertEquals(ps.countPalindromes("hellolle"), 13);
-		assertEquals(ps.countPalindromes("wowpurerocks"), 14);
-		assertEquals(ps.countPalindromes("aaaa"), 11);
+		assertEquals(13, ps.countPalindromes("hellolle"));
+		assertEquals(14, ps.countPalindromes("wowpurerocks"));
+		assertEquals(10, ps.countPalindromes("aaaa"));
 	}
 }
