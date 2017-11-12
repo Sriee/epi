@@ -60,4 +60,14 @@ public class Pure {
 		return count; 
 	}
 	
+	public void breakBinarySearch(){
+		int left = 0, right =Integer.MAX_VALUE;
+		int mid = (left + right + 1) / 2;
+		System.out.println(mid);
+	}
+	
+	public static void main(String[] args) {
+		Pure p = new Pure();
+		p.breakBinarySearch();
+	}
 }
