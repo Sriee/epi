@@ -25,60 +25,39 @@ public class Pure {
 		return (stack.isEmpty()) ? 0 : events.length + 1;
 	}
 	
-	private String preProcess(String input) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("^#");
-		for(int i = 0; i < input.length(); i++) {
-			sb.append(input.charAt(i));
-			sb.append("#");
-		}
-		sb.append("?");
-		return sb.toString();
-	}
-	
-	public int countPalindromes(String input) {
-		if(input == null || input.trim().isEmpty()) return 0;
-		
-		String s = this.preProcess(input), temp = null;
-		int p[] = new int[s.length()];
-		int count = 0, c = 0, r = 0, i;
-		
-		for(i = 1; i < s.length() - 1; i++) {
-			
-			// p[i] = (r > p[i]) ? Math.min(r- i, p[2*c - i]) : 0;
-			
-			while(s.charAt(i + 1 + p[i]) == s.charAt(i - 1 - p[i])) {
-				p[i]++;
-				if(p[i] > 2 && s.charAt(i) != '#') {
-					/*
-					if(s.charAt(i) == '#') {
-						temp = s.substring(i - p[i] + 1, i + p[i]);
-					} else {
-						temp = s.substring(i - p[i], i + 1 + p[i]);	
-					}
-					*/
-					temp = s.substring(i - p[i], i + 1 + p[i]);
-					temp = temp.replaceAll("#", "");
-					count++;
-					System.out.println(temp);
-				} else if (p[i] > 1 && s.charAt(i) == '#') {
-					temp = s.substring(i - p[i] + 1, i + p[i]);
-				}
+	/**
+	 * Should not use manacher's algorithm. The following solution is a simple version
+	 * 
+	 * For a string of length N, there will be 2N-1 centers. The elements themselves are centers while
+	 * considering odd palindromes. While considering even palindromes the centers are imaginary points in the 
+	 * middle of each element (Hence N-1). 
+	 * 
+	 * We maintain two pointers left & right which progresses away from the center. 
+	 * If the elements at left == right
+	 * 		decrement left & increment right
+	 * 		Increment the count 
+	 * 
+	 * Run time : O(n^2)  
+	 * Space complexity: O(1)
+	 * 
+	 * @param s String 
+	 * @return count of number of palindrome substrings
+	 */
+	public int countPalindromes(String s) {
+		int count = 0;
+		if(s == null || s.trim().isEmpty()) return count;
+		int left = 0, right = 0, length = (2 * s.length() - 1);
+		for(int center = 0; center < length; center++){
+			left = center / 2;
+			right = left + center % 2;
+			while(left >=0 && right < s.length() && s.charAt(left) == s.charAt(right)){
+				count++;
+				left--;
+				right++;
 			}
-			
-			if(i + p[i] > r) {
-				c = i;
-				r = i + p[i];
-			}
-			System.out.println(i + " " + Arrays.toString(p));
 		}
 		
-		return count + input.length();
+		return count; 
 	}
 	
-	public static void main(String[] args) {
-		Pure p = new Pure();
-		int cnt = p.countPalindromes("aaaa");
-		System.out.println(cnt);
-	}
 }
