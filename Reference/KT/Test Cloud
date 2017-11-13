@@ -1,11 +1,11 @@
 Upload contents in test cloud
-
+------------------------------
 2 repositories is used
 	1. ghost_fuzzer_content - Protocol updates/visible to Phitech
 	2. fuzz_protocols - Used by cyberflood/Updates here will be published to customers
 
 Process
-
+--------
 1. [Phitech] protocol developers make updates to the protocols in ghost_fuzzer_content. There will be different version of 
    protocols present
 2. They will create a PR. Ask Suma & Johnny to review them
@@ -15,16 +15,25 @@ Process
 
 
 To test any changes to the protocol
+-----------------------------------
 1. Go to "testlounge@avn-controller-stage1.spirenteng.com:/var/lib/avnext-contents/AdvancedFuzzing/protocol"
 2. Go to the protocol folder where changes has to be made
 3. Zip the protocol contents (changed one), if it is not already zipped
 4. Place the new zip file in the folder
 
 To directly push the contents to client system.
-
+-----------------------------------------------
 1. In the Team Viewer session got to "testlounge@[client_address]:/var/lib/avnext-contents/AdvancedFuzzing/protocol" to copy the 
    zipped content. 
 2. Use "afsecure" to create a secure zip file. Remove the old zip file content and place the new zip file. No need to extract the contents
    The UI will take care of unzipping the contents
  
 If the protocol itself is new, changes needed to made in couchDB
+
+To try out a fix of the protocol
+--------------------------------
+1. Clone protocol content. Create a branch
+2. Move into the protocol folder to which changes are needed
+3. Create a new version of the protocol. Copy the existing version and create a new version
+4. Update the version information in `config.json` and `meta.json`
+5. Update the fix. Push the branch

@@ -1,4 +1,4 @@
-package com.epi.array;
+package com.epi.company;
 
 import java.util.*;
 
