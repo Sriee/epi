@@ -77,6 +77,45 @@ char mostOccuring(char *string){
 	return ('0' + (idx + ('a' - '0')));
 }
 
+int length(char* sentence){
+	if(sentence == NULL)
+		return 0;
+	
+	int count = 0;
+	while(sentence[count++] != '\0');
+	return (count > 0) ? count - 1 : count;
+}
+
+void reverse(char *begin, char *end){
+	char temp;
+	while(begin < end){
+		temp = *begin;
+		*begin++ = *end;
+		*end-- = temp;
+	}
+}
+
+void reverse_sentence(char* sentence){
+	char *begin = sentence, *temp = sentence;
+	while(*temp){
+		*temp++;
+		if(*temp == '\0'){
+			reverse(begin, temp - 1);
+		} else if(*temp == ' '){
+			reverse(begin, temp - 1);
+			begin = temp + 1;
+		}
+	}
+
+	reverse(sentence, temp - 1);
+}
+
+/**
+ * 1) Find first unique character in a string
+ * 2) Find the character which is most occuring
+ * 3) Reverse a sentence inplace
+ * 4) Length of a string
+ */
 int main(){
 	char *name = "dafsdukjhj", *cap = "GAF I E J   FIGA";
 	char ch = mostOccuring(name);
@@ -84,5 +123,8 @@ int main(){
 
 	printf("Most occuring character is %c\n", ch);
 	printf("First unique character is %c\n", cap[idx]);
+	char* sentence = "a word my friend";
+	printf("Reversed: %s\n", sentence);
+	
 	return EXIT_SUCCESS;
 }
