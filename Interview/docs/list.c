@@ -152,6 +152,31 @@ int getn(node* head, int n){
 	return cursor->value;
 }
 
+node* mid(node* head){
+	node* slow = head, *fast = head;
+	while(slow != NULL && fast != NULL && fast->next != NULL){
+		slow = slow->next;
+		fast = fast->next->next;
+	}
+	
+	return slow;
+}
+
+void delete_node(node* anode){
+	if(anode == NULL) return;
+
+	node *temp;
+
+	if(anode->next == NULL){
+		anode = NULL;
+	} else {
+		anode->value = anode->next->value;
+		temp = anode->next;
+		anode->next = anode->next->next;
+		free(temp);
+	}
+}
+
 void delete(node* head){
 	if(head == NULL) return;
 
@@ -174,13 +199,15 @@ bool is_empty(){ return (size == 0) ? true : false; }
  * 3. Add a new node to a linked list
  * 4. Reverse a linked list
  * 5. Return the n element from end of a linked list
+ * 6. Delete an element in list without the head node
+ * 7. Find the midpoint in a linked list
  */
 int main(){
 	node* head = NULL, *temp;
 	int i = 0, n;
 
 	head = append(head, 5);
-	head->next = append(head, 12);
+	head->next = append(head, 13);
 	head->next->next = append(head, 12);
 	print(head);
 	
@@ -189,12 +216,18 @@ int main(){
 	head = insert(head, 88, length());
 	print(head);
 
+	temp = mid(head);
+	printf("Mid node: %d\n", temp->value);
+
 	head = rem(head, 0);
 	head = rem(head, length());
 	print(head);
 
 	n = getn(head, 4);
 	printf("%d\n", n);
+
+	delete_node(head->next->next);
+	print(head);
 
 	temp = reverse(head);
 	print(temp);
