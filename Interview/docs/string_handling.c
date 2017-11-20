@@ -111,10 +111,46 @@ void reverse_sentence(char* sentence){
 }
 
 /**
+ * Converts string to integer. Assumes the number will be in range of int.
+ * Return 0 for all invalid input
+ */
+
+int atoint(char* s){
+	if(s == NULL) {
+		printf("Invalid NULL input.\n");
+		return 0;
+	}
+	int i = 0, len = strlen(s), literal, total = 0, isNeg = 0;
+	if(len == 0) return 0;
+
+	// Handling negative number
+	if(*s == '-') {
+		isNeg = 1;
+		i++;
+	}
+
+	while(i < len){
+		literal = s[i] - '0';
+
+		if(literal > 9) {
+			printf("Invalid input.\n");
+			return 0;
+		}
+
+		total = (total * 10) + literal;
+		i++;
+	}
+
+	if(isNeg) total = 0 - total;
+	return total;
+}	
+
+/**
  * 1) Find first unique character in a string
  * 2) Find the character which is most occuring
  * 3) Reverse a sentence inplace
  * 4) Length of a string
+ * 5) atoi
  */
 int main(){
 	char *name = "dafsdukjhj", *cap = "GAF I E J   FIGA";
@@ -126,5 +162,6 @@ int main(){
 	char* sentence = "a word my friend";
 	printf("Reversed: %s\n", sentence);
 	
+	printf("%d\n", atoint("-a27"));
 	return EXIT_SUCCESS;
 }
