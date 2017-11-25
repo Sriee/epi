@@ -40,7 +40,7 @@ public class Scratch {
 
     public static void main(String[] args) {
         Scratch s = new Scratch();
-        Stirng[] values = new String[3];
+        int[] values = new int[3];
 
         for(int i = 1; i < 4; i++){
             values[i - 1]= i;
