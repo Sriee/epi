@@ -1,4 +1,6 @@
 /bin/
+/out/
 rule.log
 .classpath
 .project
+.idea
