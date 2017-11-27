@@ -7,6 +7,17 @@ import java.util.Iterator;
 
 public class ConsoleLogger implements Logger {
 
+    public static ConsoleLogger consoleLoggerObj = null;
+    private ConsoleLogger(){}
+
+    public static ConsoleLogger instance(){
+        if(consoleLoggerObj == null){
+            consoleLoggerObj = new ConsoleLogger();
+        }
+
+        return consoleLoggerObj;
+    }
+
 	@Override
 	public void writeLog(Collection<String> entry) {
 		Iterator<String> iter = entry.iterator();

@@ -16,14 +16,9 @@ public class FileLogger implements Logger {
 
 	private String fileName = "rule.log"; 
 	private File logFile = null;
-	
-	/**
-	 * 
-	 * @param configFileName
-	 * @param originId
-	 * @throws IOException
-	 */
-	public FileLogger() throws IOException {
+    public static FileLogger fileLoggerObj = null;
+
+	private FileLogger() throws IOException {
 		super();
 		Path currentDir = Paths.get(".");
 		this.fileName = currentDir.toString() + "/" + this.fileName;
@@ -46,6 +41,13 @@ public class FileLogger implements Logger {
 		}
 	}
 
+	public static FileLogger instance() throws IOException{
+        if(fileLoggerObj == null){
+            fileLoggerObj = new FileLogger();
+        }
+        return fileLoggerObj;
+    }
+
 	@Override
 	public void writeLog(String entry){
 		if( logFile == null )
@@ -64,7 +66,7 @@ public class FileLogger implements Logger {
 	}
 	
 	@Override
-	public synchronized void writeLog(Collection<String> entry){
+	public void writeLog(Collection<String> entry){
 		if( logFile == null )
 			throw new NullPointerException("Log file not initialized.");
 		Iterator<String> iter = entry.iterator();
