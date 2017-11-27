@@ -1,0 +1,36 @@
+{
+	"condition_expression" : "c1 & (c2 | (c3 & c4))",
+	"action_expression" : "a1 & a2",
+	"condition_count" : 4,
+	"action_count" : 2,
+	"c1" : {
+		"name" : "H",
+		"operator" : "<",
+		"value" : 40
+	},
+	"c2" : {
+		"name" : "T",
+		"operator" : ">",
+		"value" : 25
+	},
+	"c3" : {
+		"name" : "Fan",
+		"operator" : "=",
+		"value" : 0
+	},
+	"c4" : {
+		"name" : "PCI",
+		"operator" : ">",
+		"value" : 1500
+	},
+	"a1" : {
+		"name" : "Window",
+		"operator" : "=",
+		"value" : 0
+	},
+	"a2" : {
+		"name" : "AC",
+		"operator" : "=",
+		"value" : 1
+	}	
+}
