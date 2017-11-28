@@ -14,4 +14,10 @@ public class TreeNode {
 		this.left = left;
 		this.right = right;
 	}
+
+    @Override
+    public String toString() {
+	    return "TreeNode [name= " + this.name + ", left= " + ((this.left == null) ? "null" : this.left.name) +
+                ", right= " + ((this.right == null) ? "null" : this.right.name) + "]";
+    }
 }
