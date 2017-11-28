@@ -1,12 +1,18 @@
 package com.parser;
 
 import java.util.Stack;
+import java.util.List;
+import java.util.ArrayList;
 
+import com.bpodgursky.jbool_expressions.Expression;
+import com.bpodgursky.jbool_expressions.And;
+import com.bpodgursky.jbool_expressions.Or;
+import com.bpodgursky.jbool_expressions.Variable;
 import com.exceptions.InvalidExpressionSyntaxException;
 
 public class Parser {
 
-	public TreeNode checkSyntax(String expression) throws InvalidExpressionSyntaxException {
+	public TreeNode buildAST(String expression) throws InvalidExpressionSyntaxException {
 		if (expression == null)
 			throw new NullPointerException("Expression is null");
 
@@ -109,11 +115,53 @@ public class Parser {
 	}
 
 	public Expression<String> buildExpression(TreeNode root){
-		if(root.name == "&")
+		if(root.name.equals("&"))
 			return And.of(this.buildExpression(root.left), this.buildExpression(root.right));
-		else if(root.name == "|")
+		else if(root.name.equals("|"))
 			return Or.of(this.buildExpression(root.left), this.buildExpression(root.right));
 		else
 			return Variable.of(root.name);
 	}
+
+	public List<String> rulesAsTokens(String expression){
+	    if(expression == null)
+	        return null;
+
+	    expression = expression.trim();
+	    if(expression.length() == 0)
+	        return null;
+
+	    List<String> tokens = new ArrayList<>();
+	    expression = expression + "|";
+        int startIdx = 0, endIdx = expression.indexOf('|');
+        String temp = null;
+        while(endIdx != -1){
+            temp = expression.substring(startIdx, endIdx);
+            startIdx = endIdx + 1;
+            temp = this.stripBrackets(temp);
+            tokens.add(temp);
+            endIdx = expression.indexOf('|', startIdx);
+        }
+        return tokens;
+    }
+
+	public String stripBrackets(String expression){
+
+	    if(expression == null)
+	        return null;
+
+	    expression = expression.trim();
+	    if(expression.length() == 0)
+	        return expression;
+
+	    if(expression.startsWith("(")){
+	        expression = expression.substring(1);
+        }
+
+        if(expression.endsWith(")")){
+	        expression = expression.substring(0, expression.length() - 1);
+        }
+
+        return expression;
+    }
 }
