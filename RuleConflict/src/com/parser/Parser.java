@@ -107,4 +107,13 @@ public class Parser {
 		System.out.print(root.name + " ");
 		this.inOrder(root.right);
 	}
+
+	public Expression<String> buildExpression(TreeNode root){
+		if(root.name == "&")
+			return And.of(this.buildExpression(root.left), this.buildExpression(root.right));
+		else if(root.name == "|")
+			return Or.of(this.buildExpression(root.left), this.buildExpression(root.right));
+		else
+			return Variable.of(root.name);
+	}
 }
