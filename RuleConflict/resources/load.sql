@@ -1,0 +1,25 @@
+USE Rule;
+
+INSERT INTO Customer VALUES (NULL, 'Bob', 'B', 'Bender');
+INSERT INTO Customer VALUES (NULL, 'Kim', 'E', 'Grace');
+INSERT INTO Customer VALUES (NULL, 'James','E','Borg'); 
+INSERT INTO Customer VALUES (NULL, 'Alex','D','Freed'); 
+INSERT INTO Customer VALUES (NULL, 'Evan','E','Wallis'); 
+INSERT INTO Customer VALUES (NULL, 'Jared','D','James'); 
+INSERT INTO Customer VALUES (NULL, 'John','C','James'); 
+INSERT INTO Customer VALUES (NULL, 'Andy','C','Vile'); 
+INSERT INTO Customer VALUES (NULL, 'Brad','C','Knight'); 
+INSERT INTO Customer VALUES (NULL, 'Josh','U','Zell'); 
+INSERT INTO Customer VALUES (NULL, 'Justin','n','Mark'); 
+INSERT INTO Customer VALUES (NULL, 'Jon','C','Jones'); 
+INSERT INTO Customer VALUES (NULL, 'Ahmad','V','Jabbar'); 
+INSERT INTO Customer VALUES (NULL, 'Joyce','A','English'); 
+INSERT INTO Customer VALUES (NULL, 'Ramesh','K','Narayan'); 
+INSERT INTO Customer VALUES (NULL, 'Alicia','J','Zelaya'); 
+INSERT INTO Customer VALUES (NULL, 'John','B','Smith'); 
+INSERT INTO Customer VALUES (NULL, 'Jennifer','S','Wallace'); 
+INSERT INTO Customer VALUES (NULL, 'Franklin','T','Wong'); 
+INSERT INTO Customer VALUES (NULL, 'Tom','G','Brand'); 
+INSERT INTO Customer VALUES (NULL, 'Jenny','F','Vos'); 
+INSERT INTO Customer VALUES (NULL, 'Chris','A','Carter'); 
+INSERT INTO Customer VALUES (NULL, 'Jeff','H','Chase'); 
