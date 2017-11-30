@@ -58,17 +58,16 @@ public class Driver {
 			rules = new ArrayList<>();
 			
 			for(String item : ruleTokens){
-				System.out.print(item + " : ");
 				List<String> conditions = p.splitTokens(item, "&");
 				
 				Rule temp = driver.builder(conditions, sample);
-				
+				temp.setExpression(item);
 				rules.add(temp);
 			}
 			
 			// Print rules
 			for(int i = 0; i < rules.size(); i++){
-				System.out.println("R" + i + " " + rules.get(i).toString());
+				System.out.println(rules.get(i).getExpression() + " : R" + i + " " + rules.get(i).toString());
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -88,13 +87,13 @@ public class Driver {
 		
 		for(String c : condition){
 			temp = input.getLiterals().get(c);
-			
+			tempTrigger = new Trigger(++tId, temp.getName(), temp.getOperator(), temp.getValue());
 			triggerList.add(tempTrigger);
 		}
 		
 		for(int k = 0; k < input.getActionCount(); k++){
-			temp = input.getLiterals().get("a" + k);
-			
+			temp = input.getLiterals().get("a" + (k + 1));
+			tempActuator = new Actuator(++aId, temp.getName(), temp.getOperator(), temp.getValue());
 			actuatorList.add(tempActuator);
 		}
 		
