@@ -60,6 +60,14 @@ public class Literals {
 		this.value = value;
 	}
 
+	public String toExpressionString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("(");
+		sb.append(this.name + " " + this.operator.toString() + " " + this.value);
+		sb.append(")");
+		return sb.toString();
+	}
+	
 	@Override
 	public String toString() {
 		return "Literals [name=" + name + ", operator=" + operator + ", value=" + value + "]";
