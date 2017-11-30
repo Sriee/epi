@@ -2,6 +2,8 @@ package com.rule;
 
 import java.util.*;
 
+import com.logger.FileLogger;
+
 public class Rule {
 	
 	String expression;
@@ -24,7 +26,6 @@ public class Rule {
 		this.actuators = actuators;
 	}
 
-
 	/**
 	 * @param triggers
 	 * @param environments
@@ -33,7 +34,13 @@ public class Rule {
 	public Rule(List<Trigger> triggers, List<Environment> environments, List<Actuator> actuators) {
 		this(null, triggers, environments, actuators);
 	}
-	
+
+	public boolean checkConflict(Rule otherRule){
+		FileLogger log = FileLogger.instance();
+		
+		// Implementation of Rule conflict algorithm goes here
+		return true;
+	}
 	/**
 	 * @return the expression
 	 */
