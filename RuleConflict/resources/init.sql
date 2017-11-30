@@ -1,12 +1,58 @@
-DROP DATABASE IF EXISTS Rule;
+DROP DATABASE IF EXISTS Rules;
 
-CREATE DATABASE Rule;
+CREATE DATABASE Rules;
 
-USE Rule;
+USE Rules;
 
-CREATE TABLE Customer (
-  id			int(11) primary key auto_increment, 
-  first_name	varchar(45) not null,
-  middle_name	varchar(45),
-  last_name		varchar(45) not null 	
+CREATE TABLE Rule (
+	Id 	 INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	name VARCHAR(45)
+);
+
+CREATE TABLE Triggers (
+	Id 			INT NOT NULL AUTO_INCREMENT,
+	rule_id 	INT NOT NULL,
+	sensor_id  	INT NOT NULL,
+	operator 	VARCHAR(2) NOT NULL,
+	value 		INT NOT NULL,
+	priority 	INT DEFAULT -1,
+	PRIMARY KEY (Id, rule_id),
+	FOREIGN KEY (rule_id) REFERENCES Rule(Id)
+);
+
+CREATE TABLE Action (
+	Id 			INT NOT NULL AUTO_INCREMENT,
+	rule_id 	INT NOT NULL,
+	actuator_id INT NOT NULL,
+	operator 	VARCHAR(2) NOT NULL,
+	value 		INT NOT NULL,
+	priority 	INT DEFAULT -1,
+	PRIMARY KEY (Id, rule_id),
+	FOREIGN KEY (rule_id) REFERENCES Rule(Id)
+);
+
+CREATE TABLE Environment (
+	Id 				INT NOT NULL AUTO_INCREMENT,
+	rule_id 		INT NOT NULL,
+	previous_state 	VARCHAR(10) NOT NULL,
+	next_state		VARCHAR(10) NOT NULL,
+	PRIMARY KEY 	(Id, rule_id),
+	FOREIGN KEY 	(rule_id) REFERENCES Rule(Id)
+);
+
+CREATE TABLE Sensor (
+	Id 	  INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	name  VARCHAR(45),
+	type  BOOLEAN DEFAULT 1,
+	unit  VARCHAR(5),
+	acive BOOLEAN DEFAULT 0,
+	min	  FLOAT DEFAULT NULL,
+	max   FLOAT DEFAULT NULL
+);
+
+CREATE TABLE Actuator (
+	Id 	  	  INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	serial_id VARCHAR(100) NOT NULL,
+	name  	  VARCHAR(45),
+	acive 	  BOOLEAN DEFAULT 0
 );
