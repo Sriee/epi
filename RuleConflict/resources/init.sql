@@ -10,34 +10,28 @@ CREATE TABLE Rule (
 );
 
 CREATE TABLE Triggers (
-	Id 			INT NOT NULL AUTO_INCREMENT,
-	rule_id 	INT NOT NULL,
+	Id 			INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	name		VARCHAR(50),
 	sensor_id  	INT NOT NULL,
 	operator 	VARCHAR(2) NOT NULL,
 	value 		INT NOT NULL,
-	priority 	INT DEFAULT -1,
-	PRIMARY KEY (Id, rule_id),
-	FOREIGN KEY (rule_id) REFERENCES Rule(Id)
+	priority 	INT DEFAULT -1
 );
 
 CREATE TABLE Action (
-	Id 			INT NOT NULL AUTO_INCREMENT,
-	rule_id 	INT NOT NULL,
+	Id 			INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	name		VARCHAR(50),
 	actuator_id INT NOT NULL,
 	operator 	VARCHAR(2) NOT NULL,
 	value 		INT NOT NULL,
-	priority 	INT DEFAULT -1,
-	PRIMARY KEY (Id, rule_id),
-	FOREIGN KEY (rule_id) REFERENCES Rule(Id)
+	priority 	INT DEFAULT -1
 );
 
 CREATE TABLE Environment (
-	Id 				INT NOT NULL AUTO_INCREMENT,
-	rule_id 		INT NOT NULL,
+	Id 				INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	name 			VARCHAR(50),
 	previous_state 	VARCHAR(10) NOT NULL,
-	next_state		VARCHAR(10) NOT NULL,
-	PRIMARY KEY 	(Id, rule_id),
-	FOREIGN KEY 	(rule_id) REFERENCES Rule(Id)
+	next_state		VARCHAR(10) NOT NULL
 );
 
 CREATE TABLE Sensor (
@@ -55,4 +49,14 @@ CREATE TABLE Actuator (
 	serial_id VARCHAR(100) NOT NULL,
 	name  	  VARCHAR(45),
 	acive 	  BOOLEAN DEFAULT 0
+);
+
+CREATE TABLE Link (
+	Id 		INT AUTO_INCREMENT NOT NULL,
+	rule_id INT NOT NULL,
+	type	ENUM('TRIGGER', 'ACTION', 'ENVIRONMENT'),
+	type_id	INT NOT NULL,
+	PRIMARY KEY (Id, rule_id), 
+	FOREIGN KEY (rule_id) REFERENCES Rule(Id)
+	ON DELETE CASCADE
 );
