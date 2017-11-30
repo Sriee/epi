@@ -101,16 +101,16 @@ public class Rule {
 		StringBuilder lhs = new StringBuilder(), rhs = new StringBuilder();
 		
 		for(Trigger trg : this.triggers){
-			lhs.append(trg.toString());
+			lhs.append(trg.toExpressionString());
 			lhs.append(" & ");
 		}
-		lhs.setLength(lhs.length() - 2);
+		lhs.setLength(lhs.length() - 3);
 
 		for(Actuator act : this.actuators){
-			rhs.append(act.toString());
+			rhs.append(act.toExpressionString());
 			rhs.append(" & ");
 		}
-		rhs.setLength(rhs.length() - 2);
+		rhs.setLength(rhs.length() - 3);
 		return lhs.toString() + " -> " + rhs.toString();
 	}
 }
