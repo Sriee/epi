@@ -20,6 +20,7 @@ public class InputDeserializer implements JsonDeserializer<Input> {
 		Input input = new Input();
 		Literals literalInstance = null;
 		Map<String, Literals> map = new HashMap<>();
+		LogicalOperator logicOp = LogicalOperator.EQUAL; 
 		
 		input.setConditionalExpression(jsonObject.get("condition_expression").getAsString());
 		input.setActionExpression(jsonObject.get("action_expression").getAsString());
@@ -31,7 +32,7 @@ public class InputDeserializer implements JsonDeserializer<Input> {
 			temp = "c" + i;
 			literalObject = jsonObject.get(temp).getAsJsonObject();
 			literalInstance = new Literals(literalObject.get("name").getAsString(),
-					LogicalOperator.getLogicalOperator(literalObject.get("operator").getAsString()),
+					(LogicalOperator) logicOp.getOperator(literalObject.get("operator").getAsString()),
 					literalObject.get("value").getAsInt()
 					);
 			map.put(temp, literalInstance);
@@ -42,7 +43,7 @@ public class InputDeserializer implements JsonDeserializer<Input> {
 			temp = "a" + j;
 			literalObject = jsonObject.get(temp).getAsJsonObject();
 			literalInstance = new Literals(literalObject.get("name").getAsString(),
-					LogicalOperator.getLogicalOperator(literalObject.get("operator").getAsString()),
+					(LogicalOperator) logicOp.getOperator(literalObject.get("operator").getAsString()),
 					literalObject.get("value").getAsInt()
 					);
 			map.put(temp, literalInstance);
