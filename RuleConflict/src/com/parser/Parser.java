@@ -1,11 +1,11 @@
 package com.parser;
 
-import java.util.Stack;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
-import com.bpodgursky.jbool_expressions.Expression;
 import com.bpodgursky.jbool_expressions.And;
+import com.bpodgursky.jbool_expressions.Expression;
 import com.bpodgursky.jbool_expressions.Or;
 import com.bpodgursky.jbool_expressions.Variable;
 import com.exceptions.InvalidExpressionSyntaxException;
@@ -74,7 +74,7 @@ public class Parser {
 		return (TreeNode) valueStack.pop();
 	}
 
-	private String formExpression(String expression) throws InvalidExpressionSyntaxException {
+	public String formExpression(String expression) throws InvalidExpressionSyntaxException {
 		StringBuilder sb = new StringBuilder();
 		boolean delimiter = true;
 		for (int i = 0; i < expression.length(); i++) {
@@ -122,8 +122,8 @@ public class Parser {
 		else
 			return Variable.of(root.name);
 	}
-
-	public List<String> rulesAsTokens(String expression){
+	
+	public List<String> splitTokens(String expression, String delimiter){
 	    if(expression == null)
 	        return null;
 
@@ -132,19 +132,19 @@ public class Parser {
 	        return null;
 
 	    List<String> tokens = new ArrayList<>();
-	    expression = expression + "|";
-        int startIdx = 0, endIdx = expression.indexOf('|');
+	    expression = expression + delimiter;
+        int startIdx = 0, endIdx = expression.indexOf(delimiter);
         String temp = null;
         while(endIdx != -1){
             temp = expression.substring(startIdx, endIdx);
             startIdx = endIdx + 1;
             temp = this.stripBrackets(temp);
             tokens.add(temp);
-            endIdx = expression.indexOf('|', startIdx);
+            endIdx = expression.indexOf(delimiter, startIdx);
         }
         return tokens;
     }
-
+	
 	public String stripBrackets(String expression){
 
 	    if(expression == null)
