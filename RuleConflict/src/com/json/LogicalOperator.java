@@ -1,6 +1,6 @@
 package com.json;
 
-public enum LogicalOperator {
+public enum LogicalOperator implements Operator{
 	LESSER_THAN,
 	GREATER_THAN,
 	LESSER_THAN_OR_EQUAL,
@@ -8,7 +8,8 @@ public enum LogicalOperator {
 	EQUAL,
 	NOT_EQUAL;
 	
-	public static LogicalOperator getLogicalOperator(String text){
+	@Override
+	public Operator getOperator(String text){
 		if(text.equals("<")){
 			return LESSER_THAN;
 		} else if(text.equals(">")){
@@ -24,19 +25,21 @@ public enum LogicalOperator {
 		}
 	}
 	
-	public static String toString(LogicalOperator op){
-		if(op == LESSER_THAN){
+	@Override
+	public String toString(){
+		if(this == LESSER_THAN){
 			return "<";
-		} else if(op == GREATER_THAN){
+		} else if(this == GREATER_THAN){
 			return ">";
-		} else if(op == LESSER_THAN_OR_EQUAL){
+		} else if(this == LESSER_THAN_OR_EQUAL){
 			return "<=";
-		} else if(op == GREATER_THAN_OR_EQUAL){
+		} else if(this == GREATER_THAN_OR_EQUAL){
 			return ">=";
-		} else if(op == NOT_EQUAL){
+		} else if(this == NOT_EQUAL){
 			return "!=";
 		} else{
 			return "=";
 		}
 	}
+
 }
