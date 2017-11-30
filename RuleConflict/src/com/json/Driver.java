@@ -1,103 +1,51 @@
 package com.json;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Paths;
+import java.util.List;
 
-import com.bpodgursky.jbool_expressions.rules.RuleSet;
-import com.bpodgursky.jbool_expressions.Expression;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.stream.JsonReader;
-
-import com.parser.*;
-import com.rule.Rule;
-import com.rule.Trigger;
-import com.rule.Actuator;
 import com.logger.FileLogger;
+import com.rule.Builder;
+import com.rule.Rule;
 
 public class Driver {
 
-	/* TODO: Trigger Id and actuator Id declared as static
-	 * Should be retrieved from database
-	 */
-	private static int tId;
-	private static int aId;
-	
-	public static void main(String[] args) throws IOException {
-		// Configure gson
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(Input.class, new InputDeserializer());
-		Gson gson = gsonBuilder.create();
-
+	public static void main(String[] args) {
+		Builder builder = new Builder();
+		List<Rule> allRules = null; 
+		String jsonExpression = null; 
 		FileLogger log = FileLogger.instance();
-		Parser p = new Parser();
-		Driver driver = new Driver();
-		JsonReader reader = null;
-		List<String> ruleTokens = null;
-		List<Rule> rules = null;
+		boolean failed = false;
 		
-		try {
-			reader = new JsonReader(new FileReader(Paths.get(Paths.get(".").toAbsolutePath().toString(),
-					"resources/boolean_expression.json").normalize().toString()));
-			Input sample = gson.fromJson(reader, Input.class);
-			log.writeLog(sample.toString());
-
-			TreeNode root = p.buildAST(sample.getConditionalExpression());
-
-			Expression<String> sop = RuleSet.toSop(p.buildExpression(root));
-			String dnf = sop.toString();
-			System.out.println("DNF: " + dnf);
-
-			dnf = p.stripBrackets(dnf);
-			ruleTokens = p.splitTokens(dnf, "|");
-			rules = new ArrayList<>();
+		for(int i = 0; i < 2 & !failed; i++){
+			jsonExpression = "boolean_expression" + (i + 1) + ".json";
+			log.writeLog("Working on " + jsonExpression);
+			List<Rule> current = builder.build(jsonExpression);
 			
-			for(String item : ruleTokens){
-				List<String> conditions = p.splitTokens(item, "&");
-				
-				Rule temp = driver.builder(conditions, sample);
-				temp.setExpression(item);
-				rules.add(temp);
+			// Should check for rule conflict here
+			if(allRules == null){
+				allRules = new ArrayList<>();
+				allRules.addAll(current);
+				continue;
+			} 		
+			
+			for(Rule currentRule : current){
+				for(Rule previousRule : allRules){
+					failed = currentRule.checkConflict(previousRule);
+					
+					if(failed){
+						System.out.println("Failed at " + currentRule.toString());
+						continue;
+					}
+				}
 			}
-			
-			// Print rules
-			for(int i = 0; i < rules.size(); i++){
-				System.out.println(rules.get(i).getExpression() + " : R" + i + " " + rules.get(i).toString());
-			}
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (Exception e){
-			e.printStackTrace();
+		}
+		
+		if(!failed){
+			System.out.println("Rules added successfully.");
+		}
+		
+		for(Rule rule : allRules){
+			System.out.println(rule.toString());
 		}
 	}
-
-	private Rule builder(List<String> condition, Input input){
-		Rule newRule = null;
-		List<Trigger> triggerList = new ArrayList<>();
-		List<Actuator> actuatorList = new ArrayList<>();
-		Literals temp = null;
-		Trigger tempTrigger = null;
-		Actuator tempActuator = null;
-		
-		for(String c : condition){
-			temp = input.getLiterals().get(c);
-			tempTrigger = new Trigger(++tId, temp.getName(), temp.getOperator(), temp.getValue());
-			triggerList.add(tempTrigger);
-		}
-		
-		for(int k = 0; k < input.getActionCount(); k++){
-			temp = input.getLiterals().get("a" + (k + 1));
-			tempActuator = new Actuator(++aId, temp.getName(), temp.getOperator(), temp.getValue());
-			actuatorList.add(tempActuator);
-		}
-		
-		newRule = new Rule(triggerList, null, actuatorList);
-		return newRule; 
-	} 
 }
