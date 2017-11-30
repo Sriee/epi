@@ -1,25 +1,29 @@
-USE Rule;
+USE Rules;
 
-INSERT INTO Customer VALUES (NULL, 'Bob', 'B', 'Bender');
-INSERT INTO Customer VALUES (NULL, 'Kim', 'E', 'Grace');
-INSERT INTO Customer VALUES (NULL, 'James','E','Borg'); 
-INSERT INTO Customer VALUES (NULL, 'Alex','D','Freed'); 
-INSERT INTO Customer VALUES (NULL, 'Evan','E','Wallis'); 
-INSERT INTO Customer VALUES (NULL, 'Jared','D','James'); 
-INSERT INTO Customer VALUES (NULL, 'John','C','James'); 
-INSERT INTO Customer VALUES (NULL, 'Andy','C','Vile'); 
-INSERT INTO Customer VALUES (NULL, 'Brad','C','Knight'); 
-INSERT INTO Customer VALUES (NULL, 'Josh','U','Zell'); 
-INSERT INTO Customer VALUES (NULL, 'Justin','n','Mark'); 
-INSERT INTO Customer VALUES (NULL, 'Jon','C','Jones'); 
-INSERT INTO Customer VALUES (NULL, 'Ahmad','V','Jabbar'); 
-INSERT INTO Customer VALUES (NULL, 'Joyce','A','English'); 
-INSERT INTO Customer VALUES (NULL, 'Ramesh','K','Narayan'); 
-INSERT INTO Customer VALUES (NULL, 'Alicia','J','Zelaya'); 
-INSERT INTO Customer VALUES (NULL, 'John','B','Smith'); 
-INSERT INTO Customer VALUES (NULL, 'Jennifer','S','Wallace'); 
-INSERT INTO Customer VALUES (NULL, 'Franklin','T','Wong'); 
-INSERT INTO Customer VALUES (NULL, 'Tom','G','Brand'); 
-INSERT INTO Customer VALUES (NULL, 'Jenny','F','Vos'); 
-INSERT INTO Customer VALUES (NULL, 'Chris','A','Carter'); 
-INSERT INTO Customer VALUES (NULL, 'Jeff','H','Chase'); 
+# Sensor data
+INSERT INTO Sensor VALUES(NULL, "Temperature1", 1, "", true, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "Temperature2", 1, "", true, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "WaterLevel1", 1, "", true, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "Temperature3", 1, "", false, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "Temperature4", 1, "F", false, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "WaterLevel2", 1, "", false, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "Temperature5", 1, "", true, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "Temperature6", 1, "", true, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "Temperature7", 1, "F", true, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "SoilMoisture1", 1, "%", true, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "WeatherApiTemperature1", 0, "F", true, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "WeatherApiHumidity1", 0, "F", true, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "WeatherApiRain1", 0, "F", true, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "SoilMoisture2", 1, "%", true, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "Temperature8", 1, "F", false, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "SoilMoisture3", 1, "%", true, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "Temperature9", 1, "F", false, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "SoilMoisture4", 1, "", false, NULL, NULL);
+INSERT INTO Sensor VALUES(NULL, "Ultrasonic1", 1, "", true, NULL, NULL);
+
+# Actuator data
+INSERT INTO Actuator VALUES(NULL, "2", "Sprinkler1", false);
+INSERT INTO Actuator VALUES(NULL, "3456", "LED1", true);
+INSERT INTO Actuator VALUES(NULL, "5551268483084670819", "Sprinkler2", true);
+INSERT INTO Actuator VALUES(NULL, "5551268483084670819", "Sprinkler3", true);
+INSERT INTO Actuator VALUES(NULL, "7066147889533359447", "Sprinkler4", true);
