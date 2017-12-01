@@ -1,39 +1,36 @@
 package com.rule;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.nio.file.Paths;
+import java.io.File;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.entity.Action;
+import com.json.LogicalOperator;
 
 public class Scratch {
 
 	public static void main(String[] args) {
-		
-		Connection connection = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			 connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Rules?autoReconnect=true&useSSL=false",
-					"root", "welcome");
-			PreparedStatement stmt = connection.prepareStatement("show tables");
-			ResultSet rs = stmt.executeQuery();
-			
-			while(rs.next()){
-				System.out.println(rs.getString("Tables_in_Rules"));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		String hibernateConfigFilePath = Paths.get(Paths.get(".").toAbsolutePath().toString(),
+				"resources/hibernate.cfg.xml").normalize().toString();
+		File configFile = new File(hibernateConfigFilePath);
+		SessionFactory factory = new Configuration()
+				.configure(configFile)
+				.addAnnotatedClass(Action.class)
+				.buildSessionFactory();
+		Session session = factory.getCurrentSession();
+		LogicalOperator op = LogicalOperator.GREATER_THAN;
+		try{
+			Action action = new Action("AC", 1, op, 30);
+			session.beginTransaction();
+			session.save(action);
+			session.getTransaction().commit();
 		} finally {
-			try {
-				if (connection != null && !connection.isClosed())
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+			if(factory != null && factory.isOpen()){
+				factory.close();
 			}
-		}
+		} 
 	}
 }
