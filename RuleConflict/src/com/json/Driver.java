@@ -16,7 +16,7 @@ public class Driver {
 		FileLogger log = FileLogger.instance();
 		boolean failed = false;
 		
-		for(int i = 0; i < 2 & !failed; i++){
+		for(int i = 0; i < 2 && !failed; i++){
 			jsonExpression = "boolean_expression" + (i + 1) + ".json";
 			log.writeLog("Working on " + jsonExpression);
 			List<Rule> current = builder.build(jsonExpression);
@@ -28,8 +28,10 @@ public class Driver {
 				continue;
 			} 		
 			
-			for(Rule currentRule : current){
-				for(Rule previousRule : allRules){
+			for(int j = 0; j < current.size() && !failed; j++){
+				Rule currentRule = current.get(j);
+				for(int k = 0; k < allRules.size() && !failed;k++){
+					Rule previousRule = allRules.get(k);
 					failed = currentRule.checkConflict(previousRule);
 					
 					if(failed){
@@ -38,14 +40,11 @@ public class Driver {
 					}
 				}
 			}
-		}
-		
-		if(!failed){
-			System.out.println("Rules added successfully.");
-		}
-		
-		for(Rule rule : allRules){
-			System.out.println(rule.toString());
+			
+			if(!failed){ 
+				allRules.addAll(current); 
+				System.out.println("Rules added successfully for '" + jsonExpression + "'");
+			}
 		}
 	}
 }
