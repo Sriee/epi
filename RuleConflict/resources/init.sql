@@ -40,8 +40,6 @@ CREATE TABLE Sensor (
 	type  BOOLEAN DEFAULT 1,
 	unit  VARCHAR(5),
 	acive BOOLEAN DEFAULT 0,
-	min	  FLOAT DEFAULT NULL,
-	max   FLOAT DEFAULT NULL
 );
 
 CREATE TABLE Actuator (
