@@ -1,14 +1,17 @@
 package com.rule;
 
-import java.nio.file.Paths;
 import java.io.File;
+import java.nio.file.Paths;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.entity.Action;
-import com.json.LogicalOperator;
+import com.entity.Link;
+import com.entity.LinkPK;
+import com.entity.Sensor;
+import com.entity.Type;
 
 public class Scratch {
 
@@ -19,13 +22,21 @@ public class Scratch {
 		SessionFactory factory = new Configuration()
 				.configure(configFile)
 				.addAnnotatedClass(Action.class)
+				.addAnnotatedClass(Actuator.class)
+				.addAnnotatedClass(Environment.class)
+				.addAnnotatedClass(Link.class)
+				.addAnnotatedClass(Rule.class)
+				.addAnnotatedClass(Sensor.class)
+				.addAnnotatedClass(Trigger.class)
 				.buildSessionFactory();
+		
 		Session session = factory.getCurrentSession();
-		LogicalOperator op = LogicalOperator.GREATER_THAN;
 		try{
-			Action action = new Action("AC", 1, op, 30);
+			LinkPK pk = new LinkPK(null, (long)1);
+			Link link = new Link(pk, Type.ACTION, 1);
+			
 			session.beginTransaction();
-			session.save(action);
+			session.save(link);
 			session.getTransaction().commit();
 		} finally {
 			if(factory != null && factory.isOpen()){
