@@ -31,10 +31,13 @@ public class Scratch {
 		LogicalOperator op = LogicalOperator.GREATER_THAN;
 		Long id = null;
 		try{
-			// Triggers
-			Trigger trigger = new com.entity.Trigger(id, "T1", 1, op, 30);
-		
 			session.beginTransaction();
+			// Triggers
+			Sensor aSensor = (Sensor) session.createQuery("from Sensor s where s.id = 4").getSingleResult();
+			System.out.println(aSensor.toString());
+			Trigger trigger = new com.entity.Trigger(id, "H", aSensor, op, 40);
+		
+			
 			session.save(trigger);
 			
 			// Environment Table
