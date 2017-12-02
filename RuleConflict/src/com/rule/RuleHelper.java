@@ -2,6 +2,7 @@ package com.rule;
 
 import java.util.List;
 
+import com.entity.*;
 import com.logger.FileLogger;
 
 public class RuleHelper {
@@ -9,7 +10,7 @@ public class RuleHelper {
 	String expression;
 	List<Trigger> triggers;
 	List<Environment> environments;
-	List<Actuator> actuators;
+	List<Action> action;
 	
 	public RuleHelper() { this(null, null, null, null); }
 	
@@ -17,22 +18,22 @@ public class RuleHelper {
 	 * @param expression
 	 * @param triggers
 	 * @param environments
-	 * @param actuators
+	 * @param action
 	 */
-	public RuleHelper(String expression, List<Trigger> triggers, List<Environment> environments, List<Actuator> actuators) {
+	public RuleHelper(String expression, List<Trigger> triggers, List<Environment> environments, List<Action> action) {
 		this.expression = expression;
 		this.triggers = triggers;
 		this.environments = environments;
-		this.actuators = actuators;
+		this.action = action;
 	}
 
 	/**
 	 * @param triggers
 	 * @param environments
-	 * @param actuators
+	 * @param action
 	 */
-	public RuleHelper(List<Trigger> triggers, List<Environment> environments, List<Actuator> actuators) {
-		this(null, triggers, environments, actuators);
+	public RuleHelper(List<Trigger> triggers, List<Environment> environments, List<Action> action) {
+		this(null, triggers, environments, action);
 	}
 
 	public boolean checkConflict(RuleHelper otherRule){
@@ -86,35 +87,35 @@ public class RuleHelper {
 	/**
 	 * @return the actuators
 	 */
-	public List<Actuator> getActuators() {
-		return actuators;
+	public List<Action> getActuators() {
+		return action;
 	}
 
 	/**
 	 * @param actuators the actuators to set
 	 */
-	public void setActuators(List<Actuator> actuators) {
-		this.actuators = actuators;
+	public void setActuators(List<Action> action) {
+		this.action = action;
 	}
 
 	public int numOfTrigges(){ return (this.triggers == null)? 0 : this.triggers.size(); }
 	
 	public int numOfEnvironment(){ return (this.environments == null) ? 0 : this.environments.size(); }
 	
-	public int numOfActuators(){ return (this.actuators == null) ? 0 : this.actuators.size(); }
+	public int numOfActuators(){ return (this.action == null) ? 0 : this.action.size(); }
 
 	@Override
 	public String toString(){
 		StringBuilder lhs = new StringBuilder(), rhs = new StringBuilder();
 		
 		for(Trigger trg : this.triggers){
-			lhs.append(trg.toExpressionString());
+			lhs.append(trg.toString());
 			lhs.append(" & ");
 		}
 		lhs.setLength(lhs.length() - 3);
 
-		for(Actuator act : this.actuators){
-			rhs.append(act.toExpressionString());
+		for(Action act : this.action){
+			rhs.append(act.toString());
 			rhs.append(" & ");
 		}
 		rhs.setLength(rhs.length() - 3);

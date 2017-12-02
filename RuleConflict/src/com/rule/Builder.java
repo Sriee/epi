@@ -8,6 +8,8 @@ import java.util.List;
 
 import com.bpodgursky.jbool_expressions.Expression;
 import com.bpodgursky.jbool_expressions.rules.RuleSet;
+import com.entity.Action;
+import com.entity.Trigger;
 import com.exceptions.InvalidExpressionSyntaxException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,12 +27,6 @@ public class Builder {
 	private Gson gson;
 	private Parser parser;
 	private FileLogger log;
-
-	/* TODO: Trigger Id and actuator Id declared as static
-	 * Should be retrieved from database
-	 */
-	private static int tId;
-	private static int aId;
 
 	public Builder(){
 		this.log = FileLogger.instance();
@@ -89,21 +85,21 @@ public class Builder {
 	private RuleHelper wrapper(List<String> condition, Input input){
 		RuleHelper newRule = null;
 		List<Trigger> triggerList = new ArrayList<>();
-		List<Actuator> actuatorList = new ArrayList<>();
+		List<Action> actuatorList = new ArrayList<>();
 		Literals temp = null;
 		Trigger tempTrigger = null;
-		Actuator tempActuator = null;
+		Action tempAction = null;
 
 		for(String c : condition){
 			temp = input.getLiterals().get(c);
-			tempTrigger = new Trigger(++tId, temp.getName(), temp.getOperator(), temp.getValue());
+			tempTrigger = new Trigger(null, temp.getName(), 3, temp.getOperator(), temp.getValue());
 			triggerList.add(tempTrigger);
 		}
 
 		for(int k = 0; k < input.getActionCount(); k++){
 			temp = input.getLiterals().get("a" + (k + 1));
-			tempActuator = new Actuator(++aId, temp.getName(), temp.getOperator(), temp.getValue());
-			actuatorList.add(tempActuator);
+			tempAction = new Action(null, temp.getName(), 4, temp.getOperator(), temp.getValue());
+			actuatorList.add(tempAction);
 		}
 
 		newRule = new RuleHelper(triggerList, null, actuatorList);
