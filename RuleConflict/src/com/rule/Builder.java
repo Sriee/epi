@@ -43,10 +43,10 @@ public class Builder {
 		this.parser = new Parser();
 	}
 
-	public List<Rule> build(String json) {
+	public List<RuleHelper> build(String json) {
 		String dnf = null;
 		List<String> ruleTokens = null;
-		List<Rule> rules = null;
+		List<RuleHelper> rules = null;
 
 		try{
 			JsonReader reader = new JsonReader(new FileReader(Paths.get(Paths.get(".").toAbsolutePath().toString(),
@@ -73,7 +73,7 @@ public class Builder {
 				this.log.writeLog("Wrapping " + item);
 				List<String> conditions = this.parser.splitTokens(item, "&");
 
-				Rule temp = this.wrapper(conditions, sample);
+				RuleHelper temp = this.wrapper(conditions, sample);
 				temp.setExpression(item);
 				this.log.writeLog(temp.toString());
 				rules.add(temp);
@@ -86,8 +86,8 @@ public class Builder {
 		return rules;
 	}
 
-	private Rule wrapper(List<String> condition, Input input){
-		Rule newRule = null;
+	private RuleHelper wrapper(List<String> condition, Input input){
+		RuleHelper newRule = null;
 		List<Trigger> triggerList = new ArrayList<>();
 		List<Actuator> actuatorList = new ArrayList<>();
 		Literals temp = null;
@@ -106,7 +106,7 @@ public class Builder {
 			actuatorList.add(tempActuator);
 		}
 
-		newRule = new Rule(triggerList, null, actuatorList);
+		newRule = new RuleHelper(triggerList, null, actuatorList);
 		return newRule; 
 	} 
 }

@@ -1,17 +1,17 @@
 package com.rule;
 
-import java.util.*;
+import java.util.List;
 
 import com.logger.FileLogger;
 
-public class Rule {
+public class RuleHelper {
 	
 	String expression;
 	List<Trigger> triggers;
 	List<Environment> environments;
 	List<Actuator> actuators;
 	
-	public Rule() { this(null, null, null, null); }
+	public RuleHelper() { this(null, null, null, null); }
 	
 	/**
 	 * @param expression
@@ -19,7 +19,7 @@ public class Rule {
 	 * @param environments
 	 * @param actuators
 	 */
-	public Rule(String expression, List<Trigger> triggers, List<Environment> environments, List<Actuator> actuators) {
+	public RuleHelper(String expression, List<Trigger> triggers, List<Environment> environments, List<Actuator> actuators) {
 		this.expression = expression;
 		this.triggers = triggers;
 		this.environments = environments;
@@ -31,13 +31,13 @@ public class Rule {
 	 * @param environments
 	 * @param actuators
 	 */
-	public Rule(List<Trigger> triggers, List<Environment> environments, List<Actuator> actuators) {
+	public RuleHelper(List<Trigger> triggers, List<Environment> environments, List<Actuator> actuators) {
 		this(null, triggers, environments, actuators);
 	}
 
-	public boolean checkConflict(Rule otherRule){
+	public boolean checkConflict(RuleHelper otherRule){
 		FileLogger log = FileLogger.instance();
-		
+		log.writeLog("Should Implement check conflict method.");
 		// Implementation of Rule conflict algorithm goes here
 		return true;
 	}
