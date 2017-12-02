@@ -7,11 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.entity.Action;
-import com.entity.Link;
-import com.entity.LinkPK;
-import com.entity.Sensor;
-import com.entity.Type;
+import com.entity.*;
 
 public class Scratch {
 
@@ -32,11 +28,10 @@ public class Scratch {
 		
 		Session session = factory.getCurrentSession();
 		try{
-			LinkPK pk = new LinkPK(null, (long)1);
-			Link link = new Link(pk, Type.ACTION, 1);
-			
+			Rule rule = new Rule(null, "R2");
+		
 			session.beginTransaction();
-			session.save(link);
+			session.save(rule);
 			session.getTransaction().commit();
 		} finally {
 			if(factory != null && factory.isOpen()){
