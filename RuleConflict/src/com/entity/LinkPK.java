@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Embeddable
 public class LinkPK implements Serializable{
@@ -11,6 +13,7 @@ public class LinkPK implements Serializable{
 	private static final long serialVersionUID = -1113921519277345389L;
 	
 	@Column(name = "Id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "rule_id")
