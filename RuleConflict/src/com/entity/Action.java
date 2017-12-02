@@ -16,8 +16,9 @@ public class Action {
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "actuator_id")
-	private int actuatorId;
+	@OneToOne
+	@JoinColumn(name = "actuator_id")
+	private Actuator actuatorId;
 	
 	@Column(name = "operator")
 	private String operator; 
@@ -35,7 +36,7 @@ public class Action {
 	 * @param operator
 	 * @param value
 	 */
-	public Action(String name, int actuatorId, LogicalOperator operator, int value) {
+	public Action(String name, Actuator actuatorId, LogicalOperator operator, int value) {
 		this(null, name, actuatorId, operator, value, -1);
 	}
 	
@@ -46,7 +47,7 @@ public class Action {
 	 * @param operator
 	 * @param value
 	 */
-	public Action(Long id, String name, int actuatorId, LogicalOperator operator, int value) {
+	public Action(Long id, String name, Actuator actuatorId, LogicalOperator operator, int value) {
 		this(id, name, actuatorId, operator, value, -1);
 	}
 	
@@ -58,7 +59,7 @@ public class Action {
 	 * @param value
 	 * @param priority
 	 */
-	public Action(Long id, String name, int actuatorId, LogicalOperator operator, int value, int priority) {
+	public Action(Long id, String name, Actuator actuatorId, LogicalOperator operator, int value, int priority) {
 		this.id = id;
 		this.name = name;
 		this.actuatorId = actuatorId;
@@ -98,14 +99,14 @@ public class Action {
 	/**
 	 * @return the actuatorId
 	 */
-	public int getActuatorId() {
+	public Actuator getActuatorId() {
 		return actuatorId;
 	}
 
 	/**
 	 * @param actuatorId the actuatorId to set
 	 */
-	public void setActuatorId(int actuatorId) {
+	public void setActuatorId(Actuator actuatorId) {
 		this.actuatorId = actuatorId;
 	}
 
@@ -161,7 +162,7 @@ public class Action {
 
 	@Override
 	public String toString() {
-		return "Action [id=" + id + ", name=" + name + ", actuatorId=" + actuatorId + ", operator=" + operator
+		return "Action [id=" + id + ", name=" + name + ", actuatorId=" + actuatorId.getId() + ", operator=" + operator
 				+ ", value=" + value + ", priority=" + priority + "]";
 	}	
 }

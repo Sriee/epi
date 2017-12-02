@@ -50,7 +50,6 @@ public class Link {
 	/**
 	 * @return the type
 	 */
-	@Enumerated(EnumType.STRING)
 	public Type getType() {
 		return type;
 	}
