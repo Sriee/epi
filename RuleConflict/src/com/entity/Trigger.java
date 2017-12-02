@@ -63,23 +63,23 @@ public class Trigger {
 	 * @param id
 	 * @param name
 	 * @param sensorId
-	 * @param operator -> Logical Operator
+	 * @param operator
 	 * @param value
-	 * @param priority
 	 */
-	public Trigger(Long id, String name, int sensorId, LogicalOperator operator, int value, int priority){
-		this(id, name, sensorId, operator.toString(), value, priority);
+	public Trigger(Long id, String name, int sensorId, String operator, int value){
+		this(id, name, sensorId, operator.toString(), value, -1);
 	}
 	
 	/**
 	 * @param id
 	 * @param name
 	 * @param sensorId
-	 * @param operator
+	 * @param operator -> Logical Operator
 	 * @param value
+	 * @param priority
 	 */
-	public Trigger(Long id, String name, int sensorId, String operator, int value){
-		this(id, name, sensorId, operator.toString(), value, -1);
+	public Trigger(Long id, String name, int sensorId, LogicalOperator operator, int value, int priority){
+		this(id, name, sensorId, operator.toString(), value, priority);
 	}
 	
 	/**

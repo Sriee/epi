@@ -39,14 +39,14 @@ CREATE TABLE Sensor (
 	name  VARCHAR(45),
 	type  BOOLEAN DEFAULT 1,
 	unit  VARCHAR(5),
-	acive BOOLEAN DEFAULT 0,
+	active BOOLEAN DEFAULT 0,
 );
 
 CREATE TABLE Actuator (
 	Id 	  	  INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	serial_id VARCHAR(100) NOT NULL,
 	name  	  VARCHAR(45),
-	acive 	  BOOLEAN DEFAULT 0
+	active 	  BOOLEAN DEFAULT 0
 );
 
 CREATE TABLE Link (
