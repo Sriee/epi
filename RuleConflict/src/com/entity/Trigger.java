@@ -2,6 +2,8 @@ package com.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +30,8 @@ public class Trigger {
 	private Sensor sensorId;
 	
 	@Column(name = "operator")
-	private String operator;
+	@Enumerated(EnumType.STRING)
+	private LogicalOperator operator;
 	
 	@Column(name = "value")
 	private int value;
@@ -37,23 +40,18 @@ public class Trigger {
 	private int priority;
 	
 	public Trigger(){ 
-		this.id = null;
-		this.name = null;
-		this.sensorId = null;
-		this.operator = null;
-		this.value = -1;
-		this.priority = -1;
+		this(null, null, null, null, -1, -1);
 	} 
 	
 	/**
 	 * @param id
 	 * @param name
 	 * @param sensorId
-	 * @param operator
+	 * @param operator -> Logical Operator
 	 * @param value
 	 * @param priority
 	 */
-	public Trigger(Long id, String name, Sensor sensorId, String operator, int value, int priority){
+	public Trigger(Long id, String name, Sensor sensorId, LogicalOperator operator, int value, int priority){
 		this.id = id;
 		this.name = name;
 		this.sensorId = sensorId;
@@ -66,35 +64,12 @@ public class Trigger {
 	 * @param id
 	 * @param name
 	 * @param sensorId
-	 * @param operator
-	 * @param value
-	 */
-	public Trigger(Long id, String name, Sensor sensorId, String operator, int value){
-		this(id, name, sensorId, operator.toString(), value, -1);
-	}
-	
-	/**
-	 * @param id
-	 * @param name
-	 * @param sensorId
-	 * @param operator -> Logical Operator
-	 * @param value
-	 * @param priority
-	 */
-	public Trigger(Long id, String name, Sensor sensorId, LogicalOperator operator, int value, int priority){
-		this(id, name, sensorId, operator.toString(), value, priority);
-	}
-	
-	/**
-	 * @param id
-	 * @param name
-	 * @param sensorId
 	 * @param operator -> Logical Operator
 	 * @param value
 	 * @param priority
 	 */
 	public Trigger(Long id, String name, Sensor sensorId, LogicalOperator operator, int value){
-		this(id, name, sensorId, operator.toString(), value, -1);
+		this(id, name, sensorId, operator, value, -1);
 	}
 
 	/**
@@ -142,14 +117,14 @@ public class Trigger {
 	/**
 	 * @return the operator
 	 */
-	public String getOperator() {
+	public LogicalOperator getOperator() {
 		return operator;
 	}
 
 	/**
 	 * @param operator the operator to set
 	 */
-	public void setOperator(String operator) {
+	public void setOperator(LogicalOperator operator) {
 		this.operator = operator;
 	}
 
@@ -183,7 +158,7 @@ public class Trigger {
 
 	@Override
 	public String toString() {
-		return "Trigger [id=" + id + ", name=" + name + ", sensorId=" + sensorId.getId() + ", operator=" + operator + ", value="
+		return "Trigger [id=" + id + ", name=" + name + ", sensorId=" + sensorId.getId() + ", operator=" + operator.toString() + ", value="
 				+ value + ", priority=" + priority + "]";
 	}	
 }

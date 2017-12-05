@@ -21,7 +21,8 @@ public class Action {
 	private Actuator actuatorId;
 	
 	@Column(name = "operator")
-	private String operator; 
+	@Enumerated(EnumType.STRING)
+	private LogicalOperator operator; 
 	
 	@Column(name = "value")
 	private int value;
@@ -63,7 +64,7 @@ public class Action {
 		this.id = id;
 		this.name = name;
 		this.actuatorId = actuatorId;
-		this.operator = operator.toString();
+		this.operator = operator;
 		this.value = value;
 		this.priority = priority;
 	}
@@ -113,7 +114,7 @@ public class Action {
 	/**
 	 * @return the operator
 	 */
-	public String getOperator() {
+	public LogicalOperator getOperator() {
 		return operator;
 	}
 
@@ -121,7 +122,7 @@ public class Action {
 	 * @param operator the operator to set
 	 */
 	public void setOperator(LogicalOperator operator) {
-		this.operator = operator.toString();
+		this.operator = operator;
 	}
 
 	/**
@@ -162,7 +163,7 @@ public class Action {
 
 	@Override
 	public String toString() {
-		return "Action [id=" + id + ", name=" + name + ", actuatorId=" + actuatorId.getId() + ", operator=" + operator
+		return "Action [id=" + id + ", name=" + name + ", actuatorId=" + actuatorId.getId() + ", operator=" + operator.toString()
 				+ ", value=" + value + ", priority=" + priority + "]";
 	}	
 }
