@@ -1,17 +1,17 @@
 package com.json;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.logger.FileLogger;
+import com.parser.Container;
+import com.parser.ContainerIterator;
 import com.rule.Builder;
-import com.rule.RuleHelper;
 
 public class Driver {
 
 	public static void main(String[] args) {
 		Builder builder = new Builder();
-		List<RuleHelper> allRules = null; 
 		String jsonExpression = null; 
 		FileLogger log = FileLogger.instance();
 		boolean failed = false;
@@ -19,31 +19,20 @@ public class Driver {
 		for(int i = 0; i < 2 && !failed; i++){
 			jsonExpression = "boolean_expression" + (i + 1) + ".json";
 			log.writeLog("Working on " + jsonExpression);
-			List<RuleHelper> current = builder.build(jsonExpression);
+			List<Container> containerList = builder.build(jsonExpression);
+			ContainerIterator ci = new ContainerIterator();
 			
 			// Should check for rule conflict here
-			if(allRules == null){
-				allRules = new ArrayList<>();
-				allRules.addAll(current);
-				continue;
-			} 		
-			
-			for(int j = 0; j < current.size() && !failed; j++){
-				RuleHelper currentRule = current.get(j);
-				for(int k = 0; k < allRules.size() && !failed;k++){
-					RuleHelper previousRule = allRules.get(k);
-					failed = currentRule.checkConflict(previousRule);
-					
-					if(failed){
-						System.out.println("Failed at " + currentRule.toString());
-						continue;
-					}
-				}
-			}
-			
-			if(!failed){ 
-				allRules.addAll(current); 
-				System.out.println("Rules added successfully for '" + jsonExpression + "'");
+			for(Container lhs : containerList){
+		        Iterator<Container> iter = ci.iterator();
+		        while(iter.hasNext() && !failed){
+		        	failed = lhs.checkConflict(iter.next());
+		        }
+		        
+	        	if(!failed){
+	        		log.writeLog("Rule: " + lhs.getExpression() + " added sucessfully.");
+	        		builder.add(lhs);
+	        	}
 			}
 		}
 	}
