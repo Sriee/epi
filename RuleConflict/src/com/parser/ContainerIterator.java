@@ -1,9 +1,16 @@
 package com.parser;
 
 import java.util.Iterator;
-import org.hibernate.Session;
+import java.util.List;
+import java.util.ArrayList;
 
+import com.entity.Type;
+import org.hibernate.Session;
 import java.util.NoSuchElementException;
+
+import com.entity.Trigger;
+import com.entity.Environment;
+import com.entity.Action;
 
 public class ContainerIterator implements Iterable<Container>, Iterator<Container>{
 
@@ -13,9 +20,6 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
 
     public ContainerIterator() {
         this.position = 1;
-
-        // TODO: total should be count of the current Rule table
-        // rows
         this.factory = Factory.instance();
         Session session = this.factory.getCurrentSession();
         session.beginTransaction();
@@ -34,17 +38,50 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Container next(){
         if(!this.hasNext()) {
             this.factory.close();
             throw new NoSuchElementException();
         }
-        Container temp = new Container();
-        temp.setName("R" + this.position);
+        
+        Container temp = new Container(
+                "R" + this.position,
+                (List<Trigger>) this.list(Trigger.class),
+                (List<Environment>)this.list(Environment.class),
+                (List<Action>)this.list(Action.class)
+        );
         this.position++;
         return temp;
     }
 
     @Override
     public void remove(){ throw new UnsupportedOperationException(); }
+
+    public List<?> list(Object inst){
+        String name = "R" + this.position;
+        String type = "";
+
+        if(inst instanceof Trigger){
+            type = "TRIGGER";
+        } else if (inst instanceof Environment){
+            type = "ENVIRONMENT";
+        } else if(inst instanceof Action){
+            type = "ACTION";
+        }
+
+        Session session = this.factory.getCurrentSession();
+        session.beginTransaction();
+
+        List list = session.createQuery("SELECT l.type_id from Rule r JOIN Link l ON r.Id = l.rule_id " +
+                "WHERE r.name = :name AND t.type = :type")
+                .setParameter("type", type)
+                .setParameter("name", name)
+                .getResultList();
+
+        session.getTransaction().commit();
+        session.close();
+        return list;
+    }
+
 }
