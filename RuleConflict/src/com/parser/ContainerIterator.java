@@ -23,7 +23,6 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
         session.beginTransaction();
 
         this.total = (long) session.createQuery("select count(*) from Rule").getSingleResult();
-        session.getTransaction().commit();
         session.close();
     }
 
@@ -77,7 +76,6 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
                 .setParameter("name", name)
                 .getResultList();
 
-        session.getTransaction().commit();
         session.close();
         return list;
     }
