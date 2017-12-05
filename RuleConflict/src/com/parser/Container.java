@@ -3,68 +3,116 @@ package com.parser;
 import com.entity.Action;
 import com.entity.Environment;
 import com.entity.Trigger;
+import com.logger.FileLogger;
 
 import java.util.List;
 
 public class Container {
 
-    private String name;
+	private String expression;
+    private String ruleName;
     private List<Trigger> triggerList;
     private List<Environment> environmentList;
     private List<Action> actionList;
 
     public Container(){}
 
-    public Container(String name) {
-        this.name = name;
-    }
+	/**
+	 * @param expression
+	 * @param ruleName
+	 * @param triggerList
+	 * @param environmentList
+	 * @param actionList
+	 */
+	public Container(String expression, String ruleName, List<Trigger> triggerList, List<Environment> environmentList,
+			List<Action> actionList) {
+		this.expression = expression;
+		this.ruleName = ruleName;
+		this.triggerList = triggerList;
+		this.environmentList = environmentList;
+		this.actionList = actionList;
+	}
 
-    public Container(String name, List<Trigger> triggerList, List<Environment> environmentList, List<Action> actionList) {
-        this.name = name;
-        this.triggerList = triggerList;
-        this.environmentList = environmentList;
-        this.actionList = actionList;
-    }
+	public boolean checkConflict(Container other){
+		FileLogger log = FileLogger.instance();
+		log.writeLog("Should Implement check conflict method.");
+		// Implementation of Rule conflict algorithm goes here
+		return true;
+	}
+	
+	/**
+	 * @return the expression
+	 */
+	public String getExpression() {
+		return expression;
+	}
 
-    public String getName() {
-        return name;
-    }
+	/**
+	 * @param expression the expression to set
+	 */
+	public void setExpression(String expression) {
+		this.expression = expression;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	/**
+	 * @return the ruleName
+	 */
+	public String getRuleName() {
+		return ruleName;
+	}
 
-    public List<Trigger> getTriggerList() {
-        return triggerList;
-    }
+	/**
+	 * @param ruleName the ruleName to set
+	 */
+	public void setRuleName(String ruleName) {
+		this.ruleName = ruleName;
+	}
 
-    public void setTriggerList(List<Trigger> triggerList) {
-        this.triggerList = triggerList;
-    }
+	/**
+	 * @return the triggerList
+	 */
+	public List<Trigger> getTriggerList() {
+		return triggerList;
+	}
 
-    public List<Environment> getEnvironmentList() {
-        return environmentList;
-    }
+	/**
+	 * @param triggerList the triggerList to set
+	 */
+	public void setTriggerList(List<Trigger> triggerList) {
+		this.triggerList = triggerList;
+	}
 
-    public void setEnvironmentList(List<Environment> environmentList) {
-        this.environmentList = environmentList;
-    }
+	/**
+	 * @return the environmentList
+	 */
+	public List<Environment> getEnvironmentList() {
+		return environmentList;
+	}
 
-    public List<Action> getActionList() {
-        return actionList;
-    }
+	/**
+	 * @param environmentList the environmentList to set
+	 */
+	public void setEnvironmentList(List<Environment> environmentList) {
+		this.environmentList = environmentList;
+	}
 
-    public void setActionList(List<Action> actionList) {
-        this.actionList = actionList;
-    }
+	/**
+	 * @return the actionList
+	 */
+	public List<Action> getActionList() {
+		return actionList;
+	}
 
-    @Override
-    public String toString() {
-        return "Container{" +
-                "name='" + name + '\'' +
-                ", triggerList=" + triggerList +
-                ", environmentList=" + environmentList +
-                ", actionList=" + actionList +
-                '}';
-    }
+	/**
+	 * @param actionList the actionList to set
+	 */
+	public void setActionList(List<Action> actionList) {
+		this.actionList = actionList;
+	}
+
+	@Override
+	public String toString() {
+		return "Container [expression=" + expression + ", ruleName=" + ruleName + ", triggerList=" + triggerList
+				+ ", environmentList=" + environmentList + ", actionList=" + actionList + "]";
+	}
 }

@@ -6,10 +6,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+
 import com.bpodgursky.jbool_expressions.Expression;
 import com.bpodgursky.jbool_expressions.rules.RuleSet;
-import com.entity.Action;
-import com.entity.Trigger;
+import com.entity.*;
 import com.exceptions.InvalidExpressionSyntaxException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,8 +19,7 @@ import com.json.Input;
 import com.json.InputDeserializer;
 import com.json.Literals;
 import com.logger.FileLogger;
-import com.parser.Parser;
-import com.parser.TreeNode;
+import com.parser.*;
 
 public class Builder {
 
@@ -39,10 +39,10 @@ public class Builder {
 		this.parser = new Parser();
 	}
 
-	public List<RuleHelper> build(String json) {
+	public List<Container> build(String json) {
 		String dnf = null;
 		List<String> ruleTokens = null;
-		List<RuleHelper> rules = null;
+		List<Container> rules = null;
 
 		try{
 			JsonReader reader = new JsonReader(new FileReader(Paths.get(Paths.get(".").toAbsolutePath().toString(),
@@ -66,10 +66,10 @@ public class Builder {
 			rules = new ArrayList<>();
 
 			for(String item : ruleTokens){
-				this.log.writeLog("Wrapping " + item);
+				this.log.writeLog("Wrapping " + item + " to a container.");
 				List<String> conditions = this.parser.splitTokens(item, "&");
 
-				RuleHelper temp = this.wrapper(conditions, sample);
+				Container temp = this.wrapper(conditions, sample);
 				temp.setExpression(item);
 				this.log.writeLog(temp.toString());
 				rules.add(temp);
@@ -81,28 +81,41 @@ public class Builder {
 		}
 		return rules;
 	}
-
-	private RuleHelper wrapper(List<String> condition, Input input){
-		RuleHelper newRule = null;
+	
+	public void add(Container container){
+		
+	}
+	
+	private Container wrapper(List<String> condition, Input input){
 		List<Trigger> triggerList = new ArrayList<>();
-		List<Action> actuatorList = new ArrayList<>();
+		List<Action> actionList = new ArrayList<>();
 		Literals temp = null;
 		Trigger tempTrigger = null;
 		Action tempAction = null;
-
+		Actuator tempActuator = null;
+		Sensor tempSensor = null;
+		Factory factory = Factory.instance();
+		Session session = factory.getCurrentSession();
+		session.beginTransaction();
+		
 		for(String c : condition){
 			temp = input.getLiterals().get(c);
-			tempTrigger = new Trigger(null, temp.getName(), 3, temp.getOperator(), temp.getValue());
+			tempSensor = (Sensor) session.createQuery("FROM Sensor WHERE id = " + temp.getId()).getSingleResult();
+			tempTrigger = new Trigger(null, temp.getName(), tempSensor, temp.getOperator(), temp.getValue(), -1);
 			triggerList.add(tempTrigger);
 		}
 
 		for(int k = 0; k < input.getActionCount(); k++){
 			temp = input.getLiterals().get("a" + (k + 1));
-			tempAction = new Action(null, temp.getName(), 4, temp.getOperator(), temp.getValue());
-			actuatorList.add(tempAction);
+			tempActuator = (Actuator) session.createQuery("from Actuator WHERE serial_id = " + temp.getId()).getSingleResult();
+			tempAction = new Action(temp.getName(), tempActuator, temp.getOperator(), temp.getValue());
+			actionList.add(tempAction);
 		}
-
-		newRule = new RuleHelper(triggerList, null, actuatorList);
-		return newRule; 
+		
+		session.getTransaction().commit();
+		session.close();
+		factory.close();
+		
+		return new Container(null, null, triggerList, null, actionList); 
 	} 
 }

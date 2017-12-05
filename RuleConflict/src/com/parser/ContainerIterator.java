@@ -2,15 +2,13 @@ package com.parser;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.ArrayList;
-
-import com.entity.Type;
-import org.hibernate.Session;
 import java.util.NoSuchElementException;
 
-import com.entity.Trigger;
-import com.entity.Environment;
+import org.hibernate.Session;
+
 import com.entity.Action;
+import com.entity.Environment;
+import com.entity.Trigger;
 
 public class ContainerIterator implements Iterable<Container>, Iterator<Container>{
 
@@ -24,7 +22,7 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
         Session session = this.factory.getCurrentSession();
         session.beginTransaction();
 
-        this.total = (long) session.createQuery("select count(*) from Rule").uniqueResult();
+        this.total = (long) session.createQuery("select count(*) from Rule").getSingleResult();
         session.getTransaction().commit();
         session.close();
     }
@@ -34,7 +32,7 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
 
     @Override
     public boolean hasNext(){
-        return this.position <= this.total;
+        return this.position < this.total;
     }
 
     @Override
@@ -45,7 +43,7 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
             throw new NoSuchElementException();
         }
         
-        Container temp = new Container(
+        Container temp = new Container(null,
                 "R" + this.position,
                 (List<Trigger>) this.list(Trigger.class),
                 (List<Environment>)this.list(Environment.class),
@@ -73,7 +71,7 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
         Session session = this.factory.getCurrentSession();
         session.beginTransaction();
 
-        List list = session.createQuery("SELECT l.type_id from Rule r JOIN Link l ON r.Id = l.rule_id " +
+        List<?> list = session.createQuery("SELECT l.type_id from Rule r JOIN Link l ON r.Id = l.rule_id " +
                 "WHERE r.name = :name AND t.type = :type")
                 .setParameter("type", type)
                 .setParameter("name", name)
