@@ -32,6 +32,7 @@ public class InputDeserializer implements JsonDeserializer<Input> {
 			temp = "c" + i;
 			literalObject = jsonObject.get(temp).getAsJsonObject();
 			literalInstance = new Literals(literalObject.get("name").getAsString(),
+					literalObject.get("id").getAsString(),
 					(LogicalOperator) logicOp.getOperator(literalObject.get("operator").getAsString()),
 					literalObject.get("value").getAsInt()
 					);
@@ -43,6 +44,7 @@ public class InputDeserializer implements JsonDeserializer<Input> {
 			temp = "a" + j;
 			literalObject = jsonObject.get(temp).getAsJsonObject();
 			literalInstance = new Literals(literalObject.get("name").getAsString(),
+					literalObject.get("id").getAsString(),
 					(LogicalOperator) logicOp.getOperator(literalObject.get("operator").getAsString()),
 					literalObject.get("value").getAsInt()
 					);

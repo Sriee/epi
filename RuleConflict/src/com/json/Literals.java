@@ -2,6 +2,7 @@ package com.json;
 
 public class Literals {
 	private String name;
+	private String id;
 	private LogicalOperator operator;
 	private int value;
 	
@@ -9,11 +10,13 @@ public class Literals {
 
 	/**
 	 * @param name
+	 * @param id
 	 * @param operator
 	 * @param value
 	 */
-	public Literals(String name, LogicalOperator operator, int value) {
+	public Literals(String name, String id, LogicalOperator operator, int value) {
 		this.name = name;
+		this.id = id;
 		this.operator = operator;
 		this.value = value;
 	}
@@ -30,6 +33,20 @@ public class Literals {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
