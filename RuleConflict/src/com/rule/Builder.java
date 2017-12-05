@@ -26,11 +26,12 @@ public class Builder {
 	private GsonBuilder gsonBuilder;
 	private Gson gson;
 	private Parser parser;
+	private Factory factory;
 	private FileLogger log;
 
-	public Builder(){
+	public Builder(Factory factory){
 		this.log = FileLogger.instance();
-
+		this.factory = factory;
 		this.log.writeLog("Configuring Gson.");
 		this.gsonBuilder = new GsonBuilder();
 		this.gsonBuilder.registerTypeAdapter(Input.class, new InputDeserializer());
@@ -45,7 +46,7 @@ public class Builder {
 		List<Container> rules = null;
 
 		try{
-			JsonReader reader = new JsonReader(new FileReader(Paths.get(Paths.get(".").toAbsolutePath().toString(),
+			JsonReader reader = new JsonReader(new FileReader(Paths.get(Paths.get(".").toAbsolutePath().toString(), "resources/" + 
 					json).normalize().toString()));
 			this.log.writeLog("Deserializing Json content.");
 
@@ -61,7 +62,7 @@ public class Builder {
 			this.log.writeLog("Expression: " + expression);
 			this.log.writeLog("DNF form: " + sop.toString());
 
-			dnf = this.parser.stripBrackets(dnf);
+			dnf = this.parser.stripBrackets(sop.toString());
 			ruleTokens = this.parser.splitTokens(dnf, "|");
 			rules = new ArrayList<>();
 
@@ -86,6 +87,16 @@ public class Builder {
 		
 	}
 	
+	public boolean isRuleTableEmpty(){
+		long count = 0;
+		Session session = this.factory.getCurrentSession();
+		session.beginTransaction();
+		
+		count = (long) session.createQuery("select count(*) from Rule").getSingleResult();
+		session.close();
+		return count == 0;
+	}
+	
 	private Container wrapper(List<String> condition, Input input){
 		List<Trigger> triggerList = new ArrayList<>();
 		List<Action> actionList = new ArrayList<>();
@@ -101,20 +112,17 @@ public class Builder {
 		for(String c : condition){
 			temp = input.getLiterals().get(c);
 			tempSensor = (Sensor) session.createQuery("FROM Sensor WHERE id = " + temp.getId()).getSingleResult();
-			tempTrigger = new Trigger(null, temp.getName(), tempSensor, temp.getOperator(), temp.getValue(), -1);
+			tempTrigger = new Trigger(Long.parseLong(temp.getId()), temp.getName(), tempSensor, temp.getOperator(), temp.getValue(), -1);
 			triggerList.add(tempTrigger);
 		}
-
 		for(int k = 0; k < input.getActionCount(); k++){
 			temp = input.getLiterals().get("a" + (k + 1));
-			tempActuator = (Actuator) session.createQuery("from Actuator WHERE serial_id = " + temp.getId()).getSingleResult();
+			tempActuator = (Actuator) session.createQuery("from Actuator WHERE serial_id = :id ").setParameter("id", temp.getId()).getSingleResult();
 			tempAction = new Action(temp.getName(), tempActuator, temp.getOperator(), temp.getValue());
 			actionList.add(tempAction);
 		}
 		
-		session.getTransaction().commit();
 		session.close();
-		factory.close();
 		
 		return new Container(null, null, triggerList, null, actionList); 
 	} 
