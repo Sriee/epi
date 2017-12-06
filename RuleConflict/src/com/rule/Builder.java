@@ -10,7 +10,14 @@ import org.hibernate.Session;
 
 import com.bpodgursky.jbool_expressions.Expression;
 import com.bpodgursky.jbool_expressions.rules.RuleSet;
-import com.entity.*;
+import com.entity.Action;
+import com.entity.Actuator;
+import com.entity.Link;
+import com.entity.LinkPK;
+import com.entity.Rule;
+import com.entity.Sensor;
+import com.entity.Trigger;
+import com.entity.Type;
 import com.exceptions.InvalidExpressionSyntaxException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,7 +26,10 @@ import com.json.Input;
 import com.json.InputDeserializer;
 import com.json.Literals;
 import com.logger.FileLogger;
-import com.parser.*;
+import com.parser.Container;
+import com.parser.Factory;
+import com.parser.Parser;
+import com.parser.TreeNode;
 
 public class Builder {
 
@@ -84,17 +94,99 @@ public class Builder {
 	}
 	
 	public void add(Container container){
+		long count = 0;
+		String ruleName = null;
+		Link newLink = null;
+		Session session = this.factory.getFactory().openSession();
+		session.beginTransaction();
 		
+		count = (long) session.createQuery("SELECT COUNT(*) FROM Rule").getSingleResult();
+		ruleName = "R" + (count + 1);
+		
+		// Save rule
+		Rule toBeInserted = new Rule(null, ruleName); 
+		session.save(toBeInserted);
+		
+		count = (long) session.createQuery("SELECT COUNT(*) FROM Link").getSingleResult();
+		
+		// Save Link for triggers
+		for(Trigger trigger : container.getTriggerList()){
+			newLink = new Link(new LinkPK(++count, toBeInserted.getId()), Type.TRIGGER, trigger.getId().intValue());
+			session.save(newLink);
+		}
+		
+		// Save Link for Actuators
+		for(Action action: container.getActionList()){
+			newLink = new Link(new LinkPK(++count, toBeInserted.getId()), Type.ACTION, action.getId().intValue());
+			session.save(newLink);
+		}
+		
+		session.getTransaction().commit();
+		session.close();
 	}
 	
 	public boolean isRuleTableEmpty(){
 		long count = 0;
-		Session session = this.factory.getCurrentSession();
+		Session session = this.factory.getFactory().openSession();
 		session.beginTransaction();
 		
 		count = (long) session.createQuery("select count(*) from Rule").getSingleResult();
 		session.close();
 		return count == 0;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Long getTriggerId(Literals literal, Sensor sensor){
+		Trigger toBeInserted = null;
+		Long id = null;
+		Session session = this.factory.getFactory().openSession();
+		session.beginTransaction();
+		List<Trigger> aTrigger = session.createQuery("FROM Trigger WHERE sensorId = :id"
+				+ " AND operator = :operator AND value = :value")
+				.setParameter("id", sensor)
+				.setParameter("operator", literal.getOperator())
+				.setParameter("value", literal.getValue())
+				.getResultList();
+			
+		if(aTrigger.isEmpty()){		// Create a new Trigger if empty
+			this.log.writeLog("Creating new Trigger for " + literal.getName());
+			toBeInserted = new Trigger(null, literal.getName(), sensor, literal.getOperator(), 
+					literal.getValue(), -1);
+			session.save(toBeInserted);
+			id = toBeInserted.getId();
+			session.getTransaction().commit();
+		} else {
+			id = aTrigger.get(0).getId();
+		}
+		session.close();
+		return id;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Long getActionId(Literals literal, Actuator actuator){
+		Action toBeInserted = null;
+		Long id = null;
+		Session session = this.factory.getFactory().openSession();
+		session.beginTransaction();
+		List<Action> aAction = session.createQuery("FROM Action WHERE actuatorId = :id"
+				+ " AND operator = :operator AND value = :value")
+				.setParameter("id", actuator)
+				.setParameter("operator", literal.getOperator())
+				.setParameter("value", literal.getValue())
+				.getResultList();
+			
+		if(aAction.isEmpty()){		// Create a new Trigger if empty
+			this.log.writeLog("Creating new Action for " + literal.getName());
+			toBeInserted = new Action(null, literal.getName(), actuator, literal.getOperator(), 
+					literal.getValue(), -1);
+			session.save(toBeInserted);
+			id = toBeInserted.getId();
+			session.getTransaction().commit();
+		} else {
+			id = aAction.get(0).getId();
+		}
+		session.close();
+		return id;
 	}
 	
 	private Container wrapper(List<String> condition, Input input){
@@ -106,23 +198,35 @@ public class Builder {
 		Actuator tempActuator = null;
 		Sensor tempSensor = null;
 		Factory factory = Factory.instance();
-		Session session = factory.getCurrentSession();
-		session.beginTransaction();
+		
+		
 		
 		for(String c : condition){
 			temp = input.getLiterals().get(c);
+			Session session = factory.getFactory().openSession();
+			session.beginTransaction();
+			
 			tempSensor = (Sensor) session.createQuery("FROM Sensor WHERE id = " + temp.getId()).getSingleResult();
-			tempTrigger = new Trigger(Long.parseLong(temp.getId()), temp.getName(), tempSensor, temp.getOperator(), temp.getValue(), -1);
+			session.close();
+			
+			tempTrigger = new Trigger(this.getTriggerId(temp, tempSensor), temp.getName(), tempSensor, 
+					temp.getOperator(), temp.getValue(), -1);
+			
 			triggerList.add(tempTrigger);
 		}
+		
 		for(int k = 0; k < input.getActionCount(); k++){
 			temp = input.getLiterals().get("a" + (k + 1));
-			tempActuator = (Actuator) session.createQuery("from Actuator WHERE serial_id = :id ").setParameter("id", temp.getId()).getSingleResult();
-			tempAction = new Action(temp.getName(), tempActuator, temp.getOperator(), temp.getValue());
+			Session session = factory.getFactory().openSession();
+			session.beginTransaction();
+			tempActuator = (Actuator) session.createQuery("FROM Actuator WHERE serial_id = :id ").setParameter("id", temp.getId()).getSingleResult();
+			session.close();
+			
+			tempAction = new Action(this.getActionId(temp, tempActuator), temp.getName(), tempActuator, 
+					temp.getOperator(), temp.getValue());
+			
 			actionList.add(tempAction);
 		}
-		
-		session.close();
 		
 		return new Container(null, null, triggerList, null, actionList); 
 	} 
