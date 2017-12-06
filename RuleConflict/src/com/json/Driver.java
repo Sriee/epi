@@ -22,7 +22,7 @@ public class Driver {
 			jsonExpression = "boolean_expression" + (i + 1) + ".json";
 			log.writeLog("Working on " + jsonExpression);
 			List<Container> containerList = builder.build(jsonExpression);
-//			ContainerIterator ci = new ContainerIterator();
+			ContainerIterator ci = new ContainerIterator();
 			
 			// Should check for rule conflict here
 			for(Container lhs : containerList){
@@ -33,7 +33,6 @@ public class Driver {
 					continue; 
 				}
 				
-				/*
 		        Iterator<Container> iter = ci.iterator();
 		        while(iter.hasNext() && !failed){
 		        	failed = lhs.checkConflict(iter.next());
@@ -42,7 +41,7 @@ public class Driver {
 	        	if(!failed){
 	        		log.writeLog("Rule: " + lhs.getExpression() + " added sucessfully.");
 	        		builder.add(lhs);
-	        	}*/
+	        	}
 			}
 		}
 		
