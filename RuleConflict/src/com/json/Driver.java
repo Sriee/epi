@@ -3,6 +3,7 @@ package com.json;
 import java.util.Iterator;
 import java.util.List;
 
+import com.exceptions.RuleConflict;
 import com.logger.FileLogger;
 import com.parser.Container;
 import com.parser.ContainerIterator;
@@ -26,22 +27,26 @@ public class Driver {
 			
 			// Should check for rule conflict here
 			for(Container lhs : containerList){
+				try{
+					if(builder.isRuleTableEmpty()){
+						log.writeLog("Rule Table is empty. Adding first entry.");
+						builder.add(lhs);
+						continue; 
+					}
 				
-				if(builder.isRuleTableEmpty()){
-					log.writeLog("Rule Table is empty. Adding first entry.");
-					builder.add(lhs);
-					continue; 
-				}
-				
-		        Iterator<Container> iter = ci.iterator();
-		        while(iter.hasNext() && !failed){
-		        	failed = lhs.checkConflict(iter.next());
-		        }
+					Iterator<Container> iter = ci.iterator();
+					while(iter.hasNext() && !failed){
+						failed = lhs.checkConflict(iter.next());
+					}
 		        
-	        	if(!failed){
-	        		log.writeLog("Rule: " + lhs.getExpression() + " added sucessfully.");
-	        		builder.add(lhs);
-	        	}
+					if(!failed){
+						log.writeLog("Rule: " + lhs.getExpression() + " added sucessfully.");
+						builder.add(lhs);
+					}
+				} catch (RuleConflict e){
+					log.writeLog("[ERROR] Rule Conflict detected in " + lhs.getExpression());
+					e.printStackTrace();
+				}
 			}
 		}
 		
