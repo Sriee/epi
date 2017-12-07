@@ -135,14 +135,13 @@ public class Builder {
 		return count == 0;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public Long getTriggerId(Literals literal, Sensor sensor){
 		Trigger toBeInserted = null;
 		Long id = null;
 		Session session = this.factory.getFactory().openSession();
 		session.beginTransaction();
 		List<Trigger> aTrigger = session.createQuery("FROM Trigger WHERE sensorId = :id"
-				+ " AND operator = :operator AND value = :value")
+				+ " AND operator = :operator AND value = :value", Trigger.class)
 				.setParameter("id", sensor)
 				.setParameter("operator", literal.getOperator())
 				.setParameter("value", literal.getValue())
@@ -162,14 +161,13 @@ public class Builder {
 		return id;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public Long getActionId(Literals literal, Actuator actuator){
 		Action toBeInserted = null;
 		Long id = null;
 		Session session = this.factory.getFactory().openSession();
 		session.beginTransaction();
 		List<Action> aAction = session.createQuery("FROM Action WHERE actuatorId = :id"
-				+ " AND operator = :operator AND value = :value")
+				+ " AND operator = :operator AND value = :value", Action.class)
 				.setParameter("id", actuator)
 				.setParameter("operator", literal.getOperator())
 				.setParameter("value", literal.getValue())
@@ -198,9 +196,7 @@ public class Builder {
 		Actuator tempActuator = null;
 		Sensor tempSensor = null;
 		Factory factory = Factory.instance();
-		
-		
-		
+				
 		for(String c : condition){
 			temp = input.getLiterals().get(c);
 			Session session = factory.getFactory().openSession();

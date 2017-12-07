@@ -2,10 +2,8 @@ package com.parser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 import com.entity.Action;
 import com.entity.Environment;
@@ -27,7 +25,6 @@ public class Container {
 	private List<Trigger> triggerList;
 	private List<Environment> environmentList;
 	private List<Action> actionList;
-	private List<String> dependentRules;
 
 	public Container() {
 	}
@@ -46,13 +43,11 @@ public class Container {
 		this.triggerList = (triggerList != null) ? triggerList : new ArrayList<>();
 		this.environmentList = (environmentList != null) ? environmentList : new ArrayList<>();
 		this.actionList = (actionList != null) ? actionList : new ArrayList<>();
-		this.dependentRules = new ArrayList<>();
 	}
 
-	public boolean checkConflict(Container other) throws RuleConflict {
+	public void checkConflict(Container other) throws RuleConflict {
 		FileLogger log = FileLogger.instance();
 		Map<Relation, Boolean> relation = this.relation(other);
-		Queue<Container> queue = new LinkedList<>();
 
 		log.writeLog(String.format("Relation between %s & %s:", this.getRuleName(), other.getRuleName()));
 		log.writeLog(relation.toString());
@@ -73,13 +68,7 @@ public class Container {
 			if (relation.get(Relation.CONTRARY_EXPLICIT_DEPENDENCY)
 					|| relation.get(Relation.CONTRARY_IMPLICIT_DEPENDENCY))
 				throw new DirectDependenceConflict();
-			else {
-				queue.add(this);
-				other.dependentRules.add(this.getRuleName());
-			}
 		}
-
-		return true;
 	}
 
 	private Map<Relation, Boolean> relation(Container other) {
