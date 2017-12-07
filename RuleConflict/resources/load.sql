@@ -23,7 +23,6 @@ INSERT INTO Sensor VALUES(NULL, "Ultrasonic1", 1, "", true);
 
 # Actuator data
 INSERT INTO Actuator VALUES(NULL, "2", "Sprinkler1", false);
-INSERT INTO Actuator VALUES(NULL, "3456", "LED1", true);
 INSERT INTO Actuator VALUES(NULL, "3052CB808C23", "Sprinkler2", true);
 INSERT INTO Actuator VALUES(NULL, "2d774009", "Sprinkler3", true);
 INSERT INTO Actuator VALUES(NULL, "7066147889533359447", "Sprinkler4", true);
