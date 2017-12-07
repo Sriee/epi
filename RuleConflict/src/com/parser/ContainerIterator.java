@@ -1,5 +1,6 @@
 package com.parser;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -7,8 +8,8 @@ import java.util.NoSuchElementException;
 import org.hibernate.Session;
 
 import com.entity.Action;
-import com.entity.Environment;
 import com.entity.Trigger;
+import com.entity.Type;
 
 public class ContainerIterator implements Iterable<Container>, Iterator<Container>{
 
@@ -19,7 +20,7 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
     public ContainerIterator() {
         this.position = 1;
         this.factory = Factory.instance();
-        Session session = this.factory.getCurrentSession();
+        Session session = this.factory.getFactory().openSession();
         session.beginTransaction();
 
         this.total = (long) session.createQuery("select count(*) from Rule").getSingleResult();
@@ -31,22 +32,20 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
 
     @Override
     public boolean hasNext(){
-        return this.position < this.total;
+        return this.position <= this.total;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public Container next(){
         if(!this.hasNext()) {
-            this.factory.close();
             throw new NoSuchElementException();
         }
-        
+
         Container temp = new Container(null,
                 "R" + this.position,
-                (List<Trigger>) this.list(Trigger.class),
-                (List<Environment>)this.list(Environment.class),
-                (List<Action>)this.list(Action.class)
+                this.list(Trigger.class, Type.TRIGGER),
+                null,
+                this.list(Action.class, Type.ACTION)
         );
         this.position++;
         return temp;
@@ -55,29 +54,33 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
     @Override
     public void remove(){ throw new UnsupportedOperationException(); }
 
-    public List<?> list(Object inst){
+    private <T> List<T> list(Class<T> klazz, Type type){
+    	List<T> list = null;
         String name = "R" + this.position;
-        String type = "";
-
-        if(inst instanceof Trigger){
-            type = "TRIGGER";
-        } else if (inst instanceof Environment){
-            type = "ENVIRONMENT";
-        } else if(inst instanceof Action){
-            type = "ACTION";
-        }
-
-        Session session = this.factory.getCurrentSession();
+        Long ruleId = null;
+        List<Integer> intList = null;
+        List<Long> longList = null;
+        Session session = this.factory.getFactory().openSession();
         session.beginTransaction();
 
-        List<?> list = session.createQuery("SELECT l.type_id from Rule r JOIN Link l ON r.Id = l.rule_id " +
-                "WHERE r.name = :name AND t.type = :type")
-                .setParameter("type", type)
-                .setParameter("name", name)
-                .getResultList();
-
+        ruleId = (Long) session.createQuery("SELECT id FROM Rule where name = :name")
+        		.setParameter("name", name)
+        		.getSingleResult();
+        
+        intList = session.createQuery("SELECT typeId FROM Link WHERE linkPK.ruleId = :id AND type = :type", Integer.class)
+        		.setParameter("id", ruleId)
+        		.setParameter("type", type)
+        		.getResultList();
+        
+        longList = new ArrayList<>();
+        
+        for(Integer i : intList) longList.add((long) i);
+        
+        list = (List<T>) session.createQuery("FROM Trigger WHERE id IN (:idList)", klazz)
+        		.setParameter("idList", longList)
+        		.getResultList();
+        
         session.close();
         return list;
     }
-
 }
