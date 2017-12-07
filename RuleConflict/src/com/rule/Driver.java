@@ -1,4 +1,4 @@
-package com.json;
+package com.rule;
 
 import java.util.Iterator;
 import java.util.List;
@@ -15,35 +15,40 @@ public class Driver {
 	public static void main(String[] args) {
 		Factory factory = Factory.instance();
 		Builder builder = new Builder(factory);
-		String jsonExpression = null; 
+		String jsonExpression = null;
 		FileLogger log = FileLogger.instance();
-		boolean failed = false;
 		
-		for(int i = 0; i < 2 && !failed; i++){
+		for (int i = 0; i < 2; i++) {
 			jsonExpression = "boolean_expression" + (i + 1) + ".json";
 			log.writeLog("Working on " + jsonExpression);
-			List<Container> containerList = builder.build(jsonExpression);
-			ContainerIterator ci = new ContainerIterator();
 			
+			List<Container> containerList = builder.build(jsonExpression);
+			log.writeLog("Container List size: " + containerList.size());
+			ContainerIterator ci = new ContainerIterator();
+
 			// Should check for rule conflict here
-			for(Container lhs : containerList){
-				try{
-					if(builder.isRuleTableEmpty()){
+			for (Container lhs : containerList) {
+				try {
+					
+					// If rule table is empty => First rule
+					if (builder.isRuleTableEmpty()) {
 						log.writeLog("Rule Table is empty. Adding first entry.");
 						builder.add(lhs);
-						continue; 
+						continue;
 					}
-				
+					
+					// Iterate through rest of the rule for detecting conflict
 					Iterator<Container> iter = ci.iterator();
-					while(iter.hasNext() && !failed){
-						failed = lhs.checkConflict(iter.next());
+					while (iter.hasNext()) {
+						Container rhs = iter.next();
+						log.writeLog(String.format("%s vs %s", lhs.getRuleName(), rhs.getRuleName()));
+						lhs.checkConflict(rhs);
 					}
-		        
-					if(!failed){
-						log.writeLog("Rule: " + lhs.getExpression() + " added sucessfully.");
-						builder.add(lhs);
-					}
-				} catch (RuleConflict e){
+
+					log.writeLog("Rule: " + lhs.getExpression() + " added sucessfully.");
+					builder.add(lhs);
+
+				} catch (RuleConflict e) {
 					log.writeLog("[ERROR] Rule Conflict detected in " + lhs.getExpression());
 					e.printStackTrace();
 				}
@@ -51,5 +56,6 @@ public class Driver {
 		}
 		
 		factory.close();
+		log.writeLog("Done!");
 	}
 }
