@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
 import org.hibernate.Session;
 
 import com.entity.Action;
+import com.entity.Environment;
 import com.entity.Trigger;
 import com.entity.Type;
 
@@ -44,7 +45,7 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
         Container temp = new Container(null,
                 "R" + this.position,
                 this.list(Trigger.class, Type.TRIGGER),
-                null,
+                this.list(Environment.class, Type.ENVIRONMENT),
                 this.list(Action.class, Type.ACTION)
         );
         this.position++;
@@ -57,6 +58,7 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
     private <T> List<T> list(Class<T> klazz, Type type){
     	List<T> list = null;
         String name = "R" + this.position;
+        String query = "";
         Long ruleId = null;
         List<Integer> intList = null;
         List<Long> longList = null;
@@ -74,9 +76,17 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
         
         longList = new ArrayList<>();
         
+        if(klazz == Trigger.class){
+        	query = "FROM Trigger WHERE id IN (:idList)"; 
+        } else if(klazz == Environment.class){
+        	query = "FROM Environment WHERE id IN (:idList)";
+        } else if(klazz == Action.class){
+        	query = "FROM Action WHERE id IN (:idList)";
+        }
+        
         for(Integer i : intList) longList.add((long) i);
         
-        list = (List<T>) session.createQuery("FROM Trigger WHERE id IN (:idList)", klazz)
+        list = (List<T>) session.createQuery(query, klazz)
         		.setParameter("idList", longList)
         		.getResultList();
         
