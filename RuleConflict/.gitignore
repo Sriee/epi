@@ -4,3 +4,4 @@ rule.log
 .classpath
 .project
 .idea
+src/com/rule/Test.java
