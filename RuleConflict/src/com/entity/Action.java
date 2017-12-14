@@ -4,6 +4,12 @@ import javax.persistence.*;
 
 import com.json.LogicalOperator;
 
+/**
+ * Entity class for Action Table
+ * 
+ * @author sriee
+ *
+ */
 @Entity
 @Table(name = "Action")
 public class Action {
@@ -153,6 +159,13 @@ public class Action {
 		this.priority = priority;
 	}
 
+	/**
+	 * Helper function to return the literal in [Name operator value] form
+	 * 
+	 * 	Ex: Temparature > 40
+	 * 
+	 * @return	formatted expression
+	 */
 	public String toExpressionString(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("(");

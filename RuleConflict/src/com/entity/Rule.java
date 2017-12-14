@@ -7,6 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Entity class for Rule table
+ * 
+ * @author sriee
+ *
+ */
 @Entity
 @Table(name = "Rule")
 public class Rule {

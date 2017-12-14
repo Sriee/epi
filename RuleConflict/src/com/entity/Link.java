@@ -7,6 +7,12 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
+/**
+ * Entity class for Link table
+ * 
+ * @author sriee
+ *
+ */
 @Entity
 @Table(name = "Link")
 public class Link {
