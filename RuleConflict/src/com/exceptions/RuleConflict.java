@@ -1,5 +1,11 @@
 package com.exceptions;
 
+/**
+ * Exception for Rule Conflicts
+ * 
+ * @author sriee
+ *
+ */
 public class RuleConflict extends Exception{
 	
 	private static final long serialVersionUID = 460607590627711350L;

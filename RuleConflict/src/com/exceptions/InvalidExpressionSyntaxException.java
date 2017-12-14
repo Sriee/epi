@@ -1,5 +1,10 @@
 package com.exceptions;
 
+/**
+ * Exception for Invalid Expression Syntax
+ * @author sriee
+ *
+ */
 public class InvalidExpressionSyntaxException extends Exception{
 
 	private static final long serialVersionUID = 8409329196170357282L;
