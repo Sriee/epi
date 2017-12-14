@@ -10,8 +10,23 @@ import com.bpodgursky.jbool_expressions.Or;
 import com.bpodgursky.jbool_expressions.Variable;
 import com.exceptions.InvalidExpressionSyntaxException;
 
+/**
+ * Parser performs the following two functionality
+ * 
+ * 	1. Convert String Expression into Abstract Syntax Tree
+ * 	2. Builds the expression tree according to jbool expression
+ *   
+ * @author sriee
+ */
 public class Parser {
 
+	/**
+	 * Constructs abstract syntax tree for a string based boolean expression
+	 * 
+	 * @param expression Boolean expression
+	 * @return Root node of abstract syntax tree
+	 * @throws InvalidExpressionSyntaxException
+	 */
 	public TreeNode buildAST(String expression) throws InvalidExpressionSyntaxException {
 		if (expression == null)
 			throw new NullPointerException("Expression is null");
@@ -74,6 +89,13 @@ public class Parser {
 		return (TreeNode) valueStack.pop();
 	}
 
+	/**
+	 * Formats the boolean expression correctly to be split into tokens
+	 * 
+	 * @param expression	Boolean expression
+	 * @return	Formatted boolean expression
+	 * @throws InvalidExpressionSyntaxException
+	 */
 	public String formExpression(String expression) throws InvalidExpressionSyntaxException {
 		StringBuilder sb = new StringBuilder();
 		boolean delimiter = true;
@@ -105,6 +127,12 @@ public class Parser {
 		return sb.toString();
 	}
 
+	/**
+	 * Inorder traversal. To check whether the Abstract Syntax Tree is built
+	 * properly
+	 * 
+	 * @param root Root node of Abstract Syntax Tree
+	 */
 	public void inOrder(TreeNode root) {
 		if (root == null)
 			return;
@@ -114,6 +142,13 @@ public class Parser {
 		this.inOrder(root.right);
 	}
 
+	/**
+	 * Performs inorder reversal and transforms string based Abstract Syntax Tree to jbool
+	 * expression
+	 * 
+	 * @param root Root Node of Abstract Syntax Tree 
+	 * @return	jbool type expression
+	 */
 	public Expression<String> buildExpression(TreeNode root){
 		if(root.name.equals("&"))
 			return And.of(this.buildExpression(root.left), this.buildExpression(root.right));
@@ -123,6 +158,13 @@ public class Parser {
 			return Variable.of(root.name);
 	}
 	
+	/**
+	 * Split string expression with respect to the delimiter
+	 * 
+	 * @param expression Boolean expression
+	 * @param delimiter	(&, |)
+	 * @return	List of tokens 
+	 */
 	public List<String> splitTokens(String expression, String delimiter){
 	    if(expression == null)
 	        return null;
@@ -145,6 +187,12 @@ public class Parser {
         return tokens;
     }
 	
+	/**
+	 * Utility function to strip brackets of a boolean expression
+	 * 
+	 * @param expression boolean expression
+	 * @return expression with brackets strippped
+	 */
 	public String stripBrackets(String expression){
 
 	    if(expression == null)
