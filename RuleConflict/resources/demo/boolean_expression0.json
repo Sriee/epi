@@ -1,0 +1,42 @@
+{
+	"condition_expression" : "c1 & (c2 | (c3 & c4))",
+	"action_expression" : "a1 & a2",
+	"condition_count" : 4,
+	"action_count" : 2,
+	"c1" : {
+		"name" : "H",
+		"id" : "10",
+		"operator" : "<",
+		"value" : 40
+	},
+	"c2" : {
+		"name" : "T",
+		"id" : "1",
+		"operator" : ">",
+		"value" : 25
+	},
+	"c3" : {
+		"name" : "Fan",
+		"id" : "12",
+		"operator" : "=",
+		"value" : 0
+	},
+	"c4" : {
+		"name" : "PCI",
+		"id" : "3",
+		"operator" : ">",
+		"value" : 1500
+	},
+	"a1" : {
+		"name" : "Window",
+		"id" : "2",
+		"operator" : "=",
+		"value" : 0
+	},
+	"a2" : {
+		"name" : "AC",
+		"id" : "3052CB808C23",
+		"operator" : "=",
+		"value" : 1
+	}	
+}

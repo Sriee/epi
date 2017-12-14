@@ -1,0 +1,24 @@
+{
+	"condition_expression" : "c1 & c2",
+	"action_expression" : "a1",
+	"condition_count" : 2,
+	"action_count" : 1,
+	"c1" : {
+		"name" : "H",
+		"id" : "10",
+		"operator" : "<",
+		"value" : 20
+	},
+	"c2" : {
+		"name" : "T",
+		"id" : "1",
+		"operator" : "<",
+		"value" : 70
+	},
+	"a1" : {
+		"name" : "Sprinkler",
+		"id" : "2",
+		"operator" : "=",
+		"value" : 1
+	}
+}

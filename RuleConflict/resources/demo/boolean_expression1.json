@@ -1,0 +1,18 @@
+{
+	"condition_expression" : "(c1)",
+	"action_expression" : "a1",
+	"condition_count" : 1,
+	"action_count" : 1,
+	"c1" : {
+		"name" : "H",
+		"id" : "10",
+		"operator" : "<",
+		"value" : 20
+	},
+	"a1" : {
+		"name" : "Sprinkler",
+		"id" : "2",
+		"operator" : "=",
+		"value" : 1
+	}
+}
