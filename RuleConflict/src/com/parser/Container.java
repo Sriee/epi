@@ -108,7 +108,7 @@ public class Container {
 			
 			// For each Ra.action do
 			for (Action actionRa : this.actionList) {
-
+				
 				// Explicit Dependency
 				if (actionRa.getId() == triggerRb.getId() && this.contains(actionRa.getOperator().toString(),
 						actionRa.getValue(), triggerRb.getOperator().toString(), triggerRb.getValue())) {
@@ -117,15 +117,21 @@ public class Container {
 
 				// Similar Action
 				for (Action actionRb : other.actionList) {
-					if (actionRa.getId() == actionRb.getId()) {
-						if (this.contains(actionRa.getOperator().toString(), actionRa.getValue(),
-								actionRb.getOperator().toString(), actionRb.getValue())) {
+					if (actionRa.getActuatorId().getId() == actionRb.getActuatorId().getId()) {
+						if(actionRa.getOperator() == actionRb.getOperator() && 
+								actionRa.getValue() == actionRb.getValue()){
 							relationMap.put(Relation.SIMILAR_ACTION, true);
 						}
-
-						if (this.exclude(actionRa.getOperator().toString(), actionRa.getValue(),
-								actionRb.getOperator().toString(), actionRb.getValue())) {
+						
+						if(actionRa.getOperator() == actionRb.getOperator() && 
+								actionRa.getValue() != actionRb.getValue()){
 							relationMap.put(Relation.NEGATIVE_ACTION, true);
+							relationMap.put(Relation.TRIGGER_EVENT, true);
+						} else {
+							if (this.exclude(actionRa.getOperator().toString(), actionRa.getValue(),
+								actionRb.getOperator().toString(), actionRb.getValue())) {
+									relationMap.put(Relation.NEGATIVE_ACTION, true);
+							}
 						}
 					}
 				}
@@ -165,7 +171,13 @@ public class Container {
 	private boolean contains(String raOperator, int raValue, String rbOperator, int rbValue) {
 		FileLogger log = FileLogger.instance();
 		LogicalOperator operator = LogicalOperator.LESSER_THAN;
-
+		
+		if(raOperator.equals("=") && rbOperator.equals("!="))
+			return true;
+		
+		if(raOperator.equals("!=") && rbOperator.equals("="))
+			return true;
+		
 		Interval firstInterval = this.getInterval((LogicalOperator) operator.getOperator(raOperator), raValue, true);
 		log.writeLog("First Interval: " + firstInterval.toString());
 
