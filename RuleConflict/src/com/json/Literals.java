@@ -1,5 +1,10 @@
 package com.json;
 
+/**
+ * POJO for mapping condition and action elements in a Json expression
+ *  
+ * @author sriee
+ */
 public class Literals {
 	private String name;
 	private String id;
@@ -77,6 +82,13 @@ public class Literals {
 		this.value = value;
 	}
 
+	/**
+	 * Helper function to return the literal in [Name operator value] form
+	 * 
+	 * 	Ex: Temparature > 40
+	 * 
+	 * @return	formatted expression
+	 */
 	public String toExpressionString(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("(");
