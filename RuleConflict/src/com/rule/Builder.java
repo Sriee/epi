@@ -33,6 +33,12 @@ import com.parser.Factory;
 import com.parser.Parser;
 import com.parser.TreeNode;
 
+/**
+ * Builder routine to build Container object from Json input
+ * 
+ * @author sriee
+ *
+ */
 public class Builder {
 
 	private GsonBuilder gsonBuilder;
@@ -41,6 +47,11 @@ public class Builder {
 	private Factory factory;
 	private FileLogger log;
 
+	/**
+	 * Initialize Builder
+	 * 
+	 * @param factory Hibernate Session Factory
+	 */
 	public Builder(Factory factory) {
 		this.log = FileLogger.instance();
 		this.factory = factory;
@@ -52,6 +63,17 @@ public class Builder {
 		this.parser = new Parser();
 	}
 
+	/**
+	 * This is the main routine which converts a json data to a list of rule objects
+	 * wrapped as containers. DNF form of a expression is calculated. Each condition is iterated
+	 * and a container type object is wrapped 
+	 * 
+	 * @note The current implementation receives its json content from a json file located
+	 * 		 only at ../../resources folder and the name of the file sould be in format
+	 * 		 boolean_expression{n}.json 
+	 * @param json json data
+	 * @return List of rule objects wrapped as Container
+	 */
 	public List<Container> build(String json) {
 		String dnf = null;
 		List<String> ruleTokens = null;
@@ -69,8 +91,11 @@ public class Builder {
 			if (sample.getConditionCount() != 1) {
 				// Build Abstract Syntax Tree
 				TreeNode root = this.parser.buildAST(sample.getConditionalExpression());
-
+				
+				// Convert AST to jbool expression
 				Expression<String> expression = this.parser.buildExpression(root);
+				
+				// DNF form conversion
 				Expression<String> sop = RuleSet.toSop(expression);
 				this.log.writeLog("Expression: " + expression);
 				this.log.writeLog("DNF form: " + sop.toString());
@@ -100,7 +125,12 @@ public class Builder {
 		}
 		return rules;
 	}
-
+	
+	/**
+	 * Adds the entries to the database tables for a container object
+	 * 
+	 * @param container container object for a rule
+	 */
 	public void add(Container container) {
 		long count = 0;
 		String ruleName = null;
@@ -140,6 +170,12 @@ public class Builder {
 		session.close();
 	}
 
+	/**
+	 * Checks whether the Rule table is empty or not
+	 * 
+	 * @return true - if rule table is empty
+	 * 		  false - otherwise
+	 */
 	public boolean isRuleTableEmpty() {
 		long count = 0;
 		Session session = this.factory.getFactory().openSession();
@@ -150,6 +186,14 @@ public class Builder {
 		return count == 0;
 	}
 
+	/**
+	 * Searches for a matching Trigger record. If the record is found, it is
+	 * returned. If not a new entry is created in the Trigger Table
+	 * 
+	 * @param literal
+	 * @param sensor Sensor object based on trigger condition
+	 * @return Id for a Trigger record
+	 */
 	public Long getTriggerId(Literals literal, Sensor sensor) {
 		Trigger toBeInserted = null;
 		Long id = null;
@@ -174,6 +218,13 @@ public class Builder {
 		return id;
 	}
 
+	/**
+	 * Searches for a matching Environment record. If the record is found, it is 
+	 * returned. If not a new entry is created in the Environment Table
+	 * 
+	 * @param literal
+	 * @return Id for a Environment record
+	 */
 	public Environment getEnvironment(Literals literal) {
 		Environment toBeInserted = null;
 		Session session = this.factory.getFactory().openSession();
@@ -199,6 +250,14 @@ public class Builder {
 		return toBeInserted;
 	}
 
+	/**
+	 * Searches for a matching Action record. If the record is found, it is
+	 * returned. If not a new entry is created in the Action Table
+	 * 
+	 * @param literal
+	 * @param actuator Actuator object based on actuator condition
+	 * @return Id for a Actuator record
+	 */
 	public Long getActionId(Literals literal, Actuator actuator) {
 		Action toBeInserted = null;
 		Long id = null;
@@ -223,6 +282,20 @@ public class Builder {
 		return id;
 	}
 
+	/**
+	 * Wrapper module to create a container object. Creates Trigger, Environment and
+	 * Action list based on condition and deserialized json content
+	 * 
+	 * This method is also responsible for creating entries in Trigger, Environment and
+	 * Action table if the entry is not already present
+	 * 
+	 * TODO: Notion of Environmnet is not clearly defined and should take into consideration
+	 * 		 a set of Environments with respect to sensors and actuators that we have 
+	 * 
+	 * @param condition Condition expression tokens
+	 * @param input	Desrialized json content
+	 * @return Container object
+	 */
 	private Container wrapper(List<String> condition, Input input) {
 		List<Trigger> triggerList = new ArrayList<>();
 		List<Action> actionList = new ArrayList<>();
@@ -235,6 +308,7 @@ public class Builder {
 
 		Factory factory = Factory.instance();
 
+		// Populate trigger and Environment list
 		for (String c : condition) {
 			temp = input.getLiterals().get(c);
 			Session session = factory.getFactory().openSession();
@@ -258,6 +332,7 @@ public class Builder {
 		this.log.writeLog("Environment List:");
 		this.log.writeLog(environmentList.toString());
 
+		// Populate Action list
 		for (int k = 0; k < input.getActionCount(); k++) {
 			temp = input.getLiterals().get("a" + (k + 1));
 			Session session = factory.getFactory().openSession();
@@ -309,6 +384,13 @@ public class Builder {
 		return oppositeOperator;
 	}
 
+	/**
+	 * Find next state for given present state
+	 * 
+	 * @param operator Logical Operator (<, <=, >, >=, =, !=)
+	 * @param value 
+	 * @return next state string
+	 */
 	private String getNextState(LogicalOperator operator, int value) {
 		return this.getOppositeOperator(operator).toString() + ";" + Integer.toString(value);
 	}

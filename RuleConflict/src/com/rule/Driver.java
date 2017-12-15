@@ -10,6 +10,18 @@ import com.parser.ContainerIterator;
 import com.parser.Factory;
 import com.rule.Builder;
 
+/**
+ * Driver program to test the implementation. This is used for demo purposes. 
+ * 
+ * The program depends upon Json file which should be name 'boolean_expression{n}.json'
+ * 	- Program succeeds when there is no rule conflicts. Creates the required entries for all
+ * 	  the tables for a Rule table
+ * 	- Throws rule conflict exception when the conflict detection algorithm detects a conflict
+ * 	  between rules	
+ * 
+ * @author sriee
+ *
+ */
 public class Driver {
 
 	public static void main(String[] args) {
@@ -18,6 +30,7 @@ public class Driver {
 		String jsonExpression = null;
 		FileLogger log = FileLogger.instance();
 		
+		// Reads the json files in ../../resources folder
 		for (int i = 0; i < 2; i++) {
 			jsonExpression = "boolean_expression" + (i + 1) + ".json";
 			log.writeLog("Working on " + jsonExpression);
@@ -55,7 +68,7 @@ public class Driver {
 			}
 		}
 		
-		factory.close();
+		factory.close();	// Close hibernate session when finished
 		log.writeLog("Done!");
 	}
 }
