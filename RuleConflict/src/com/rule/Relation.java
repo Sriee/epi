@@ -1,5 +1,11 @@
 package com.rule;
 
+/**
+ * Enum type to denote relation between two relations
+ * 
+ * @author sriee
+ *
+ */
 public enum Relation {
 	SIMILAR_TRIGGER, 
 	SIMILAR_ACTION,

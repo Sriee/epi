@@ -7,6 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Entity class for Actuator table
+ * @author sriee
+ *
+ */
 @Entity
 @Table(name = "Actuator")
 public class Actuator {

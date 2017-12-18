@@ -18,6 +18,14 @@ import com.logger.FileLogger;
 import com.rule.Interval;
 import com.rule.Relation;
 
+/**
+ * Container which repersents a Rule. It contains the expression, triggers, environment and action
+ * associated with this Rule. It contains the conflict detection algorithm and calculating the relation
+ * between rules
+ * 
+ * @author sriee
+ *
+ */
 public class Container {
 
 	private String expression;
@@ -45,6 +53,15 @@ public class Container {
 		this.actionList = (actionList != null) ? actionList : new ArrayList<>();
 	}
 
+	/**
+	 * Conflict detection algorithm. Implementation based on  
+	 * 
+	 * 	Yan Sun, et al., “Conflict Detection Scheme Based on Formal Rule Model for Smart Building Systems” 
+	 * 	IEEE Transactions on Human-machine Systems, vol. 45, no. 2, Apr. 2015.
+	 * 
+	 * @param other	Rule B
+	 * @throws RuleConflict
+	 */
 	public void checkConflict(Container other) throws RuleConflict {
 		FileLogger log = FileLogger.instance();
 		Map<Relation, Boolean> relation = this.relation(other);
@@ -71,6 +88,23 @@ public class Container {
 		}
 	}
 
+	/**
+	 * Finds out the relation between Rule A and Rule B. Based on the Rule Relation the 
+	 * following flags will be enabled
+	 * 		1. Similar Trigger
+	 * 		2. Similar Action
+	 * 		3. Similar Prestate
+	 * 		4. Contorary Poststate
+	 * 		5. Explicit Dependency
+	 * 		6. Implicit Dependency
+	 * 		7. Negative Action
+	 * 		8. Trigger Event
+	 * 		9. Contrary Explicit Dependency
+	 * 		10. Contrary Implicit Dependency
+	 * 
+	 * @param other Rule B container
+	 * @return Map of triggers and their state
+	 */
 	private Map<Relation, Boolean> relation(Container other) {
 		Map<Relation, Boolean> relationMap = new HashMap<>();
 		Trigger triggerRb = null;
@@ -108,7 +142,7 @@ public class Container {
 			
 			// For each Ra.action do
 			for (Action actionRa : this.actionList) {
-
+				
 				// Explicit Dependency
 				if (actionRa.getId() == triggerRb.getId() && this.contains(actionRa.getOperator().toString(),
 						actionRa.getValue(), triggerRb.getOperator().toString(), triggerRb.getValue())) {
@@ -117,15 +151,21 @@ public class Container {
 
 				// Similar Action
 				for (Action actionRb : other.actionList) {
-					if (actionRa.getId() == actionRb.getId()) {
-						if (this.contains(actionRa.getOperator().toString(), actionRa.getValue(),
-								actionRb.getOperator().toString(), actionRb.getValue())) {
+					if (actionRa.getActuatorId().getId() == actionRb.getActuatorId().getId()) {
+						if(actionRa.getOperator() == actionRb.getOperator() && 
+								actionRa.getValue() == actionRb.getValue()){
 							relationMap.put(Relation.SIMILAR_ACTION, true);
 						}
-
-						if (this.exclude(actionRa.getOperator().toString(), actionRa.getValue(),
-								actionRb.getOperator().toString(), actionRb.getValue())) {
+						
+						if(actionRa.getOperator() == actionRb.getOperator() && 
+								actionRa.getValue() != actionRb.getValue()){
 							relationMap.put(Relation.NEGATIVE_ACTION, true);
+							relationMap.put(Relation.TRIGGER_EVENT, true);
+						} else {
+							if (this.exclude(actionRa.getOperator().toString(), actionRa.getValue(),
+								actionRb.getOperator().toString(), actionRb.getValue())) {
+									relationMap.put(Relation.NEGATIVE_ACTION, true);
+							}
 						}
 					}
 				}
@@ -162,10 +202,25 @@ public class Container {
 		return relationMap;
 	}
 
+	/**
+	 * Compares intersection between values of the same operator
+	 * 
+	 * @param raOperator Rule A Operator
+	 * @param raValue Rule A value
+	 * @param rbOperator Rule B Operator
+	 * @param rbValue RuleB Value
+	 * @return
+	 */
 	private boolean contains(String raOperator, int raValue, String rbOperator, int rbValue) {
 		FileLogger log = FileLogger.instance();
 		LogicalOperator operator = LogicalOperator.LESSER_THAN;
-
+		
+		if(raOperator.equals("=") && rbOperator.equals("!="))
+			return true;
+		
+		if(raOperator.equals("!=") && rbOperator.equals("="))
+			return true;
+		
 		Interval firstInterval = this.getInterval((LogicalOperator) operator.getOperator(raOperator), raValue, true);
 		log.writeLog("First Interval: " + firstInterval.toString());
 
@@ -175,6 +230,15 @@ public class Container {
 		return firstInterval.intersects(secondInterval);
 	}
 
+	/**
+	 * Compares intersection between values of oppossite operator
+	 * 
+	 * @param raOperator Rule A Operator
+	 * @param raValue Rule A value
+	 * @param rbOperator Rule B Operator
+	 * @param rbValue RuleB Value
+	 * @return
+	 */
 	private boolean exclude(String raOperator, int raValue, String rbOperator, int rbValue) {
 		FileLogger log = FileLogger.instance();
 		LogicalOperator operator = LogicalOperator.LESSER_THAN;

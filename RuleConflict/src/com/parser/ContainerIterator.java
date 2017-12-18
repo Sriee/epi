@@ -12,12 +12,22 @@ import com.entity.Environment;
 import com.entity.Trigger;
 import com.entity.Type;
 
+/**
+ * Iterator for iterating through the rules table. As the iterator iterates 
+ * It constructs the trigger, action and environment list based on the tables
+ * 
+ * @author sriee
+ *
+ */
 public class ContainerIterator implements Iterable<Container>, Iterator<Container>{
 
     private long position;
     private long total;
     private Factory factory;
 
+    /**
+     * Initialize the variables required for the iterator
+     */
     public ContainerIterator() {
         this.position = 1;
         this.factory = Factory.instance();
@@ -28,6 +38,8 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
         session.close();
     }
 
+    // Override methods of Iterable interface
+    
     @Override
     public Iterator<Container> iterator(){ return this; }
 
@@ -55,6 +67,13 @@ public class ContainerIterator implements Iterable<Container>, Iterator<Containe
     @Override
     public void remove(){ throw new UnsupportedOperationException(); }
 
+    /**
+     * Create a list of type (Trigger, Environment, Action)
+     * 
+     * @param klazz Class name
+     * @param type (Trigger, Environment, Action)
+     * @return List of class types
+     */
     private <T> List<T> list(Class<T> klazz, Type type){
     	List<T> list = null;
         String name = "R" + this.position;

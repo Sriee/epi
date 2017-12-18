@@ -1,5 +1,10 @@
 package com.json;
 
+/**
+ * Enum type for logical and & or operator
+ * @author sriee
+ *
+ */
 public enum BooleanOperator implements Operator{
 	AND, OR;
 	

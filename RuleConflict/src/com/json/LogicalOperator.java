@@ -1,5 +1,12 @@
 package com.json;
 
+/**
+ * Enum type operator for arithmetic operators 
+ * (<, <=, >, >=, =, !=)
+ * 
+ * @author sriee
+ *
+ */
 public enum LogicalOperator implements Operator{
 	LESSER_THAN,
 	GREATER_THAN,

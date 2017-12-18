@@ -12,12 +12,22 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
+/**
+ * Logger implementation for printing the values to a log file
+ * Singleton implementation so that there is only one logging object
+ * 
+ * @author sriee
+ *
+ */
 public class FileLogger implements Logger {
 
-	private String fileName = "rule.log"; 
-	private File logFile = null;
+	private String fileName = "rule.log"; 		// Log file name
+	private File logFile = null;				// Log file handle
 	public static FileLogger fileLoggerObj = null;
 
+	/**
+	 * Initialize the file handle and log file object
+	 */
 	private FileLogger() {
 		super();
 		Path currentDir = Paths.get(".");
@@ -42,6 +52,11 @@ public class FileLogger implements Logger {
 		}
 	}
 
+    /**
+     * Construct File Logger object
+     * 
+     * @return File logger instance
+     */
 	public static FileLogger instance() {
 		if(fileLoggerObj == null){
 			fileLoggerObj = new FileLogger();
@@ -49,6 +64,11 @@ public class FileLogger implements Logger {
 		return fileLoggerObj;
 	}
 
+	/**
+	 * Write a single entry to log file.
+	 * 
+	 * @param log statement
+	 */
 	@Override
 	public void writeLog(String entry){
 		if( logFile == null )
@@ -66,6 +86,11 @@ public class FileLogger implements Logger {
 		}
 	}
 
+	/**
+	 * Write a collection of string entries to log file.
+	 * 
+	 * @param entry Collection of log statements
+	 */
 	@Override
 	public void writeLog(Collection<String> entry){
 		if( logFile == null )
@@ -86,6 +111,11 @@ public class FileLogger implements Logger {
 		}
 	}
 
+	/**
+	 * Timestamp for logging. Fomat - [12-07-2017 16:53]
+	 * 
+	 * @return time stamp
+	 */
 	private String getTimeStamp(){
 		String timeStamp = "";
 		SimpleDateFormat dateFormat = new SimpleDateFormat("[M-dd-yyyy H:mm] ");

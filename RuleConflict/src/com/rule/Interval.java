@@ -1,10 +1,22 @@
 package com.rule;
 
+/**
+ * POJO to hold the Interval
+ * 
+ * @author sriee
+ *
+ */
 public class Interval implements Comparable<Interval>{
 	
-	public final int min;
-	public final int max;
+	public final int min;	// min value
+	public final int max;	// max value
 	
+	/**
+	 * Construct Interval class 
+	 * 
+	 * @param min Minimum value
+	 * @param max Maximum value
+	 */
 	public Interval(int min, int max) {
 		if(min <= max) {
 			this.min = min;
@@ -12,6 +24,13 @@ public class Interval implements Comparable<Interval>{
 		} else { throw new IllegalArgumentException(); }
 	}
 	
+	/**
+	 * Checks whether 'this' interval overrides the other
+	 * 
+	 * @param other Interval
+	 * @return	true - if the other interval overrides
+	 * 		   false - otherwise	
+	 */
 	public boolean overrides(Interval other) {
 		if(this.min == other.min && (this.max < other.max || other.max < this.max)) {
 			return true;
@@ -21,6 +40,13 @@ public class Interval implements Comparable<Interval>{
 		return false;
 	}
 	
+	/**
+	 * Checks whether 'this' interval intersects the other
+	 * 
+	 * @param other Interval
+	 * @return	true - if the other interval intersects
+	 * 		   false - otherwise	
+	 */
 	public boolean intersects(Interval other) {
 		if(other.max < this.min) return false;
 		if(this.max < other.min) return false;
@@ -42,6 +68,10 @@ public class Interval implements Comparable<Interval>{
 		return "[min= " + this.min + ", max= " + this.max + "]";
 	}
 	
+	/**
+	 * Unit test for Interval class
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Interval a = new Interval(10, 20);
 		Interval b = new Interval(0, 7);

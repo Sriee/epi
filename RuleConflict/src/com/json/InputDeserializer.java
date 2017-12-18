@@ -10,8 +10,21 @@ import com.google.gson.JsonParseException;
 import java.util.Map;
 import java.util.HashMap;
 
+/**
+ * Desrializer for parsing Json into Input type
+ * @author sriee
+ *
+ */
 public class InputDeserializer implements JsonDeserializer<Input> {
 
+	/**
+	 * Implementation of gson method
+	 * 
+	 * @param JsonElement json
+	 * @param Type type
+	 * @param JsonDeserializationContext context
+	 * @throws JsonParseException
+	 */
 	@Override
 	public Input deserialize(final JsonElement json, final Type type, JsonDeserializationContext context) throws JsonParseException {
 		final JsonObject jsonObject = json.getAsJsonObject();
@@ -22,9 +35,16 @@ public class InputDeserializer implements JsonDeserializer<Input> {
 		Map<String, Literals> map = new HashMap<>();
 		LogicalOperator logicOp = LogicalOperator.EQUAL; 
 		
+		// Condition expression mapping
 		input.setConditionalExpression(jsonObject.get("condition_expression").getAsString());
+		
+		// Action expression mapping
 		input.setActionExpression(jsonObject.get("action_expression").getAsString());
+		
+		// Condition count mapping
 		input.setConditionCount(jsonObject.get("condition_count").getAsInt());
+		
+		// Action count mapping
 		input.setActionCount(jsonObject.get("action_count").getAsInt());
 		
 		// Store conditions in map 
@@ -50,8 +70,8 @@ public class InputDeserializer implements JsonDeserializer<Input> {
 					);
 			map.put(temp, literalInstance);
 		}
-		
-		input.setLiterals(map);
+		 
+		input.setLiterals(map); // Set literals with map of condition and action
 		return input;
 	}
 

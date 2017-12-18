@@ -7,6 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Entity class for Sensor table
+ * 
+ * @author sriee
+ *
+ */
 @Entity
 @Table(name = "Sensor")
 public class Sensor {

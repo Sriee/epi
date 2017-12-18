@@ -13,6 +13,12 @@ import javax.persistence.Table;
 
 import com.json.LogicalOperator;
 
+/**
+ * Entity for Trigger class
+ * 
+ * @author sriee
+ *
+ */
 @Entity
 @Table(name = "Triggers")
 public class Trigger {

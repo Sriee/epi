@@ -7,6 +7,12 @@ import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+/**
+ * Composite key for Link table
+ * 
+ * @author sriee
+ *
+ */
 @Embeddable
 public class LinkPK implements Serializable{
 
