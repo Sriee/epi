@@ -2,13 +2,13 @@ package com.epi.list;
 
 public class InsertionSort {
 
-	private ListNode insertionSort(ListNode head){
+	private <T extends Comparable<T>> ListNode<T> insertionSort(ListNode<T> head){
 		if(head == null) return null;
 		int pos = 0, len = this.length(head);
-		ListNode cursor = head;
+		ListNode<T> cursor = head;
 		
 		while(pos < len && cursor.next != null){
-			if(cursor.val > cursor.next.val){
+			if(cursor.data.compareTo(cursor.next.data) < 0){
 				head = this.insertSortHelper(head, pos);
 				cursor = head;
 				pos = 0;
@@ -20,8 +20,8 @@ public class InsertionSort {
 		return head;
 	}
 	
-	private ListNode remove(ListNode head, int pos){
-		ListNode prev = null, temp = null, cursor = head;
+	private <T extends Comparable<T>> ListNode<T> remove(ListNode<T> head, int pos){
+		ListNode<T> prev = null, temp = null, cursor = head;
 		while(pos != 0 && cursor != null){
 			prev = cursor;
 			cursor = cursor.next;
@@ -39,8 +39,8 @@ public class InsertionSort {
 		return temp;
 	}
 	
-	private ListNode insertSortHelper(ListNode head, int pos){
-		ListNode prev = null, temp = null, cursor = head;
+	private <T extends Comparable<T>> ListNode<T> insertSortHelper(ListNode<T> head, int pos){
+		ListNode<T> prev = null, temp = null, cursor = head;
 		while(pos != 0 && cursor != null){
 			prev = cursor;
 			cursor = cursor.next;
@@ -61,7 +61,7 @@ public class InsertionSort {
 		temp.next = null;
 		boolean inserted = false;
 		while(cursor != null && !inserted){
-			if(temp.val < cursor.val){
+			if(temp.data.compareTo(cursor.data) < 0){
 				if(prev == null){
 					temp.next = cursor;
 					head = temp;
@@ -83,8 +83,8 @@ public class InsertionSort {
 		return head;
 	}
 	
-	private int length(ListNode head){
-		ListNode cursor = head;
+	private <T extends Comparable<T>> int length(ListNode<T> head){
+		ListNode<T> cursor = head;
 		int count = 0;
 		while(cursor != null){
 			count++;
@@ -93,21 +93,21 @@ public class InsertionSort {
 		return count;
 	}
 	
-	private void print(ListNode head){
+	private <S extends Comparable<S>> void print(ListNode<S> head){
 		if(head == null) return;
-		ListNode cursor = head;
+		ListNode<S> cursor = head;
 		while(cursor.next != null){
-			System.out.print(cursor.val + " -> ");
+			System.out.print(cursor.data + " -> ");
 			cursor = cursor.next;
 		}
-		System.out.println(cursor.val);
+		System.out.println(cursor.data);
 	}
 	
-	private ListNode insert(ListNode head, ListNode toInsert){
-		ListNode prev = null, cursor = head;
+	private <T extends Comparable<T>> ListNode<T> insert(ListNode<T> head, ListNode<T> toInsert){
+		ListNode<T> prev = null, cursor = head;
 		boolean inserted = false;
 		while(cursor != null && !inserted){
-			if(toInsert.val < cursor.val){
+			if(toInsert.data.equals(cursor.data)){
 				if(prev == null){
 					toInsert.next = cursor;
 					head = toInsert;
@@ -131,25 +131,25 @@ public class InsertionSort {
 	public static void main(String[] args) {
 		InsertionSort s = new InsertionSort();
 		
-		ListNode toSort = new ListNode(56);
-		toSort.next = new ListNode(26);
-		toSort.next.next = new ListNode(93);
-		toSort.next.next.next = new ListNode(17);
-		toSort.next.next.next.next = new ListNode(77);
-		toSort.next.next.next.next.next = new ListNode(31);
-		toSort.next.next.next.next.next.next = new ListNode(44);
-		toSort.next.next.next.next.next.next.next = new ListNode(55);
+		ListNode<Integer> toSort = new ListNode<>(56);
+		toSort.next = new ListNode<>(26);
+		toSort.next.next = new ListNode<>(93);
+		toSort.next.next.next = new ListNode<>(17);
+		toSort.next.next.next.next = new ListNode<>(77);
+		toSort.next.next.next.next.next = new ListNode<>(31);
+		toSort.next.next.next.next.next.next = new ListNode<>(44);
+		toSort.next.next.next.next.next.next.next = new ListNode<>(55);
 		
 		System.out.println("\nBefore Insertion Sort.");
 		s.print(toSort);
 		
 		System.out.println("\nAfter Sorting.");
-		ListNode sorted = s.insertionSort(toSort);
+		ListNode<Integer> sorted = s.insertionSort(toSort);
 		s.print(sorted);
 		
 		// Check insert & remove
-		ListNode ir = new ListNode(56);
-		s.insert(ir, new ListNode(17));
+		ListNode<Integer> ir = new ListNode<>(56);
+		s.insert(ir, new ListNode<>(17));
 		s.print(ir);
 		
 		s.remove(ir, 1);

@@ -2,10 +2,10 @@ package com.epi.list;
 
 public class GroupList {
 	
-	private ListNode swapPairs(ListNode head) {
+	private <T extends Comparable<T>> ListNode<T> swapPairs(ListNode<T> head) {
         if(head == null) return null;
         
-        ListNode first = head, second = head.next, temp = null, prev = null;
+        ListNode<T> first = head, second = head.next, temp = null, prev = null;
         while(first != null && second != null){
         	temp = second.next;
             first.next = temp;
@@ -23,9 +23,9 @@ public class GroupList {
         return head;
     }
 	
-	private ListNode groupOddEven(ListNode head){
+	private <T extends Comparable<T>> ListNode<T> groupOddEven(ListNode<T> head){
 		if(head == null) return null;
-		ListNode odd = head, even = head.next, evenHead = even;
+		ListNode<T> odd = head, even = head.next, evenHead = even;
 		while(even != null && even.next != null){
 			odd.next = odd.next.next;
 			even.next = even.next.next;
@@ -36,29 +36,29 @@ public class GroupList {
 		return head;
 	}
 	
-	private void print(ListNode head){
+	private <T extends Comparable<T>> void print(ListNode<T> head){
 		if(head == null) return;
-		ListNode cursor = head;
+		ListNode<T> cursor = head;
 		while(cursor.next != null){
-			System.out.print(cursor.val + " -> ");
+			System.out.print(cursor.data + " -> ");
 			cursor = cursor.next;
 		}
-		System.out.println(cursor.val);
+		System.out.println(cursor.data);
 	}
 	
 	public static void main(String[] args) {
 		GroupList gl = new GroupList();
-		ListNode head = new ListNode(1);
-		head.next = new ListNode(2);
-		head.next.next = new ListNode(3);
-		head.next.next.next = new ListNode(4);
-		head.next.next.next.next = new ListNode(5);
+		ListNode<Integer> head = new ListNode<>(1);
+		head.next = new ListNode<>(2);
+		head.next.next = new ListNode<>(3);
+		head.next.next.next = new ListNode<>(4);
+		head.next.next.next.next = new ListNode<>(5);
 		gl.print(head);
-		ListNode gHead = gl.groupOddEven(head);
+		ListNode<Integer> gHead = gl.groupOddEven(head);
 		gl.print(gHead);
 		
 		System.out.println("\nSwap Pairs");
-		ListNode swapped = gl.swapPairs(head);
+		ListNode<Integer> swapped = gl.swapPairs(head);
 		gl.print(swapped);
 	}
 
