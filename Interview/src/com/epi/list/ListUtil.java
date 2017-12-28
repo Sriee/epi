@@ -1,6 +1,11 @@
 package com.epi.list;
 
+import java.util.ArrayList;
+import java.util.Queue;
+import java.util.PriorityQueue;
+
 public class ListUtil {
+	
 	/**
 	 * Leetcode problem. Solution -> Accepted
 	 */
@@ -21,17 +26,59 @@ public class ListUtil {
 		return dummy.next;
 	}
 	
-	public static ListNode<Integer> reverseSublist(ListNode<Integer> head, int start, int finish){
-		ListNode<Integer> dummy = new ListNode<>(0, head);
-		ListNode<Integer> sublistHead = dummy;
+	/**
+	 * Leet code problem. Solution -> Time Limit Exceeded
+	 * 
+	 *  The priority queue becomes huge when the number of list are large
+	 *  
+	 * @param list Array of lists to be merged
+	 * @return merged list
+	 */
+	public static <S extends Comparable<S>> ListNode<S> mergeKSortedList(ListNode<S>[] list){
+		ListNode<S> dummyHead = new ListNode<>(null, null);
+		ListNode<S> cursor = dummyHead;
+		ArrayList<ListNode<S>> current = new ArrayList<>();
+		
+		boolean done = false;
+		
+		for(int i = 0; i < list.length; i++)
+			current.add(list[i]);
+		
+		Queue<ListNode<S>> queue = new PriorityQueue<>();
+		
+		while(!done){
+			
+			for(int i = 0; i < list.length; i++){
+				if(current.get(i) == null) continue;
+								
+				queue.add(current.get(i));
+			}
+			
+			if(queue.isEmpty()){
+				done = true;
+				cursor.next = null;
+				continue;
+			}
+			cursor.next = queue.poll();
+			cursor = cursor.next;
+		}
+		return dummyHead.next;
+	}
+	
+	/**
+	 * Leetcode problem. Solution -> Accepted
+	 */
+	public static <S extends Comparable<S>> ListNode<S> reverseSublist(ListNode<S> head, int start, int finish){
+		ListNode<S> dummy = new ListNode<>(null, head);
+		ListNode<S> sublistHead = dummy;
 		int k = 1;
 		while(k++ < start){
 			sublistHead = sublistHead.next;
 		}
-		ListNode<Integer> sublistIter = sublistHead.next;
+		ListNode<S> sublistIter = sublistHead.next, temp = null;
 		
 		while(start++ < finish){
-			ListNode<Integer> temp = sublistIter.next;
+			temp = sublistIter.next;
 			sublistIter.next = temp.next;
 			temp.next = sublistHead.next;
 			sublistHead.next = temp;
@@ -40,6 +87,9 @@ public class ListUtil {
 		return dummy.next;
 	}
 	
+	/**
+	 * Leetcode problem. Solution -> Accepted
+	 */
 	public static <S extends Comparable<S>> ListNode<S> reverse(ListNode<S> head){
 		ListNode<S> dummy = new ListNode<>(null, null);
 		dummy.next = head;
@@ -94,8 +144,9 @@ public class ListUtil {
 		print(l1);
 		
 		ListNode<Integer> sub = reverse(l1);
-		
-		System.out.println();
+		System.out.print("Reversed :");
 		print(sub);
+		
+		
 	}
 }
