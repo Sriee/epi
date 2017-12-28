@@ -1,7 +1,6 @@
 package com.epi.list;
 
 import java.util.ArrayList;
-import java.util.Queue;
 import java.util.PriorityQueue;
 
 public class ListUtil {
@@ -27,40 +26,38 @@ public class ListUtil {
 	}
 	
 	/**
-	 * Leet code problem. Solution -> Time Limit Exceeded
+	 * Leet code problem. Solution -> Accepted
 	 * 
-	 *  The priority queue becomes huge when the number of list are large
+	 * Solutions that did not work
+	 * 
+	 * Trial 1 - Using a class called Pair to hold [data, index]. While linking to cursor need to create 
+	 * 			 a new link node. Increases space complexity.
+	 * Trial 2 - Wrote Priority queue comparator for int[] instead of a class
+	 * Trial 3 - Store list[i]th element in priority queue and keep pointing the cursor to head of the queue
+     *			 Storing all elements of the list in a queue gave a time limit exceeded exception. But the solution
+     *			 worked
 	 *  
 	 * @param list Array of lists to be merged
 	 * @return merged list
 	 */
-	public static <S extends Comparable<S>> ListNode<S> mergeKSortedList(ListNode<S>[] list){
+	public static <S extends Comparable<S>> ListNode<S> mergeKSortedList(ArrayList<ListNode<S>> list){
 		ListNode<S> dummyHead = new ListNode<>(null, null);
 		ListNode<S> cursor = dummyHead;
-		ArrayList<ListNode<S>> current = new ArrayList<>();
+		int j = 1;
+		PriorityQueue<ListNode<S>> queue = new PriorityQueue<>();
+		for(int i = 0; i < list.size(); i++){
+			ListNode<S> temp = list.get(i); 
+			if(temp != null)
+				queue.add(temp);
+		}
 		
-		boolean done = false;
-		
-		for(int i = 0; i < list.length; i++)
-			current.add(list[i]);
-		
-		Queue<ListNode<S>> queue = new PriorityQueue<>();
-		
-		while(!done){
-			
-			for(int i = 0; i < list.length; i++){
-				if(current.get(i) == null) continue;
-								
-				queue.add(current.get(i));
-			}
-			
-			if(queue.isEmpty()){
-				done = true;
-				cursor.next = null;
-				continue;
-			}
+		while(!queue.isEmpty()){
+			System.out.println(j++ + " " + queue);
 			cursor.next = queue.poll();
 			cursor = cursor.next;
+
+			if(cursor.next != null)
+				queue.add(cursor.next);
 		}
 		return dummyHead.next;
 	}
@@ -147,6 +144,22 @@ public class ListUtil {
 		System.out.print("Reversed :");
 		print(sub);
 		
+		ListNode<Integer> l2 = new ListNode<>(5);
+		l2.next = new ListNode<>(6);
+		l2.next.next = new ListNode<>(7);
+			
+		ListNode<Integer> l3 = new ListNode<>(3);
+		l3.next = new ListNode<>(4);
+
+		ListNode<Integer> l4 = new ListNode<>(0);
+		l4.next = new ListNode<>(1);
+		l4.next.next = new ListNode<>(2);
 		
+		ArrayList<ListNode<Integer>> list = new ArrayList<>();
+		list.add(l2); list.add(l3); list.add(l4);
+		
+		ListNode<Integer> merged = mergeKSortedList(list);
+		print(merged);
+
 	}
 }
