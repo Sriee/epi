@@ -36,16 +36,6 @@ public class GroupList {
 		return head;
 	}
 	
-	private <T extends Comparable<T>> void print(ListNode<T> head){
-		if(head == null) return;
-		ListNode<T> cursor = head;
-		while(cursor.next != null){
-			System.out.print(cursor.data + " -> ");
-			cursor = cursor.next;
-		}
-		System.out.println(cursor.data);
-	}
-	
 	public static void main(String[] args) {
 		GroupList gl = new GroupList();
 		ListNode<Integer> head = new ListNode<>(1);
@@ -53,13 +43,13 @@ public class GroupList {
 		head.next.next = new ListNode<>(3);
 		head.next.next.next = new ListNode<>(4);
 		head.next.next.next.next = new ListNode<>(5);
-		gl.print(head);
+		ListUtil.print(head);
 		ListNode<Integer> gHead = gl.groupOddEven(head);
-		gl.print(gHead);
+		ListUtil.print(gHead);
 		
 		System.out.println("\nSwap Pairs");
 		ListNode<Integer> swapped = gl.swapPairs(head);
-		gl.print(swapped);
+		ListUtil.print(swapped);
 	}
 
 }

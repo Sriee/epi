@@ -4,7 +4,7 @@ public class InsertionSort {
 
 	private <T extends Comparable<T>> ListNode<T> insertionSort(ListNode<T> head){
 		if(head == null) return null;
-		int pos = 0, len = this.length(head);
+		int pos = 0, len = ListUtil.length(head);
 		ListNode<T> cursor = head;
 		
 		while(pos < len && cursor.next != null){
@@ -83,26 +83,6 @@ public class InsertionSort {
 		return head;
 	}
 	
-	private <T extends Comparable<T>> int length(ListNode<T> head){
-		ListNode<T> cursor = head;
-		int count = 0;
-		while(cursor != null){
-			count++;
-			cursor = cursor.next;
-		}
-		return count;
-	}
-	
-	private <S extends Comparable<S>> void print(ListNode<S> head){
-		if(head == null) return;
-		ListNode<S> cursor = head;
-		while(cursor.next != null){
-			System.out.print(cursor.data + " -> ");
-			cursor = cursor.next;
-		}
-		System.out.println(cursor.data);
-	}
-	
 	private <T extends Comparable<T>> ListNode<T> insert(ListNode<T> head, ListNode<T> toInsert){
 		ListNode<T> prev = null, cursor = head;
 		boolean inserted = false;
@@ -141,19 +121,19 @@ public class InsertionSort {
 		toSort.next.next.next.next.next.next.next = new ListNode<>(55);
 		
 		System.out.println("\nBefore Insertion Sort.");
-		s.print(toSort);
+		ListUtil.print(toSort);
 		
 		System.out.println("\nAfter Sorting.");
 		ListNode<Integer> sorted = s.insertionSort(toSort);
-		s.print(sorted);
+		ListUtil.print(sorted);
 		
 		// Check insert & remove
 		ListNode<Integer> ir = new ListNode<>(56);
 		s.insert(ir, new ListNode<>(17));
-		s.print(ir);
+		ListUtil.print(ir);
 		
 		s.remove(ir, 1);
-		s.print(ir);
+		ListUtil.print(ir);
 	}
 
 }
