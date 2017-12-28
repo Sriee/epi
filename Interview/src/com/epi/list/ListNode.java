@@ -1,6 +1,6 @@
 package com.epi.list;
 
-public class ListNode<T extends Comparable<T>>{
+public class ListNode<T extends Comparable<T>> implements Comparable<ListNode<T>>{
 	public T data;
 	ListNode<T> next;
 	
@@ -14,7 +14,13 @@ public class ListNode<T extends Comparable<T>>{
 	}
 	
 	@Override
+	public int compareTo(ListNode<T> other){
+		return this.data.compareTo(other.data);
+	}
+	
+	@Override
 	public String toString(){
 		return "ListNode(" + data + ")";
 	}
 }
+
