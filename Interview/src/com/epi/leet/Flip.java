@@ -54,7 +54,7 @@ public class Flip {
      * 
      * @param num
      */
-    private static void decimalToHex(int num) {
+    public static void decimalToHex(int num) {
     	StringBuilder sb = new StringBuilder();
     	char literals[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
     	
@@ -64,6 +64,7 @@ public class Flip {
     	}
     	System.out.println(sb.reverse().toString());
     }
+    
     public static void main(String[] args) {
     	System.out.println(calPoints(new String[] {"5","2","C","D","+"}));
     	System.out.println(calPoints(new String[] {"5","-2","4","C","D","9","+","+"}));

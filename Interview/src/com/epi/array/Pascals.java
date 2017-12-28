@@ -35,5 +35,6 @@ public class Pascals {
         for(List<Integer> item : result){
             System.out.println(item.toString());
         }
+        scan.close();
     }
 }

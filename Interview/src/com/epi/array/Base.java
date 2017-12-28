@@ -2,7 +2,6 @@ package com.epi.array;
 
 public class Base{
 	public static void main(String[] args){
-        long temp2 =0;
         long temp = Integer.toUnsignedLong(-1);
 	    if (temp < 0) {
             temp = temp * -1;
@@ -12,7 +11,6 @@ public class Base{
         System.out.println(temp);
 		long num = temp;
 		char[] ch = {'a', 'b', 'c', 'd', 'e', 'f'};
-		boolean isNeg = num < 0;
         StringBuilder sb = new StringBuilder();
 		while(num != 0){
 			int r = (int)num % 16;
