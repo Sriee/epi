@@ -19,6 +19,38 @@ public class ListUtil {
 		return dummy.next;
 	}
 	
+	public static ListNode<Integer> reverseSublist(ListNode<Integer> head, int start, int finish){
+		ListNode<Integer> dummy = new ListNode<>(0, head);
+		ListNode<Integer> sublistHead = dummy;
+		int k = 1;
+		while(k++ < start){
+			sublistHead = sublistHead.next;
+		}
+		ListNode<Integer> sublistIter = sublistHead.next;
+		
+		while(start++ < finish){
+			ListNode<Integer> temp = sublistIter.next;
+			sublistIter.next = temp.next;
+			temp.next = sublistHead.next;
+			sublistHead.next = temp;
+		}
+		
+		return dummy.next;
+	}
+	
+	public static <S extends Comparable<S>> ListNode<S> reverse(ListNode<S> head){
+		ListNode<S> dummy = new ListNode<>(null, null);
+		dummy.next = head;
+		ListNode<S> iter = dummy.next, temp = null;
+		while(iter.next != null){
+			temp = iter.next;
+			iter.next = temp.next;
+			temp.next = dummy.next;
+			dummy.next = temp;
+		}
+		return dummy.next;
+	}
+	
 	public static <S extends Comparable<S>> void print(ListNode<S> head){
 		if(head == null) return;
 		ListNode<S> cursor = head;
@@ -30,17 +62,16 @@ public class ListUtil {
 	}
 	
 	public static void main(String[] args) {
-		ListNode<Integer> l1 = new ListNode<>(17);
-		l1.next = new ListNode<>(26);
-		l1.next.next = new ListNode<>(56);
-		l1.next.next.next = new ListNode<>(93);
+		ListNode<Integer> l1 = new ListNode<>(11);
+		l1.next = new ListNode<>(3);
+		l1.next.next = new ListNode<>(5);
+		l1.next.next.next = new ListNode<>(7);
+		l1.next.next.next.next = new ListNode<>(2);
+		print(l1);
 		
-		ListNode<Integer> l2 = new ListNode<>(17);
-		l2.next = new ListNode<>(26);
-		l2.next.next = new ListNode<>(56);
-		l2.next.next.next = new ListNode<>(93);
+		ListNode<Integer> sub = reverse(l1);
 		
-		ListNode<Integer> merged = merge(l1, l2);
-		print(merged);
+		System.out.println();
+		print(sub);
 	}
 }
