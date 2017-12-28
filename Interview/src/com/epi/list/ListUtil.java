@@ -87,6 +87,30 @@ public class ListUtil {
 	/**
 	 * Leetcode problem. Solution -> Accepted
 	 */
+	public static ListNode<Integer> reverseKSublist(ListNode<Integer> head, int k){
+		int length = length(head);
+		int c = 0, subs = length / k;
+		ListNode<Integer> dummyHead = new ListNode<>(null, head);
+		ListNode<Integer> sublistHead = dummyHead;
+		ListNode<Integer> sublistIterator = sublistHead.next, temp = null;
+		System.out.println("length=" + length + ", subs=" + subs);
+		while(c++ < subs){
+			int start = 0;
+			while(start++ < k-1 && sublistIterator.next != null){
+				temp = sublistIterator.next;
+				sublistIterator.next = temp.next;
+				temp.next = sublistHead.next;
+				sublistHead.next = temp;
+			}
+			sublistHead = sublistIterator;
+			sublistIterator = sublistHead.next;
+		}
+		return dummyHead.next;
+	}
+	
+	/**
+	 * Leetcode problem. Solution -> Accepted
+	 */
 	public static <S extends Comparable<S>> ListNode<S> reverse(ListNode<S> head){
 		ListNode<S> dummy = new ListNode<>(null, null);
 		dummy.next = head;
@@ -133,33 +157,16 @@ public class ListUtil {
 	}
 	
 	public static void main(String[] args) {
-		ListNode<Integer> l1 = new ListNode<>(11);
+		ListNode<Integer> l1 = new ListNode<>(5);
 		l1.next = new ListNode<>(3);
-		l1.next.next = new ListNode<>(5);
-		l1.next.next.next = new ListNode<>(7);
-		l1.next.next.next.next = new ListNode<>(2);
+		l1.next.next = new ListNode<>(10);
+		l1.next.next.next = new ListNode<>(1);
+		l1.next.next.next.next = new ListNode<>(25);
+		l1.next.next.next.next.next = new ListNode<>(60);
+		l1.next.next.next.next.next.next = new ListNode<>(77);
 		print(l1);
 		
-		ListNode<Integer> sub = reverse(l1);
-		System.out.print("Reversed :");
-		print(sub);
-		
-		ListNode<Integer> l2 = new ListNode<>(5);
-		l2.next = new ListNode<>(6);
-		l2.next.next = new ListNode<>(7);
-			
-		ListNode<Integer> l3 = new ListNode<>(3);
-		l3.next = new ListNode<>(4);
-
-		ListNode<Integer> l4 = new ListNode<>(0);
-		l4.next = new ListNode<>(1);
-		l4.next.next = new ListNode<>(2);
-		
-		ArrayList<ListNode<Integer>> list = new ArrayList<>();
-		list.add(l2); list.add(l3); list.add(l4);
-		
-		ListNode<Integer> merged = mergeKSortedList(list);
-		print(merged);
-
+		ListNode<Integer> reversed = reverseKSublist(l1, 3);
+		print(reversed);
 	}
 }
