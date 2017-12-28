@@ -1,7 +1,9 @@
 package com.epi.list;
 
 public class ListUtil {
-	
+	/**
+	 * Leetcode problem. Solution -> Accepted
+	 */
 	public static <T extends Comparable<T>> ListNode<T> merge(ListNode<T> list1, ListNode<T> list2){
 		ListNode<T> dummy = new ListNode<>(null, null);
 		ListNode<T> c1 = list1, c2 = list2, current = dummy;
@@ -51,6 +53,13 @@ public class ListUtil {
 		return dummy.next;
 	}
 	
+	/**
+	 * Utility function to print the list. The list will be printed in the following format
+	 * 
+	 * 		a -> b -> c -> d -> e
+	 *  
+	 * @param head List head 
+	 */
 	public static <S extends Comparable<S>> void print(ListNode<S> head){
 		if(head == null) return;
 		ListNode<S> cursor = head;
@@ -59,6 +68,21 @@ public class ListUtil {
 			cursor = cursor.next;
 		}
 		System.out.println(cursor.data);
+	}
+	
+	/**
+	 * Utility function to calculate the length of a Linked List
+	 * @param head Linked List head
+	 * @return length of the list
+	 */
+	public static <T extends Comparable<T>> int length(ListNode<T> head){
+		ListNode<T> cursor = head;
+		int count = 0;
+		while(cursor != null){
+			count++;
+			cursor = cursor.next;
+		}
+		return count;
 	}
 	
 	public static void main(String[] args) {
