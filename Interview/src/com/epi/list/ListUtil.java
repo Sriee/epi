@@ -263,6 +263,40 @@ public class ListUtil {
 		return count;
 	}
 
+	/**
+	 * Leet code problem. Solution -> Run time error
+	 * 
+	 * Failed for [1, 2] & k = 3
+	 * 
+	 * @param head list
+	 * @param k should be shifted k times 
+	 * @return list right shifted k times
+	 */
+	public static <C extends Comparable<C>> ListNode<C> rightCyclicShift(ListNode<C> head, int k){
+		if(k == 0) return head;
+		ListNode<C> dummyHead = new ListNode<>(null, head);
+		ListNode<C> slow = dummyHead.next, fast = dummyHead.next;
+		while(k > 0){
+			k--;
+			fast = fast.next;
+		}
+		
+		if(fast == null){
+			return head;
+		}
+		
+		while(fast.next != null){
+			slow = slow.next;
+			fast = fast.next;
+		}
+		
+		fast.next = dummyHead.next;
+		dummyHead.next = slow.next;
+		slow.next = null;
+		
+		return dummyHead.next;
+	}
+	
 	public static void main(String[] args) {
 		ListNode<Integer> temp = new ListNode<>(25);
 		ListNode<Integer> l1 = new ListNode<>(5);
@@ -273,11 +307,16 @@ public class ListUtil {
 		l1.next.next.next.next.next = new ListNode<>(60);
 		l1.next.next.next.next.next.next = new ListNode<>(77);
 		print(l1);
-
+/*
 		delete(l1, temp);
 		print(l1);
 
 		ListNode<Integer> reversed = reverseKSublist(l1, 3);
 		print(reversed);
+	*/	
+		ListNode<Integer> l2 = new ListNode<>(5);
+		l2.next = new ListNode<>(3);
+		ListNode<Integer> shifted = rightCyclicShift(l2, 2);
+		print(shifted);
 	}
 }
