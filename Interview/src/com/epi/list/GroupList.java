@@ -89,13 +89,25 @@ public class GroupList {
 		head.next.next = new ListNode<>(2);
 		head.next.next.next = new ListNode<>(34);
 		head.next.next.next.next = new ListNode<>(50);
-		ListUtil.print(head);
+		
+		ListNode<Integer> headb = new ListNode<>(1);
+		headb.next = new ListNode<>(2);
+		headb.next.next = new ListNode<>(2);
+		headb.next.next.next = new ListNode<>(34);
+		headb.next.next.next.next = new ListNode<>(50);
+		
+		ListUtil.print(headb);
 
-		ListNode<Integer> duplicatesRemoved = gl.deleteAllDuplicates(head);
-		System.out.println("All Duplicates removed");
+		ListNode<Integer> duplicatesRemoved = gl.deleteDuplicates(headb);
+		System.out.println("\nDuplicates removed");
 		ListUtil.print(duplicatesRemoved);
 		
+		ListNode<Integer> allDuplicatesRemoved = gl.deleteAllDuplicates(head);
+		System.out.println("\nAll Duplicates removed");
+		ListUtil.print(allDuplicatesRemoved);
+		
 		ListNode<Integer> gHead = gl.groupOddEven(head);
+		System.out.println("\nGroup Odd Even");
 		ListUtil.print(gHead);
 		
 		System.out.println("\nSwap Pairs");
