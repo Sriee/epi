@@ -23,6 +23,52 @@ public class GroupList {
         return head;
     }
 	
+	/**
+	 * Leetcode problem. Solution -> Accepted
+	 * 
+	 * Deletes the duplicate nodes in a sorted linked list.
+	 */
+	private <R extends Comparable<R>> ListNode<R> deleteDuplicates(ListNode<R> head){
+		ListNode<R> cursor = head;
+		
+		while(cursor.next != null){
+			if(cursor.data == cursor.next.data){
+				cursor.next = cursor.next.next;
+			} else {
+				cursor = cursor.next;
+			}
+		}
+		return head;
+	}
+
+	/**
+	 * Leetcode problem. Solution -> Accepted
+	 * 
+	 * Deletes all the duplicate nodes in a sorted linked list.
+	 */
+	private <R extends Comparable<R>> ListNode<R> deleteAllDuplicates(ListNode<R> head){
+		ListNode<R> dummyHead = new ListNode<>(null, head);
+		ListNode<R> previous = dummyHead, cursor = dummyHead.next, nextDistinct = null;
+		
+		while(cursor != null){
+			boolean dirty = false;
+			nextDistinct = cursor.next;
+			while(nextDistinct != null && nextDistinct.data == cursor.data){
+				dirty = true;
+				nextDistinct = nextDistinct.next; 
+			}
+			
+			if(dirty)
+				previous.next = nextDistinct;
+			else
+				previous = cursor;
+			
+			cursor = nextDistinct;
+		}
+		return dummyHead.next;
+	}
+
+	
 	private <T extends Comparable<T>> ListNode<T> groupOddEven(ListNode<T> head){
 		if(head == null) return null;
 		ListNode<T> odd = head, even = head.next, evenHead = even;
@@ -40,10 +86,15 @@ public class GroupList {
 		GroupList gl = new GroupList();
 		ListNode<Integer> head = new ListNode<>(1);
 		head.next = new ListNode<>(2);
-		head.next.next = new ListNode<>(3);
-		head.next.next.next = new ListNode<>(4);
-		head.next.next.next.next = new ListNode<>(5);
+		head.next.next = new ListNode<>(2);
+		head.next.next.next = new ListNode<>(34);
+		head.next.next.next.next = new ListNode<>(50);
 		ListUtil.print(head);
+
+		ListNode<Integer> duplicatesRemoved = gl.deleteAllDuplicates(head);
+		System.out.println("All Duplicates removed");
+		ListUtil.print(duplicatesRemoved);
+		
 		ListNode<Integer> gHead = gl.groupOddEven(head);
 		ListUtil.print(gHead);
 		
@@ -51,5 +102,4 @@ public class GroupList {
 		ListNode<Integer> swapped = gl.swapPairs(head);
 		ListUtil.print(swapped);
 	}
-
 }
