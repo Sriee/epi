@@ -6,6 +6,31 @@ import java.util.PriorityQueue;
 public class ListUtil {
 	
 	/**
+	 * Delete a node in a linked list
+	 * 
+	 * @param head Linked List head
+	 * @param toDelete the node to be deleted
+	 */
+	public static <D extends Comparable<D>> void delete(ListNode<D> head, ListNode<D> toDelete){
+		ListNode<D> cursor = head, previous = null;
+		while(cursor != null && cursor != toDelete){
+			previous = cursor;
+			cursor = cursor.next;
+		}
+		
+		if(previous == null){
+			head = head.next;
+		} else if(cursor == null){
+			System.out.println("Could not find the node to delete.");
+		} else if(cursor.next == null){
+			previous.next = null;
+		} else {
+			previous.data = cursor.next.data;
+			previous.next = cursor.next.next;
+		}
+	}
+	
+	/**
 	 * Leetcode problem. Solution -> Accepted
 	 */
 	public static <T extends Comparable<T>> ListNode<T> merge(ListNode<T> list1, ListNode<T> list2){
@@ -137,7 +162,6 @@ public class ListUtil {
 		ListNode<Integer> dummyHead = new ListNode<>(null, head);
 		ListNode<Integer> sublistHead = dummyHead;
 		ListNode<Integer> sublistIterator = sublistHead.next, temp = null;
-		System.out.println("length=" + length + ", subs=" + subs);
 		while(c++ < subs){
 			int start = 0;
 			while(start++ < k-1 && sublistIterator.next != null){
@@ -201,13 +225,17 @@ public class ListUtil {
 	}
 	
 	public static void main(String[] args) {
+		ListNode<Integer> temp = new ListNode<>(25);
 		ListNode<Integer> l1 = new ListNode<>(5);
 		l1.next = new ListNode<>(3);
 		l1.next.next = new ListNode<>(10);
 		l1.next.next.next = new ListNode<>(1);
-		l1.next.next.next.next = new ListNode<>(25);
+		l1.next.next.next.next = temp;
 		l1.next.next.next.next.next = new ListNode<>(60);
 		l1.next.next.next.next.next.next = new ListNode<>(77);
+		print(l1);
+		
+		delete(l1, temp);
 		print(l1);
 		
 		ListNode<Integer> reversed = reverseKSublist(l1, 3);
