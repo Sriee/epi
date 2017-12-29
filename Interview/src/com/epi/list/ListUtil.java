@@ -64,6 +64,50 @@ public class ListUtil {
 	
 	/**
 	 * Leetcode problem. Solution -> Accepted
+	 * 
+	 * Solution does not uses recursion and does not require the length of the lists to 
+	 * be known
+	 */
+    public <I extends Comparable<I>> ListNode<I> getIntersectionNode(ListNode<I> headA, ListNode<I> headB) {
+        ListNode<I> first = headA, second = headB;
+        while(first != second){
+            first = (first == null) ? headB : first.next;
+            second = (second == null) ? headA : second.next;
+        }
+        return first;
+    }
+    
+	/**
+	 * Leetcode problem. Solution -> Accepted
+	 * 
+	 * Solution uses recursion and does require the length of the lists to be known
+	 */
+	public <I extends Comparable<I>> ListNode<I> intersection(ListNode<I> l1, ListNode<I> l2){
+		int len1 = length(l1), len2 = length(l2), diff = 0;
+		if(len1 <= len2){
+			diff = len2 - len1;
+			return this.intersectionHelper(l1, l2, diff);
+		} else {
+			diff = len1 - len2;
+			return this.intersectionHelper(l2, l1, diff);
+		}
+	}
+	
+	private <I extends Comparable<I>> ListNode<I> intersectionHelper(ListNode<I> first, ListNode<I> second, int diff){
+		if(diff != 0){
+			diff--;
+			return this.intersectionHelper(first, second.next, diff);
+		}
+		
+		if(first == second) return first;
+		
+		if(first.next == null && second.next == null) return null;
+		
+		return this.intersectionHelper(first.next, second.next, diff);
+	}
+	
+	/**
+	 * Leetcode problem. Solution -> Accepted
 	 */
 	public static <S extends Comparable<S>> ListNode<S> reverseSublist(ListNode<S> head, int start, int finish){
 		ListNode<S> dummy = new ListNode<>(null, head);
