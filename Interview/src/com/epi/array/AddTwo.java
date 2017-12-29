@@ -1,6 +1,5 @@
 package com.epi.array;
 
-
 public class AddTwo {
 
     /**
@@ -93,6 +92,12 @@ public class AddTwo {
     }
 
     private static void printList(ListNode list){
+    	if(list == null) return;
+    	
+    	if(list.next == null){
+    		System.out.println(list.val);
+    		return;
+    	}
         ListNode current = list;
         StringBuilder sb = new StringBuilder();
 
@@ -130,8 +135,45 @@ public class AddTwo {
     	return head; 
     }
     
+    public static ListNode reverse(ListNode head){
+        if(head == null || head.next == null) return head;
+        ListNode dummy = new ListNode(0);
+		dummy.next = head;
+		ListNode iter = dummy.next, temp = null;
+		while (iter.next != null) {
+			temp = iter.next;
+			iter.next = temp.next;
+			temp.next = dummy.next;
+			dummy.next = temp;
+		}
+		return dummy.next;    
+    }
+    
+    public static void reorderList(ListNode head) {
+        if(head == null || head.next == null) return;
+        
+        ListNode slow = head, fast = head;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode reversed = reverse(slow.next);
+        
+        slow.next = null;
+        ListNode reverseIter = reversed, iter = head, temp, temp2;
+        printList(iter);
+        printList(reversed);
+        while(reverseIter != null){
+            temp = iter.next;
+            temp2 = reverseIter.next;
+            iter.next = reverseIter;
+            reverseIter.next = temp;
+            iter = reverseIter.next;
+            reverseIter = temp2;
+        }
+    }
+    
     public static void main(String[] args) {
-
         ListNode first = new ListNode(9);
 
         ListNode second = new ListNode(1);
