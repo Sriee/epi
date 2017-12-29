@@ -1,38 +1,39 @@
 package com.epi.list;
 
 public class GroupList {
-	
+
 	private <T extends Comparable<T>> ListNode<T> swapPairs(ListNode<T> head) {
-        if(head == null) return null;
-        
-        ListNode<T> first = head, second = head.next, temp = null, prev = null;
-        while(first != null && second != null){
-        	temp = second.next;
-            first.next = temp;
-            second.next = first;
-            if(prev == null) {
-            	head = second;
-            } else {
-            	prev.next = second;
-            }
-            prev = first;
-            first = (first != null) ? first.next : null;
-            second = (first != null) ? first.next : null;
-        } 
-        
-        return head;
-    }
-	
+		if (head == null)
+			return null;
+
+		ListNode<T> first = head, second = head.next, temp = null, prev = null;
+		while (first != null && second != null) {
+			temp = second.next;
+			first.next = temp;
+			second.next = first;
+			if (prev == null) {
+				head = second;
+			} else {
+				prev.next = second;
+			}
+			prev = first;
+			first = (first != null) ? first.next : null;
+			second = (first != null) ? first.next : null;
+		}
+
+		return head;
+	}
+
 	/**
 	 * Leetcode problem. Solution -> Accepted
 	 * 
 	 * Deletes the duplicate nodes in a sorted linked list.
 	 */
-	private <R extends Comparable<R>> ListNode<R> deleteDuplicates(ListNode<R> head){
+	private <R extends Comparable<R>> ListNode<R> deleteDuplicates(ListNode<R> head) {
 		ListNode<R> cursor = head;
-		
-		while(cursor.next != null){
-			if(cursor.data == cursor.next.data){
+
+		while (cursor.next != null) {
+			if (cursor.data == cursor.next.data) {
 				cursor.next = cursor.next.next;
 			} else {
 				cursor = cursor.next;
@@ -46,33 +47,74 @@ public class GroupList {
 	 * 
 	 * Deletes all the duplicate nodes in a sorted linked list.
 	 */
-	private <R extends Comparable<R>> ListNode<R> deleteAllDuplicates(ListNode<R> head){
+	private <R extends Comparable<R>> ListNode<R> deleteAllDuplicates(ListNode<R> head) {
 		ListNode<R> dummyHead = new ListNode<>(null, head);
 		ListNode<R> previous = dummyHead, cursor = dummyHead.next, nextDistinct = null;
-		
-		while(cursor != null){
+
+		while (cursor != null) {
 			boolean dirty = false;
 			nextDistinct = cursor.next;
-			while(nextDistinct != null && nextDistinct.data == cursor.data){
+			while (nextDistinct != null && nextDistinct.data == cursor.data) {
 				dirty = true;
-				nextDistinct = nextDistinct.next; 
+				nextDistinct = nextDistinct.next;
 			}
-			
-			if(dirty)
+
+			if (dirty)
 				previous.next = nextDistinct;
 			else
 				previous = cursor;
-			
+
 			cursor = nextDistinct;
 		}
 		return dummyHead.next;
 	}
 
-	
-	private <T extends Comparable<T>> ListNode<T> groupOddEven(ListNode<T> head){
-		if(head == null) return null;
+	/**
+	 * Leet Code problem. Solution -> Accepted
+	 * 
+	 * Given a linked list and a value x, partition it such that all nodes less than x come 
+	 * before nodes greater than or equal to x.
+	 * 
+	 * You should preserve the original relative order of the nodes in each of the two partitions.
+	 * 
+	 * For example,
+	 * 		Given 1->4->3->2->5->2 and x = 3,
+	 * 		return 1->2->2->4->3->5.
+	 *  
+	 * @param head head of the list
+	 * @param pivot element
+	 * @return paritioned list with respect to pivot
+	 */
+	private <P extends Comparable<P>> ListNode<P> partition(ListNode<P> head, P pivot) {
+		if (head == null)
+			return head;
+
+		ListNode<P> before = new ListNode<>(null), after = new ListNode<>(null), cursor = head;
+		ListNode<P> b = before, a = after;
+		while (cursor != null) {
+			if (cursor.data.compareTo(pivot) < 0) {
+				b.next = cursor;
+				b = b.next;
+			} else {
+				a.next = cursor;
+				a = a.next;
+			}
+			cursor = cursor.next;
+		}
+
+		b.next = after.next;
+		a.next = null;
+		return before.next;
+	}
+
+	/**
+	 * Leet Code problem. Solution -> Accepted
+	 */
+	private <T extends Comparable<T>> ListNode<T> groupOddEven(ListNode<T> head) {
+		if (head == null)
+			return null;
 		ListNode<T> odd = head, even = head.next, evenHead = even;
-		while(even != null && even.next != null){
+		while (even != null && even.next != null) {
 			odd.next = odd.next.next;
 			even.next = even.next.next;
 			odd = odd.next;
@@ -81,7 +123,7 @@ public class GroupList {
 		odd.next = evenHead;
 		return head;
 	}
-	
+
 	public static void main(String[] args) {
 		GroupList gl = new GroupList();
 		ListNode<Integer> head = new ListNode<>(1);
@@ -89,29 +131,33 @@ public class GroupList {
 		head.next.next = new ListNode<>(2);
 		head.next.next.next = new ListNode<>(34);
 		head.next.next.next.next = new ListNode<>(50);
-		
-		ListNode<Integer> headb = new ListNode<>(1);
-		headb.next = new ListNode<>(2);
-		headb.next.next = new ListNode<>(2);
+
+		ListNode<Integer> headb = new ListNode<>(21);
+		headb.next = new ListNode<>(45);
+		headb.next.next = new ListNode<>(34);
 		headb.next.next.next = new ListNode<>(34);
 		headb.next.next.next.next = new ListNode<>(50);
-		
+
 		ListUtil.print(headb);
 
 		ListNode<Integer> duplicatesRemoved = gl.deleteDuplicates(headb);
 		System.out.println("\nDuplicates removed");
 		ListUtil.print(duplicatesRemoved);
-		
+
 		ListNode<Integer> allDuplicatesRemoved = gl.deleteAllDuplicates(head);
 		System.out.println("\nAll Duplicates removed");
 		ListUtil.print(allDuplicatesRemoved);
-		
+
 		ListNode<Integer> gHead = gl.groupOddEven(head);
 		System.out.println("\nGroup Odd Even");
 		ListUtil.print(gHead);
-		
+
 		System.out.println("\nSwap Pairs");
 		ListNode<Integer> swapped = gl.swapPairs(head);
 		ListUtil.print(swapped);
+		
+		System.out.println("\nPartitioned");
+		ListNode<Integer> part = gl.partition(headb, 35);
+		ListUtil.print(part);
 	}
 }
