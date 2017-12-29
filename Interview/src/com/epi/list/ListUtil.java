@@ -264,37 +264,42 @@ public class ListUtil {
 	}
 
 	/**
-	 * Leet code problem. Solution -> Run time error
+	 * Leet code problem. Solution -> Accepted
 	 * 
-	 * Failed for [1, 2] & k = 3
+	 * Assumed k < n. Previous solution works if k < n
 	 * 
 	 * @param head list
 	 * @param k should be shifted k times 
 	 * @return list right shifted k times
 	 */
 	public static <C extends Comparable<C>> ListNode<C> rightCyclicShift(ListNode<C> head, int k){
-		if(k == 0) return head;
-		ListNode<C> dummyHead = new ListNode<>(null, head);
-		ListNode<C> slow = dummyHead.next, fast = dummyHead.next;
-		while(k > 0){
-			k--;
-			fast = fast.next;
-		}
+		if(head == null)
+			return head; 
 		
-		if(fast == null){
+		ListNode<C> cursor = head;
+		int len = 1;
+		
+		while(cursor.next != null){
+			++len;
+			cursor = cursor.next;
+		}
+		k %= len;
+		
+		if(k == 0)	// No need to shift
 			return head;
+		
+		cursor.next = head; // Making a cycle
+		ListNode<C> tail = cursor;
+		int stepsToNewHead = len - k;
+		
+		while(stepsToNewHead-- > 0){
+			tail = tail.next;
 		}
 		
-		while(fast.next != null){
-			slow = slow.next;
-			fast = fast.next;
-		}
+		ListNode<C> newHead = tail.next;
+		tail.next = null;
 		
-		fast.next = dummyHead.next;
-		dummyHead.next = slow.next;
-		slow.next = null;
-		
-		return dummyHead.next;
+		return newHead;
 	}
 	
 	public static void main(String[] args) {
@@ -316,7 +321,7 @@ public class ListUtil {
 	*/	
 		ListNode<Integer> l2 = new ListNode<>(5);
 		l2.next = new ListNode<>(3);
-		ListNode<Integer> shifted = rightCyclicShift(l2, 2);
+		ListNode<Integer> shifted = rightCyclicShift(l2, 3);
 		print(shifted);
 	}
 }
