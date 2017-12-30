@@ -1,111 +1,25 @@
 package com.epi.list;
 
 public class AddTwo {
-
+	
     /**
-     *
-     * @param node List Node
-     * @return
-     */
-    private static long getNumber(ListNode<Integer> node){
-        ListNode<Integer> current = node;
-        long number = 0, idx =  0;
-
-        while(current != null){
-            number += (current.data * (Math.pow(10, idx)));
-            idx++;
-            current = current.next;
-        }
-
-        return number;
-    }
-
-    private static ListNode<Integer> getListNode(long number){
-        ListNode<Integer> head = null, current = null;
-
-        if(number == 0){
-            head = new ListNode<>(0);
-            return head;
-        }
-        while(number > 0){
-            if(head == null){
-                head = new ListNode<>((int)(number % 10));
-                current = head;
-            } else {
-                current.next = new ListNode<>((int)(number % 10));
-                current = current.next;
-            }
-            number = number / 10;
-        }
-        return head;
-    }
-
-    private static ListNode<Integer> calculate(ListNode<Integer> l1, ListNode<Integer> l2){
-        ListNode<Integer> head = null, current = null, first = l1, second = l2;
-        int total = 0, sum = 0, carry = 0;
-
-        while(first != null && second != null) {
-            total = first.data + second.data + carry;
-            sum = total % 10;
-            carry = total / 10;
-            if (head == null) {
-                head = new ListNode<>(sum);
-                current = head;
-            } else {
-                current.next = new ListNode<>(sum);
-                current = current.next;
-            }
-            first = first.next;
-            second = second.next;
-        }
-
-        while(first != null){
-            total = first.data + carry;
-            sum = total % 10;
-            carry = total / 10;
-            if (head == null) {
-                head = new ListNode<>(sum);
-                current = head;
-            } else {
-                current.next = new ListNode<>(sum);
-                current = current.next;
-            }
-            first = first.next;
-        }
-
-        while (second != null){
-            total = second.data + carry;
-            sum = total % 10;
-            carry = total / 10;
-            if (head == null) {
-                head = new ListNode<>(sum);
-                current = head;
-            } else {
-                current.next = new ListNode<>(sum);
-                current = current.next;
-            }
-            second = second.next;
-        }
-        if(carry != 0) current.next = new ListNode<>(carry);;
-
-        return head;
-    }
-
-    public static boolean hasLoop(ListNode<Integer> head) {
+     * Leetcode problem. Solution -> Accepted
+     */ 
+    public boolean hasLoop(ListNode<Integer> head) {
     	ListNode<Integer> slow = head, fast = head;
     	
     	while(slow != null && fast != null  && fast.next != null) {
     		slow = slow.next;
     		fast = fast.next.next;
     		if(slow == fast) {
-    			removeLoop(head, slow);
+    			this.removeLoop(head, slow);
     			return true;
     		}
     	}
     	return false;
     }
     
-    private static ListNode<Integer> removeLoop(ListNode<Integer> head, ListNode<Integer> node) {
+    private ListNode<Integer> removeLoop(ListNode<Integer> head, ListNode<Integer> node) {
     	ListNode<Integer> first = head, second = node;
     	
     	while(second.next != first.next) {
@@ -115,8 +29,11 @@ public class AddTwo {
     	second.next = null;
     	return head; 
     }
-       
-    public static void reorderList(ListNode<Integer> head) {
+      
+    /**
+     * Leetcode problem. Solution -> Accepted
+     */ 
+    public void reorderList(ListNode<Integer> head) {
         if(head == null || head.next == null) return;
         
         ListNode<Integer> slow = head, fast = head;
@@ -138,8 +55,83 @@ public class AddTwo {
         }
     }
     
+    /**
+     * Leetcode problem. Solution -> Accepted
+     * 
+     * You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes 
+     * first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+     * 
+     * You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+     * 
+     * Example: 
+     * 		Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
+     * 		Output: 7 -> 8 -> 0 -> 7
+     * 
+     * @param l1 first list with numbers in MSB
+     * @param l2 second list with numbers in MSB
+     * @return head of the two list summed and in MSB
+     */
+    public ListNode<Integer> addMSB(ListNode<Integer> l1, ListNode<Integer> l2){
+        long lenA = 0, lenB = 0, diff = 0;
+        ListNode<Integer> cursor = l1, a, b;
+        while(cursor != null){
+            lenA++;
+            cursor = cursor.next;
+        }
+        
+        cursor = l2;
+        while(cursor != null){
+            lenB++;
+            cursor = cursor.next;
+        }
+        
+        if(lenA > lenB){
+        	diff = lenA - lenB;
+        	a = l1;
+        	b = l2;
+        } else {
+        	diff = lenB - lenA;
+        	a = l2;
+        	b = l1;
+        }
+        
+    	ListNode<Integer> newHead = new ListNode<>(1);
+        newHead.next = addHelper(a, b, diff);
+        
+        if(newHead.next.data > 9){
+            newHead.next.data -= 10;
+        } else {
+            newHead = newHead.next;
+        }
+    	return newHead;
+    }
+    
+    private ListNode<Integer> addHelper(ListNode<Integer> a, ListNode<Integer> b, long diff){
+    	ListNode<Integer> temp = null;
+    	int carry = 0;
+       	
+    	if(diff > 0){
+    		diff--;
+    		temp = addHelper(a.next, b, diff);
+            b = null;
+    	} else if(a.next != null && b.next != null){
+            temp = addHelper(a.next, b.next, diff);
+        }
+    	
+    	if(temp != null){
+    		if(temp.data > 9){
+    			carry = 1;
+    			temp.data -= 10; 
+    		}
+    	}
+    	ListNode<Integer> newNode = new ListNode<>(((a == null) ? 0 : a.data) + ((b == null) ? 0 : b.data) + carry);
+    	newNode.next = temp;
+    	return newNode;
+    }
+    
     public static void main(String[] args) {
-        ListNode<Integer> first = new ListNode<>(9);
+    	AddTwo at = new AddTwo();
+    	ListNode<Integer> first = new ListNode<>(9);
 
         ListNode<Integer> second = new ListNode<>(1);
         second.next = new ListNode<>(9);
@@ -158,18 +150,13 @@ public class AddTwo {
         looped.next.next.next = new ListNode<>(74);
         looped.next.next.next.next = new ListNode<>(5);
         looped.next.next.next.next.next = new ListNode<>(9);
-        
         looped.next.next.next.next.next.next = looped.next.next;
-
-        long firstNumber = getNumber(first), secondNumber = getNumber(second);
-        System.out.println(firstNumber);
-        System.out.println(secondNumber);
-        ListNode<Integer> head = calculate(first, second);
-        ListNode<Integer> node = getListNode(firstNumber + secondNumber);
-        ListUtil.print(head);
-        ListUtil.print(node);
         
-        System.out.println(hasLoop(looped));
+        System.out.println(at.hasLoop(looped));
         ListUtil.print(looped);
+        
+        System.out.println("\nAdd MSB");
+        ListNode<Integer> msb = at.addMSB(first, second);
+        ListUtil.print(msb);
     }
 }
