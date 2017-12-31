@@ -11,7 +11,7 @@ public class NormalizePath {
 	 * @param path absolute or relative path in unix style format
 	 * @return absolute path
 	 */
-	private String simplifyPath(String path){
+	public String simplifyPath(String path){
 		
 		StringBuilder sb = new StringBuilder();
 		Deque<String> stack = new LinkedList<>();
@@ -53,22 +53,6 @@ public class NormalizePath {
 			if(sb.charAt(1) == '/')
 				sb.deleteCharAt(1);
 			return sb.toString();
-		}
-	}
-	
-	public static void main(String[] args) {
-		NormalizePath np = new NormalizePath();
-		String[] inputs = new String[]{
-				"/.",
-				"/..",
-				"/home/../../..",
-				"/home/../../../..",
-				"/usr/bin/../lib/gcc",
-				"/a/./b/../../c/"
-		};
-		
-		for(String i : inputs){
-			System.out.println(np.simplifyPath(i));	
 		}
 	}
 }
