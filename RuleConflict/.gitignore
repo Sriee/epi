@@ -1,7 +1,0 @@
-/bin/
-/out/
-rule.log
-.classpath
-.project
-.idea
-src/com/rule/Test.java
