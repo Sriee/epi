@@ -47,6 +47,12 @@ public class Miscellaneous {
 		return Arrays.copyOf(stack, top + 1);
 	}
 	
+	/**
+	 * Stack version for the above. 
+	 * 
+	 * @param asteroids array asteroids of integers representing asteroids in a row
+	 * @return state of the asteroids after all collisions
+	 */
 	public int[] asteroidCollision(int[] asteroids){
 		if(asteroids == null || asteroids.length == 0) return asteroids;
 		
@@ -78,23 +84,5 @@ public class Miscellaneous {
 			result[idx--] = stack.pop();
 		
 		return result;
-	}
-	
-	public static void main(String[] args) {
-		Miscellaneous misc = new Miscellaneous();
-		int[][] cases = new int[][]{
-			{},
-			null,
-			{5, 10, -5},
-			{8, -8},
-			{20, 10, 8, -8},
-			{10, 2, -5},
-			{-2, -1, 1, 2},
-			{1, -2, -2, -2}
-		};
-		
-		for(int[] inp : cases){
-			System.out.println(Arrays.toString(misc.steroidCollision(inp)));
-		}
 	}
 }
