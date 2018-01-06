@@ -34,9 +34,8 @@ public class TestMiscellaneous {
 			{-1000, 1000}
 		};
 		
-		for(int i = 0; i < cases.length; i++){
-			assertArrayEquals(cases[i], expected[i]);	
-		}
+		for(int i = 0; i < cases.length; i++)
+			assertArrayEquals(misc.asteroidCollision(cases[i]), expected[i]);	
 	}
 
 	@Test
@@ -57,8 +56,36 @@ public class TestMiscellaneous {
 			{-2, -2, -2}
 		};
 		
-		for(int i = 0; i < cases.length; i++){
-			assertArrayEquals(cases[i], expected[i]);	
-		}
+		for(int i = 0; i < cases.length; i++)
+			assertArrayEquals(misc.asteroidCollision(cases[i]), expected[i]);	
+	}
+	
+	@Test
+	public void rpnEdgeCasesTest() {
+		String[][] expressions = new String[][]{
+			null,
+			{},
+			{"21", "54", "*"},
+			{"7682"},
+		};
+		
+		int[] expected = new int[]{0, 0, 1134, 7682};
+		
+		for(int i = 0; i < expressions.length; i++)
+			assertEquals(misc.evalRPN(expressions[i]), expected[i]);	
+	}
+
+	@Test
+	public void rpnCorrectnessTest(){
+		String[][] expressions = new String[][]{
+			{"2", "1", "+", "3", "*"},
+			{"4", "13", "5", "/", "+"},
+			{"4", "13", "-", "12", "79", "+", "-"}
+		};
+		
+		int[] expected = new int[]{9, 6, -100};
+		
+		for(int i = 0; i < expressions.length; i++)
+			assertEquals(misc.evalRPN(expressions[i]), expected[i]);	
 	}
 }
