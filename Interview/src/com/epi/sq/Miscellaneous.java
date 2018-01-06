@@ -89,7 +89,7 @@ public class Miscellaneous {
 	/**
 	 * Leet code problem. Solution -> Accepted
 	 * 
-	 * Reverse Polish Notation
+	 * Reverse Polish Notation (Array Implementation)
 	 * 
 	 * @param expression arithmetic expression
 	 * @return evaluated result
@@ -98,35 +98,31 @@ public class Miscellaneous {
 		if(expression == null || expression.length == 0)
 			return 0;
 		
-		Stack<Integer> value = new Stack<>();
+		int[] stack = new int[expression.length];
+		int top = -1;
 		for(String token : expression){
-			if(token.isEmpty())
-				continue;
-			
 			if(token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/")){
-				int b = value.pop();
-				int a = value.pop();
-				
 				switch(token.charAt(0)){
 				case '+':
-					value.push(a + b);
+					stack[top - 1] = stack[top - 1] + stack[top]; 
 					break;
 				case '-':
-					value.push(a - b);
+					stack[top - 1] = stack[top - 1] - stack[top];
 					break;
 				case '*':
-					value.push(a * b);
+					stack[top - 1] = stack[top - 1] * stack[top];
 					break;
 				case '/':
-					value.push(a / b);
+					stack[top - 1] = stack[top - 1] / stack[top];
 					break;
 				}
+				top--;
 			} else {
-				value.push(Integer.parseInt(token));		
+				stack[++top] = Integer.parseInt(token);
 			}
 		}
 		
-		return value.pop();
+		return stack[0];
 	}
 
 	public static void main(String[] args) {
