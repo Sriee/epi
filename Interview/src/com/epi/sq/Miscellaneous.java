@@ -5,6 +5,36 @@ import java.util.Stack;
 
 public class Miscellaneous {
 	
+	public int[] steroidCollision(int[] asteroids){
+		if(asteroids == null || asteroids.length == 0) return asteroids;
+		
+		int[] stack = new int[asteroids.length];
+		int top = -1;
+		boolean done = false;
+		
+		for(int i = 0; i < asteroids.length; i++){
+			stack[++top] = asteroids[i]; 
+			done = false;
+			while(top > 1 && !done){
+				int a = stack[top];
+				int b = stack[top - 1];
+				top--;
+				if(b > 0 && a < 0){
+					if(Math.abs(a) == Math.abs(b))
+						continue;
+					else
+						stack[top] = (Math.abs(a) > Math.abs(b) ? a : b);
+				} else {
+					done = true;
+					top++;
+				}
+			}	
+		}
+		
+		int[] result = Arrays.copyOf(stack, top);
+		return result;
+	}
+	
 	public int[] asteroidCollision(int[] asteroids){
 		if(asteroids == null || asteroids.length == 0) return asteroids;
 		
@@ -51,7 +81,7 @@ public class Miscellaneous {
 		};
 		
 		for(int[] inp : cases){
-			System.out.println(Arrays.toString(misc.asteroidCollision(inp)));
+			System.out.println(Arrays.toString(misc.steroidCollision(inp)));
 		}
 	}
 }
