@@ -1,9 +1,21 @@
 package com.epi.sq;
 
-import java.util.Arrays;
-
 public class DailyTemperature {
 
+	/**
+	 * Leet code problem. Solution -> Accepted
+	 *
+	 * Given a list of daily temperatures, produce a list that, for each day in the input,
+	 * tells you how many days you would have to wait until a warmer temperature. If there is no
+	 * future day for which this is possible, put 0 instead.
+	 *
+	 * For example, given the list temperatures = [73, 74, 75, 71, 69, 72, 76, 73],
+	 *
+	 * your output should be [1, 1, 4, 2, 1, 1, 0, 0].
+	 *
+	 * @param temperatures temperature list
+	 * @return list of number of days to warmer temperature
+	 */
 	public int[] dailyTemperatures(int[] temperatures){
 		if(temperatures == null || temperatures.length == 0) return temperatures; 
 		
@@ -23,23 +35,5 @@ public class DailyTemperature {
 			result[stack[top--]] = 0;
 		
 		return result;
-	}
-	
-	public static void main(String[] args) {
-		DailyTemperature dt = new DailyTemperature();
-		int[][] cases= new int[][]{
-			{60, 60, 60, 60},
-			{78, 77, 50, 40, 30, 10},
-			{20, 30, 50, 65, 73, 73, 80},
-			{35, 53, 44, 72, 29, 63, 50, 66},
-			{},
-			null,
-			{73},
-			{54, 64}
-		}; 
-		
-		for(int[] inp : cases){
-			System.out.println(Arrays.toString(dt.dailyTemperatures(inp)));
-		}
 	}
 }
