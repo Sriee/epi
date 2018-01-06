@@ -4,9 +4,15 @@ import java.util.*;
 
 public class NumberOfAtoms {
 	
+	/**
+	 * Leet Code problem. Solution -> Accepted
+	 * 
+	 * @param formula 
+	 * @return number of atoms for each element
+	 */
 	public String count(String formula){
 		if(formula == null || formula.isEmpty())
-			return "empty";
+			return "";
 		
 		Map<String, Integer> map = new TreeMap<>();
 		Stack<String> stack = new Stack<>();
@@ -60,62 +66,98 @@ public class NumberOfAtoms {
 		
 		while(!stack.isEmpty()){
 			key = stack.pop();
-			map.put(key, map.containsKey(key) ? map.get(key)+1 : 1);
+			map.put(key, map.containsKey(key) ? map.get(key) + 1 : 1);
 		}
 
 		StringBuilder sb = new StringBuilder();
-		for(Map.Entry<String, Integer> entry : map.entrySet())
-			sb.append(entry.getKey() + entry.getValue());
+		for(Map.Entry<String, Integer> entry : map.entrySet()){
+			sb.append(entry.getKey());
+			if(entry.getValue() != 1)
+				sb.append(entry.getValue());
+		}
 		
 		return sb.toString();
 	}
 	
-	private void form(String formula){
-		if(formula == null || formula.isEmpty()){
-			System.out.println("Empty");
-			return;
-		}
-		Stack<String> stack = new Stack<>();
-		for(int i = 0; i < formula.length(); i++){
-			String num = "";
-			if(Character.isDigit(formula.charAt(i))){
-				while(i < formula.length() && Character.isDigit(formula.charAt(i)))
-					num = num + formula.charAt(i++);
-				i--;
-				stack.push(num);
-			} else if(Character.isLowerCase(formula.charAt(i))){
-				stack.push(stack.pop() + formula.charAt(i));
-			} else {
-				stack.push(formula.substring(i, i + 1));
-			}
-		}
-		while(!stack.isEmpty())
-			System.out.print(stack.pop() + " ");
-		System.out.println();
-	}
-	
-	public static void main(String[] args) {
-		NumberOfAtoms num = new NumberOfAtoms();
-		String[] formulas = new String[]{
-			"",
-			null,
-			"H", 
-			"H2",
-			"H2O",
-			"H2O2",
-			"H2O2He3Mg4",
-			"(H2O2)3",
-			"Mg(OH)2",
-			"K4(ON(SO3)2)2",
-			"Be32",
-			"H11He49NO35B7N46Li20",
-			"(B2O39He17BeBe49)39"
-		};
-		
-		System.out.println(num.count("H11He49NO35B7N46Li20"));
-		
-		for(String item : formulas)
-			System.out.println(num.count(item));
-		
-	}
+	/*
+    public String countOfAtoms(String formula) {
+        int[][] dict = new int[26][27];
+        helper(dict, formula, 0, formula.length(), 1);
+        StringBuilder res = new StringBuilder();
+        for(int i = 0; i< 26; i++){
+            for(int j = 0; j< 27; j++){
+                if(dict[i][j] == 0){
+                    continue;
+                }
+                res.append((char) (i+'A'));
+                if(j>0){
+                    res.append((char)(j+'a'-1));
+                }
+                if(dict[i][j]>1){
+                    res.append(dict[i][j]);
+                }
+            }
+        }
+        return res.toString();
+    }
+    
+    public void helper(int[][] dict, String s, int start, int end, int mult){
+        if(start == end){
+            return;
+        }
+
+        if(s.charAt(start) == '('){
+            int j = start+1;
+            for(int diff = 1; diff>0 ; j++){
+                if(s.charAt(j) == '('){
+                    diff++;
+                }
+                if(s.charAt(j) == ')'){
+                    diff--;
+                }
+                
+                if(diff == 0){
+                    break;
+                }
+            }
+            
+            int count = 0;
+            int i = j+1;
+            
+            while(i< end && Character.isDigit(s.charAt(i))){
+                count = count*10+s.charAt(i++)- '0';
+                
+            }
+            
+            if(count == 0){
+                count = 1;
+            }
+            
+            helper(dict, s, start+1, j, mult*count);
+            helper(dict, s, i,end, mult);
+        }
+        else{
+            int i = s.charAt(start++) - 'A';
+            int j = 0;
+            
+            if(start< end && s.charAt(start) >= 'a' && s.charAt(start) <= 'z' ){
+                j = s.charAt(start++)-'a'+1;
+            }
+            
+            int count = 0;
+            
+            while(start< end && Character.isDigit(s.charAt(start))){
+                count = count*10+ s.charAt(start++)-'0';
+            }
+            
+            if(count == 0){
+                count = 1;
+            }
+            
+            dict[i][j] += count * mult;
+            
+            helper(dict, s, start, end, mult);
+        }
+    }
+	* */
 }
