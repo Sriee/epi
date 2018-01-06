@@ -85,4 +85,65 @@ public class Miscellaneous {
 		
 		return result;
 	}
+	
+	/**
+	 * Leet code problem. Solution -> Accepted
+	 * 
+	 * Reverse Polish Notation
+	 * 
+	 * @param expression arithmetic expression
+	 * @return evaluated result
+	 */
+	public int evalRPN(String[] expression){
+		if(expression == null || expression.length == 0)
+			return 0;
+		
+		Stack<Integer> value = new Stack<>();
+		for(String token : expression){
+			if(token.isEmpty())
+				continue;
+			
+			if(token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/")){
+				int b = value.pop();
+				int a = value.pop();
+				
+				switch(token.charAt(0)){
+				case '+':
+					value.push(a + b);
+					break;
+				case '-':
+					value.push(a - b);
+					break;
+				case '*':
+					value.push(a * b);
+					break;
+				case '/':
+					value.push(a / b);
+					break;
+				}
+			} else {
+				value.push(Integer.parseInt(token));		
+			}
+		}
+		
+		return value.pop();
+	}
+
+	public static void main(String[] args) {
+		Miscellaneous misc = new Miscellaneous();
+		
+		String[][] expressions = new String[][]{
+			null,
+			{},
+			{"2", "1", "+", "3", "*"},
+			{"21", "54", "*"},
+			{"7682"},
+			{"4", "13", "5", "/", "+"},
+			{"4", "13", "-", "12", "79", "+", "-"}
+		};
+		
+		for(String[] token : expressions){
+			System.out.println(misc.evalRPN(token));
+		}
+	}
 }
