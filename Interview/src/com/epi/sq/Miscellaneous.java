@@ -2,6 +2,8 @@ package com.epi.sq;
 
 import java.util.Arrays;
 import java.util.Stack;
+import java.util.List;
+import java.util.LinkedList;
 
 public class Miscellaneous {
 	
@@ -125,21 +127,40 @@ public class Miscellaneous {
 		return stack[0];
 	}
 
+	/**
+	 * Leet code problem. Solution -> Accepted.
+	 * 
+	 * @param n number of process ids
+	 * @param logs. List of logs
+	 * @return execution time of functions
+	 */
+	public int[] exclusiveTime(int n, List<String> logs) {
+		int[] result = new int[n];
+		Stack<int[]> stack = new Stack<>();
+		for(String entry : logs){
+			String[] stringTokens = entry.split(":");
+			int[] tokens = new int[]{
+					Integer.parseInt(stringTokens[0]),
+					(stringTokens[1].equals("start")) ? 1 : 0,
+					Integer.parseInt(stringTokens[2]),
+					0
+					};
+			stack.push(tokens);
+			
+			while(!stack.isEmpty() && stack.peek()[1] != 1){
+				int[] b = stack.pop();
+				int[] a = stack.pop();
+				
+				if(!stack.isEmpty())
+					stack.peek()[3] = stack.peek()[3] + (b[2] - a[2]) + 1;
+				
+				result[a[0]] = result[a[0]] + (b[2] - a[2]) + 1 - a[3];
+			}
+		}
+		return result; 
+	}
+
 	public static void main(String[] args) {
 		Miscellaneous misc = new Miscellaneous();
-		
-		String[][] expressions = new String[][]{
-			null,
-			{},
-			{"2", "1", "+", "3", "*"},
-			{"21", "54", "*"},
-			{"7682"},
-			{"4", "13", "5", "/", "+"},
-			{"4", "13", "-", "12", "79", "+", "-"}
-		};
-		
-		for(String[] token : expressions){
-			System.out.println(misc.evalRPN(token));
-		}
 	}
 }
