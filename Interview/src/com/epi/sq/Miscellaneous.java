@@ -136,23 +136,24 @@ public class Miscellaneous {
 	 */
 	public int[] exclusiveTime(int n, List<String> logs) {
 		int[] result = new int[n];
-		Stack<int[]> stack = new Stack<>();
+		int[][] stack = new int[logs.size()][4];
+		int top = -1;
 		for(String entry : logs){
 			String[] stringTokens = entry.split(":");
-			int[] tokens = new int[]{
+			
+			stack[++top] = new int[]{
 					Integer.parseInt(stringTokens[0]),
 					(stringTokens[1].equals("start")) ? 1 : 0,
 					Integer.parseInt(stringTokens[2]),
 					0
 					};
-			stack.push(tokens);
 			
-			while(!stack.isEmpty() && stack.peek()[1] != 1){
-				int[] b = stack.pop();
-				int[] a = stack.pop();
-				
-				if(!stack.isEmpty())
-					stack.peek()[3] = stack.peek()[3] + (b[2] - a[2]) + 1;
+			while(top > 0 && stack[top][1] != 1){
+				int[] b = stack[top];
+				int[] a = stack[top - 1];
+				top -= 2;
+				if(top > -1)
+					stack[top][3] = stack[top][3] + (b[2] - a[2]) + 1;
 				
 				result[a[0]] = result[a[0]] + (b[2] - a[2]) + 1 - a[3];
 			}
