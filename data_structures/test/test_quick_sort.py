@@ -14,6 +14,7 @@ class TestQuickSort(unittest.TestCase):
                          [2, 32, 35, 51, 68, 84, 95])
         self.assertRaises(TypeError,lambda: self.qs.sort())
 
+
 if __name__ == "__main__":
     unittest.main()
 
