@@ -161,7 +161,47 @@ public class Miscellaneous {
 		return result; 
 	}
 
+	/**
+	 * Leet code problem. Solution -> Accepted.
+	 * 
+	 * Given a sequence of n integers a1, a2, ..., an, a 132 pattern is a subsequence ai, aj, ak 
+	 * such that i < j < k and ai < ak < aj.
+	 *
+	 * @param nums
+	 * @return true: if 132 pattern found
+	 * 		  false: otherwise
+	 */
+    public boolean find132pattern(int[] nums) {
+    	if(nums == null || nums.length == 0) return false;
+    	
+    	int s3 = Integer.MIN_VALUE;
+    	Stack<Integer> stack = new Stack<>();
+    	for(int i = nums.length - 1; i >=0 ; i--){
+    		if(nums[i] < s3) {
+    			return true;
+    		} else{
+    			while(!stack.isEmpty() && nums[i] > stack.peek()){
+    				s3 = stack.pop();
+    			}
+    			stack.push(nums[i]);
+    		}
+    	}
+    	return false;
+    }
+    
 	public static void main(String[] args) {
 		Miscellaneous misc = new Miscellaneous();
+		int[][] inputs = new int[][]{
+			{1},
+			{1,1,1,1,2},
+			{},
+			null,
+			{1, 3, 2},
+			{3, 1, 4, 2},
+			{-1, 3, 2, 0}
+		};
+		
+		for(int[] arr : inputs)
+			System.out.println(misc.find132pattern(arr));
 	}
 }
