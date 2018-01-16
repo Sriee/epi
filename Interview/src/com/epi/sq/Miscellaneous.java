@@ -1,9 +1,8 @@
 package com.epi.sq;
 
 import java.util.Arrays;
-import java.util.Stack;
 import java.util.List;
-import java.util.LinkedList;
+import java.util.Stack;
 
 public class Miscellaneous {
 	
@@ -191,17 +190,5 @@ public class Miscellaneous {
     
 	public static void main(String[] args) {
 		Miscellaneous misc = new Miscellaneous();
-		int[][] inputs = new int[][]{
-			{1},
-			{1,1,1,1,2},
-			{},
-			null,
-			{1, 3, 2},
-			{3, 1, 4, 2},
-			{-1, 3, 2, 0}
-		};
-		
-		for(int[] arr : inputs)
-			System.out.println(misc.find132pattern(arr));
 	}
 }

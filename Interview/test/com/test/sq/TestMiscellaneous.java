@@ -88,4 +88,21 @@ public class TestMiscellaneous {
 		for(int i = 0; i < expressions.length; i++)
 			assertEquals(misc.evalRPN(expressions[i]), expected[i]);	
 	}
+	
+	@Test
+	public void Pattern132Test(){
+		int[][] inputs = new int[][]{
+			{1},
+			{1,1,1,1,2},
+			{},
+			null,
+			{1, 3, 2},
+			{3, 1, 4, 2},
+			{-1, 3, 2, 0}
+		};
+		
+		boolean[] expected = {false, false, false, false, true, true, true};
+		for(int i = 0; i < inputs.length; i++)
+			assertEquals(misc.find132pattern(inputs[i]), expected[i]);
+	}
 }
