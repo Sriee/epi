@@ -198,19 +198,19 @@ public class Miscellaneous {
      */
     public int[] nextGreaterElements(int[] nums) {
     	int[] res = new int[nums.length];
-    	Stack<Integer> stack = new Stack<>();
+    	int[] stack = new int[nums.length];
+    	int top = -1;
     	for(int i = 2 * nums.length - 1; i >= 0; i--){
-    		while(!stack.isEmpty() && nums[stack.peek()] <= nums[i % nums.length]){
-    			stack.pop();
+    		while(top > -1 && nums[stack[top]] <= nums[i % nums.length]){
+    			top--;
     		}
-    		res[i % nums.length] = stack.isEmpty() ? -1 : nums[stack.peek()];
-    		stack.push(i % nums.length);
+    		res[i % nums.length] = top == -1 ? -1 : nums[stack[top]];
+    		stack[++top] = i % nums.length;
     	}
     	return res; 
     }
     
 	public static void main(String[] args) {
 		Miscellaneous misc = new Miscellaneous();
-		System.out.println(Arrays.toString(misc.nextGreaterElements(new int[]{3, 8, 4, 1, 2})));
 	}
 }
