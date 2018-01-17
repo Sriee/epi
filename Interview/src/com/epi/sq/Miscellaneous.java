@@ -210,7 +210,40 @@ public class Miscellaneous {
     	return res; 
     }
     
+    /**
+     * Leet code problem. Solution -> Runtime error
+     * 
+     * Given a non-negative integer num represented as a string, remove k digits from the number 
+     * so that the new number is the smallest possible.
+     *  
+     * @param word maxlen = 10002
+     * @param k number of characters to be removed
+     * @return smallest number without trailing zeros as String 
+     */
+    public String removeKdigits(String word, int k) {
+        if(word == null || word.isEmpty() || word.length() == k)
+            return "0";
+        
+		int currentMin = Integer.MAX_VALUE, after = 0;
+		for(int i = 0; i + k < word.length(); i++){
+			after = i + k + 1;
+			for(int j = 0; j <= k; j++){
+				int intDummy = Integer.parseInt(word.substring(0, i) + word.substring(i + j, i + j + 1) + word.substring(after));
+				if(intDummy < currentMin)
+					currentMin = intDummy;
+			}
+		}
+		return Integer.toString(currentMin);
+    }
+    
 	public static void main(String[] args) {
 		Miscellaneous misc = new Miscellaneous();
+		
+		System.out.println(misc.removeKdigits("", 1));
+		System.out.println(misc.removeKdigits(null, 1));
+		System.out.println(misc.removeKdigits("10", 2));
+		System.out.println(misc.removeKdigits("1863", 4));
+		System.out.println(misc.removeKdigits("1432219", 3));
+		System.out.println(misc.removeKdigits("10200", 1));
 	}
 }
