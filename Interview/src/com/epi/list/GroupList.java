@@ -1,5 +1,7 @@
 package com.epi.list;
 
+import java.util.List;
+
 public class GroupList {
 
 	private <T extends Comparable<T>> ListNode<T> swapPairs(ListNode<T> head) {
@@ -124,8 +126,31 @@ public class GroupList {
 		return head;
 	}
 
+	public <P extends Comparable<P>> ListNode<P>[] splitList(ListNode<P> head, int k){
+		ListNode<P>[] splits = new ListNode[k];
+
+		int length = ListUtil.length(head);
+		int i = 0, j = 0, n = length / k, r = length % k;
+		ListNode<P> prev = null, node = head;
+
+		while(i < k && node != null){
+		    splits[i++] = node;
+		    while(j < n + ((r > 0) ? 1 : 0)){
+		        prev = node;
+		        node = node.next;
+		        j++;
+            }
+            prev.next = null;
+            r--;
+        }
+
+		return splits;
+	}
+
 	public static void main(String[] args) {
 		GroupList gl = new GroupList();
+
+		/*
 		ListNode<Integer> head = new ListNode<>(1);
 		head.next = new ListNode<>(2);
 		head.next.next = new ListNode<>(2);
@@ -159,5 +184,12 @@ public class GroupList {
 		System.out.println("\nPartitioned");
 		ListNode<Integer> part = gl.partition(headb, 35);
 		ListUtil.print(part);
+		*/
+
+		ListNode<Integer> lst = ListUtil.generate(15);
+        ListUtil.print(lst);
+		ListNode<Integer>[] sp = gl.splitList(lst, 5);
+		for(ListNode<Integer> item : sp)
+		    ListUtil.print(item);
 	}
 }
