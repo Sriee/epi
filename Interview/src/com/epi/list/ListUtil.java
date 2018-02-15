@@ -1,5 +1,7 @@
 package com.epi.list;
 
+import util.generator.IntegerGenerator;
+
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
@@ -301,7 +303,23 @@ public class ListUtil {
 		
 		return newHead;
 	}
-	
+
+	public static ListNode<Integer> generate(int n){
+
+	    int i = 1;
+	    IntegerGenerator gen = new IntegerGenerator(1, 500);
+	    int num[] = gen.generate(n);
+        ListNode<Integer> head = new ListNode<Integer>(num[0]);
+        ListNode<Integer> temp = head;
+
+	    while(i < n){
+            temp.next = new ListNode<>(num[i]);
+	        temp = temp.next;
+	        i++;
+        }
+	    return head;
+    }
+
 	public static void main(String[] args) {
 		ListNode<Integer> temp = new ListNode<>(25);
 		ListNode<Integer> l1 = new ListNode<>(5);
@@ -311,17 +329,20 @@ public class ListUtil {
 		l1.next.next.next.next = temp;
 		l1.next.next.next.next.next = new ListNode<>(60);
 		l1.next.next.next.next.next.next = new ListNode<>(77);
-		print(l1);
+		// print(l1);
+
+		ListNode<Integer> lst = generate(10);
+		print(lst);
 /*
 		delete(l1, temp);
 		print(l1);
 
 		ListNode<Integer> reversed = reverseKSublist(l1, 3);
 		print(reversed);
-	*/	
+
 		ListNode<Integer> l2 = new ListNode<>(5);
 		l2.next = new ListNode<>(3);
 		ListNode<Integer> shifted = rightCyclicShift(l2, 3);
-		print(shifted);
+		print(shifted); */
 	}
 }
