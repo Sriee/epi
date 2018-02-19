@@ -4,6 +4,11 @@ public class ListNode<T extends Comparable<T>> implements Comparable<ListNode<T>
 	public T data;
 	ListNode<T> next;
 	
+	public ListNode() {
+		this.data = null;
+		this.next = null;
+	}
+	
 	public ListNode(T data){
 		this.data = data;
 	}
