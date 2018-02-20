@@ -42,8 +42,20 @@ public class ListSort {
  		if(head.next == null)
  			return head;
  		
- 		ListNode<T> 
+ 		ListNode<T> slow = head, fast = head;
+ 		
+ 		while(fast.next != null && fast.next.next != null) {
+ 			slow = slow.next;
+ 			fast = fast.next.next; 
+ 		}
+ 		
+ 		ListNode<T> right = this.mergeSort(slow.next);
+ 		slow.next = null;
+ 		ListNode<T> left = this.mergeSort(head);
+ 		
+ 		return ListUtil.merge(left, right);
  	}
+ 	
  	public <T extends Comparable<T>> ListNode<T> merge(ListNode<T> left, ListNode<T> right){
 		if(left == null) return right;
 		if(right == null) return left;
@@ -73,6 +85,19 @@ public class ListSort {
 
  	
 	public static void main(String[] args) {
+		ListSort s = new ListSort();
+		System.out.println("Before Sorting:");
+		// To sort
+		ListNode<Integer> toSort = new ListNode<>(21);
+		toSort.next = new ListNode<>(0);
+		toSort.next.next = new ListNode<>(-41);
+		toSort.next.next.next = new ListNode<>(-1);
+		toSort.next.next.next.next = new ListNode<>(77);
+		ListUtil.print(toSort);
+		
+		System.out.println("After sorted:");
+		ListNode<Integer> sorted = s.mergeSort(toSort);
+		ListUtil.print(sorted);
 	}
 
 }
