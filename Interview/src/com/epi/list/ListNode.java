@@ -2,7 +2,7 @@ package com.epi.list;
 
 public class ListNode<T extends Comparable<T>> implements Comparable<ListNode<T>>{
 	public T data;
-	ListNode<T> next;
+	public ListNode<T> next;
 	
 	public ListNode() {
 		this.data = null;
