@@ -38,7 +38,13 @@ public class ListSort {
  		return newHead.next;
  	}
  	
- 	private <T extends Comparable<T>> ListNode<T> merge(ListNode<T> left, ListNode<T> right){
+ 	public <T extends Comparable<T>> ListNode<T> mergeSort(ListNode<T> head){
+ 		if(head.next == null)
+ 			return head;
+ 		
+ 		ListNode<T> 
+ 	}
+ 	public <T extends Comparable<T>> ListNode<T> merge(ListNode<T> left, ListNode<T> right){
 		if(left == null) return right;
 		if(right == null) return left;
 
@@ -67,56 +73,6 @@ public class ListSort {
 
  	
 	public static void main(String[] args) {
-		ListSort s = new ListSort();
-		
-		/*
-		ListNode<Integer> toSort = new ListNode<>(Integer.MIN_VALUE);
-		toSort.next = new ListNode<>(0);
-		toSort.next.next = new ListNode<>(-41);
-		toSort.next.next.next = new ListNode<>(Integer.MAX_VALUE);
-		
-		toSort.next.next.next = new ListNode<>(17);
-		toSort.next.next.next.next = new ListNode<>(77);
-		toSort.next.next.next.next.next = new ListNode<>(31);
-		toSort.next.next.next.next.next.next = new ListNode<>(44);
-		toSort.next.next.next.next.next.next.next = new ListNode<>(55);
-		
-		System.out.println("\nBefore Insertion Sort.");
-		ListUtil.print(toSort);
-		
-		System.out.println("\nAfter Sorting.");
-		ListNode<Integer> sorted = s.insertionSort(toSort);
-		ListUtil.print(sorted);
-		*/
-		
-		// Edge Cases
-		ListNode<Integer> a = new ListNode<>(-1);
-		ListNode<Integer> b = new ListNode<>(3);
-
-		System.out.println("Edge cases.");
-		ListUtil.print(s.merge(null, a));
-		ListUtil.print(s.merge(b, null));
-		ListUtil.print(s.merge(a, b));
-		
-		a.next = new ListNode<>(10);
-		ListUtil.print(s.merge(a, b)); // -1 -> 3 -> 10
-		
-		// Correctness Test
-		a = new ListNode<>(-1);
-		a.next = new ListNode<>(10);
-		a.next.next = new ListNode<>(27);
-		a.next.next.next = new ListNode<>(783);
-		
-		b = new ListNode<>(Integer.MIN_VALUE);
-		b.next = new ListNode<>(3);
-		b.next.next = new ListNode<>(Integer.MAX_VALUE);
-		
-		System.out.println("Correctness cases.");
-		ListUtil.print(a);
-		ListUtil.print(b);
-		
-		ListUtil.print(s.merge(a, b)); // -21.. -> -1 -> 3 -> 10 -> 27 -> 783 -> 21..Ï
-		
 	}
 
 }
