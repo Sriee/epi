@@ -1,17 +1,26 @@
-public class TestInsertionSort{
+package com.test.list;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import com.epi.list.*;
+
+public class TestListSort{
 	
-	private static InsertionSort is = null;
+	private static ListSort is = null;
 
 	@Before
 	public void setUp(){
-		is = new InsertionSort();
+		is = new ListSort();
 	}
 
 	@Test
 	public void testEdgeCases(){
 		
 		ListNode<Integer> toSort = new ListNode<>(1);
-
+		
 		assertEquals(toSort, is.insertionSort(toSort));
 		assertEquals(null, is.insertionSort(null));
 	}
@@ -30,24 +39,24 @@ public class TestInsertionSort{
 		toSort.next.next.next.next.next.next.next = new ListNode<>(-1);
 
 		// Sorted
-		ListNode<Integer> sorted = new ListNode<>(Integer.MIN_VALUE);
-		sorted.next = new ListNode<>(-41);
-		sorted.next.next = new ListNode<>(-1);
-		sorted.next.next.next = new ListNode<>(0);
-		sorted.next.next.next.next = new ListNode<>(44);
-		sorted.next.next.next.next.next = new ListNode<>(44);
-		sorted.next.next.next.next.next.next = new ListNode<>(3167);
-		sorted.next.next.next.next.next.next.next = new ListNode<>(Integer.MAX_VALUE);
+		ListNode<Integer> expected = new ListNode<>(Integer.MIN_VALUE);
+		expected.next = new ListNode<>(-41);
+		expected.next.next = new ListNode<>(-1);
+		expected.next.next.next = new ListNode<>(0);
+		expected.next.next.next.next = new ListNode<>(44);
+		expected.next.next.next.next.next = new ListNode<>(77);
+		expected.next.next.next.next.next.next = new ListNode<>(3167);
+		expected.next.next.next.next.next.next.next = new ListNode<>(Integer.MAX_VALUE);
 
 		ListNode<Integer> sorted = is.insertionSort(toSort);
+		assertEquals(8, ListUtil.length(sorted));
 
-		assertEquals(, ListUtil.length(sorted));
+		ListNode<Integer> _ex = expected, _so = sorted;
 
-		ListNode<Integer> _to = toSort, _so = sorted;
-
-		while(_to != null){
-
+		while(_ex != null){
+			assertEquals(_ex.data, _so.data);
+			_ex = _ex.next;
+			_so = _so.next;
 		}  
-
 	}
 }
