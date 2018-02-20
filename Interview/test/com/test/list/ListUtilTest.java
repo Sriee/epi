@@ -5,9 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import com.epi.list.ListUtil;
-
-
 import com.epi.list.*;
 import org.junit.Test;
 
@@ -51,4 +48,55 @@ public class ListUtilTest {
     		
             System.setOut(System.out);
     }
+    
+	@Test
+	public void testMergeEdgeCases(){
+
+		ListNode<Integer> a = new ListNode<>(-1);
+		ListNode<Integer> b = new ListNode<>(3);
+
+		ListNode<Integer> _res = ListUtil.merge(null, a);
+		assertEquals(-1, (int)_res.data);
+		assertEquals(1, ListUtil.length(_res));
+
+		_res = ListUtil.merge(b, null);
+		assertEquals(3, (int)_res.data);
+		assertEquals(1, ListUtil.length(_res));		
+		
+		_res = ListUtil.merge(a, b);
+		assertEquals(2, ListUtil.length(_res));		
+		assertEquals(-1, (int)_res.data);
+		assertEquals(3, (int)_res.next.data);
+
+		a.next = new ListNode<>(10);
+		_res = ListUtil.merge(a, b);
+		assertEquals(3, ListUtil.length(_res));		
+		assertEquals(-1, (int)_res.data);
+		assertEquals(3, (int)_res.next.data);
+		assertEquals(10, (int)_res.next.next.data);
+	}
+	
+	@Test
+	public void testMegerCorrectness(){
+		ListNode<Integer> a = new ListNode<>(-1);
+		a.next = new ListNode<>(10);
+		a.next.next = new ListNode<>(27);
+		a.next.next.next = new ListNode<>(783);
+		
+		ListNode<Integer> b = new ListNode<>(Integer.MIN_VALUE);
+		b.next = new ListNode<>(3);
+		b.next.next = new ListNode<>(Integer.MAX_VALUE);
+		
+		ListNode<Integer> _res = ListUtil.merge(a, b);
+		assertEquals(7, ListUtil.length(_res));
+
+		// -2147483648 -> -1 -> 3 -> 10 -> 27 -> 783 -> 2147483647
+		assertEquals(Integer.MIN_VALUE, (int)_res.data);
+		assertEquals(-1, (int)_res.next.data);
+		assertEquals(3, (int)_res.next.next.data);
+		assertEquals(10, (int)_res.next.next.next.data);
+		assertEquals(27, (int)_res.next.next.next.next.data);
+		assertEquals(783, (int)_res.next.next.next.next.next.data);
+		assertEquals(Integer.MAX_VALUE, (int)_res.next.next.next.next.next.next.data);
+	}
 }
