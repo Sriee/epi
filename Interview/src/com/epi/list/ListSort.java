@@ -5,6 +5,8 @@ public class ListSort {
 	/**
 	 * Leet code Problem. Solution -> Accepted
 	 * 
+	 * Insertion sort implementation
+	 *
 	 * @param head: Head of the list to be sorted
 	 * @return sorted linked list
 	 */
@@ -38,6 +40,14 @@ public class ListSort {
  		return newHead.next;
  	}
  	
+	/**
+	 * Leet code Problem. Solution -> Accepted
+	 * 
+	 * Merge Sort Implementation
+	 * 
+	 * @param head: Head of the list to be sorted
+	 * @return sorted linked list
+	 */
  	public <T extends Comparable<T>> ListNode<T> mergeSort(ListNode<T> head){
  		if(head.next == null)
  			return head;
@@ -55,34 +65,6 @@ public class ListSort {
  		
  		return ListUtil.merge(left, right);
  	}
- 	
- 	public <T extends Comparable<T>> ListNode<T> merge(ListNode<T> left, ListNode<T> right){
-		if(left == null) return right;
-		if(right == null) return left;
-
-		ListNode<T> leftHead = new ListNode<>(null);
-		leftHead.next = left;
-		ListNode<T> prev = leftHead;
-
-		while(left != null && right != null){
-			if(left.data.compareTo(right.data) <= 0){
-				prev = left;
-				left = left.next;
-			} else {
-				prev.next = right;
-				prev = prev.next;
-				right = right.next;
-				prev.next = left;
-			}
-		}
-
-		if(right != null){
-			prev.next = right;
-		}
-		
-		return leftHead.next;
-	}
-
  	
 	public static void main(String[] args) {
 		ListSort s = new ListSort();
