@@ -211,7 +211,7 @@ public class Miscellaneous {
     }
     
     /**
-     * Leet code problem. Solution -> Runtime error
+     * Leet code problem. Solution -> Accepted
      * 
      * Given a non-negative integer num represented as a string, remove k digits from the number 
      * so that the new number is the smallest possible.
@@ -224,16 +224,21 @@ public class Miscellaneous {
         if(word == null || word.isEmpty() || word.length() == k)
             return "0";
         
-		int currentMin = Integer.MAX_VALUE, after = 0;
-		for(int i = 0; i + k < word.length(); i++){
-			after = i + k + 1;
-			for(int j = 0; j <= k; j++){
-				int intDummy = Integer.parseInt(word.substring(0, i) + word.substring(i + j, i + j + 1) + word.substring(after));
-				if(intDummy < currentMin)
-					currentMin = intDummy;
-			}
+	int idx = 0, top = 0, digits = word.length() - k;
+	char[] stack = new char[word.length()];
+	for(int i = 0; i < word.length(); i++){
+		char ch = word.charAt(i);
+		while(top > 0 && stack[top - 1] > ch && k > 0){
+			top--;
+			k--;
 		}
-		return Integer.toString(currentMin);
+
+		stack[top++] = ch;
+	}
+
+	while(idx < digits && stack[idx] == '0') idx++;
+
+	return (idx == digits) ? "0" : new String(stack, idx, digits - idx);
     }
     
 	public static void main(String[] args) {
