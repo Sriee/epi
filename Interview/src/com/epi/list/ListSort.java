@@ -49,7 +49,7 @@ public class ListSort {
 	 * @return sorted linked list
 	 */
  	public <T extends Comparable<T>> ListNode<T> mergeSort(ListNode<T> head){
- 		if(head.next == null)
+ 		if(head == null || head.next == null)
  			return head;
  		
  		ListNode<T> slow = head, fast = head;
