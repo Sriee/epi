@@ -29,7 +29,7 @@ def decode(word):
     """
     Leet Code. Solution -> Accepted
 
-    Runtime: 31 seconds
+    Runtime: 31 ms
 
     :param word: encoded string
     :rtype str
@@ -79,6 +79,8 @@ def deserialize(s):
     """
     Leet Code. Solution -> Accepted
 
+    Runtime: 133 ms
+
     :type s: str to be deserialized
     :rtype: NestedInteger
     """
@@ -95,7 +97,7 @@ def deserialize(s):
         elif i == ',' and token:
             stack[-1].add(int(token))
             token = ''
-        elif i in string.digits:
+        elif i in string.digits or i == '-':
             token += i
 
     return NestedInteger(int(token)) if token else stack.pop()
@@ -110,9 +112,9 @@ if __name__ == '__main__':
     assert decode('2[ac]3[b]') == '{0}{0}{1}'.format('ac', 'b' * 3)
     assert decode('2[a10[b]]3[c]') == '{0}{0}{1}'.format('a' + 'b' * 10, 'c' * 3)
 
-
-    # print encode_optimized('2[ac]3[b]')
-    # print decode('leetcode')
-    print decode_optimized('2[ac]3[b]')
-    # print encode_optimized('10[a]')
-    # res = encode_optimized('2[a10[b]]3[c]')
+    # Unit tests for Decode optimized implementation
+    assert decode_optimized('leetcode') == 'leetcode'
+    assert decode_optimized('2[a]') == 'aa'
+    assert decode_optimized('10[a]') == '{}'.format('a' * 10)
+    assert decode_optimized('2[ac]3[b]') == '{0}{0}{1}'.format('ac', 'b' * 3)
+    assert decode_optimized('2[a10[b]]3[c]') == '{0}{0}{1}'.format('a' + 'b' * 10, 'c' * 3)
