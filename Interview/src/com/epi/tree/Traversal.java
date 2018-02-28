@@ -150,6 +150,32 @@ public class Traversal {
         System.out.print(root.val  + " ");
     }
 
+    public List<Integer> preOrderIteratively(TreeNode root){
+    		List<Integer> result = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+            
+        int current = 1, next = 0; 
+        queue.add(root);
+        while(!queue.isEmpty()){
+                
+        		TreeNode node = queue.remove();
+            current--;
+            
+            if(node != null){
+            	    result.add(node.val);
+                queue.add(node.left);
+                queue.add(node.right);
+                next += 2;
+            }
+                
+            if(current == 0){
+               current = next;
+               next = 0;
+            }
+        }
+    		return result;
+    }
+    
     public static void main(String[] args) {
         Traversal s = new Traversal();
         int[] values = new int[3];
