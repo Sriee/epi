@@ -150,30 +150,31 @@ public class Traversal {
         System.out.print(root.val  + " ");
     }
 
+    /**
+     * Pre-order Traversal iteratively
+     * 
+     * Leet code. Solution -> Accepted
+     * 
+     * Runtime: 1ms. 0ms solution is not acceptable as it used recursion
+     * but the question was to do it iteratively
+     * 
+     * @param root Root of the tree
+     * @return List of nodes visited using pre-order traversal
+     */
     public List<Integer> preOrderIteratively(TreeNode root){
-    		List<Integer> result = new LinkedList<>();
-        Queue<TreeNode> queue = new LinkedList<>();
+    	List<Integer> result = new LinkedList<>();
+        List<TreeNode> queue = new LinkedList<>();
             
-        int current = 1, next = 0; 
         queue.add(root);
         while(!queue.isEmpty()){
-                
-        		TreeNode node = queue.remove();
-            current--;
-            
+        	TreeNode node = queue.remove(0);
             if(node != null){
-            	    result.add(node.val);
-                queue.add(node.left);
-                queue.add(node.right);
-                next += 2;
-            }
-                
-            if(current == 0){
-               current = next;
-               next = 0;
+            	result.add(node.val);
+                queue.add(0, node.left);
+                queue.add(1, node.right);
             }
         }
-    		return result;
+    	return result;
     }
     
     public static void main(String[] args) {

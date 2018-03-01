@@ -15,8 +15,7 @@ public class Scratch {
     		list2.add(3);
     		list2.add(4);
     		
-    		list1.addAll(list2);
-    		
-    		System.out.println(list1.toString());
+    		System.out.println(list2.remove(0));
+    		System.out.println(list2.toString());
     }
 }
