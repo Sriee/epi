@@ -5,6 +5,7 @@ import math
 # TODO: Enable logging. Add the logging configuration with the program
 # TODO: Add comments (low priority)
 
+
 def diff_time(start, end):
     diff = end - start
     return math.ceil(diff.seconds / 60)
