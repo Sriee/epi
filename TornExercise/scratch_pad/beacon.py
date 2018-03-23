@@ -3,6 +3,9 @@ import pytz
 import math
 import os
 
+# TODO: Enable logging. Add the logging configuration with the program
+# TODO: Add comments (low priority)
+# TODO: Add perforce logic
 
 def diff_time(start, end):
     diff = end - start
