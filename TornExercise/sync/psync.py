@@ -2,11 +2,6 @@ from P4 import P4, P4Exception
 import traceback
 import sys
 
-p4 = P4()
-p4.port = 'ssl:p4cc.ges.symantec.com:1666'
-p4.user = 'sriee_sathiiss'
-p4.client = 'sriee_ws'
-
 
 class Perforce(object):
 
@@ -32,7 +27,10 @@ class Perforce(object):
 
 
 def main():
-    perf = Perforce()
+    perf = Perforce(user='sriee_sathiiss',
+                    port='ssl:p4cc.ges.symantec.com:1666',
+                    client='sriee_ws'
+            )
     try:
         # connect to perforce server
         perf.connect()
@@ -41,8 +39,8 @@ def main():
             print('Failed to establish connection to the server')
             sys.exit(-1)
 
-        result = perf.p4.run('sync', '//depot/Global_Performance_Unit/Tools/Automation/...')
-        print(type(result))
+        perf.p4.run('sync', '//depot/Global_Performance_Unit/Tools/Automation/...')
+
     except P4Exception:
         traceback.print_exc()
     finally:
