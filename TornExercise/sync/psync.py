@@ -1,8 +1,6 @@
 from P4 import P4, P4Exception
 from collections import namedtuple
-import logging.config
 
-logger = logging.getLogger(__name__)
 WorkSpace = namedtuple('WorkSpace', 'client user location')
 
 # Configure perforce work space configuration here
@@ -26,17 +24,16 @@ class Perforce(object):
             self._p4.connect()  # connect to perforce server
 
             if not self.is_connected():
-                logger.debug('Failed to establish connection to the server')
+                print('Failed to establish connection to the server')
                 return
 
-            logger.debug(self._p4)
             # Run p4 sync on workspace location. Return info captures in P4Exception
             self._p4.run_sync(workspace_location)
         except P4Exception:
             for e in self._p4.warnings:
-                logger.info(e)
+                print(e)
             for e in self._p4.errors:
-                logger.error(e)
+                print(e)
         finally:
             self._p4.disconnect()  # disconnect to perforce server
 
@@ -45,40 +42,11 @@ class Perforce(object):
 
 
 def main():
-    logger.info('Start...')
-    # TODO: comments
+    #TODO: Add logging & comments
     for ws in work_spaces:
-        logger.debug(ws)
         perf = Perforce(user=ws.user, port=perforce_server, client=ws.client)
         perf.execute(ws.location)
-    logger.info('Stop!...')
 
 
 if __name__ == '__main__':
-    # Setup log configuration
-    logging.config.dictConfig({
-        "version": 1,
-        "disable_existing_loggers": False,
-        "formatters": {
-            "timestamp": {
-                "format": "%(asctime)s:%(levelname)s: %(message)s",
-                "datefmt": "[%m-%d-%Y][%I:%M]"
-            }
-        },
-        "handlers": {
-            "file": {
-                "class": "logging.handlers.RotatingFileHandler",
-                "level": "DEBUG",
-                "formatter": "timestamp",
-                "filename": "psync.log",
-                "maxBytes": 10485760,
-                "backupCount": 20,
-                "encoding": "utf8"
-            }
-        },
-        "root": {
-            "level": "DEBUG",
-            "handlers": ["file"]
-        }
-    })
     main()
