@@ -1,9 +1,8 @@
 from P4 import P4, P4Exception
-import traceback
 
 # Change perforce settings here
 work_spaces = [('sriee_sathiiss', 'sriee_ws')]  # List of (user, client) tuples
-port = 'ssl:p4cc.ges.symantec.com:1666'
+perforce_server = 'ssl:p4cc.ges.symantec.com:1666'
 
 
 class Perforce(object):
@@ -14,16 +13,24 @@ class Perforce(object):
 
         self._p4 = P4()
         self._p4.user, self._p4.port, self._p4.client = user, port, client
-        self._p4.exception_level = 1 # Avoid warnings being raised as exceptions
-
-    def connect(self):
-        self._p4.connect()
 
     def execute(self, workspace_location):
-        self._p4.run('sync', workspace_location)
+        try:
+            self._p4.connect()  # connect to perforce server
 
-    def disconnect(self):
-        self._p4.disconnect()
+            if not self.is_connected():
+                print('Failed to establish connection to the server')
+                return
+
+            # Run p4 sync on workspace location. Return info captures in P4Exception
+            self._p4.run_sync(workspace_location)
+        except P4Exception:
+            for e in self._p4.warnings:
+                print(e)
+            for e in self._p4.errors:
+                print(e)
+        finally:
+            self._p4.disconnect()  # disconnect to perforce server
 
     def is_connected(self):
         return self._p4.connected()
@@ -32,23 +39,10 @@ class Perforce(object):
 def main():
     for ws in work_spaces:
         perf = Perforce(user=ws[0],
-                        port=port,
+                        port=perforce_server,
                         client=ws[1]
-            )
-        try:
-            # connect to perforce server
-            perf.connect()
-
-            if not perf.is_connected():
-                print('Failed to establish connection to the server')
-                continue
-
-            perf.execute('//depot/Global_Performance_Unit/Tools/Automation/...')
-        except P4Exception:
-            for e in perf._p4.errors:
-                print(e)
-        finally:
-            perf.disconnect()
+                        )
+        perf.execute('//depot/Global_Performance_Unit/Tools/Automation/...')
 
 
 if __name__ == '__main__':
