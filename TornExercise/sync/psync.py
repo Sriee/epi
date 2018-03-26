@@ -1,7 +1,12 @@
 from P4 import P4, P4Exception
+from collections import namedtuple
 
-# Change perforce settings here
-work_spaces = [('sriee_sathiiss', 'sriee_ws')]  # List of (user, client) tuples
+WorkSpace = namedtuple('WorkSpace', 'client user location')
+
+# Configure perforce work space configuration here
+work_spaces = [WorkSpace('sriee_ws', 'sriee_sathiiss', '//depot/Global_Performance_Unit/Tools/Automation/...'),
+               WorkSpace('performance', 'sriee_sathiiss', '//depot/Global_Performance_Unit/...')
+               ]
 perforce_server = 'ssl:p4cc.ges.symantec.com:1666'
 
 
@@ -37,12 +42,10 @@ class Perforce(object):
 
 
 def main():
+    #TODO: Add logging & comments
     for ws in work_spaces:
-        perf = Perforce(user=ws[0],
-                        port=perforce_server,
-                        client=ws[1]
-                        )
-        perf.execute('//depot/Global_Performance_Unit/Tools/Automation/...')
+        perf = Perforce(user=ws.user, port=perforce_server, client=ws.client)
+        perf.execute(ws.location)
 
 
 if __name__ == '__main__':
