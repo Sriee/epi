@@ -508,6 +508,14 @@ def handle_option_skip_test(values):
         sys.exit(2)
     skip_tests = values[1:]
 
+
+def handle_option_skip_machine(values):
+    global skip_machine
+    if len(values) < 2:
+        print("Invalid option for /skipmachine\n", help_msg)
+        sys.exit(2)
+    skip_machine = values[1:]
+
 # Array of commandline options: array(option_name, call_method, param_num, option_info)
 CommandLineOptions = \
     [\
@@ -596,7 +604,8 @@ CommandLineOptions = \
         ["/iter", HandleOptionTestIteration, 1, "Specify number of iterations for the test"], \
         ["/wu", HandleOptionWindowsUpdate, 1, "Specify ID of windows update package to install"],
         ["/skipos", handle_option_skip_os, -1, "Skip tests on these Operating Systems"],
-        ["/skiptest", handle_option_skip_test, -1, "Skip tests from this list"]
+        ["/skiptest", handle_option_skip_test, -1, "Skip tests from this list"],
+        ["/skipmachine", handle_option_skip_machine, -1, "Won't schedule test on these machines"]
     ]
 
 help_msg = "\nUsage: submitNIS.py <username> <build_number>\n"
@@ -740,6 +749,7 @@ append_adk_bats = []
 wuid = None
 skip_os_list = []
 skip_tests = []
+skip_machine = []
 
 if len(sys.argv) >= 4:
     params = []
@@ -1670,6 +1680,10 @@ def find_test(test_type_id, note, context, context_list, os, os_list, machine_ty
                 break
     else:
         found_machine = True
+
+    if machine_type in skip_machine:
+        found_machine = False
+
     found = found_name and found_context and found_os and found_machine
     return found
 
@@ -2165,6 +2179,9 @@ else:
 if run_on_backup:
     print()
     for test in backup_tests:
+        if test[1] in skip_machine:
+            continue
+
         if enableWPP and test[0] == 18:
             continue
 
