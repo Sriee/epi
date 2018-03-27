@@ -30,26 +30,28 @@ def SwitchParameterSetFlag(flag, params):
         print(helpmsg)
         sys.exit(2)
     else:
-        if params[1].lower() == 'off':
-            return False
-        else:
-            return True
+        return params[1].lower() == 'on'
+
 
 def HandleOptionAttach(values):
     global batch_attach
     batch_attach = 1
 
+
 def HandleOptionNewBatch(values):
     global batch_attach
     batch_attach = -1
+
 
 def HandleOptionBatchname(values):
     global batch_name
     batch_name = OneParameterSetFlag(batch_name, values)
 
+
 def HandleOptionDelete(values):
     global delete_switch
     delete_switch = True
+
 
 def HandleOptionNIC(values):
     global setNIC
@@ -59,17 +61,20 @@ def HandleOptionNIC(values):
     test_tags.append("NoNetwork")
     enableNIC = SwitchParameterSetFlag(enableNIC, values)
 
+
 def HandleOptionXPerf(values):
     global enableXperf
     global status_active
     status_active = False
     enableXperf = SwitchParameterSetFlag(enableXperf, values)
 
+
 def HandleOptionWPP(values):
     global enableWPP
     global status_active
     status_active = False
     enableWPP = SwitchParameterSetFlag(enableWPP, values)
+
 
 def ListParameterSetFlag(flag, list, params):
     if flag:
@@ -80,6 +85,7 @@ def ListParameterSetFlag(flag, list, params):
         for i in range(1, len(params)):
             list.append(params[i])
         return True
+
 
 def HandleOptionOS(values):
     global specify_os
@@ -93,6 +99,7 @@ def HandleOptionOS(values):
             print(helpmsg)
             sys.exit(2)
 
+
 def HandleOptionTests(values):
     global specify_testname
     global test_name
@@ -104,10 +111,12 @@ def HandleOptionTests(values):
     specify_testname = ListParameterSetFlag(specify_testname, test_name, values)
     test_name_copy = list(test_name)
 
+
 def HandleOptionMachine(values):
     global specify_machine
     global machine_list
     specify_machine = ListParameterSetFlag(specify_machine, machine_list, values)
+
 
 def OneParameterSetFlag(flag, params):
     if flag is not None:
@@ -117,11 +126,13 @@ def OneParameterSetFlag(flag, params):
     else:
         return params[1]
 
+
 def HandleOptionBat(values):
     global bat_param
     global status_active
     status_active = False
     bat_param = OneParameterSetFlag(bat_param, values)
+
 
 def HandleOptionPreTestBat(values):
     global pretest_at_bats
@@ -133,13 +144,16 @@ def HandleOptionPreTestBat(values):
     temp_bat = OneParameterSetFlag(None, values)
     pretest_adk_bats.append(temp_bat)
 
+
 def HandleOptionManualParameter(values):
     global m_param
     m_param = OneParameterSetFlag(m_param, values)
 
+
 def HandleOptionUseMachine(values):
     global machine_param
     machine_param = OneParameterSetFlag(machine_param, values)
+
 
 def HandleOptionManual(values):
     global manual_param
@@ -147,17 +161,20 @@ def HandleOptionManual(values):
     status_active = False
     manual_param = OneParameterSetFlag(manual_param, values)
 
+
 def HandleOptionNotes(values):
     global notes_param
     global status_active
     status_active = False
     notes_param = OneParameterSetFlag(notes_param, values)
 
+
 def HandleOptionEnv(values):
     global env_param
     global status_active
     status_active = False
     env_param = OneParameterSetFlag(env_param, values)
+
 
 def NoParameterSetFlag(flag, param):
     if flag:
@@ -167,13 +184,16 @@ def NoParameterSetFlag(flag, param):
     else:
         return True
 
+
 def HandleOptionBypass(values):
     global bypass_switch
     bypass_switch = NoParameterSetFlag(bypass_switch, values[0])
 
+
 def HandleOptionAlt(values):
     global alt_flag
     alt_flag = NoParameterSetFlag(alt_flag, values[0])
+
 
 def HandleOptionSpecial(values):
     global special_flag
@@ -181,31 +201,38 @@ def HandleOptionSpecial(values):
     status_active = False
     special_flag = NoParameterSetFlag(special_flag, values[0])
 
+
 def HandleOptionHighPriority(values):
     global priority
     global priority_flag
     priority = 'High'
     priority_flag = NoParameterSetFlag(priority_flag, values[0])
 
+
 def HandleOptionADK(values):
     global ADK_flag
     ADK_flag = NoParameterSetFlag(ADK_flag, values[0])
+
 
 def HandleOptionAT(values):
     global AT_flag
     AT_flag = NoParameterSetFlag(AT_flag, values[0])
 
+
 def HandleOptionForce(values):
     global force_flag
     force_flag = NoParameterSetFlag(force_flag, values[0])
+
 
 def HandleOptionCreateDependencies(values):
     global create_dependencies_flag
     create_dependencies_flag = NoParameterSetFlag(create_dependencies_flag, values[0])
 
+
 def HandleOptionUpdate(values):
     global update_flag
     update_flag = OneParameterSetFlag(None, values)
+
 
 def HandleOptionWorkingSet(values):
     global bat_param
@@ -216,13 +243,16 @@ def HandleOptionWorkingSet(values):
     pretest_adk_bats.append("WorkingSetDisable.bat")
     test_tags.append("WorkingSet")
 
+
 def HandleOptionNoAddOns(values):
     global test_tags
     test_tags.append("NoAddOns")
 
+
 def HandleOptionIterations(values):
     global iter_param
     iter_param = int(OneParameterSetFlag(iter_param, values))
+
 
 def setAllContexts():
     global contextEnum
@@ -234,6 +264,7 @@ def setAllContexts():
         contexts = ['Baseline']
     else:
         contexts = ['N360', 'Product']
+
 
 def HandleOptionContext(values):
     global contexts
@@ -249,12 +280,14 @@ def HandleOptionContext(values):
             print(helpmsg)
             sys.exit(2)
 
+
 def HandleOptionAppendBats(values):
     global append_bats
     global specify_append_bats
     global status_active
     status_active = False
     ListParameterSetFlag(specify_append_bats, append_bats, values)
+
 
 def HandleOptionIU(values):
     global iu_name
@@ -271,9 +304,11 @@ def HandleOptionIU(values):
     #    print(helpmsg)
     #    sys.exit(2)
 
+
 def HandleOptionCore(values):
     global coredefs
     coredefs = True
+
 
 def HandleOptionDefender(values):
     global append_bats
@@ -284,6 +319,7 @@ def HandleOptionDefender(values):
     append_bats.append('WDefenderOn.bat')
     test_tags.append("Defender")
     osType = ['Win10x64', 'Win10x86']
+
 
 def HandleOptionNoOneDrive(values):
     global append_bats
@@ -368,6 +404,7 @@ def HandleOptionInstallerName(values):
     custom_installer_name = True
     installer_name = OneParameterSetFlag(installer_name, values)
 
+
 def HandleOptionCosint(values):
     global installer_name
     global env_param
@@ -377,7 +414,7 @@ def HandleOptionCosint(values):
     major, minor = build_number.split('.')[0:2]
     if (int(major) == 22 and int(minor) >= 10) or int(major) > 22:
         installer_name = "{Product}-ESD30D-CosInt-Def-{Build}.exe"
-        
+
 
 def HandleOptionSyncNorton(values):
     global sync_prod_loc
@@ -398,6 +435,7 @@ def HandleOptionBackupOverride(values):
         backup_override = True
         run_on_backup = True
 
+
 def HandleOptionNoBackupOverride(values):
     global run_on_backup
     global backup_override
@@ -414,10 +452,12 @@ def HandleOptionNCW(values):
     append_at_bats.append("EnableNCW.bat")
     append_adk_bats.append("ADK_enableNCW.bat")
 
+
 def HandleOptionPrep(values):
     global prepare_php
     folder = OneParameterSetFlag(None, values)
     prepare_php = '/' + folder + '/dbupdate/Prepare.php'
+
 
 def HandleOptionLiveUpdate(values):
     global test_tags
@@ -425,17 +465,20 @@ def HandleOptionLiveUpdate(values):
     test_tags.append("LU")
     liveupdate = True
 
+
 def HandleOptionESD(values):
     global installer_name
     global custom_installer_name
     installer_name = '{Product}-ESD-{Build}.exe'
     test_tags.append("ESD")
 
+
 def HandleOptionTestIteration(values):
     global test_iteration
     global status_active
     status_active = False
     test_iteration = OneParameterSetFlag(test_iteration, values)
+
 
 def HandleOptionWindowsUpdate(values):
     global test_tags
@@ -1015,7 +1058,7 @@ def setPrepareData(testname, machine, os, subproduct, build_number, status_activ
         prepare_data['adkWACLocation'] = adkLocation
         prepare_data['jobXML'] = jobXML
         prepare_data['testName'] = testName
-    
+
     if appendBats:
         prepare_data['appendBats'] = 'True'
 
@@ -1089,6 +1132,7 @@ def add_network_drive(config_batch):
                 'set build={4}\n\nnet.exe \"%server%\" /persistent:no' + \
                 ' /user:\"%user%\" \"%pass%\"\n'.format(SERVER, USER, PASSWORD, prod_ver, revision)
     return setup_network_drive, path
+
 
 #------------------------------------------------------------------------------
 #   prepare_remote_transfer
@@ -1227,6 +1271,7 @@ def copy_scripts(config_batch):
         file.write('\n'.join(current_contents))
     return new_file_name
 
+
 def create_iter_file(test_iteration, test_type_id):
     global created_files
     file_content = ''' :: Modify test iteration '''
@@ -1264,6 +1309,7 @@ def create_iter_file(test_iteration, test_type_id):
         file.write(file_content)
     created_files.append(file_name)
     return file_name
+
 
 def setup_sync_install(test_type_id):
     global sync_prod_loc
@@ -1363,8 +1409,6 @@ def setData(test_type_id, machine_type, context, build_number, note, read_cache_
         'User+name':                        '',\
         'Password':                         '',\
         }
-
-
     if net_loc is not None:
         config_batch = copy_scripts(config_batch)
 
@@ -1399,19 +1443,19 @@ def setData(test_type_id, machine_type, context, build_number, note, read_cache_
     if pre_batch:
         new_prebat_file = get_new_bat_file(pre_batch[0])
         if read_cache_file is not None and read_cache_file.strip() != "":
-            pre_batch.append(read_cache_file)   
+            pre_batch.append(read_cache_file)
         contents = []
         for filename in pre_batch:
             with open(filename, 'r') as file:
-                contents += ["::\n"] + file.readlines() + ["\n\n"]    
+                contents += ["::\n"] + file.readlines() + ["\n\n"]
         with open(new_prebat_file, 'w') as file:
             for line in contents:
                 file.write(line)
         read_cache_file = new_prebat_file
     if append_batch:
         request_bats[:0] = append_batch
-    
-    
+
+
     submit_data["appendBats"] = None
     if len(request_bats) > 0:
         temp_bat_file = get_new_bat_file()
@@ -1438,7 +1482,7 @@ def setData(test_type_id, machine_type, context, build_number, note, read_cache_
         #if defs_location is not None:
         #    config_batch = copy_defs(config_batch)
 
-    
+
     files = {}
     # Add Driver Replacements if applicable
     if driver_replace_file is not None and driver_replace_file.strip() != "":
@@ -1473,6 +1517,7 @@ def setData(test_type_id, machine_type, context, build_number, note, read_cache_
     data = {'submit_data': submit_data, 'files': files}
     return data
 
+
 #------------------------------------------------------------------------------
 #   Update machine type and machine architecture
 #------------------------------------------------------------------------------
@@ -1484,7 +1529,6 @@ def updateMachine(machine_type, os_type):
         if updateMachine == 'MID4-Win8x64':
             updateMachine = 'MID-4_WIN8'
     return updateMachine
-
 
 
 s = http_request.Session()
@@ -1762,6 +1806,7 @@ def create_iu_defs_file(os, iu_name, test_type_id):
 
 def process_request_decorator(function):
     global test_tags
+
     def wrapper(*args):
         if len(args) == 1:
             (test_type_id, machine, config_batch, post_Appendbatch, context_types, \
@@ -1785,7 +1830,7 @@ def process_request_decorator(function):
     return wrapper
 
 
-#def submit_request(request, note, context, os, request_bats):
+# def submit_request(request, note, context, os, request_bats):
 @process_request_decorator
 def submit_request(test_type_id, machine, config_batch, post_Appendbatch, context_types, os_types, matrix_tag,\
         manual_parameter, env, bootlogs, working, tags, add_test_tag, note, context, os, \
@@ -2033,6 +2078,13 @@ iter_param = 1 if not iter_param else iter_param
 if delete_switch:
     process_delete()
 else:
+    # Pre process request list for /iu and /NIC
+    if not force_flag and (iu_name or not enableNIC):
+        for req_key in reqinfo_list.keys():
+            for idx, item in enumerate(reqinfo_list[req_key]):
+                if 'Test Tag' in item.keys() and item['Test Tag'] == 'NoNetwork':
+                    del reqinfo_list[req_key][idx]
+
     # Iterate through all manual tests in a group
     if m_param is not None and m_param.lower() == 'first':
         for i in range(iter_param):
@@ -2040,6 +2092,10 @@ else:
                 for request in m_list[req_note]:
                     for context in contexts:
                         for os in os_list:
+                            # Skipping ADK Test if /wpp is on
+                            if enableWPP and request['Test ID'] == 18:
+                                continue
+
                             request_bats = append_bats[:]
                             submit_request(request, req_note, context, os, request_bats)
 
@@ -2049,9 +2105,22 @@ else:
             for context in contexts:
                 for req_note in reqinfo_list:
                     for request in reqinfo_list[req_note]:
+                        # Skipping ADK Test if /wpp is on
+                        if enableWPP and request['Test ID'] == 18:
+                            continue
+
+                        cos_int_enable = False
+                        if 'Test Tag' in request.keys() and request['Test Tag'].upper() == 'COSINT':
+                            HandleOptionCosint(None)    # enable cosint parameters
+                            batch_name, cos_int_enable = 'cosint', True
+                            del request['Test Tag']
+
                         request_bats = append_bats[:]
                         submit_request(request, req_note, context, os, request_bats)
-
+                        
+                        if cos_int_enable:  # reset the parameters set for cosint
+                            batch_name, env_param, installer_name = None, None, None
+                            test_tags.remove('cosint')
 
     if m_param is not None and m_param.lower() == 'last':
         for i in range(iter_param):
@@ -2059,12 +2128,18 @@ else:
                 for request in m_list[req_note]:
                     for context in contexts:
                         for os in os_list:
+                            # Skipping ADK Test if /wpp is on
+                            if enableWPP and request['Test ID'] == 18:
+                                continue
+
                             request_bats = append_bats[:]
                             submit_request(request, req_note, context, os, request_bats)
 
 if run_on_backup:
     print()
     for test in backup_tests:
+        if enableWPP and test[0] == 18:
+            continue
         submit_request(test)
 
 #--------------------------------------------------------------------
