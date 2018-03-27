@@ -493,7 +493,12 @@ def HandleOptionWindowsUpdate(values):
     os_list.append("Win10x64")
 
 
-#Array of commandline options: array(option_name, call_method, param_num, option_info)
+def handle_option_skip_os(values):
+    global skip_os_list
+    skip_os_list = values[1:]
+
+
+# Array of commandline options: array(option_name, call_method, param_num, option_info)
 CommandLineOptions = \
     [\
         ["/delete", HandleOptionDelete, 1, "Delete requests for a specified user"], \
@@ -579,7 +584,9 @@ CommandLineOptions = \
         ["/lu", HandleOptionLiveUpdate, 0, "Run LiveUpdate before perf tests"], \
         ["/esd", HandleOptionESD, 0, "Use regular ESD build instead of ESD30D"], \
         ["/iter", HandleOptionTestIteration, 1, "Specify number of iterations for the test"], \
-        ["/wu", HandleOptionWindowsUpdate, 1, "Specify ID of windows update package to install"]
+        ["/wu", HandleOptionWindowsUpdate, 1, "Specify ID of windows update package to install"],
+        ["/skipos", handle_option_skip_os, -1, "Run test's on Operating Systems other than the one repersented in this "
+                                               "list"]
     ]
 
 helpmsg = "\nUsage: submitNIS.py <username> <build_number>\n"
@@ -722,7 +729,7 @@ test_iteration = None
 append_at_bats = []
 append_adk_bats = []
 wuid = None
-
+skip_os_list = []
 
 if len(sys.argv) >= 4:
     params = []
@@ -2074,6 +2081,9 @@ reqinfo_list = reqinfo.copy()
 # Ensure at least 1 iteration through the required tests
 iter_param = 1 if not iter_param else iter_param
 
+# Remove os that should be skipped
+if skip_os_list:
+    os_list = set(os_list) - set(skip_os_list)
 
 if delete_switch:
     process_delete()
