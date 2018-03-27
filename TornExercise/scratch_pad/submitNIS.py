@@ -27,7 +27,7 @@ import hashlib
 def SwitchParameterSetFlag(flag, params):
     if flag is not None:
         print("Only one instance of commandline option is allowed: " + params[0])
-        print(helpmsg)
+        print(help_msg)
         sys.exit(2)
     else:
         return params[1].lower() == 'on'
@@ -79,7 +79,7 @@ def HandleOptionWPP(values):
 def ListParameterSetFlag(flag, list, params):
     if flag:
         print("Only one instance of commandline option is allowed: " + params[0])
-        print(helpmsg)
+        print(help_msg)
         sys.exit(2)
     else:
         for i in range(1, len(params)):
@@ -96,7 +96,7 @@ def HandleOptionOS(values):
             print("Invalid OS option: " + os_list[i])
             print("Valid OS options are: " + str(osType)\
                     .replace("'", "").replace("[", "").replace("]", ""))
-            print(helpmsg)
+            print(help_msg)
             sys.exit(2)
 
 
@@ -121,7 +121,7 @@ def HandleOptionMachine(values):
 def OneParameterSetFlag(flag, params):
     if flag is not None:
         print("Only one instance of commandline option is allowed: " + params[0])
-        print(helpmsg)
+        print(help_msg)
         sys.exit(2)
     else:
         return params[1]
@@ -179,7 +179,7 @@ def HandleOptionEnv(values):
 def NoParameterSetFlag(flag, param):
     if flag:
         print("Only one instance of commandline option is allowed: " + param)
-        print(helpmsg)
+        print(help_msg)
         sys.exit(2)
     else:
         return True
@@ -269,7 +269,7 @@ def setAllContexts():
 def HandleOptionContext(values):
     global contexts
     global contextEnum
-    global helpmsg
+    global help_msg
     contexts = [OneParameterSetFlag(contexts, values)]
     if contexts[0] not in contextEnum:
         if contexts[0].lower() == 'all':
@@ -277,7 +277,7 @@ def HandleOptionContext(values):
         else:
             print("Invalid Context. Valid Contexts are: " + \
                     str(contextEnum).replace("'", "").replace("[", "").replace("]", ""))
-            print(helpmsg)
+            print(help_msg)
             sys.exit(2)
 
 
@@ -301,7 +301,7 @@ def HandleOptionIU(values):
     #                        available_iu_defs)))
     #if iu_name not in available_iu_defs:
     #    print("Invalid IU test tag. Valid tags are: " + str(available_iu_defs))
-    #    print(helpmsg)
+    #    print(help_msg)
     #    sys.exit(2)
 
 
@@ -495,8 +495,18 @@ def HandleOptionWindowsUpdate(values):
 
 def handle_option_skip_os(values):
     global skip_os_list
+    if len(values) < 2:
+        print("Invalid option for /skipos\n", help_msg)
+        sys.exit(2)
     skip_os_list = values[1:]
 
+
+def handle_option_skip_test(values):
+    global skip_tests
+    if len(values) < 2:
+        print("Invalid option for /skiptest\n", help_msg)
+        sys.exit(2)
+    skip_tests = values[1:]
 
 # Array of commandline options: array(option_name, call_method, param_num, option_info)
 CommandLineOptions = \
@@ -585,16 +595,15 @@ CommandLineOptions = \
         ["/esd", HandleOptionESD, 0, "Use regular ESD build instead of ESD30D"], \
         ["/iter", HandleOptionTestIteration, 1, "Specify number of iterations for the test"], \
         ["/wu", HandleOptionWindowsUpdate, 1, "Specify ID of windows update package to install"],
-        ["/skipos", handle_option_skip_os, -1, "Run test's on Operating Systems other than the one repersented in this "
-                                               "list"]
+        ["/skipos", handle_option_skip_os, -1, "Skip tests on these Operating Systems"],
+        ["/skiptest", handle_option_skip_test, -1, "Skip tests from this list"]
     ]
 
-helpmsg = "\nUsage: submitNIS.py <username> <build_number>\n"
+help_msg = "\nUsage: submitNIS.py <username> <build_number>\n"
 for option in CommandLineOptions:
     msg = "[" + option[0] + "]: " + option[3] + '\n'
-    helpmsg += msg
+    help_msg += msg
 
-#print (helpmsg)
 
 #------------------Variables---------------------------
 
@@ -621,11 +630,11 @@ config = {'max_retries':5}
 #------------------------------------------------------------------------------
 if len(sys.argv) < 2 or re.match("[A-Za-z_]+", sys.argv[1]) is None:
     print("Please enter Username")
-    print(helpmsg)
+    print(help_msg)
     sys.exit(2)
 if len(sys.argv) < 3 or re.match("^[0-9]", sys.argv[2]) is None:
     print("Please enter Build Number")
-    print(helpmsg)
+    print(help_msg)
     sys.exit(2)
 
 
@@ -730,6 +739,7 @@ append_at_bats = []
 append_adk_bats = []
 wuid = None
 skip_os_list = []
+skip_tests = []
 
 if len(sys.argv) >= 4:
     params = []
@@ -758,7 +768,7 @@ if len(sys.argv) >= 4:
                     option[1](params)
                 break
         if not option_found:
-            print('Option \"{0}\" not found\n{1}\n'.format(sys.argv[i], helpmsg))
+            print('Option \"{0}\" not found\n{1}\n'.format(sys.argv[i], help_msg))
             sys.exit(2)
 
 # Determine if the build is VS 2015:
@@ -1551,7 +1561,7 @@ if delete_switch:
         print('Logged In')
     else:
         print('Login FAILED. Check Username or try again later')
-        print(helpmsg)
+        print(help_msg)
         sys.exit(2)
 
 
@@ -1843,7 +1853,7 @@ def submit_request(test_type_id, machine, config_batch, post_Appendbatch, contex
         manual_parameter, env, bootlogs, working, tags, add_test_tag, note, context, os, \
         request_bats, is_backup, isAddOns, atsScriptName, adkLocation, jobXML, testName):
     global build_number
-    global helpmsg
+    global help_msg
     global batch_note
     global force_flag
     global env_param
@@ -1873,7 +1883,7 @@ def submit_request(test_type_id, machine, config_batch, post_Appendbatch, contex
         bnum = '0.0.0.0'
     elif (bnum == '0.0.0.0') and (context != 'Baseline'):
         print("Only Baseline can be installed when build number is '0.0.0.0'")
-        print(helpmsg)
+        print(help_msg)
         sys.exit(2)
 
     # Fast test ignores tests which are not working
@@ -2099,6 +2109,8 @@ else:
     if m_param is not None and m_param.lower() == 'first':
         for i in range(iter_param):
             for req_note in m_list:
+                if req_note in skip_tests:
+                    continue
                 for request in m_list[req_note]:
                     for context in contexts:
                         for os in os_list:
@@ -2114,6 +2126,8 @@ else:
         for os in os_list:
             for context in contexts:
                 for req_note in reqinfo_list:
+                    if req_note in skip_tests:
+                        continue
                     for request in reqinfo_list[req_note]:
                         # Skipping ADK Test if /wpp is on
                         if enableWPP and request['Test ID'] == 18:
@@ -2135,6 +2149,9 @@ else:
     if m_param is not None and m_param.lower() == 'last':
         for i in range(iter_param):
             for req_note in m_list:
+                if req_note in skip_tests:
+                    continue
+
                 for request in m_list[req_note]:
                     for context in contexts:
                         for os in os_list:
@@ -2150,6 +2167,7 @@ if run_on_backup:
     for test in backup_tests:
         if enableWPP and test[0] == 18:
             continue
+
         submit_request(test)
 
 #--------------------------------------------------------------------
