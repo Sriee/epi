@@ -8,8 +8,7 @@ WorkSpace = namedtuple('WorkSpace', 'client user location')
 
 # Perforce work space configuration goes here
 work_spaces = [WorkSpace('sriee_ws', 'sriee_sathiiss', '//depot/Global_Performance_Unit/Tools/Automation/...'),
-               WorkSpace('performance', 'sriee_sathiiss', '//depot/Global_Performance_Unit/...'),
-               WorkSpace('performance', 'sriee_sathiiss', '//depot/Security_Technology_Group/...')
+               WorkSpace('performance', 'sriee_sathiiss', '//depot/Global_Performance_Unit/...')
                ]
 # WorkSpace('performance', 'sriee_sathiiss', '//depot/Global_Performance_Unit/...')
 perforce_server = 'ssl:p4cc.ges.symantec.com:1666'
