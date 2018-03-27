@@ -1,9 +1,7 @@
 from P4 import P4, P4Exception
 from collections import namedtuple
-from datetime import datetime
-import pytz
-import math
 import logging.config
+import os
 
 logger = logging.getLogger(__name__)
 WorkSpace = namedtuple('WorkSpace', 'client user location')
@@ -15,7 +13,6 @@ work_spaces = [WorkSpace('sriee_ws', 'sriee_sathiiss', '//depot/Global_Performan
                ]
 # WorkSpace('performance', 'sriee_sathiiss', '//depot/Global_Performance_Unit/...')
 perforce_server = 'ssl:p4cc.ges.symantec.com:1666'
-TIME_OUT = 10  # Time out (minutes)
 
 
 class Perforce(object):
@@ -26,7 +23,8 @@ class Perforce(object):
         """
         Initialize Perforce client environment
 
-        Assumes that the user has logged in and has a valid session
+        Assumes that the user has logged in and has a valid session. Can't login using run_login() method since
+        Perforce server is configured to enter SYMC password and VIP token to login
         :param user: User name
         :param port: Perforce server address and port number
         :param client: local work space
@@ -66,23 +64,19 @@ class Perforce(object):
     def is_connected(self):
         """
         Utility function to check whether connection with the server is established
+
         :return: True if connection is established; False otherwise
         """
         return self._p4.connected()
 
 
 def main():
-    previous = datetime.now(pytz.timezone('US/Pacific')).replace(tzinfo=None)
-    while True:  # Runs indefinitely, should be stopped using Task Manager
-        current_time = datetime.now(pytz.timezone('US/Pacific')).replace(tzinfo=None)
-        if math.ceil((previous - current_time).seconds / 60) >= TIME_OUT:
-            logger.info('Start...')
-            for ws in work_spaces:
-                logger.debug(ws)
-                perf = Perforce(user=ws.user, port=perforce_server, client=ws.client)
-                perf.execute(ws.location)
-            logger.info('Stop!...')
-            previous = current_time
+    logger.info('Start...')
+    for ws in work_spaces:
+        logger.debug(ws)
+        perf = Perforce(user=ws.user, port=perforce_server, client=ws.client)
+        perf.execute(ws.location)
+    logger.info('Stop!...')
 
 
 if __name__ == '__main__':
@@ -101,7 +95,7 @@ if __name__ == '__main__':
                 "class": "logging.handlers.RotatingFileHandler",
                 "level": "DEBUG",
                 "formatter": "timestamp",
-                "filename": "psync.log",
+                "filename": os.path.abspath(os.path.join(os.path.dirname(__file__), 'psync.log')),
                 "maxBytes": 10485760,
                 "backupCount": 20,
                 "encoding": "utf8"
