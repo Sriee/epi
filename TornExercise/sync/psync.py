@@ -44,18 +44,18 @@ class Perforce(object):
             self._p4.connect()  # connect to perforce server
 
             if not self.is_connected():
-                logger.debug('Failed to establish connection to the server')
+                logger.error('Failed to establish connection to the server')
                 return
 
             logger.debug(self._p4)
             # Run p4 sync on workspace location. Return info captures in P4Exception
             self._p4.run_sync(workspace_location)
-            logger.info('File(s) synced.')
+            logger.info(self._p4.client + ' File(s) synced.')
         except P4Exception:
             for e in self._p4.warnings:
-                logger.info(e)
+                logger.info(self._p4.client + ' ' + e)
             for e in self._p4.errors:
-                logger.error(e)
+                logger.error(self._p4.client + ' ' + e)
         finally:
             if self.is_connected():
                 self._p4.disconnect()  # disconnect to perforce server
@@ -70,12 +70,12 @@ class Perforce(object):
 
 
 def main():
-    logger.info('Start...')
+    logger.debug('Start...')
     for ws in work_spaces:
         logger.debug(ws)
         perf = Perforce(user=ws.user, port=perforce_server, client=ws.client)
         perf.execute(ws.location)
-    logger.info('Stop!...')
+    logger.debug('Stop!...')
 
 
 if __name__ == '__main__':
@@ -92,7 +92,6 @@ if __name__ == '__main__':
         "handlers": {
             "file": {
                 "class": "logging.handlers.RotatingFileHandler",
-                "level": "DEBUG",
                 "formatter": "timestamp",
                 "filename": os.path.abspath(os.path.join(os.path.dirname(__file__), 'psync.log')),
                 "maxBytes": 10485760,
@@ -101,7 +100,7 @@ if __name__ == '__main__':
             }
         },
         "root": {
-            "level": "DEBUG",
+            "level": "INFO",
             "handlers": ["file"]
         }
     })
