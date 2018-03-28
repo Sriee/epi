@@ -9,7 +9,6 @@ import requests as http_request
 from bs4 import BeautifulSoup as BS
 import time
 
-import string
 import re
 import sys
 import os as ospackage
@@ -614,7 +613,7 @@ for option in CommandLineOptions:
     help_msg += msg
 
 
-#------------------Variables---------------------------
+# ------------------Variables---------------------------
 
 # This script uses notes.txt and manual_parameter.txt of its
 # current directory to add any additional notes and/or manual parameter.
@@ -631,12 +630,12 @@ DEBUG = 1
 driver_replace_files = ['']
 pretest_at_bats = []
 pretest_adk_bats = []
-config = {'max_retries':5}
-#-----------------------------------------------
+config = {'max_retries': 5}
+# -----------------------------------------------
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 #   Parse commandline options
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 if len(sys.argv) < 2 or re.match("[A-Za-z_]+", sys.argv[1]) is None:
     print("Please enter Username")
     print(help_msg)
@@ -731,8 +730,8 @@ run_on_backup = True
 backup_override = False
 backup_tests = []
 definitions = None
-#iu_server = "\\\\CUL1RFPFILPIN06.symc.symantec.com\\dropbox\\IU"
-#iu_server = "\\\\culshare.symc.symantec.com\\Dropbox_cul1rfpfilpin06\\IU"
+# iu_server = "\\\\CUL1RFPFILPIN06.symc.symantec.com\\dropbox\\IU"
+# iu_server = "\\\\culshare.symc.symantec.com\\Dropbox_cul1rfpfilpin06\\IU"
 iu_server = "\\\\ngc-perf-web.qalabs.symantec.com\\Global Performance Unit\\IU"
 iu_server_user = None
 iu_server_password = None
@@ -804,7 +803,7 @@ else:
     branchSpecifier = False
 
 
-#determine batch_type and priority
+# determine batch_type and priority
 if specify_testname:
     batch_type = 'Test'
     batch_priority = 'Standard'
@@ -817,11 +816,13 @@ elif specify_os:
 elif fast_flag:
     batch_type = 'FastReport'
     batch_priority = 'BuildReport'
-    if batch_attach == 0: batch_attach = -1
+    if batch_attach == 0:
+        batch_attach = -1
 else:
     batch_type = 'Report'
     batch_priority = 'Report'
-    if batch_attach == 0: batch_attach = -1
+    if batch_attach == 0:
+        batch_attach = -1
 
 # Set default values
 enableNIC = True if enableNIC is None else enableNIC
@@ -1482,7 +1483,6 @@ def setData(test_type_id, machine_type, context, build_number, note, read_cache_
     if append_batch:
         request_bats[:0] = append_batch
 
-
     submit_data["appendBats"] = None
     if len(request_bats) > 0:
         temp_bat_file = get_new_bat_file()
@@ -1506,9 +1506,8 @@ def setData(test_type_id, machine_type, context, build_number, note, read_cache_
                 config_batch = prepare_remote_transfer('_VS2015', context, config_batch, adk_test)
             else:
                 config_batch = prepare_remote_transfer('', context, config_batch, adk_test)
-        #if defs_location is not None:
+        # if defs_location is not None:
         #    config_batch = copy_defs(config_batch)
-
 
     files = {}
     # Add Driver Replacements if applicable
@@ -1541,8 +1540,7 @@ def setData(test_type_id, machine_type, context, build_number, note, read_cache_
     if enableWPP:
         submit_data['WPP+Logging/Enable'] = 'on'
 
-    data = {'submit_data': submit_data, 'files': files}
-    return data
+    return submit_data, files
 
 
 #------------------------------------------------------------------------------
@@ -1651,13 +1649,12 @@ def find_test(test_type_id, note, context, context_list, os, os_list, machine_ty
     # only display the tests with the specified test type id
     if ((ADK_flag) and (test_type_id == 18)) or ((AT_flag) and (test_type_id == 17))\
             or (not (ADK_flag or AT_flag)):
-        if specify_testname:
-            if test_name:
-                for testname in test_name:
-                    if note.lower() == testname.lower():
-                        found_name = True
-                        test_name.pop(test_name.index(testname))
-                        break
+        if specify_testname and test_name:
+            for name in test_name:
+                if note.lower() == name.lower():
+                    found_name = True
+                    test_name.pop(test_name.index(name))
+                    break
         else:
             found_name = True
     # only display the tests which supports the specified context
@@ -1666,7 +1663,7 @@ def find_test(test_type_id, note, context, context_list, os, os_list, machine_ty
             found_context = True
             context_types.pop(context.index(context_name))
             break
-    #only display the tests which supports the specified os
+    # only display the tests which supports the specified os
     for os_name in os_types:
         if os_name == os:
             found_os = True
@@ -1967,25 +1964,23 @@ def submit_request(test_type_id, machine, config_batch, post_Appendbatch, contex
                     tag = tags[0]
                 else:
                     tag = ''
-                data = setData(test_type_id, machine_type, context, bnum, note, \
-                        read_cache_file, "", config_batch, post_Appendbatch, \
-                        manual_parameter + user_manual_parameter, priority, tag, \
-                        adk_test, bootlogs, request_bats)
-                submit_data = data['submit_data']
-                files = data['files']
-                if 'Run+Configuration+Batch+File' in data['files']:
-                    config = data['files']['Run+Configuration+Batch+File'][0]
+                submit_data, files = setData(test_type_id, machine_type, context, bnum, note,read_cache_file, "",
+                                             config_batch, post_Appendbatch, manual_parameter + user_manual_parameter,
+                                             priority, tag, adk_test, bootlogs, request_bats
+                                             )
+
+                if 'Run+Configuration+Batch+File' in files:
+                    config = files['Run+Configuration+Batch+File'][0]
                 else:
                     config = None
-                if 'Run+Pre-Test+Batch+file' in data['files']:
-                    prebatch = data['files']['Run+Pre-Test+Batch+file'][0]
+                if 'Run+Pre-Test+Batch+file' in files:
+                    prebatch = files['Run+Pre-Test+Batch+file'][0]
                 else:
                     prebatch = None
-                run_test(s, context, bnum, note, testname, machine_type, machine, os, \
-                        status_active, username, matrix_tag, test_type_id, \
-                        manual_parameter, priority, config, prebatch, tag, \
-                        isAddOns, atsScriptName, adkLocation, jobXML, testName, \
-                        installer_name, defsloc)
+                run_test(s, context, bnum, note, testname, machine_type, machine, os, status_active, username,
+                         matrix_tag, test_type_id, manual_parameter, priority, config, prebatch, tag, isAddOns,
+                         atsScriptName, adkLocation, jobXML, testName, installer_name, defsloc
+                         )
             else:
                 continue
 
