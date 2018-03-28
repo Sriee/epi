@@ -10,7 +10,6 @@ WorkSpace = namedtuple('WorkSpace', 'client user location')
 work_spaces = [WorkSpace('sriee_ws', 'sriee_sathiiss', '//depot/Global_Performance_Unit/Tools/Automation/...'),
                WorkSpace('performance', 'sriee_sathiiss', '//depot/Global_Performance_Unit/...')
                ]
-# WorkSpace('performance', 'sriee_sathiiss', '//depot/Global_Performance_Unit/...')
 perforce_server = 'ssl:p4cc.ges.symantec.com:1666'
 
 
@@ -86,7 +85,7 @@ if __name__ == '__main__':
         "formatters": {
             "timestamp": {
                 "format": "%(asctime)s:%(levelname)s: %(message)s",
-                "datefmt": "[%m-%d-%Y][%I:%M]"
+                "datefmt": "[%m-%d-%Y][%H:%M]"
             }
         },
         "handlers": {
