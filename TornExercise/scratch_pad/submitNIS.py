@@ -1109,12 +1109,6 @@ def setPrepareData(testname, machine, os, subproduct, build_number, status_activ
     if test_iteration:
         prepare_data['iterations'] = test_iteration
 
-    with open('pd_iteration.json', 'w') as wp:
-        json.dump(prepare_data, wp, indent=4, sort_keys=True)
-
-    if ospackage.path.isfile('pd_iteration.json'):
-        sys.exit(2)
-
     return prepare_data
 
 
@@ -1708,6 +1702,7 @@ def unpack_dictionary(req_dict, note, context, os, request_bats):
     global backup_tests
     global run_on_backup
     global manual_param
+    global test_iteration
     test_id, mtype, bkp_mtype, config_batch, post_Appendbatch, context_types, ostypes,\
         matrix_tag, env, bootlogs, working, tag, add_test_tag, manual_parameter, isAddOns,\
         atsScriptName, adkLocation, jobXML, testName =\
@@ -1761,6 +1756,10 @@ def unpack_dictionary(req_dict, note, context, os, request_bats):
                 context_types, ostypes, matrix_tag, manual_parameter, env, bootlogs,\
                 working, tag, add_test_tag, note, context, os, request_bats, isAddOns,\
                 atsScriptName, adkLocation, jobXML, testName))
+
+            if test_iteration:
+                backup_tests = backup_tests[-1] + (test_iteration,)
+
     return test_id, mtype, config_batch, post_Appendbatch, context_types, ostypes,\
         matrix_tag, manual_parameter, env, bootlogs, working, tag, add_test_tag,\
         isAddOns, atsScriptName, adkLocation, jobXML, testName
@@ -2237,13 +2236,25 @@ if run_on_backup:
         if enableWPP and test[0] == 18:
             continue
 
-        submit_request(test)        
+        if test_iteration:
+            HandleOptionTestIteration(['/iter', test[-1]])
+            if type(batch_note) is bool:
+                batch_note = ''
+            batch_note += " (Iter)"
+            batch_name = '(Iter)'
 
-#--------------------------------------------------------------------
+        submit_request(test)
+
+        if test_iteration:
+            reset_iterations()
+            batch_name = None
+            batch_note.replace(' (Iter)', '')
+
+# --------------------------------------------------------------------
 #   DONE
-#--------------------------------------------------------------------
+# --------------------------------------------------------------------
 r = s.post('http://perf.eng.symantec.com/logout', data=payload)
-s.close();
+s.close()
 
 for file in open_files:
     file.close()
