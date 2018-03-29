@@ -2146,8 +2146,21 @@ else:
                             if enableWPP and request['Test ID'] == 18:
                                 continue
 
+                            # Iterations handling - set parameters
+                            if 'Iterations' in request.keys():
+                                HandleOptionTestIteration(['/iter', request['Iterations']])
+                                if type(batch_note) is bool:
+                                    batch_note = ''
+                                batch_note += " (Iter)"
+                                batch_name = '(Iter)'
+
                             request_bats = append_bats[:]
                             submit_request(request, req_note, context, os, request_bats)
+
+                            if 'Iterations' in request.keys():  # reset iteration parameters
+                                reset_iterations()
+                                batch_name = None
+                                batch_note.replace(' (Iter)', '')
 
     # Iterate through all non-manual tests
     for i in range(iter_param):
@@ -2173,6 +2186,7 @@ else:
                             if type(batch_note) is bool:
                                 batch_note = ''
                             batch_note += " (Iter)"
+                            batch_name = '(Iter)'
 
                         request_bats = append_bats[:]
                         submit_request(request, req_note, context, os, request_bats)
@@ -2183,6 +2197,7 @@ else:
 
                         if 'Iterations' in request.keys():  # reset iteration parameters
                             reset_iterations()
+                            batch_name = None
                             batch_note.replace(' (Iter)', '')
 
     if m_param is not None and m_param.lower() == 'last':
@@ -2198,9 +2213,21 @@ else:
                             if enableWPP and request['Test ID'] == 18:
                                 continue
 
+                            # Iterations handling - set parameters
+                            if 'Iterations' in request.keys():
+                                HandleOptionTestIteration(['/iter', request['Iterations']])
+                                if type(batch_note) is bool:
+                                    batch_note = ''
+                                batch_note += " (Iter)"
+                                batch_name = '(Iter)'
+
                             request_bats = append_bats[:]
                             submit_request(request, req_note, context, os, request_bats)
 
+                            if 'Iterations' in request.keys():  # reset iteration parameters
+                                reset_iterations()
+                                batch_name = None
+                                batch_note.replace(' (Iter)', '')
 if run_on_backup:
     print()
     for test in backup_tests:
@@ -2210,7 +2237,7 @@ if run_on_backup:
         if enableWPP and test[0] == 18:
             continue
 
-        submit_request(test)
+        submit_request(test)        
 
 #--------------------------------------------------------------------
 #   DONE
