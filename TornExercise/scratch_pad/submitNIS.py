@@ -515,6 +515,13 @@ def handle_option_skip_machine(values):
         sys.exit(2)
     skip_machine = values[1:]
 
+
+def reset_iterations():
+    global test_iteration
+    global status_active
+    status_active, test_iteration = True, None
+
+
 # Array of commandline options: array(option_name, call_method, param_num, option_info)
 CommandLineOptions = \
     [\
@@ -984,6 +991,8 @@ def setPrepareData(testname, machine, os, subproduct, build_number, status_activ
     global iu_name
     global coredefs
     global update_flag
+    global test_iteration
+
     arch_loc = os.index('x')
     arch = os[arch_loc:]
     os = os[:arch_loc]
@@ -1095,6 +1104,16 @@ def setPrepareData(testname, machine, os, subproduct, build_number, status_activ
 
     if defsloc:
         prepare_data['defsloc'] = defsloc
+
+    # Iteration support
+    if test_iteration:
+        prepare_data['iterations'] = test_iteration
+
+    with open('pd_iteration.json', 'w') as wp:
+        json.dump(prepare_data, wp, indent=4, sort_keys=True)
+
+    if ospackage.path.isfile('pd_iteration.json'):
+        sys.exit(2)
 
     return prepare_data
 
@@ -2148,12 +2167,23 @@ else:
                             batch_name, cos_int_enable = 'cosint', True
                             del request['Test Tag']
 
+                        # Iterations handling - set parameters
+                        if 'Iterations' in request.keys():
+                            HandleOptionTestIteration(['/iter', request['Iterations']])
+                            if type(batch_note) is bool:
+                                batch_note = ''
+                            batch_note += " (Iter)"
+
                         request_bats = append_bats[:]
                         submit_request(request, req_note, context, os, request_bats)
                         
                         if cos_int_enable:  # reset the parameters set for cosint
                             batch_name, env_param, installer_name = None, None, None
                             test_tags.remove('cosint')
+
+                        if 'Iterations' in request.keys():  # reset iteration parameters
+                            reset_iterations()
+                            batch_note.replace(' (Iter)', '')
 
     if m_param is not None and m_param.lower() == 'last':
         for i in range(iter_param):
