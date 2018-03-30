@@ -515,13 +515,6 @@ def handle_option_skip_machine(values):
         sys.exit(2)
     skip_machine = values[1:]
 
-
-def reset_iterations():
-    global test_iteration
-    global status_active
-    status_active, test_iteration = True, None
-
-
 # Array of commandline options: array(option_name, call_method, param_num, option_info)
 CommandLineOptions = \
     [\
@@ -756,6 +749,7 @@ wuid = None
 skip_os_list = []
 skip_tests = []
 skip_machine = []
+iteration_tag = None
 
 if len(sys.argv) >= 4:
     params = []
@@ -991,8 +985,6 @@ def setPrepareData(testname, machine, os, subproduct, build_number, status_activ
     global iu_name
     global coredefs
     global update_flag
-    global test_iteration
-
     arch_loc = os.index('x')
     arch = os[arch_loc:]
     os = os[:arch_loc]
@@ -1104,10 +1096,6 @@ def setPrepareData(testname, machine, os, subproduct, build_number, status_activ
 
     if defsloc:
         prepare_data['defsloc'] = defsloc
-
-    # Iteration support
-    if test_iteration:
-        prepare_data['iterations'] = test_iteration
 
     return prepare_data
 
@@ -1593,6 +1581,7 @@ def run_test(s, context, build_number, note, test_name, machine_type, machine, o
     global batch_attach
     global debug_flag
     global prepare_php
+    global iteration_tag
 
     # Run prepare.php, get back the request number to print out
     retry = True
@@ -1617,6 +1606,12 @@ def run_test(s, context, build_number, note, test_name, machine_type, machine, o
         if pre_batch is not None:
             prepareData['prebatch_hash'] = hashlib.md5(open(pre_batch, 'rb')\
                     .read()).hexdigest()
+
+        if iteration_tag:
+            prepareData['status'], prepareData['iterations'] = 'INACTIVE', iteration_tag
+
+        retry = False   # TODO: Remove
+        '''
         url = database_server + prepare_php
         r = s.post(url, data=prepareData, files=file_dict)
         rmessage = r.content
@@ -1646,7 +1641,7 @@ def run_test(s, context, build_number, note, test_name, machine_type, machine, o
             time.sleep(2)
         else:
             print('  Posted for future execution')
-
+        '''
 
 def find_test(test_type_id, note, context, context_list, os, os_list, machine_type):
     found = False
@@ -1702,7 +1697,6 @@ def unpack_dictionary(req_dict, note, context, os, request_bats):
     global backup_tests
     global run_on_backup
     global manual_param
-    global test_iteration
     test_id, mtype, bkp_mtype, config_batch, post_Appendbatch, context_types, ostypes,\
         matrix_tag, env, bootlogs, working, tag, add_test_tag, manual_parameter, isAddOns,\
         atsScriptName, adkLocation, jobXML, testName =\
@@ -1756,10 +1750,6 @@ def unpack_dictionary(req_dict, note, context, os, request_bats):
                 context_types, ostypes, matrix_tag, manual_parameter, env, bootlogs,\
                 working, tag, add_test_tag, note, context, os, request_bats, isAddOns,\
                 atsScriptName, adkLocation, jobXML, testName))
-
-            if test_iteration:
-                backup_tests = backup_tests[-1] + (test_iteration,)
-
     return test_id, mtype, config_batch, post_Appendbatch, context_types, ostypes,\
         matrix_tag, manual_parameter, env, bootlogs, working, tag, add_test_tag,\
         isAddOns, atsScriptName, adkLocation, jobXML, testName
@@ -2145,21 +2135,8 @@ else:
                             if enableWPP and request['Test ID'] == 18:
                                 continue
 
-                            # Iterations handling - set parameters
-                            if 'Iterations' in request.keys():
-                                HandleOptionTestIteration(['/iter', request['Iterations']])
-                                if type(batch_note) is bool:
-                                    batch_note = ''
-                                batch_note += " (Iter)"
-                                batch_name = '(Iter)'
-
                             request_bats = append_bats[:]
                             submit_request(request, req_note, context, os, request_bats)
-
-                            if 'Iterations' in request.keys():  # reset iteration parameters
-                                reset_iterations()
-                                batch_name = None
-                                batch_note.replace(' (Iter)', '')
 
     # Iterate through all non-manual tests
     for i in range(iter_param):
@@ -2179,13 +2156,8 @@ else:
                             batch_name, cos_int_enable = 'cosint', True
                             del request['Test Tag']
 
-                        # Iterations handling - set parameters
                         if 'Iterations' in request.keys():
-                            HandleOptionTestIteration(['/iter', request['Iterations']])
-                            if type(batch_note) is bool:
-                                batch_note = ''
-                            batch_note += " (Iter)"
-                            batch_name = '(Iter)'
+                            batch_name, iteration_tag = '(Iter)', request['Iterations']
 
                         request_bats = append_bats[:]
                         submit_request(request, req_note, context, os, request_bats)
@@ -2194,10 +2166,8 @@ else:
                             batch_name, env_param, installer_name = None, None, None
                             test_tags.remove('cosint')
 
-                        if 'Iterations' in request.keys():  # reset iteration parameters
-                            reset_iterations()
-                            batch_name = None
-                            batch_note.replace(' (Iter)', '')
+                        if 'Iterations' in request.keys():
+                            batch_name, iteration_tag = None, None
 
     if m_param is not None and m_param.lower() == 'last':
         for i in range(iter_param):
@@ -2212,21 +2182,9 @@ else:
                             if enableWPP and request['Test ID'] == 18:
                                 continue
 
-                            # Iterations handling - set parameters
-                            if 'Iterations' in request.keys():
-                                HandleOptionTestIteration(['/iter', request['Iterations']])
-                                if type(batch_note) is bool:
-                                    batch_note = ''
-                                batch_note += " (Iter)"
-                                batch_name = '(Iter)'
-
                             request_bats = append_bats[:]
                             submit_request(request, req_note, context, os, request_bats)
 
-                            if 'Iterations' in request.keys():  # reset iteration parameters
-                                reset_iterations()
-                                batch_name = None
-                                batch_note.replace(' (Iter)', '')
 if run_on_backup:
     print()
     for test in backup_tests:
@@ -2236,25 +2194,13 @@ if run_on_backup:
         if enableWPP and test[0] == 18:
             continue
 
-        if test_iteration:
-            HandleOptionTestIteration(['/iter', test[-1]])
-            if type(batch_note) is bool:
-                batch_note = ''
-            batch_note += " (Iter)"
-            batch_name = '(Iter)'
-
         submit_request(test)
 
-        if test_iteration:
-            reset_iterations()
-            batch_name = None
-            batch_note.replace(' (Iter)', '')
-
-# --------------------------------------------------------------------
+#--------------------------------------------------------------------
 #   DONE
-# --------------------------------------------------------------------
+#--------------------------------------------------------------------
 r = s.post('http://perf.eng.symantec.com/logout', data=payload)
-s.close()
+s.close();
 
 for file in open_files:
     file.close()
