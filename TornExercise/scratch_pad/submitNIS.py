@@ -1754,7 +1754,6 @@ def unpack_dictionary(req_dict, note, context, os, request_bats):
 
             if iteration_tag:
                 backup_iteration_tag[len(backup_tests) - 1] = iteration_tag
-                print(backup_iteration_tag)
 
     return test_id, mtype, config_batch, post_Appendbatch, context_types, ostypes,\
         matrix_tag, manual_parameter, env, bootlogs, working, tag, add_test_tag,\
