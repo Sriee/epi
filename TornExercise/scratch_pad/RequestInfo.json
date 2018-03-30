@@ -5,13 +5,13 @@
             { "Test ID": 18, "Machine Type": "As203", "Backup" : "HIGH5", "ADKLocation": "D:\\WBAM_1708v1.3", "Job.xml": "Job_FileCopy.xml", "Contexts": [{ "Context": "Product" }, { "Context": "Baseline" }], "OS Types": [{ "OS": "Win10x86" }], "Matrix Tag": "ADKFileCopy"}
         ],
         "3rdPartyInstall": [
-            { "Test ID": 17, "Machine Type": "MID33", "ATSScriptName": "3rdPartyInstall_automation.ats", "Contexts": [{ "Context": "N360" }, { "Context": "Baseline" }], "OS Types": [{ "OS": "Win10x64" }], "Iterations": "2"},
+            { "Test ID": 17, "Machine Type": "MID33", "ATSScriptName": "3rdPartyInstall_automation.ats", "Contexts": [{ "Context": "N360" }, { "Context": "Baseline" }], "OS Types": [{ "OS": "Win10x64" }], "Iterations": "1"},
             { "Test ID": 17, "Machine Type": "MID5", "ATSScriptName": "3rdPartyInstall_automation.ats", "Contexts": [{ "Context": "N360" }, { "Context": "Baseline" }], "OS Types": [{ "OS": "Win10x64" }]},
-            { "Test ID": 17, "Machine Type": "MID33", "Backup" : "HIGH18", "ATSScriptName": "3rdPartyInstall_automation.ats", "Contexts": [{ "Context": "N360" }, { "Context": "Baseline" }], "OS Types": [{ "OS": "Win10x86" }]},
-            { "Test ID": 17, "Machine Type": "MID33", "ATSScriptName": "3rdPartyInstall_automation.ats", "Contexts": [{ "Context": "N360" }, { "Context": "Baseline" }], "OS Types": [{ "OS": "Win7x64" }], "Iterations": "2"}
+            { "Test ID": 17, "Machine Type": "MID33", "Backup" : "HIGH18", "ATSScriptName": "3rdPartyInstall_automation.ats", "Contexts": [{ "Context": "N360" }, { "Context": "Baseline" }], "OS Types": [{ "OS": "Win10x86" }], "Iterations": "2"},
+            { "Test ID": 17, "Machine Type": "MID33", "ATSScriptName": "3rdPartyInstall_automation.ats", "Contexts": [{ "Context": "N360" }, { "Context": "Baseline" }], "OS Types": [{ "OS": "Win7x64" }], "Iterations": "3"}
         ],
         "ADKMediaTranscoding": [
-            { "Test ID": 18, "Machine Type": "MID33", "Backup" : "MID5", "ADKLocation": "D:\\Win10_ADK\\Win10_ADK5", "Job.xml": "Job.xml", "Contexts": [{ "Context": "Product" }, { "Context": "Baseline" }], "OS Types": [{ "OS": "Win10x64" }]},
+            { "Test ID": 18, "Machine Type": "MID33", "Backup" : "MID5", "ADKLocation": "D:\\Win10_ADK\\Win10_ADK5", "Job.xml": "Job.xml", "Contexts": [{ "Context": "Product" }, { "Context": "Baseline" }], "OS Types": [{ "OS": "Win10x64" }], "Iterations": "4"},
             { "Test ID": 18, "Machine Type": "MID5", "Backup" : "HIGH21", "ADKLocation": "D:\\Win10_ADK\\Win10_ADK5", "Job.xml": "Job.xml", "Contexts": [{ "Context": "Product" }, { "Context": "Baseline" }], "OS Types": [{ "OS": "Win10x86" }]}
         ],
         "Adobe": [

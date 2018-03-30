@@ -750,6 +750,7 @@ skip_os_list = []
 skip_tests = []
 skip_machine = []
 iteration_tag = None
+backup_iteration_tag = {}
 
 if len(sys.argv) >= 4:
     params = []
@@ -1610,8 +1611,6 @@ def run_test(s, context, build_number, note, test_name, machine_type, machine, o
         if iteration_tag:
             prepareData['status'], prepareData['iterations'] = 'INACTIVE', iteration_tag
 
-        retry = False   # TODO: Remove
-        '''
         url = database_server + prepare_php
         r = s.post(url, data=prepareData, files=file_dict)
         rmessage = r.content
@@ -1641,7 +1640,7 @@ def run_test(s, context, build_number, note, test_name, machine_type, machine, o
             time.sleep(2)
         else:
             print('  Posted for future execution')
-        '''
+
 
 def find_test(test_type_id, note, context, context_list, os, os_list, machine_type):
     found = False
@@ -1697,6 +1696,8 @@ def unpack_dictionary(req_dict, note, context, os, request_bats):
     global backup_tests
     global run_on_backup
     global manual_param
+    global iteration_tag
+
     test_id, mtype, bkp_mtype, config_batch, post_Appendbatch, context_types, ostypes,\
         matrix_tag, env, bootlogs, working, tag, add_test_tag, manual_parameter, isAddOns,\
         atsScriptName, adkLocation, jobXML, testName =\
@@ -1750,6 +1751,11 @@ def unpack_dictionary(req_dict, note, context, os, request_bats):
                 context_types, ostypes, matrix_tag, manual_parameter, env, bootlogs,\
                 working, tag, add_test_tag, note, context, os, request_bats, isAddOns,\
                 atsScriptName, adkLocation, jobXML, testName))
+
+            if iteration_tag:
+                backup_iteration_tag[len(backup_tests) - 1] = iteration_tag
+                print(backup_iteration_tag)
+
     return test_id, mtype, config_batch, post_Appendbatch, context_types, ostypes,\
         matrix_tag, manual_parameter, env, bootlogs, working, tag, add_test_tag,\
         isAddOns, atsScriptName, adkLocation, jobXML, testName
@@ -2135,8 +2141,14 @@ else:
                             if enableWPP and request['Test ID'] == 18:
                                 continue
 
+                            if 'Iterations' in request.keys():
+                                batch_name, iteration_tag = '(Iter)', request['Iterations']
+
                             request_bats = append_bats[:]
                             submit_request(request, req_note, context, os, request_bats)
+
+                            if 'Iterations' in request.keys():
+                                batch_name, iteration_tag = None, None
 
     # Iterate through all non-manual tests
     for i in range(iter_param):
@@ -2157,6 +2169,7 @@ else:
                             del request['Test Tag']
 
                         if 'Iterations' in request.keys():
+                            print(req_note, request['Iterations'])
                             batch_name, iteration_tag = '(Iter)', request['Iterations']
 
                         request_bats = append_bats[:]
@@ -2182,11 +2195,18 @@ else:
                             if enableWPP and request['Test ID'] == 18:
                                 continue
 
+                            if 'Iterations' in request.keys():
+                                batch_name, iteration_tag = '(Iter)', request['Iterations']
+
                             request_bats = append_bats[:]
                             submit_request(request, req_note, context, os, request_bats)
 
+                            if 'Iterations' in request.keys():
+                                batch_name, iteration_tag = None, None
+
 if run_on_backup:
     print()
+    i = 0
     for test in backup_tests:
         if test[1] in skip_machine:
             continue
@@ -2194,8 +2214,13 @@ if run_on_backup:
         if enableWPP and test[0] == 18:
             continue
 
-        submit_request(test)
+        if i in backup_iteration_tag:
+            batch_name, iteration_tag = '(Iter)', backup_iteration_tag[i]
 
+        submit_request(test)
+        i += 1
+        if i in backup_iteration_tag:
+            batch_name, iteration_tag = None, None
 #--------------------------------------------------------------------
 #   DONE
 #--------------------------------------------------------------------
