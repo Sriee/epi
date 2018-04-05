@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 
+
 class Root(Tk):
     def __init__(self, tasks=None):
         super().__init__()
@@ -11,25 +12,30 @@ class Root(Tk):
         self.tasks_frame = Frame(self.tasks_canvas)
         self.text_frame = Frame(self)
 
-        self.scroll_bar = Scrollbar(self.tasks_canvas, orient="vertical", command=self.tasks_canvas.yview)
+        self.scroll_bar = Scrollbar(self.tasks_canvas, orient="vertical",
+                                    command=self.tasks_canvas.yview)
         self.tasks_canvas.configure(yscrollcommand=self.scroll_bar.set)
 
         # Color schemes
-        self.color_scheme = [{'bg': 'lightgrey', 'fg': 'black'}, {'bg': 'grey', 'fg': 'white'}]
+        self.color_scheme = [{'bg': 'lightgrey', 'fg': 'black'},
+                             {'bg': 'grey', 'fg': 'white'}]
         self.task_list = tasks or []
 
         # Packing
         self.tasks_canvas.pack(side=TOP, fill=BOTH, expand=1)
         self.scroll_bar.pack(side=RIGHT, fill=Y)
 
-        self.canvas_area = self.tasks_canvas.create_window((0, 0), window=self.tasks_frame, anchor="n")
+        self.canvas_area = self.tasks_canvas.create_window((0, 0),
+                                                           window=self.tasks_frame,
+                                                           anchor="n")
         self.create_note = Text(self.text_frame, height=3, bg='white', fg='black')
         
         self.create_note.pack(side=BOTTOM, fill=X)
         self.text_frame.pack(side=BOTTOM, fill=X)
         self.create_note.focus_set()
 
-        h = Label(self, text='--Add Text here--', pady=10, bg=self.color_scheme[0]['bg'], fg=self.color_scheme[0]['fg'])
+        h = Label(self, text='--Add Text here--', pady=10, bg=self.color_scheme[0]['bg'],
+                  fg=self.color_scheme[0]['fg'])
         h.bind("<Button-1>", self.remove_task)
 
         self.task_list.append(h)
