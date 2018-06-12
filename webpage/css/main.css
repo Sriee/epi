@@ -1,0 +1,62 @@
+@font-face {
+  font-family: Lato-Regular;
+  src: url('../fonts/Lato/Lato-Regular.ttf'); 
+}
+
+@font-face {
+  font-family: Lato-Bold;
+  src: url('../fonts/Lato/Lato-Bold.ttf'); 
+}
+
+table {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+th, td {
+  position: relative;
+  border: 1px solid black;
+}
+
+.container {
+  width: 1400px;
+  min-height: 100vh;
+  background: #fff;
+  margin: 0 auto;
+}
+
+.summary-wrap {
+  width: 1000px;
+  margin: 0 auto;
+  align-items: center;
+  padding: 15px 15px;
+}
+
+.summary th {
+  font-family: Lato-Bold;
+  font-size: 18px;
+  color: #fa4251;
+  line-height: 1.4;
+  background-color: transparent;
+}
+
+.summary td {
+  font-family: Lato-Regular;
+  font-size: 15px;
+  color: #808080;
+  line-height: 1.4;
+}
+
+.summary tr {
+  border-bottom: 1px solid #f2f2f2;
+}
+
+textarea {
+  width: 100%;
+  top: 0; left: 0; right: 0; bottom: 0;
+  position: absolute;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
