@@ -1,3 +1,6 @@
+/*-------------------------------------------- */
+/* [FONT] */
+
 @font-face {
   font-family: Lato-Regular;
   src: url('../fonts/Lato/Lato-Regular.ttf'); 
@@ -8,44 +11,34 @@
   src: url('../fonts/Lato/Lato-Bold.ttf'); 
 }
 
+/*--------------------------------------------*/
+/* [COMMON ATTRIBUTES] */
+
 table {
   width: 100%;
   margin: 0 auto;
   position: relative;
 }
 
-th, td {
+th {
+  font-family: Lato-Bold;
+  font-size: 18px;
+  color: #4272d7;
+  line-height: 1.4;
+  background-color: transparent;
   position: relative;
 }
 
-.container {
-  width: 1366px;
-  min-height: 100vh;
-  background: #fff;
-  margin: 0 auto;
-  /*border: 1px solid red;*/
+td {
+  font-family: Lato-Regular;
+  font-size: 15px;
+  color: solid black;
+  line-height: 1.4;
+  position: relative;
 }
 
-.summary-wrap {
-  width: 1000px;
-  margin: 0 auto;
-  align-items: center;
-  padding: 15px 15px;
- /* border: 1px solid green; */
-}
-
-/*
-.summary thead {
-  box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.1);
-  -o-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.1);
-  -ms-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.1);
-}
-*/
-
-.summary thead {
-  border-radius: 10px;
+thead {
+  border-radius: 5px;
   overflow: hidden;
   box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
@@ -54,35 +47,10 @@ th, td {
   -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
 }
 
-.summary th {
-  font-family: Lato-Bold;
-  font-size: 18px;
-  color: #fa4251;
-  line-height: 1.4;
-  background-color: transparent;
-}
-
-.summary td {
-  font-family: Lato-Regular;
-  font-size: 15px;
-  color: solid black;
-  line-height: 1.4;
-}
-
-.summary tbody {
+tbody {
   background-color: #f7f7f7;
 }
 
-/*
-.summary tr {
-  border-bottom: 1px solid red;
-  background-color: #ebebeb;
-}
-
-.summary tr:nth-child(even) {
-  background-color: #ebebeb;
-}
-*/
 textarea {
   width: 100%;
   font-family: Lato-Regular;
@@ -95,3 +63,97 @@ textarea {
   background-color: transparent;
   border: none;
 }
+
+.container {
+  width: 1366px;
+  min-height: 100vh;
+  background: #fff;
+  margin: 0 auto;
+}
+
+/*--------------------------------------------*/
+/* [SUMMARY TABLE] */
+
+.summary-wrap {
+  width: 1000px;
+  margin: 0 auto;
+  align-items: center;
+  padding: 15px 15px;
+}
+
+/*--------------------------------------------*/
+/* [METRICS TABLES] */
+
+.metrics-wrap {
+  width: 1000px;
+  margin: 0 auto;
+  align-items: center;
+  padding: 20px 15px;
+}
+
+.metrics tr td:first-child {
+  padding-left: 10px;
+  width: 20%;
+} 
+
+.green_status
+{
+  cursor: pointer;
+  display: inline-block;
+  float: left;
+  padding-top:10px;
+  width: 8px;
+  height: 40px;
+  background-color: green;
+}
+
+.warning_status
+{
+  cursor: pointer;
+  display: inline-block;
+  float: left;
+  padding-top:10px;
+  width: 8px;
+  height: 40px;
+  background-color: orange;
+}
+
+.alert_status
+{
+  cursor: pointer;
+  display: inline-block;
+  float: left;
+  padding-top:10px;
+  width: 8px;
+  height: 40px; 
+  background-color: red;
+}
+
+.results
+{
+  background-color: transparent;
+  font-family: Lato-Regular;
+  padding-top: 5px;
+  padding-left: 50px;
+  width: 95%;
+  height: 100%;
+  margin-left: 5%;
+  display: block;
+  vertical-align: middle;
+  resize: none;
+}
+
+/*--------------------------------------------*/
+/* [GOALS TABLES] */
+
+.goals-wrap {
+  width: 400px;
+  margin: 0 auto;
+  padding: 20px 20px;
+}
+
+.goals-wrap table {
+  table-layout: fixed;
+}
+
+/*--------------------------------------------*/
