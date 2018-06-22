@@ -23,7 +23,7 @@ table {
 th {
   font-family: Lato-Bold;
   font-size: 18px;
-  color: #4272d7;
+  color: #fa4251;
   line-height: 1.4;
   background-color: transparent;
   position: relative;
@@ -65,7 +65,7 @@ textarea {
 }
 
 .container {
-  width: 1366px;
+  width: 1600px;
   min-height: 100vh;
   background: #fff;
   margin: 0 auto;
@@ -85,15 +85,15 @@ textarea {
 /* [METRICS TABLES] */
 
 .metrics-wrap {
-  width: 1000px;
+  width: 1500px;
   margin: 0 auto;
   align-items: center;
   padding: 20px 15px;
 }
 
 .metrics tr td:first-child {
-  padding-left: 10px;
-  width: 20%;
+  padding-left: 15px;
+  width: 10%;
 } 
 
 .green_status
@@ -134,10 +134,10 @@ textarea {
   background-color: transparent;
   font-family: Lato-Regular;
   padding-top: 5px;
-  padding-left: 50px;
-  width: 95%;
+  padding-left: 5px;
+  width: 90%;
   height: 100%;
-  margin-left: 5%;
+  margin-left: 10%;
   display: block;
   vertical-align: middle;
   resize: none;
