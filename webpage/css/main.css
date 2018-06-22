@@ -23,7 +23,7 @@ table {
 th {
   font-family: Lato-Bold;
   font-size: 18px;
-  color: #fa4251;
+  color: #4272d7;
   line-height: 1.4;
   background-color: transparent;
   position: relative;
@@ -65,7 +65,6 @@ textarea {
 }
 
 .container {
-  width: 1600px;
   min-height: 100vh;
   background: #fff;
   margin: 0 auto;
@@ -75,7 +74,7 @@ textarea {
 /* [SUMMARY TABLE] */
 
 .summary-wrap {
-  width: 1000px;
+  width: 75%;
   margin: 0 auto;
   align-items: center;
   padding: 15px 15px;
@@ -85,10 +84,19 @@ textarea {
 /* [METRICS TABLES] */
 
 .metrics-wrap {
-  width: 1500px;
+  width: 95%;
   margin: 0 auto;
   align-items: center;
   padding: 20px 15px;
+  position: relative;
+}
+
+.metrics-wrap-small {
+  width: 75%;
+  margin: 0 auto;
+  align-items: center;
+  padding: 20px 15px;
+  position: relative;
 }
 
 .metrics tr td:first-child {
