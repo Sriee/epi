@@ -2,3 +2,5 @@
 *.pyc
 *.log
 .idea
+*.sublime-project
+*.sublime-workspace
