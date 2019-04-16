@@ -123,7 +123,7 @@ public class Traversal {
 
         TreeNode node = new TreeNode(values[idx]);
         node.left = this.construct(values, 2 * idx + 1);
-        node.right = this.construct(values, 2 *idx + 2);
+        node.right = this.construct(values, 2 * idx + 2);
         return node;
     }
 
@@ -177,6 +177,18 @@ public class Traversal {
     	return result;
     }
     
+    /**
+     * Calculate height of a Binary Tree
+     * 
+     * @param root Root of the tree
+     * @return height of the tree 
+     */
+    public int height(TreeNode root) {
+        if(root == null)
+            return 0;
+        return 1 + Math.max(this.height(root.left), this.height(root.right)); 
+    }
+
     public static void main(String[] args) {
         Traversal s = new Traversal();
         int[] values = new int[3];
