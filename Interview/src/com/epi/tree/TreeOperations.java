@@ -100,4 +100,34 @@ public class TreeOperations {
 		return this.checkBalanced(root).balanced;
 	}
 
+	/**
+	 * Merge tree's
+	 * 
+	 * Conditions: 
+	 *     - If there are nodes in the same position for both the tree's; the merged node should contain the sum value of both nodes 
+	 *     - If a node is missing in one of the tree's the merged tree should contain the node which is present
+	 *	
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * @param tree1 root node of first tree
+	 * @param tree2 root node of second tree
+	 * @return root node of merged tree
+	 */
+	public TreeNode merge(TreeNode tree1, TreeNode tree2) {
+		if(tree1 == null && tree2 == null)
+			return null;
+
+		if(tree1 == null)
+			return tree2;
+
+		if(tree2 == null)
+			return tree1;
+
+		// Choosing tree1 to hold the result of the merged tree
+		tree1.left = this.merge(tree1.left, tree2.left);
+		tree1.right = this.merge(tree1.right, tree2.right);
+		tree1.val += tree2.val;
+
+		return tree1;  
+	}
 }
