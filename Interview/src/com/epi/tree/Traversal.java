@@ -189,6 +189,21 @@ public class Traversal {
         return 1 + Math.max(this.height(root.left), this.height(root.right)); 
     }
 
+    /**
+     * Print Binary Tree on the console
+     * 
+     * @param elements should be of format List<List<T>>
+     */
+    public void print(List<List<TreeNode>> elements) {
+        System.out.print("[");
+        for(List<Integer> inner : elements){
+            for(Integer val : inner) {
+                System.out.print(val + " ");        
+            }    
+        }
+        System.out.println("]");
+    }
+
     public static void main(String[] args) {
         Traversal s = new Traversal();
         int[] values = new int[3];
