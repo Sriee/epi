@@ -178,6 +178,45 @@ public class Traversal {
     }
     
     /**
+     * Diameter of a tree
+     * 
+     * Diameter is defined as the maximum distance between two leaf nodes. Multiple maximum distances are possible
+     * Diameter doesn't have to pass through the root node
+     * 
+     * Leet code. Solution -> Accepted
+     *
+     * @param root root node of a tree
+     * @return diameter of the tree
+     */
+    public int diameter(TreeNode root) {
+        this.ans = 1;
+        this.calculateDiameter(root);
+        return this.ans - 1;
+    }
+
+    public int ans;     // Global variable to hold the diameter 
+    
+    /**
+     * Helper method to calculate diameter of the tree
+     *
+     * @param node current traversed node
+     * @return height at the traversed node    
+     */
+    public int calculateDiameter(TreeNode node) {
+        if(node == null)
+            return 0;
+
+        int leftSubTree = this.calculateDiameter(node.left);    // Height of the left sub tree
+        int rightSubTree = this.calculateDiameter(node.right);  // Height of the right sub tree
+
+        // Height of a sub tree will tell us the furthest leaf node. We add 1 as we consider this node 
+        // Sum of the them would give us the diameter at this node. We take the max diameter that we know so far
+        this.ans = Math.max(ans, leftChild + rightChild + 1);
+
+        return 1 + Math.max(leftSubTree, rightSubTree);
+    }
+
+    /**
      * Calculate height of a Binary Tree
      * 
      * @param root Root of the tree
