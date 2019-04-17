@@ -190,6 +190,37 @@ public class Traversal {
     }
 
     /**
+     * Calculate minimum depth of a tree
+     * 
+     * Note:
+     *   - For [1, 2, null] the depth is 2 not 1, since there is a left child for node:1  
+     *   - For [1] the depth is 1 
+     * 
+     * There is a difference between height and depth. We calculate the height based on the number of edges from root to leaf node
+     * where as depth is based on the levels of the tree. We start depth from level 1. 
+     *  
+     * Leet code. Solution -> Accepted
+     *
+     * @param root root node of a tree
+     * @return minimum depth of a tree
+     */
+    public int minDepth(TreeNode root) {
+        if(root == null)
+            return 0;
+
+        if(root.left == null)
+            return 1 + this.minDepth(root.right);
+
+        if(root.right == null)
+            return 1 + this.minDepth(root.left);
+
+        int leftHeight = this.minDepth(root.left);
+        int rightHeight = this.minDepth(root.right);
+
+        return 1 + Math.min(leftHeight, rightHeight);
+    }
+
+    /**
      * Print Binary Tree on the console
      * 
      * @param elements should be of format List<List<T>>
