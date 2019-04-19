@@ -161,4 +161,35 @@ public class TreeOperations {
 			return false;
 		return this.pathDFS(root, sum, 0);
 	}
+
+	/**
+	 * Helper method for sum of binary tree computation
+	 *
+	 * @param node current traversed node
+	 * @param val sum up to current node
+	 * @return sum of binary numbers from root to leaf in base 10
+	 */
+	private int dfs(TreeNode node, int val) {
+		if(node == null)
+			return 0;
+		val = val * 2 + node.val;
+		return node.left == node.right ? val : this.dfs(node.left, val) + this.dfs(node.right, val);
+	}
+
+	/**
+	 * Given a binary tree, each node has value 0 or 1.  Each root-to-leaf path represents a binary number starting with
+	 * the most significant bit.  For example, if the path is 0 -> 1 -> 1 -> 0 -> 1, then this could represent 01101 in
+	 * binary, which is 13.
+	 *
+	 * For all leaves in the tree, consider the numbers represented by the path from the root to that leaf.
+	 *
+	 * Leet code. Solution -> accepted
+	 * @param root root node of a tree
+	 * @return the sum of these numbers
+	 */
+	public int sumOfBinaryTree(TreeNode root) {
+		if(root == null)
+			return 0;
+		return this.dfs(root, 0);
+	}
 }
