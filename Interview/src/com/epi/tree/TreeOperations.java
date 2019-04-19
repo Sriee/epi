@@ -130,4 +130,35 @@ public class TreeOperations {
 
 		return tree1;  
 	}
+
+	/**
+	 *  Helper function for path to sum caculation
+	 *
+	 * @param node current traversed node
+	 * @param sum	sum to compare
+	 * @param soFar	value up to so far traversed node
+	 * @return	true if root to leaf path has the sum, false otherwise
+	 */
+	private boolean pathDFS(TreeNode node, int sum, int soFar) {
+		if(node == null)
+			return false;
+		soFar += node.val;
+		return node.left == node.right ? soFar == sum : this.pathDFS(node.left, sum, soFar) || this.pathDFS(node.right, sum, soFar);
+	}
+
+	/**
+	 *	Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up all the
+	 *	values along the path equals the given sum.
+	 *
+	 *	Leet code. Solution -> accepted
+	 *
+	 * @param root root node of a tree
+	 * @param sum root to leaf path sum to compare
+	 * @return true if root to leaf path has the sum, false otherwise
+	 */
+	public boolean pathSum(TreeNode root, int sum) {
+		if(root == null)
+			return false;
+		return this.pathDFS(root, sum, 0);
+	}
 }
