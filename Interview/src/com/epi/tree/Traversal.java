@@ -117,7 +117,7 @@ public class Traversal {
     		return result;
     }
     
-    private TreeNode construct(int[] values, int idx){
+    public TreeNode construct(int[] values, int idx){
         if(idx >= values.length)
             return null;
 
@@ -211,7 +211,7 @@ public class Traversal {
 
         // Height of a sub tree will tell us the furthest leaf node. We add 1 as we consider this node 
         // Sum of the them would give us the diameter at this node. We take the max diameter that we know so far
-        this.ans = Math.max(ans, leftChild + rightChild + 1);
+        this.ans = Math.max(ans, leftSubTree + rightSubTree + 1);
 
         return 1 + Math.max(leftSubTree, rightSubTree);
     }
@@ -264,7 +264,7 @@ public class Traversal {
      * 
      * @param elements should be of format List<List<T>>
      */
-    public void print(List<List<TreeNode>> elements) {
+    public void print(List<List<Integer>> elements) {
         System.out.print("[");
         for(List<Integer> inner : elements){
             for(Integer val : inner) {

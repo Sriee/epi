@@ -150,7 +150,6 @@ public class GroupList {
 	public static void main(String[] args) {
 		GroupList gl = new GroupList();
 
-		/*
 		ListNode<Integer> head = new ListNode<>(1);
 		head.next = new ListNode<>(2);
 		head.next.next = new ListNode<>(2);
@@ -184,7 +183,7 @@ public class GroupList {
 		System.out.println("\nPartitioned");
 		ListNode<Integer> part = gl.partition(headb, 35);
 		ListUtil.print(part);
-		*/
+
 
 		ListNode<Integer> lst = ListUtil.generate(15);
         ListUtil.print(lst);

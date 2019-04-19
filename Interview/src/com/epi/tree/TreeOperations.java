@@ -93,7 +93,7 @@ public class TreeOperations {
 	 *  visiting O(h) for best case and O(n) for worst case scenario. This is because, while traversing if any of the subtree is not
 	 *  balanced, you won't be traversing through the other subtree.
 	 *
-	 * @param node root of the tree
+	 * @param root root of the tree
 	 * @return true if the tree is balanced, false otherwise
 	 */	
 	public boolean isBalanced(TreeNode root) {
