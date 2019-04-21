@@ -223,4 +223,33 @@ public class TreeOperations {
 		this.invert(root);
 		return root;
 	}
+	
+	/**
+	 * Helper method for find the sum of left leaves
+	 * 
+	 * @param node of a tree 
+	 * @param isLeft true if the node a left child of parent false otherwise
+	 * @return sum of the left leaves
+	 */
+	public int sum(TreeNode node, boolean isLeft) {
+		if(node == null)
+			return 0;
+		if(node.left == node.right)
+			return (isLeft) ? node.val : 0;
+		
+		return this.sum(node.left, true) + this.sum(node.right, false);
+	}
+	
+	/**
+	 * Find the sum of all the left leaves in a binary tree
+	 * 
+	 * Leet code. Solution -> Accepted
+	 * @param root node of the tree
+	 * @return sum of the left leaves 
+	 */
+	public int sumOfLeftLeaves(TreeNode root) {
+		if(root == null)
+			return 0;
+		return this.sum(root.left, true) + this.sum(root.right, false);
+	}
 }
