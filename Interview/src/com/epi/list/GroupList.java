@@ -1,6 +1,5 @@
 package com.epi.list;
 
-import java.util.List;
 
 public class GroupList {
 
@@ -126,6 +125,7 @@ public class GroupList {
 		return head;
 	}
 
+	@SuppressWarnings("unchecked")
 	public <P extends Comparable<P>> ListNode<P>[] splitList(ListNode<P> head, int k){
 		ListNode<P>[] splits = new ListNode[k];
 
@@ -183,7 +183,6 @@ public class GroupList {
 		System.out.println("\nPartitioned");
 		ListNode<Integer> part = gl.partition(headb, 35);
 		ListUtil.print(part);
-
 
 		ListNode<Integer> lst = ListUtil.generate(15);
         ListUtil.print(lst);
