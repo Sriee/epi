@@ -192,4 +192,35 @@ public class TreeOperations {
 			return 0;
 		return this.dfs(root, 0);
 	}
+	
+	/**
+	 * Helper for inverting tree  
+	 * 
+	 * @param node Traversed node  
+	 */
+	public void invert(TreeNode node) {
+		if(node == null)
+			return;
+		
+		TreeNode temp = node.left;
+		node.left = node.right;
+		node.right = temp;
+		this.invert(node.left);
+		this.invert(node.right);
+	}
+	
+	/**
+	 * Invert a binary tree
+	 * 
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * @param root root of a tree 
+	 * @return root of inverted tree
+	 */
+	public TreeNode invertTree(TreeNode root) {
+		if(root == null)
+			return null;
+		this.invert(root);
+		return root;
+	}
 }
