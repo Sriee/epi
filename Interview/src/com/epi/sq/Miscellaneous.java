@@ -1,8 +1,6 @@
 package com.epi.sq;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class Miscellaneous {
 	
@@ -239,6 +237,23 @@ public class Miscellaneous {
 	while(idx < digits && stack[idx] == '0') idx++;
 
 	return (idx == digits) ? "0" : new String(stack, idx, digits - idx);
+    }
+    
+    
+    Queue<Integer> counter = new ArrayDeque<>();
+    /**
+     * Count any ping within time frame [t - 3000, t] including the current ping.
+	 *
+	 * Leet code. Solution -> Accepted
+	 * 
+     * @param t represents some time in milliseconds
+     * @return the number of pings that have been made from 3000 milliseconds ago until now
+     */
+    public int pingCounter(int t) {
+    	counter.add(t);
+    	while(counter.peek() < t - 3000)
+    		counter.poll();
+    	return counter.size();
     }
     
 	public static void main(String[] args) {
