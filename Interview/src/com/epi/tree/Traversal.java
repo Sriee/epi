@@ -2,8 +2,11 @@ package com.epi.tree;
 
 import java.util.List;
 import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.Stack;
 import java.util.Queue;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 
 public class Traversal {
 	
@@ -135,6 +138,31 @@ public class Traversal {
         this.inOrder(root.right);
     }
 
+    /**
+     * In order traversal using stack
+     * 
+     * Leet code. Solution -> accepted
+     * 
+     * @param root of the tree
+     * @return List of inorder traversed node
+     */
+    public List<Integer> inOrderStack(TreeNode root) {
+    	List<Integer> result = new ArrayList<>();
+    	Stack<TreeNode> stack = new Stack<>();
+    	TreeNode current = root;
+    	
+    	while(current != null || !stack.isEmpty()) {
+    		while(current != null) {
+    			stack.push(current);
+    			current = current.left;
+    		}
+    		
+    		current = stack.pop();
+    		result.add(current.val);
+    	}
+    	return result;
+    }
+    
     public void preOrder(TreeNode root){
         if(root == null) return;
 
