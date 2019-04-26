@@ -201,6 +201,33 @@ public class Traversal {
     }
 
     /**
+     * Post-Order Traversal stack
+     * 
+     * Leet code. Solution -> Accepted
+     * 
+     * @param root of the tree
+     * @return List of nodes visited using post-order traversal
+     */
+    public List<Integer> postOrderStack(TreeNode root) {
+    	List<Integer> result = new LinkedList<>();
+    	Stack<TreeNode> stack = new Stack<>();
+    	
+    	if(root == null)
+    		return result;
+    	
+    	stack.push(root);
+    	while(!stack.isEmpty()) {
+    		TreeNode current = stack.pop();
+    		result.add(0, root.val);
+    		if(current.left != null)
+    			stack.push(current.left);
+    		if(current.right != null)
+    			stack.push(current.right);
+    	}
+    	return result;
+    }
+    
+    /**
      * Pre-order Traversal iteratively
      * 
      * Leet code. Solution -> Accepted
