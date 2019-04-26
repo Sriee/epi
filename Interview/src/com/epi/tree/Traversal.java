@@ -171,6 +171,28 @@ public class Traversal {
         this.preOrder(root.right);
     }
 
+    /**
+     * Pre-order traversal using tack
+     * 
+     * @param root of the tree
+     * @return Lis ot pre order traversed node
+     */
+    public List<Integer> preOrderStack(TreeNode root) {
+    	List<Integer> result = new LinkedList<>();
+    	List<TreeNode> queue = new LinkedList<>();
+    	
+    	queue.add(root);
+    	while(!queue.isEmpty()) {
+    		TreeNode node = queue.remove(0);
+    		if(node != null) {
+    			result.add(node.val);
+    			queue.add(0, node.left);
+    			queue.add(1, node.right);
+    		}
+    	}
+    	return result;
+    }
+    
     public void postOrder(TreeNode root){
         if(root == null) return;
         this.postOrder(root.left);
