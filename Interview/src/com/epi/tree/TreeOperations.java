@@ -289,5 +289,20 @@ public class TreeOperations {
             current = current.right;
         
         current.right = temp;
-    }	
+    }
+    
+    /**
+     * Size of the tree
+     * 
+     * Leet code. Solution -> Accepted
+     * 
+     * @param root of the tree 
+     * @return number of nodes in a tree
+     */
+    public long countNodes(TreeNode root) {
+    	if(root == null)
+    		return 0;
+    	return 1 + this.countNodes(root.left) + this.countNodes(root.right);
+    }
+    
 }
