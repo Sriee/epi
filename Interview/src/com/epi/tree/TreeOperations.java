@@ -252,4 +252,42 @@ public class TreeOperations {
 			return 0;
 		return this.sum(root.left, true) + this.sum(root.right, false);
 	}
+
+	/**
+	 * Given a binary tree, flatten it to a linked list in-place.
+	 * 
+	 * Example: 
+	 * 	   1
+	 *    /
+	 *   3
+	 *  /
+	 * 5  
+	 * 
+	 * should be flattened as
+	 * 
+	 * 1 
+	 *  \
+	 *   3
+	 *    \
+	 *     5
+	 *     
+	 * @param root of the binary tree
+	 */
+    public void flatten(TreeNode root) {
+        if(root == null)
+            return;
+        
+        flatten(root.left);
+        flatten(root.right);
+        
+        TreeNode temp = root.right;
+        root.right = root.left;
+        root.left = null;
+        
+        TreeNode current = root;
+        while(current.right != null)
+            current = current.right;
+        
+        current.right = temp;
+    }	
 }
