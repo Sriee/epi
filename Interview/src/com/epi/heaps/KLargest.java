@@ -1,6 +1,10 @@
 package com.epi.heaps;
 
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 public class KLargest {
@@ -70,5 +74,43 @@ public class KLargest {
 		}
 		
 		return queue.isEmpty() ? 0 : queue.peek();
+	}
+	
+	/**
+	 * Leet code problem. Solution -> Accepted
+	 * 
+	 * Compute the k most frequent numbers
+	 * 
+	 * @param nums 
+	 * @param k
+	 * @return list of k frequent numbers in the given array
+	 */
+	public List<Integer> topKFrequent(int[] nums, int k) {
+		Map<Integer, Integer> map = new HashMap<>();
+		List<Integer> result = new LinkedList<>();
+		PriorityQueue<Map.Entry<Integer, Integer>> queue = new PriorityQueue<>(new Comparator<Map.Entry<Integer, Integer>>() {
+			@Override
+			public int compare(Map.Entry<Integer, Integer> e1, Map.Entry<Integer, Integer> e2) {
+				return e2.getValue().compareTo(e1.getValue());
+			}
+		});
+		for(int i : nums) {
+			if(map.containsKey(i)) {
+				map.put(i, map.get(i) + 1);
+			} else {
+				map.put(i, 1);
+			}
+		}
+		
+		for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
+			queue.add(entry);
+		}
+		
+		while(k != 0) {
+			k--;
+			result.add(queue.poll().getKey());
+		}
+		
+		return result;
 	}
 }
