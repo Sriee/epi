@@ -1,11 +1,6 @@
 package com.epi.heaps;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class KLargest {
 	PriorityQueue<Integer> queue = null;
@@ -91,26 +86,22 @@ public class KLargest {
 		PriorityQueue<Map.Entry<Integer, Integer>> queue = new PriorityQueue<>(new Comparator<Map.Entry<Integer, Integer>>() {
 			@Override
 			public int compare(Map.Entry<Integer, Integer> e1, Map.Entry<Integer, Integer> e2) {
-				return e2.getValue().compareTo(e1.getValue());
+				return e1.getValue().compareTo(e2.getValue());
 			}
 		});
-		for(int i : nums) {
-			if(map.containsKey(i)) {
-				map.put(i, map.get(i) + 1);
-			} else {
-				map.put(i, 1);
-			}
-		}
-		
+		for(int i : nums)
+			map.put(i, map.getOrDefault(i, 0) + 1);
+
 		for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
 			queue.add(entry);
+			if(queue.size() > k)
+				queue.poll();
 		}
 		
 		while(k != 0) {
 			k--;
-			result.add(queue.poll().getKey());
+			result.add(0, queue.poll().getKey());
 		}
-		
 		return result;
 	}
 }
