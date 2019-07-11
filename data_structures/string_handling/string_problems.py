@@ -51,6 +51,20 @@ def zig_zag(s, num_rows):
 
 
 def is_palindrome(x):
+    """
+    Leet code. Solution -> Accepted
+
+    Given an input string, check whether it's a palindrome or not. Numbers could also be input strings.
+
+    Example:
+        "abb" -> False
+        "abba" -> True
+        "121" -> True
+        "0P" -> False
+
+    :param x: Input String
+    :return: True if the string is a palindrome, False otherwise
+    """
     s = str(x)
     return s == s[::-1]
 
@@ -164,7 +178,6 @@ def int_to_roman(num):
 
 
 # zig_zag('PAYPALISHIRING', 4)
-# print(is_palindrome(121))
 # print(div(-2147483648, -1))
 # print(strStr2("", "ll"))
 
