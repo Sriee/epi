@@ -12,7 +12,6 @@ class TestBinaryHeapMax(unittest.TestCase):
         self.max_heap.insert(9)
         self.max_heap.insert(12)
 
-        print self.max_heap.max_heap_list
         self.assertEqual(self.max_heap.find_max(), 12)
 
     def test_helper(self):
