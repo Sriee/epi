@@ -69,34 +69,19 @@ def is_palindrome(x):
     return s == s[::-1]
 
 
-def div(dividend, divisor):
-    if dividend == 0:
-        return 0
-
-    pos = (dividend < 0) is (divisor < 0)
-    dividend, divisor = abs(dividend), abs(divisor)
-    res = 0
-
-    if divisor == 1:
-        if not pos:
-            dividend = -dividend
-        return min(max(-2147483648, dividend), 2147483647)
-
-    while divisor <= dividend:
-        temp, i = dividend, 1
-        while dividend >= temp:
-            dividend -= temp
-            res += i
-            i <<= 1
-            temp <<= 1
-
-    if not pos:
-        res = -res
-
-    return min(max(-2147483648, res), 2147483647)
-
-
 def strStr(haystack, needle):
+    """
+    Leet code. Time Limit Exceeded
+
+    Implement str.find() function
+
+    For some reason, using python string slicing is faster than checking individual characters in a while loop. In a
+    logical stand point, the operations are same.
+
+    :param haystack: Input String
+    :param needle: String index to find
+    :return: index of first found instance of needle in haystack
+    """
     if needle == "":
         return 0
 
@@ -120,11 +105,19 @@ def strStr(haystack, needle):
 
 
 def strStr2(haystack, needle):
+    """
+    Leet code. Solution -> Accepted
+
+    Implement str.find() function
+
+    :param haystack: Input String
+    :param needle: String index to find
+    :return: index of first found instance of needle in haystack
+    """
     if needle == '':
         return 0
 
     for i in range(len(haystack) - len(needle) + 1):
-        print(i, haystack[i: i + len(needle)])
         if haystack[i: i + len(needle)] == needle:
             return i
     return -1
@@ -178,8 +171,5 @@ def int_to_roman(num):
 
 
 # zig_zag('PAYPALISHIRING', 4)
-# print(div(-2147483648, -1))
-# print(strStr2("", "ll"))
-
 # int_to_roman(3x)
 int_to_roman(488)
