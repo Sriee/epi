@@ -1,4 +1,16 @@
 def reverse_vowels(inp):
+    """
+    Leet code. Solution -> Accepted
+
+    Given a string, reverse the positions of vowels alone. Input string will only have lower case letters
+
+    Example:
+        "love"     -> "levo"
+        "leetcode" -> "leotcede"
+
+    :param inp: Input string
+    :return: String with vowels in the reversed order
+    """
     res, i, j = '', 0, len(inp) - 1
     vowels = {'a', 'e', 'i', 'o', 'u'}
 
@@ -13,7 +25,7 @@ def reverse_vowels(inp):
 
         res += inp[i]
 
-    print(res)
+    return res
 
 
 def zig_zag(s, num_rows):
@@ -151,7 +163,6 @@ def int_to_roman(num):
     print(ans)
 
 
-# reverse_vowels('hello')
 # zig_zag('PAYPALISHIRING', 4)
 # print(is_palindrome(121))
 # print(div(-2147483648, -1))
