@@ -1,4 +1,5 @@
 import heapq
+import math
 
 
 class MedianFinder(object):
@@ -61,6 +62,56 @@ def median_sorted_arrays(nums1, nums2):
         return (res[mid] + res[mid - 1]) / 2
     else:
         return float(res[mid])
+
+
+def median_sorted_arrays_optimized(nums1, nums2):
+    """
+    Leet code. Solution -> accepted
+
+    Optimized version of finding median of 2 sorted arrays
+
+    :param nums1: array 1
+    :param nums2: array 2
+    :return: median of a sorted array
+    """
+    heap, res, mid = [], [], 0
+
+    if len(nums1) == 0:
+        res = nums2
+    elif len(nums2) == 0:
+        res = nums1
+
+    if len(nums1) == 0 or len(nums2) == 0:
+        mid = len(res) // 2
+        if len(res) % 2 == 0:
+            return (res[mid] + res[mid - 1]) / 2
+        else:
+            return float(res[mid])
+    else:
+        if (len(nums1) + len(nums2)) % 2 == 0:
+            mid = (len(nums1) + len(nums2)) // 2
+        else:
+            mid = math.ceil((len(nums1) + len(nums2)) / 2)
+
+        heapq.heappush(heap, (nums1[0], 0, 0))
+        heapq.heappush(heap, (nums2[0], 1, 0))
+
+    while heap:
+        current = heapq.heappop(heap)
+        res.append(current[0])
+
+        if len(res) == mid:
+            break
+
+        if current[1] == 0 and current[2] + 1 < len(nums1):
+            heapq.heappush(heap, (nums1[current[2] + 1], 0, current[2] + 1))
+        elif current[1] == 1 and current[2] + 1 < len(nums2):
+            heapq.heappush(heap, (nums2[current[2] + 1], 1, current[2] + 1))
+
+    if (len(nums1) + len(nums2)) % 2 == 0:
+        return (res[-1] + res[-2]) / 2
+    else:
+        return float(res[-1])
 
 
 a = MedianFinder()
