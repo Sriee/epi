@@ -2,8 +2,13 @@ import heapq
 
 
 class MedianFinder(object):
-
     def __init__(self):
+        """
+        Leet code. Solution -> Accepted
+
+        Calculate running median
+
+        """
         self.min_heap, self.max_heap = [], []
 
     def add_num(self, val):
@@ -19,6 +24,43 @@ class MedianFinder(object):
         else:
             res = self.min_heap[0]
         return float(res)
+
+
+def median_sorted_arrays(nums1, nums2):
+    """
+    Leet code. Solution -> Accepted
+
+    Find median between 2 sorted array
+
+    :param nums1: array 1
+    :param nums2: array 2
+    :return: median of the sorted array
+    """
+    heap, res, median = [], [], 0
+
+    if len(nums1) == 0:
+        res = nums2
+    elif len(nums2) == 0:
+        res = nums1
+    else:
+        heapq.heappush(heap, (nums1[0], 0, 0))
+        heapq.heappush(heap, (nums2[0], 1, 0))
+
+    while heap:
+        current = heapq.heappop(heap)
+        res.append(current[0])
+
+        if current[1] == 0 and current[2] + 1 < len(nums1):
+            heapq.heappush(heap, (nums1[current[2] + 1], 0, current[2] + 1))
+        elif current[1] == 1 and current[2] + 1 < len(nums2):
+            heapq.heappush(heap, (nums2[current[2] + 1], 1, current[2] + 1))
+
+    mid = len(res) // 2
+
+    if len(res) % 2 == 0:
+        return (res[mid] + res[mid - 1]) / 2
+    else:
+        return float(res[mid])
 
 
 a = MedianFinder()
