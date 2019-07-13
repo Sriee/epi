@@ -18,7 +18,7 @@ def div_un_optimized(dividend, divisor):
     if dividend < 0 and not divisor < 0:
         dividend = -dividend
         is_neg = True
-    elif divisor < 0 and not dividend <0:
+    elif divisor < 0 and not dividend < 0:
         divisor = -divisor
         is_neg = True
     elif divisor < 0 and dividend < 0:
@@ -73,3 +73,25 @@ def div(dividend, divisor):
 
     # Handle Integer overflow, since we are doing an integer division
     return min(max(-2147483648, res), 2147483647)
+
+
+def numbers_excel_column(n):
+    """
+    Leet code. Solution -> Accepted
+
+    Convert number to Excel column
+
+    Example:
+         1 - A
+        52 - AZ
+
+    :param n: number
+    :return: Excel column
+    """
+    res = ''
+
+    while n > 0:
+        n, r = divmod(n - 1, 26)
+        res = chr(r + ord('A')) + res
+
+    return res
