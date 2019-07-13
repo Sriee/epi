@@ -28,28 +28,6 @@ def reverse_vowels(inp):
     return res
 
 
-def zig_zag(s, num_rows):
-
-    if num_rows < 2:
-        return s
-
-    mem, cur, down = [''] * num_rows, 0, False
-
-    for i in range(len(s)):
-        mem[cur] += s[i]
-
-        if cur == 0 or cur == num_rows - 1:
-            down = not down
-
-        if down:
-            cur += 1
-        else:
-            cur -= 1
-
-    res = ''.join(mem)
-    print(res)
-
-
 def int_to_roman(num):
     """
     Leet code. Solution -> Accepted
@@ -182,4 +160,39 @@ def strStr2(haystack, needle):
             return i
     return -1
 
-# zig_zag('PAYPALISHIRING', 4)
+
+def zig_zag(s, num_rows):
+    """
+    Leet coe. Solution -> Accepted
+
+    Given a string print it out in a zig zag pattern
+
+    Example:
+        PAYPALISHIRING, 4
+
+        P     I     N
+        A   L S   I G
+        Y A   H R
+        P     I
+
+    :param s: Input string
+    :param num_rows: Number of rows
+    :return: string in zig zag pattern
+    """
+    if num_rows < 2:
+        return s
+
+    mem, cur, down = [''] * num_rows, 0, False
+
+    for i in range(len(s)):
+        mem[cur] += s[i]
+
+        if cur == 0 or cur == num_rows - 1:
+            down = not down
+
+        if down:
+            cur += 1
+        else:
+            cur -= 1
+
+    return ''.join(mem)
