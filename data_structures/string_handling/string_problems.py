@@ -50,6 +50,66 @@ def zig_zag(s, num_rows):
     print(res)
 
 
+def int_to_roman(num):
+    """
+    Leet code. Solution -> Accepted
+
+    Convert integer numbers to roman numerals
+
+    Example:
+          4 - IV
+         20 - XX
+        724 - DCCXXIV
+
+    :param num: Input number
+    :return: Roman numerals corresponding to that number
+    """
+    roman = {
+        1: "I",
+        4: "IV",
+        5: "V",
+        9 : "IX",
+        10: "X",
+        40: "XL",
+        50: "L",
+        90: "XC",
+        100: "C",
+        400: "CD",
+        500: "D",
+        900: "CM",
+        1000: "M",
+    }
+
+    prev = {
+           4: 1,
+           5: 4,
+           9: 5,
+          10: 9,
+          40: 10,
+          50: 40,
+          90: 50,
+         100: 90,
+         400: 100,
+         500: 400,
+         900: 500,
+        1000: 900
+    }
+    ans = ""
+
+    while num > 0:
+        for i in prev:
+            if num <= i:
+                if num == i:
+                    ans += roman[i]
+                    num -= i
+                else:
+                    rem = num // prev[i]
+                    ans += roman[prev[i]] * rem
+                    num -= prev[i] * rem
+                break
+    return ans
+
+
 def is_palindrome(x):
     """
     Leet code. Solution -> Accepted
@@ -122,54 +182,4 @@ def strStr2(haystack, needle):
             return i
     return -1
 
-
-def int_to_roman(num):
-    roman = {
-        1: "I",
-        4: "IV",
-        5: "V",
-        9 : "IX",
-        10: "X",
-        40: "XL",
-        50: "L",
-        90: "XC",
-        100: "C",
-        400: "CD",
-        500: "D",
-        900: "CM",
-        1000: "M",
-    }
-
-    prev = {
-           4: 1,
-           5: 4,
-           9: 5,
-          10: 9,
-          40: 10,
-          50: 40,
-          90: 50,
-         100: 90,
-         400: 100,
-         500: 400,
-         900: 500,
-        1000: 900
-    }
-    ans = ""
-
-    while num > 0:
-        for i in prev:
-            if num <= i:
-                if num == i:
-                    ans += roman[i]
-                    num -= i
-                else:
-                    rem = num // prev[i]
-                    ans += roman[prev[i]] * rem
-                    num -= prev[i] * rem
-                break
-    print(ans)
-
-
 # zig_zag('PAYPALISHIRING', 4)
-# int_to_roman(3x)
-int_to_roman(488)
