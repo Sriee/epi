@@ -95,3 +95,15 @@ def numbers_excel_column(n):
         res = chr(r + ord('A')) + res
 
     return res
+
+
+def sqrt(x):
+    """
+    Leet code. Solution -> Accepted
+
+    Find square root of the number without using the inbuilt.
+
+    :param x: num
+    :return: square root of a number
+    """
+    return int(x ** 0.5)
