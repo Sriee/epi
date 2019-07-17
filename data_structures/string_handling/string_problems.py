@@ -161,6 +161,27 @@ def strStr2(haystack, needle):
     return -1
 
 
+def valid_palindrome(s):
+    """
+    Leet code. Solution -> Accepted
+
+    Given an alpha numeric string, find if it's a valid palindrome or not
+
+    Example:
+           0P -> False
+         c00c -> True
+    :param s: String
+    :return: True if it's a valid palindrome, False otherwise
+    """
+    _s = ''
+
+    for i in s:
+        if i.isalnum():
+            _s += i.lower()
+
+    return _s == _s[::-1]
+
+
 def zig_zag(s, num_rows):
     """
     Leet coe. Solution -> Accepted
