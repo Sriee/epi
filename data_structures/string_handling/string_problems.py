@@ -1,3 +1,37 @@
+def backspace_compare(s, t):
+    """
+    Leet code. Solution -> Accepted
+
+    Given 2 strings compare if they are the same. # is equivalent to back space
+    character.
+
+    Example:
+        ab#c, ad#c => ac, ac
+         ##c, bc#c => c, bc
+         
+    :param s: String 1
+    :param t: String 2
+    :return: True if string 1 == string 2
+    """
+    sk, tk = [], []
+
+    for i in s:
+        if i == '#':
+            if sk:
+                sk.pop()
+        else:
+            sk.append(i)
+
+    for j in t:
+        if j == '#':
+            if tk:
+                tk.pop()
+        else:
+            tk.append(j)
+
+    return ''.join(sk) == ''.join(tk)
+
+
 def reverse_vowels(inp):
     """
     Leet code. Solution -> Accepted
