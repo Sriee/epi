@@ -1,3 +1,6 @@
+import re
+
+
 def backspace_compare(s, t):
     """
     Leet code. Solution -> Accepted
@@ -139,6 +142,43 @@ def is_palindrome(x):
     """
     s = str(x)
     return s == s[::-1]
+
+
+def split_words(paragraph, banned):
+    """
+    Leet code. Solution -> Accepted
+
+    Given a paragraph return the most frequent word. The most frequent word should not
+    be in the list of banned words.
+
+    Frequent Word should be case in-sensitive. Paragraph will have punctuations in it.
+
+    :param paragraph: Paragraph
+    :param banned: list of banned words
+    :return: most frequent word
+    """
+    "Bob! is going to hit a ball!, BOB hit was powerful flew far after it was hit."
+
+    mem, freq, words = {}, None, re.findall(r'[\w]+', paragraph)
+
+
+    for b in banned:
+        mem[b.lower()] = -1
+
+    for i in words:
+        i = i.lower()
+        if i in mem:
+            if mem[i] != -1:
+                mem[i] += 1
+        else:
+            mem[i] = 1
+
+        if not freq:
+            freq = i
+        elif mem[i] > mem[freq]:
+            freq = i
+
+    print(freq)
 
 
 def strStr(haystack, needle):
