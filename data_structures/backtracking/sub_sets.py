@@ -86,3 +86,33 @@ def subsets_duplicates_without_set(nums):
             path.pop()
 
     subset_helper(sorted(nums), 0, [], res)
+    return res
+
+
+def subsets_duplicates_optimized(nums):
+    """
+    Leet code. Solution -> Accepted
+
+    Run time: 40 ms. Checking whether the path is visited seems to improve time and
+    space complexity. Space is significantly improved since we won't be traversing
+    redundant branches
+
+    :param nums: Array with duplicates
+    :return: subsets of the array without duplicates
+    """
+    res = []
+
+    def subset_helper(nums, idx, path, res):
+        res.append(path.copy())
+
+        for i in range(idx, len(nums)):
+            if i > idx and nums[i] == nums[i - 1]:
+                continue
+
+            path.append(nums[i])
+            subset_helper(nums, i + 1, path, res)
+            path.pop()
+
+    subset_helper(sorted(nums), 0, [], res)
+
+    return res
