@@ -66,3 +66,48 @@ def search_range(nums, target):
     last = binary_search(nums, target, idx[2], idx[1], 2)
 
     return [first if first != -1 else idx, last if last != -1 else idx]
+
+
+def search_range2(nums, target):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 136 ms. Leet code error with run time. Fastest solution follows the similar
+    route
+
+    Keep search range
+    Given a sorted array find the range of the element.
+        If the element is not present return [-1, -1]
+        Else If only one element is present return [idx, idx]
+        Else return [start, end] position of the element
+
+    :param nums: Sorted array
+    :param target: element to find
+    :return: range of the element
+    """
+    def binary_search(nums, target, l, r, dir=0):
+        fidx = -1
+        while l <= r:
+            m = l + (r - l) // 2
+
+            if nums[m] < target:
+                l = m + 1
+            elif nums[m] == target:
+                fidx = m
+                if dir == 0:
+                    r = m - 1
+                else:
+                    l = m + 1
+            else:
+                r = m - 1
+
+        return fidx
+
+    first = binary_search(nums, target, 0, len(nums) - 1)
+
+    if first == -1:
+        return [-1, -1]
+
+    last = binary_search(nums, target, first, len(nums) - 1, 1)
+
+    return [first, last if last != -1 else first]
