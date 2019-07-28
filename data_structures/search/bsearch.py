@@ -1,3 +1,6 @@
+from collections import Counter
+
+
 def bsearch(nums, target):
     """
     Binary Search with duplicates.
@@ -111,3 +114,75 @@ def search_range2(nums, target):
     last = binary_search(nums, target, first, len(nums) - 1, 1)
 
     return [first, last if last != -1 else first]
+
+
+def shortest_completing_words(license_plate, words):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 180 ms Not optimal. Intersection of Counter is taking too much time.
+    However not sure why this is happening. Because worst case we will doing an
+    intersection of 26 letters
+
+    Given a License Plate will be alpha numeric character. Extract strings from the
+    license plate and return the shortest word with all the characters in the license
+    plate
+
+    Example:
+        license_plate: "1s3 PSt", words = ["step", "steps", "stripe", "stepple"]
+        Output: "steps"
+
+    :param license_plate: Alphanumeric license plate string
+    :param words: list of words
+    :return: return smallest word will all characters in the license plate
+    """
+    res, lp = None, Counter(''.join(i for i in license_plate if i.isalpha()).lower())
+
+    for w in words:
+        if (Counter(w) & lp) != lp:
+            continue
+
+        if res is None:
+            res = w
+            continue
+
+        if len(w) < len(res):
+            res = w
+
+    return res
+
+
+def shortest_completing_words_optimized(license_plate, words):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 74 ms Optimal Solution.
+
+    Given a License Plate will be alpha numeric character. Extract strings from the
+    license plate and return the shortest word with all the characters in the license
+    plate
+
+    Example:
+        license_plate: "1s3 PSt", words = ["step", "steps", "stripe", "stepple"]
+        Output: "steps"
+
+    :param license_plate: Alphanumeric license plate string
+    :param words: list of words
+    :return: return smallest word will all characters in the license plate
+    """
+    res, lp = None, Counter(''.join(i for i in license_plate if i.isalpha()).lower())
+
+    for word in words:
+        flag = True
+
+        for k, v in lp.items():
+            if k not in word and v > word.count(k):
+                flag = False
+                break
+
+        if flag:
+            if not res:
+                res = word
+            elif len(word) < len(res):
+                res = word
+    return res
