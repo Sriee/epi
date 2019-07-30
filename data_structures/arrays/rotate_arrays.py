@@ -65,3 +65,39 @@ def relative_sort_optimized(arr1, arr2):
     mem = {i: idx for idx, i in enumerate(arr2)}
     arr1.sort(key=lambda k : (mem.get(k, len(arr2)), k))
     return arr1
+
+
+def peak_index(A):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 92 ms. Solution is not optimal.
+
+    An array is a mountain with the following properties
+         i. Min length is 3. If length is less than 3 return 0
+        ii. There exists 0 < i < A.length-1 such that A[i - 1] < A[i] < A[i + 1]
+
+    Example:
+        [10, 9, 8, 7, 1, 2, 3, 4, 3] -> 7
+        [0, 2, 1, 0] -> 1
+
+    :param A: Given array
+    :return: peak index of the array if found else 0
+    """
+    if len(A) < 3:
+        return 0
+
+    if len(A) == 3:
+        return 1
+
+    low, high = 0, len(A) - 1
+    while low <= high:
+        mid = (low + high) // 2
+
+        if A[mid - 1] < A[mid] > A[mid + 1]:
+            return mid
+        elif A[mid] < A[mid + 1]:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return 0
