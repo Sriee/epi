@@ -45,3 +45,19 @@ def majority_element_optimal(nums):
             count -= 1
 
     return candidate if nums.count(candidate) > len(nums) // 2 else -1
+
+
+def majority_element_alternate(nums):
+    """
+    Leet code. Sotuion -> Accepted
+
+    Run Time: 132 ms Around 90% fast solution
+    Run Time: 134 ms using alternate version of Boyer-Moore Algorithm
+
+    Given an array find the majority element. Majority element appears more than
+    floor( n/3 ) times.
+
+    :param nums: Array
+    :return: majority element
+    """
+    return [i for i in set(nums) if nums.count(i) > len(nums) // 3]
