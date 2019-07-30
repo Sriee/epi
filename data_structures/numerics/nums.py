@@ -97,6 +97,42 @@ def numbers_excel_column(n):
     return res
 
 
+def exponent(base, power):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 24 ms Optimal solution
+
+    Find x ^ n. Divide and conquer approach is used below. Solution handles negative
+    power as well.
+
+    Ex:
+        10 ^ 4  = 10 ^ 2 * 10 ^ 2
+            - half_pow will compute and doubles it. Don't need to compute 10 ^ 2 2 times
+        10 ^ 5 = 10 * 10 ^ 4
+            - For odd case we have to multiply with base once more
+
+    :param base: Base
+    :param power: Power
+    :return: base ^ power
+    """
+    def helper(base, power):
+        if power == 0:
+            return 1
+        else:
+            half_pow = helper(base, power // 2)
+            full_pow = half_pow * half_pow
+
+            if power % 2 == 1:
+                full_pow *= base
+            return full_pow
+
+    if power < 0:
+        return 1 / helper(base, abs(power))
+    else:
+        return helper(base, power)
+
+
 def sqrt(x):
     """
     Leet code. Solution -> Accepted
