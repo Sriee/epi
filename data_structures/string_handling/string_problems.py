@@ -144,6 +144,52 @@ def is_palindrome(x):
     return s == s[::-1]
 
 
+def search_rotated(A, B):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 28 ms Optimal Solution
+
+    Given 2 strings find if they are equal. String B could be rotated (lef-shifted) i
+    times.
+
+    Examples:
+        A: 'bbbacddceeb', B: 'ceebbbbacdd' -> True
+        A: 'abcde', B: 'cdeab' -> True
+        A: 'abcde', B: 'cdxaz'-> False
+
+    :param A: String A
+    :param B: String B (Rotated)
+    :return: True if both the strings are same with rotation False otherwise
+    """
+    if len(A) != len(B):
+        return False
+
+    if len(A) == 0:
+        return True
+
+    if A == B:
+        return True
+
+    r, i, j = 0, 0, 0
+    while i < len(A):
+        if A[i] != B[j]:
+            r += 1
+            i += 1
+        else:
+            j, start = 0, i
+            while i < len(A):
+                if A[i] == B[j]:
+                    i += 1
+                    j += 1
+                else:
+                    r += i - start
+                    j = 0
+                    break
+    i = 0
+    return A[:r] == B[len(A) - r:]
+
+
 def split_words(paragraph, banned):
     """
     Leet code. Solution -> Accepted
