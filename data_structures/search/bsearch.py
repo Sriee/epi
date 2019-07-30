@@ -186,3 +186,28 @@ def shortest_completing_words_optimized(license_plate, words):
             elif len(word) < len(res):
                 res = word
     return res
+
+
+def find_min_rotated_sorted_array(nums):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time:
+
+    Find minimum element in a rotated sorted array. The array does not contains
+    duplicates. If the array has duplicates, optical time
+
+    :param nums: Given array
+    :return: minimum element in an array
+    """
+    low, high = 0, len(nums) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+
+        if nums[mid] > nums[len(nums) - 1]:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return nums[low]
