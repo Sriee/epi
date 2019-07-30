@@ -1,3 +1,45 @@
+def combination_sum(candidates, target):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 100 ms. Not optimal but this gives a template for writing backtracking
+    problems
+
+    Given an array without duplicates. Find the list of candidates which are equal to
+    the target sum. Each element can be repeated n times
+
+    Examples:
+        nums: [2, 3, 5] target = 8
+
+        Output should be
+        [
+            [2, 2, 2, 2],
+            [2, 3, 3]
+            [3, 5]
+        ]
+    :param candidates: Given array
+    :param target: target sum
+    :return: list of candidates who sum is equal to candidates sum
+    """
+    res = []
+
+    def dfs(candidates, target, index, path):
+        if target == 0:
+            res.append(path.copy())
+            return
+
+        for i in range(index, len(candidates)):
+            if target-candidates[i] < 0:
+                continue
+
+            path.append(candidates[i])
+            dfs(candidates, target - candidates[i], i, path)
+            path.pop()
+
+    dfs(candidates, target, 0, [])
+    return res
+
+
 def combination_sum_4(nums, target):
     """
     Leet Code. Time Limit Exceeded
