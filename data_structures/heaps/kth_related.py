@@ -63,3 +63,47 @@ def k_closest(points, k):
 
     return [heapq.heappop(heap)[1] for _ in range(k)]
 
+
+def third_max(nums):
+    """
+    Leet code. Solution -> Accepted
+
+    Run time: 40 ms
+
+    Given an array find the third largest number in the array. If there are no three numbers, return the maximum number
+
+    Optimized version - Run time : 20ms
+        nums = sorted(list(set(nums)))  # Apparently
+        return nums[-1] if len(nums) == 1 else nums[-3]
+
+    :param nums: Number Array
+    :return: 3rd largest number in the array
+    """
+    heap, seen, max_3 = [], set(), set()
+
+    for i in nums:
+        if i in seen:
+            continue
+
+        """
+        Adding an element one by one seems to take long time compared to initialization
+            
+            lst = [random.randint() for i in range(5000000)]
+            set1 = set(lst)  # takes 2.4 seconds
+
+            set2 = set()  # takes 3.37 seconds
+            for item in lst:
+                set2.add(item)
+        """
+        seen.add(i)
+        heapq.heappush(heap, i)
+        if len(heap) > 3:
+            heapq.heappop(heap)
+
+    while heap:
+        max_3.add(heapq.heappop(heap))
+
+    return min(max_3) if len(max_3) == 3 else max(max_3)
+
+
+third_max([2, 1])
