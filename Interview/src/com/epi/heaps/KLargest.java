@@ -104,4 +104,35 @@ public class KLargest {
 		}
 		return result;
 	}
+
+	/**
+	 * Leet code. Solution -> Accepted
+	 *
+	 * Calculate the kth smallest pairs from two arrays
+	 * 
+	 * @param  nums1 Array 1
+	 * @param  nums2 Array 2
+	 * @param  k     Number of smallest pairs to be present in the result
+	 * @return       List of k smallest pairs
+	 */
+	public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+		PriorityQueue<int[]> queue = new PriorityQueue<>((a, b) -> (a[0] + a[1]) - (b[0] + b[1]));
+		List<List<Integer>> result = new LinkedList<>();
+		for(int i: nums1) {
+			for(int j: nums2) {
+				List<Integer> temp = new LinkedList<>();
+				temp.add(i);
+				temp.add(j);
+				
+				queue.add(temp);
+				if(queue.size() > k)
+					queue.poll();
+			}
+		}
+		
+		while(!queue.isEmpty()) {
+			result.add(0, queue.poll());
+		}
+		return result;
+	}
 }
