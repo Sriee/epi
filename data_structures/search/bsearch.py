@@ -211,3 +211,35 @@ def find_min_rotated_sorted_array(nums):
             high = mid - 1
 
     return nums[low]
+
+
+def search_matrix(matrix, target):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 72 ms. Optimal solution exists but the code is not simple
+
+    Search an element in an m x n Matrix. Each row in the matrix is sorted in ascending
+    order and matrix[i][0] > matrix[i - 1][len(matrix[i - 1]) - 1]
+
+    :param matrix: Given matrix as list of lists
+    :param target: element to find
+    :return: True if the element is found, False otherwise
+    """
+    if not matrix:
+        return False
+
+    low, high = 0, len(matrix) * len(matrix[0]) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        x, y = mid // len(matrix[0]), mid % len(matrix[0])
+
+        if matrix[x][y] == target:
+            return True
+        elif matrix[x][y] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return False
