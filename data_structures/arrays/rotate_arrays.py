@@ -119,7 +119,7 @@ def search_rotate_array_non_optimal(nums, target):
     while low < high:
         mid = (low + high) // 2
 
-        if nums[mid] > nums[len(nums) - 1]:
+        if nums[mid] >= nums[len(nums) - 1]:
             low = mid + 1
         else:
             high = mid
@@ -174,3 +174,54 @@ def search_rotate_arrays(nums, target):
             else:
                 low = mid + 1
     return -1
+
+
+def search_rotate_array_with_duplicates(nums, target):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 56 ms Optimal Solution. The difference between this and without
+    duplicates is that, for cases where nums[mid] == nums[low] (Ex: [3, 1, 2, 3, 3]) we
+    will be moving the left and the right pointer.
+
+    Search for an element in the rotated sorted array. The array will contain duplicates
+
+    :param nums: Rotated sorted array
+    :param target: The element to find
+    :return: True if the element is found, False otherwise
+    """
+    if not nums:
+        return False
+
+    low, high = 0, len(nums) - 1
+
+    while low <= high:
+        # Bit wise operation is slower than normal division. Avoid using it in Python
+        # mid = (low + high) >> 1
+        mid = (low + high) // 2
+
+        if nums[mid] == target:
+            return True
+
+        if nums[low] == nums[mid] == nums[high]:
+            low += 1
+            high -= 1
+        # Check if left side is in order
+        elif nums[low] <= nums[mid]:
+            # if target in the range [low, mid - 1]
+            if nums[low] < target < nums[mid]:
+                # Search in [low, mid - 1]
+                high = mid - 1
+            else:
+                # Search in [mid + 1, high]
+                low = mid + 1
+        # Left side is not in order
+        else:
+            # if the target in the range [mid + 1, high]
+            if nums[mid] < target <= nums[high]:
+                # Search in [mid + 1, high]
+                low = mid + 1
+            else:
+                # Search in [low, mid - 1]
+                high = mid - 1
+    return False
