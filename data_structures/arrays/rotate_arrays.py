@@ -63,11 +63,11 @@ def relative_sort_optimized(arr1, arr2):
     :return: relatively sorted array
     """
     mem = {i: idx for idx, i in enumerate(arr2)}
-    arr1.sort(key=lambda k : (mem.get(k, len(arr2)), k))
+    arr1.sort(key=lambda k: (mem.get(k, len(arr2)), k))
     return arr1
 
 
-def peak_index(A):
+def peak_index(arr):
     """
     Leet code. Solution -> Accepted
 
@@ -81,29 +81,29 @@ def peak_index(A):
         [10, 9, 8, 7, 1, 2, 3, 4, 3] -> 7
         [0, 2, 1, 0] -> 1
 
-    :param A: Given array
+    :param arr: Given array
     :return: peak index of the array if found else 0
     """
-    if len(A) < 3:
+    if len(arr) < 3:
         return 0
 
-    if len(A) == 3:
+    if len(arr) == 3:
         return 1
 
-    low, high = 0, len(A) - 1
+    low, high = 0, len(arr) - 1
     while low <= high:
         mid = (low + high) // 2
 
-        if A[mid - 1] < A[mid] > A[mid + 1]:
+        if arr[mid - 1] < arr[mid] > arr[mid + 1]:
             return mid
-        elif A[mid] < A[mid + 1]:
+        elif arr[mid] < arr[mid + 1]:
             low = mid + 1
         else:
             high = mid - 1
     return 0
 
 
-def search_rotate_array(nums, target):
+def search_rotate_array_non_optimal(nums, target):
     """
     Leet code. Solution -> Accepted
 
@@ -137,4 +137,40 @@ def search_rotate_array(nums, target):
             low = real_mid + 1
         else:
             high = real_mid - 1
+    return -1
+
+
+def search_rotate_arrays(nums, target):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 44 ms Optimal Solution. The improvement happens, when we search for an
+    element in an array without finding the pivot index
+
+    Search for an element in the rotated sorted array
+
+    :param nums: Rotated sorted array
+    :param target: The element to find
+    :return: index of the found element
+    """
+    if not nums:
+        return -1
+
+    low, high = 0, len(nums) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < nums[low]:
+            if nums[mid] < target <= nums[high]:
+                low = mid + 1
+            else:
+                high = mid - 1
+        else:
+            if nums[mid] > target >= nums[low]:
+                high = mid - 1
+            else:
+                low = mid + 1
     return -1
