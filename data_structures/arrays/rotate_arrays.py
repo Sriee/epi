@@ -101,3 +101,40 @@ def peak_index(A):
         else:
             high = mid - 1
     return 0
+
+
+def search_rotate_array(nums, target):
+    """
+    Leet code. Solution -> Accepted
+
+    Search target value in rotated sorted array
+
+    Run Time: 68 ms Not Optimal solution
+
+    :param nums: Rotated sorted array
+    :param target: value to find
+    :return: index of target value in a sorted array
+    """
+    low, high = 0, len(nums) - 1
+    while low < high:
+        mid = (low + high) // 2
+
+        if nums[mid] > nums[len(nums) - 1]:
+            low = mid + 1
+        else:
+            high = mid
+
+    piv = low
+    low, high = 0, len(nums) - 1
+
+    while low <= high:
+        real_mid = (low + high) // 2
+        pivot_mid = (real_mid + piv) % len(nums)
+
+        if nums[pivot_mid] == target:
+            return pivot_mid
+        elif nums[pivot_mid] < target:
+            low = real_mid + 1
+        else:
+            high = real_mid - 1
+    return -1
