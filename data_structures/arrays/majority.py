@@ -61,3 +61,25 @@ def majority_element_alternate(nums):
     :return: majority element
     """
     return [i for i in set(nums) if nums.count(i) > len(nums) // 3]
+
+
+def find_duplicates_linear(nums):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 80 ms Not Optimal. The time delay may be caused by doing a linear scan
+    after sorting
+
+    Given an array with n + 1 integers in the range [1, n] only. There is one element
+    which will appear multiple times. Find the element.
+
+    :param nums: Given array
+    :return: Duplicate element
+    """
+    nums.sort()
+    i = 1
+
+    while i < len(nums):
+        if nums[i] == nums[i - 1]:
+            return nums[i]
+        i += 1
