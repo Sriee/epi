@@ -75,28 +75,6 @@ def div(dividend, divisor):
     return min(max(-2147483648, res), 2147483647)
 
 
-def numbers_excel_column(n):
-    """
-    Leet code. Solution -> Accepted
-
-    Convert number to Excel column
-
-    Example:
-         1 - A
-        52 - AZ
-
-    :param n: number
-    :return: Excel column
-    """
-    res = ''
-
-    while n > 0:
-        n, r = divmod(n - 1, 26)
-        res = chr(r + ord('A')) + res
-
-    return res
-
-
 def exponent(base, power):
     """
     Leet code. Solution -> Accepted
@@ -131,6 +109,54 @@ def exponent(base, power):
         return 1 / helper(base, abs(power))
     else:
         return helper(base, power)
+
+
+def numbers_excel_column(n):
+    """
+    Leet code. Solution -> Accepted
+
+    Convert number to Excel column
+
+    Example:
+         1 - A
+        52 - AZ
+
+    :param n: number
+    :return: Excel column
+    """
+    res = ''
+
+    while n > 0:
+        n, r = divmod(n - 1, 26)
+        res = chr(r + ord('A')) + res
+
+    return res
+
+
+def is_perfect_square(x):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 36 ms. Not optimal solution. Optimal solution uses newton method for
+    finding the square root
+
+    Check whether the given number is perfect square or not
+
+    :param x: Number
+    :return: True if the number is a perfect square, False otherwise
+    """
+    low, high = 1, x
+    while low < high:
+        mid = (low + high) // 2
+
+        if mid * mid == x:
+            return True
+        elif mid * mid < x:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return False
 
 
 def sqrt(x):
