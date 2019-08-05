@@ -83,3 +83,30 @@ def find_duplicates_linear(nums):
         if nums[i] == nums[i - 1]:
             return nums[i]
         i += 1
+
+
+def find_duplicates_binary_search(nums):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 80 ms Not Optimal. Binary search is not improving the run time when
+    compared to linear search because sorting is the dominating factor.
+
+    Given an array with n + 1 integers in the range [1, n] only. There is one element
+    which will appear multiple times. Find the element.
+
+    :param nums: Given array
+    :return: Duplicate element
+    """
+    nums.sort()
+    low, high = 0, len(nums) - 1
+
+    while low < high:
+        mid = (low + high) // 2
+
+        if nums[mid] == nums[mid - 1] or nums[mid] == nums[mid + 1]:
+            return nums[mid]
+        elif nums[mid] >= mid + 1:
+            low = mid + 1
+        else:
+            high = mid - 1
