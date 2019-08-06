@@ -243,3 +243,46 @@ def search_matrix(matrix, target):
             high = mid - 1
 
     return False
+
+
+def search_matrix_2D(matrix, target):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 44 ms. Optimal Solution. Imagine two lines start from left bottom and
+    row (decreasing), column (increasing) like they are scanning for an element
+
+    [[ | ],
+     [ | ],
+     [-|-], [--]
+    ]
+    Given an 2D matrix with
+        - Each row sorted in ascending order
+        - Column is also sorted in ascending order
+    Find the target element.
+
+    :param matrix: 2D Matrix
+    :param target: Element to find
+    :return: True if the element is found. False otherwise
+    """
+    if not matrix:
+        return False
+
+    # Start from left bottom
+    row, col = len(matrix) - 1, 0
+
+    while row >= 0 and col < len(matrix[0]):
+        if matrix[row][col] < target:
+            # Since the column is sorted, the element won't be present above this
+            # column. We move to the right
+            col += 1
+        elif matrix[row][col] > target:
+            # Since the row is sorted in ascending order, the element won't be present
+            # in this row. We decrease the row pointer and move up
+            row -= 1
+        else:
+            # Most of the time we will be moving right or up. Placing the equal check
+            # here reduced the '==' check thereby reducing the run time
+            return True
+
+    return False
