@@ -1,6 +1,55 @@
 from collections import Counter
 
 
+def find_duplicates_linear(nums):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 80 ms Not Optimal. The time delay may be caused by doing a linear scan
+    after sorting
+
+    Given an array with n + 1 integers in the range [1, n] only. There is one element
+    which will appear multiple times. Find the element.
+
+    :param nums: Given array
+    :return: Duplicate element
+    """
+    nums.sort()
+    i = 1
+
+    while i < len(nums):
+        if nums[i] == nums[i - 1]:
+            return nums[i]
+        i += 1
+
+
+def find_duplicates_binary_search(nums):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 80 ms Not Optimal. Binary search is not improving the run time when
+    compared to linear search because sorting is the dominating factor.
+
+    Given an array with n + 1 integers in the range [1, n] only. There is one element
+    which will appear multiple times. Find the element.
+
+    :param nums: Given array
+    :return: Duplicate element
+    """
+    nums.sort()
+    low, high = 0, len(nums) - 1
+
+    while low < high:
+        mid = (low + high) // 2
+
+        if nums[mid] == nums[mid - 1] or nums[mid] == nums[mid + 1]:
+            return nums[mid]
+        elif nums[mid] >= mid + 1:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+
 def majority_element(nums):
     """
     Leet code. Sotuion -> Accepted
@@ -63,50 +112,38 @@ def majority_element_alternate(nums):
     return [i for i in set(nums) if nums.count(i) > len(nums) // 3]
 
 
-def find_duplicates_linear(nums):
+def min_sub_array(s, nums):
     """
     Leet code. Solution -> Accepted
 
-    Run Time: 80 ms Not Optimal. The time delay may be caused by doing a linear scan
-    after sorting
+    Run Time: 54 ms. Optimal solution O(n) time
 
-    Given an array with n + 1 integers in the range [1, n] only. There is one element
-    which will appear multiple times. Find the element.
+    Given an array, find the minimum contiguous array whose sum is equal to s
 
+    :param s: Target sum
     :param nums: Given array
-    :return: Duplicate element
+    :return: 0 if sum of array is less than s else length of smallest contiguous array
     """
-    nums.sort()
-    i = 1
+    if not nums:
+        return 0
 
-    while i < len(nums):
-        if nums[i] == nums[i - 1]:
-            return nums[i]
-        i += 1
+    skip, res, cur, i, j = False, 2147483648, 0, 0, 0
 
+    while j < len(nums):
+        if not skip:
+            cur += nums[j]
 
-def find_duplicates_binary_search(nums):
-    """
-    Leet code. Solution -> Accepted
+        if cur >= s:
+            length = j - i + 1
+            if length < res:
+                res = length
 
-    Run Time: 80 ms Not Optimal. Binary search is not improving the run time when
-    compared to linear search because sorting is the dominating factor.
+            cur -= nums[i]
+            i += 1
+            skip = True
+            continue
 
-    Given an array with n + 1 integers in the range [1, n] only. There is one element
-    which will appear multiple times. Find the element.
+        j += 1
+        skip = False
 
-    :param nums: Given array
-    :return: Duplicate element
-    """
-    nums.sort()
-    low, high = 0, len(nums) - 1
-
-    while low < high:
-        mid = (low + high) // 2
-
-        if nums[mid] == nums[mid - 1] or nums[mid] == nums[mid + 1]:
-            return nums[mid]
-        elif nums[mid] >= mid + 1:
-            low = mid + 1
-        else:
-            high = mid - 1
+    return 0 if res == 2147483648 else res
