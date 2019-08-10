@@ -2,8 +2,7 @@ def letter_case_permutation(letter):
     """
     Leet code. Solution -> Accepted
 
-    Run Time: 696 ms. Worst run time. Avoid dfs for numerics improved the run
-    time but still requires optimization
+    Run Time: 32 ms. Optimal solution without using backtracking
 
     Given an alpha numeric letter. Generate permutation with lower and upper case letters
     Example:
@@ -13,20 +12,13 @@ def letter_case_permutation(letter):
     :param letter: letter
     :return: list of letter permutations
     """
-    res = []
+    res = ['']
+    for ch in letter:
+        if ch.isdigit():
+            res = [i + ch for i in res]
+        else:
+            res = [i + j for j in [ch.lower(), ch.upper()] for i in res]
 
-    def dfs(idx, curr):
-        for i in range(idx, len(letter)):
-            if letter[i].isdigit():
-                curr = curr + letter[i]
-            else:
-                dfs(i + 1, curr + letter[i].lower())
-                dfs(i + 1, curr + letter[i].upper())
-
-        if len(curr) == len(letter):
-            res.append(curr)
-
-    dfs(0, '')
     return res
 
 
@@ -184,6 +176,3 @@ def subsets_duplicates_optimized(nums):
     subset_helper(sorted(nums), 0, [], res)
 
     return res
-
-
-print(letter_case_permutation('a1b2'))
