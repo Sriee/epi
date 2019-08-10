@@ -31,6 +31,14 @@ class SmartPtr {
 			ptr_ = value_;
 		}
 
+		// Copy constructor
+		SmartPtr(SmartPtr<T>& rhs) {
+			// Transfer the ownership of rhs to this
+			ptr_ = rhs.ptr_;
+
+			rhs.ptr_ = NULL;
+		}
+
 		// Destructire to delete the reference
 		~SmartPtr() { 
 			std::cout << "Deleting memory for  internal pointer" << std::endl; 
