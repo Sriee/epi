@@ -2,27 +2,29 @@ def letter_case_permutation(letter):
     """
     Leet code. Solution -> Accepted
 
-    Run Time: 1216 ms. Worst run time. Requires optimization
+    Run Time: 696 ms. Worst run time. Avoid dfs for numerics improved the run
+    time but still requires optimization
 
     Given an alpha numeric letter. Generate permutation with lower and upper case letters
     Example:
         'a1b2' -> ['a1b2', 'A1b2', 'a1B2', 'A1B2']
         '1234' -> ['1234']
-        
+
     :param letter: letter
     :return: list of letter permutations
     """
     res = []
 
     def dfs(idx, curr):
+        for i in range(idx, len(letter)):
+            if letter[i].isdigit():
+                curr = curr + letter[i]
+            else:
+                dfs(i + 1, curr + letter[i].lower())
+                dfs(i + 1, curr + letter[i].upper())
+
         if len(curr) == len(letter):
             res.append(curr)
-            return
-
-        for i in range(idx, len(letter)):
-            dfs(i + 1, curr + letter[i])
-            if letter[i].isalpha():
-                dfs(i + 1, curr + letter[i].upper())
 
     dfs(0, '')
     return res
@@ -182,3 +184,6 @@ def subsets_duplicates_optimized(nums):
     subset_helper(sorted(nums), 0, [], res)
 
     return res
+
+
+print(letter_case_permutation('a1b2'))
