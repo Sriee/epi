@@ -28,6 +28,42 @@ def subsets(nums):
     return res
 
 
+def subsets_optimal(nums):
+    """
+    Leet code. Solution -> Accepted
+
+    Run time: 36 ms. Optimal solution. We are reducing the run time by not copying the
+    list and from popping elements from it.
+
+    Given an array find all possible subsets of an array. The given array does not
+    contain a duplicate. Order of the output doesn't matter. Output should not contain
+    any duplicates.
+
+    Example:
+        [1, 2, 3] -> [], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]
+
+    :param nums: array
+    :return: subsets of the array
+    """
+    res = [[]]
+
+    def dfs(idx, path):
+
+        if idx == len(nums):
+            return
+
+        path = path +[nums[idx]]
+        res.append(path)
+
+        for i in range(idx + 1, len(nums)):
+            dfs(i, path)
+
+    for idx in range(len(nums)):
+        dfs(idx, [])
+
+    return res
+
+
 def subsets_duplicates(nums):
     """
     Leet code. Solution -> Accepted
