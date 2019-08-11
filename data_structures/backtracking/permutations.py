@@ -1,6 +1,3 @@
-from collections import Counter
-
-
 def letter_case_permutation(letter):
     """
     Leet code. Solution -> Accepted
@@ -92,8 +89,9 @@ def permutation_with_duplicates(nums):
     """
     Leet code. Solution -> Accepted
 
-    Run Time: 108 ms. Below Average run time. Creating a Counter and copying it in each
-    recursive call is taking up much time
+    Run Time: 64 ms. Average run time. Optimal solution is iterative. Previous version
+    of using an available element for the next permutation is how to think about the
+    solution.
 
     Given an array, find all the permutations of the elements in it. The given array
     contain duplicates
@@ -104,21 +102,23 @@ def permutation_with_duplicates(nums):
     :param nums: Given array
     :return: list of subsets of elements in the array
     """
+    # Handle edge cases
+    if len(nums) == 0 or len(nums) == 1:
+        return [nums]
+
+    nums.sort()
     res = []
 
-    def dfs(curr, available):
+    def backtrack(curr, available):
         if len(curr) == len(nums):
             res.append(curr)
             return
 
-        for i in available:
-            if available[i] > 0:
-                temp = available.copy()
-                temp[i] -= 1
-                dfs(curr + [i], temp)
+        for i in range(len(available)):
+            if i > 0 and available[i] == available[i - 1]:
+                continue
+            else:
+                backtrack(curr + [available[i]], available[:i] + available[i + 1:])
 
-    dfs([], Counter(nums))
+    backtrack([], nums)
     print(res)
-
-
-permutation_with_duplicates([1, 1, 2])
