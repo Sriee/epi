@@ -1,3 +1,33 @@
+def permutations(nums):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 44 ms. Average run time. The optimal one is iterative. We will keep this
+    as an example of performing permutation using backtracking
+
+    Given an array, find all the permutations of the elements in it. The given array
+    doesn't contain duplicates
+
+    Example:
+        [1, 2, 3] -> [1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]
+
+    :param nums: Given array
+    :return: list of subsets of elements in the array
+    """
+    res = []
+
+    def backtrack(curr, available):
+        if len(curr) == len(nums):
+            res.append(curr)
+            return
+
+        for i in range(len(available)):
+            backtrack(curr + [available[i]], available[:i] + available[i + 1:])
+
+    backtrack([], nums)
+    return res
+
+
 def letter_case_permutation(letter):
     """
     Leet code. Solution -> Accepted
