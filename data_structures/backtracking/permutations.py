@@ -1,3 +1,34 @@
+def generate_brackets(n):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 44 ms. Average Run Time. Optimal Solution is iterative
+
+    Given a number, generate combination of valid braces.
+
+    Example:
+        n : 2 -> "(())", "()()"
+
+    :param n: number of braces
+    :return: list of braces combination
+    """
+    res = []
+
+    def dfs(curr, op, close):
+        if op == 0 and close == 0:
+            res.append(curr)
+            return
+
+        if op > 0:
+            dfs(curr + "(", op - 1, close + 1)
+
+        if close > 0:
+            dfs(curr + ")", op, close - 1)
+
+    dfs("", n, 0)
+    return res
+
+
 def letter_case_permutation(letter):
     """
     Leet code. Solution -> Accepted
