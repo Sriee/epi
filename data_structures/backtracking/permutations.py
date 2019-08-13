@@ -239,3 +239,55 @@ def permutation_with_duplicates(nums):
 
     backtrack([], nums)
     return res
+
+
+def next_permutation(nums):
+    """
+    Leet Code. Solution -> Accepted
+
+    Run Time: 40 ms. Optimal Solution. Don't know why google asked this question
+    because there is only one way to solve this problem. If you don't follow the same
+    analysis path, you won't be able to arrive at this solution
+
+    Given a array, find the next permutation. Modify the array in-place
+
+    Example:
+        [3, 1, 6, 2, 5, 4] -> [3, 1, 6, 4, 2, 5]
+
+    Step 1: Find the ith element from the right which is not in ascending order.
+    Why right?
+
+    Permutations are filled in temporal order, which means if the available candidates are
+    [1, 2, 3] "1" will be selected first. By going from the right, if we find an element
+    which is not in ascending order (In this example 2 @ pos 3), we know that there are
+    available candidates.
+
+    Step 2: Reverse the numbers
+    What are the available candidates @ pos 3 -> [4 & 5], why not 3, 1 or 6 ? because
+    they are already selected. Replace (pos 3) with the least available available
+    candidates. i.e [3, 1, 6, 4, 5, 2]. Now reverse the rest from pos 4 -> [3, 1, 6, 4,
+    2, 5]
+
+    :param nums: Array
+    :return: next permutation of this element
+    """
+    i = len(nums) - 2
+
+    while i >= 0 and nums[i] >= nums[i + 1]:
+        i -= 1
+
+    if i >= 0:
+        j = len(nums) - 1
+        while j > i and nums[j] <= nums[i]:
+            j -= 1
+
+        nums[i], nums[j] = nums[j], nums[i]
+
+    i += 1
+    j = len(nums) - 1
+    while i < j:
+        nums[i], nums[j] = nums[j], nums[i]
+        i += 1
+        j -= 1
+
+    return nums
