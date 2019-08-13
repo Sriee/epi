@@ -35,8 +35,8 @@ def get_permutation(n, k):
 
     # Using math.factorial is increasing the run time
     fact = 1
-    for i in range(2, n + 1):
-        fact *= i
+    for m in range(2, n + 1):
+        fact *= m
 
     # Using integers instead of strings is increasing the run time because in backtrack
     # call we have to do curr + [available[i]] which is taking up run time
@@ -49,6 +49,39 @@ def get_permutation(n, k):
               (k % partition_size) + 1)
 
     return res[-1]
+
+
+def generate_permutation_optimal(n, k):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 28 ms. Optimal Run Time.
+
+    Get the kth permutation for a given number
+    Example:
+        n: 2 & k: 1 -> "12"
+        Permutations for n = 2 -> "12", "21"
+
+    :param n: n
+    :param k: k
+    :return: kth iteration value
+    """
+    # Storing factorial for easy look up
+    fact = [1]
+    for i in range(1, n + 1):
+        fact.append(fact[-1] * i)
+
+    nums, res = list(range(1, n + 1)), ""
+    k -= 1
+    while n > 0:
+        n -= 1
+        # Using div mod is increasing run time
+        # idx, k = divmod(k, fact[n])
+        idx, k = k // fact[n], k % fact[n]
+        res += str(nums[idx])
+        nums.remove(nums[idx])
+
+    return res
 
 
 def generate_brackets(n):
@@ -205,6 +238,4 @@ def permutation_with_duplicates(nums):
                 backtrack(curr + [available[i]], available[:i] + available[i + 1:])
 
     backtrack([], nums)
-    print(res)
-
-
+    return res
