@@ -1,3 +1,56 @@
+def get_permutation(n, k):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 1528 ms. Worst Run Time.
+
+    Get the kth permutation for a given number
+    Example:
+        n: 2 & k: 1 -> "12"
+        Permutations for n = 2 -> "12", "21"
+
+    :param n: n
+    :param k: k
+    :return: kth iteration value
+    """
+    if n == 1:
+        return "1"
+
+    res, done = [], False
+
+    def backtrack(curr, available, j):
+        nonlocal done
+        if len(curr) == n:
+            res.append(curr)
+
+            if len(res) == j:
+                done = True
+            return
+
+        for i in range(len(available)):
+            backtrack(curr + available[i], available[:i] + available[i + 1:], j)
+
+            if done:
+                break
+
+    # Using math.factorial is increasing the run time
+    fact = 1
+    for i in range(2, n + 1):
+        fact *= i
+
+    # Using integers instead of strings is increasing the run time because in backtrack
+    # call we have to do curr + [available[i]] which is taking up run time
+    nums = [str(i) for i in range(1, n + 1)]
+    k -= 1
+    partition_size = fact // n
+    start_from = k // partition_size
+
+    backtrack(nums[start_from], nums[:start_from] + nums[start_from + 1:],
+              (k % partition_size) + 1)
+
+    return res[-1]
+
+
 def generate_brackets(n):
     """
     Leet code. Solution -> Accepted
@@ -153,3 +206,5 @@ def permutation_with_duplicates(nums):
 
     backtrack([], nums)
     print(res)
+
+
