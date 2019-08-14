@@ -149,6 +149,40 @@ def min_sub_array(s, nums):
     return 0 if res == 2147483648 else res
 
 
+def out_of_order(heights):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 40 ms. Optimal Solution. Can't find the solution without sorting.
+
+    Given an array containing heights of students. Find the number of students who are
+    standing out of order.
+
+    Example:
+        [1, 1, 4, 2, 1, 3] -> 3 (Students of heights 4, 1 (@ pos 4), 3 are standing out of
+        order
+
+    :param heights: heights of students
+    :return: number of students out of order
+    """
+    # 1 - Run Time: 84 ms
+    diff, ordered = 0, sorted(heights)
+
+    for i in range(len(heights)):
+        if heights[i] != ordered[i]:
+            diff += 1
+    print(diff)
+
+    # 2 - Run Time: 64 ms
+    diff = sum(1 for i in range(len(heights)) if heights[i] != sorted(heights)[i])
+    print(diff)
+
+    # 3 - Run Time: 40 ms. Apparently doing a zip and iterating over tuples is faster
+    # than iterating like #2
+    diff = sum(a != b for a, b in zip(heights, sorted(heights)))
+    print(diff)
+
+
 def sorted_arrays(A):
     """
     Leet code. Solution -> Accepted
