@@ -147,3 +147,30 @@ def min_sub_array(s, nums):
         skip = False
 
     return 0 if res == 2147483648 else res
+
+
+def sorted_arrays(A):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 260 ms. Average Run Time. Inserting the elements and then sorting it takes
+    O(n log n) time.
+
+    Can't use priority queue, because in python we have to do n deques to
+    extract the elements out.
+
+    Time Complexity: O(n log k + n); Space Complexity: O(2n)     
+
+    Given an array in sorted order, return an array with squares also in sorted order.
+
+    :param A: Given Array
+    :return: Their elements in sorted order
+    """
+    res = []
+
+    for i in A:
+        res.append(i * i)
+
+    res.sort()
+    return res
+
