@@ -153,24 +153,26 @@ def sorted_arrays(A):
     """
     Leet code. Solution -> Accepted
 
-    Run Time: 260 ms. Average Run Time. Inserting the elements and then sorting it takes
-    O(n log n) time.
-
-    Can't use priority queue, because in python we have to do n deques to
-    extract the elements out.
-
-    Time Complexity: O(n log k + n); Space Complexity: O(2n)     
+    Run Time: 264 ms. Average run time. Using 2 pointer approach reduces the time
+    complexity to O(n) but in leet code the following solution is recorded as the
+    fastest
+        sorted([a * a for a in A])
 
     Given an array in sorted order, return an array with squares also in sorted order.
 
     :param A: Given Array
     :return: Their elements in sorted order
     """
-    res = []
+    res, left, right, r = [0] * len(A), 0, len(A) - 1, len(A) - 1
 
-    for i in A:
-        res.append(i * i)
+    while left <= right:
+        lsq, rsq = abs(A[left]), abs(A[right])
 
-    res.sort()
-    return res
-
+        if lsq > rsq:
+            res[r] = lsq * lsq
+            left += 1
+        else:
+            res[r] = rsq * rsq
+            right -= 1
+        r -= 1
+    print(res)
