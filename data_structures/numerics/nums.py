@@ -111,28 +111,6 @@ def exponent(base, power):
         return helper(base, power)
 
 
-def numbers_excel_column(n):
-    """
-    Leet code. Solution -> Accepted
-
-    Convert number to Excel column
-
-    Example:
-         1 - A
-        52 - AZ
-
-    :param n: number
-    :return: Excel column
-    """
-    res = ''
-
-    while n > 0:
-        n, r = divmod(n - 1, 26)
-        res = chr(r + ord('A')) + res
-
-    return res
-
-
 def is_perfect_square(x):
     """
     Leet code. Solution -> Accepted
@@ -157,6 +135,75 @@ def is_perfect_square(x):
             high = mid - 1
 
     return False
+
+
+def numbers_excel_column(n):
+    """
+    Leet code. Solution -> Accepted
+
+    Convert number to Excel column
+
+    Example:
+         1 - A
+        52 - AZ
+
+    :param n: number
+    :return: Excel column
+    """
+    res = ''
+
+    while n > 0:
+        n, r = divmod(n - 1, 26)
+        res = chr(r + ord('A')) + res
+
+    return res
+
+
+def self_dividing_numbers(left, right):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 48 ms. Optimal solution
+
+    Given a lower and upper limit, find the list of all self dividing numbers. Self
+    dividing number is a number which is divisible by all individual numbers.
+
+    Example:
+        128 -> 128 % 1 == 0 && 128 % 2 == 0 && 128 % 8 == 0
+
+    :param left: start limit
+    :param right: end limit
+    :return: list of all self dividing numbers
+    """
+    res = []
+
+    while left < right:
+        if left % 10 == 0:
+            left += 1
+            continue
+
+        if left < 10:
+            res.append(left)
+            left += 1
+            continue
+
+        curr = left
+        while curr != 0:
+            i = curr % 10
+            curr = curr // 10
+            if i == 0:
+                break
+
+            if i == 1:
+                continue
+
+            if left % i != 0:
+                break
+            else:
+                res.append(left)
+
+            left += 1
+    return res
 
 
 def sqrt(x):
