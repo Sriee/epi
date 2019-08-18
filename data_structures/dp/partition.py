@@ -1,8 +1,12 @@
-nums = [7, 2, 5, 10, 8]
-s = [nums[0]]
+def max_sum_after_partition(nums, k):
+    mem = [0] * (len(nums) + 1)
+    for i in range(len(nums)):
+        cur = 0
+        for j in range(1, min(k, i + 1) + 1):
+            a = nums[i - j + 1]
+            cur = max(cur, a)
+            b = mem[i - j]
+            c = j * cur
+            mem[i] = max(mem[i], b + c)
 
-for i in range(1, len(nums)):
-    s.append(s[-1] + nums[i])
-
-idx = 1
-print(s, nums[idx:], s[len(s) - 1] - s[idx - 1])
+    print(mem[len(nums) - 1])
