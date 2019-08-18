@@ -22,7 +22,7 @@ public class ListProblems {
 	 * @param G subset 
 	 * @return number of sub components
 	 */
-	private <T extends Comparable<T>> int numComponents(ListNode<T> head, int[] G) {
+	public <T extends Comparable<T>> int numComponents(ListNode<T> head, int[] G) {
 		int components = 0, run = 0;
 		
 		if(head == null || G.length == 0)
@@ -60,7 +60,7 @@ public class ListProblems {
 	 * @param head of the Linked List
 	 * @return array of next greater elements
 	 */
-	private <T extends Comparable<T>> int[] nextLargerNodes(ListNode<T> head) {
+	public <T extends Comparable<T>> int[] nextLargerNodes(ListNode<T> head) {
 		int len = 0, pos = -1;
 		
 		// Find the length of Linked List
@@ -107,7 +107,7 @@ public class ListProblems {
 	 * @param head of the Linked List
 	 * @return array of next greater elements
 	 */
-	private <T extends Comparable<T>> int[] nextLargerNodes2(ListNode<T> head) {
+	public <T extends Comparable<T>> int[] nextLargerNodesOptimal(ListNode<T> head) {
 		int len = 0, pos = -1;
 		
 		// Find the length of Linked List
@@ -144,55 +144,76 @@ public class ListProblems {
 		return res;	
 	}	
 	
-	private void copyRandomList(ListRandom head) {
-		ListRandom node = head, nxt;
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 0 ms. Optimal Solution.
+	 * 
+	 * Given a linked list with random pointer. Clone the list along with the random
+	 * pointer.
+	 * 
+	 * Example:
+	 * 		 _________
+	 *		|		  | 
+	 * 		1 -> 2 -> 3 -> 4
+	 * 		 	 |_________|
+	 *  
+	 * Approach 1:
+	 * 		- Pass through linked list and store in a Dictionary : <node, clonedNode>
+	 * 		- Second pass attach the random pointer to the cloned node by looking up the dictionary  
+	 *  
+	 * @param head of the linked list
+	 * @return cloned head of the linked list
+	 */
+	public ListRandom copyRandomList(ListRandom head) {
+		ListRandom iter = head;
 		
-		while(node != null) {
-			nxt = node.next;
-			ListRandom duplicate = new ListRandom(node.val);
+		/*
+		 * Pass 1: Create duplicates 
+		 * 	 _____________________
+		 *  |					  |
+		 * 	1 -> 1' -> 2 -> 2' -> 3 -> 3' -> 4 -> 4' -> null
+		 * 			   |_____________________|
+		 * 				
+		 */
+		while(iter != null) {
+			ListRandom nxt = iter.next, duplicate = new ListRandom(iter.val);
 			
-			node.next = duplicate;
+			iter.next = duplicate;
 			duplicate.next = nxt;
-			node = nxt;
+			iter = nxt;
 		}
 		
-		node = head;
-		while(node != null) {
-			if(node.random != null)
-				node.next.random = node.random.next;
-			node = node.next.next;
+		/*
+		 * Pass 2: Attach random pointers to duplicates
+		 * 	 _____________________
+		 *  |     ________________|____
+		 *  |	 |				  |    |
+		 * 	1 -> 1' -> 2 -> 2' -> 3 -> 3' -> 4 -> 4' -> null
+		 * 			   |    |________________|    |
+		 * 			   |__________________________|
+		 * 
+		 */
+		iter = head;
+		while(iter != null) {
+			if(iter.random != null)
+				iter.next.random = iter.random.next;
+			iter = iter.next.next;
 		}
 		
-		node = head;
+		/*
+		 * Pass 3: Separate the real node and duplicate nodes
+		 */
+		iter = head;
 		ListRandom copyHead = new ListRandom(-1);
-		ListRandom copyNode = copyHead;
-		
-		while(node != null) {
-			copyNode.next = node.next;
-			node.next = node.next.next;
-			node = node.next;
-			copyNode = copyNode.next; 
+		ListRandom copyIter = copyHead;
+		while(iter != null) {
+			copyIter.next = iter.next;
+			iter.next = iter.next.next;
+			iter = iter.next;
+			copyIter = copyIter.next; 
 		}
 		
-		ListRandom current = copyHead.next;
-		
-		while(current != null) {
-			System.out.println(current.val + " " + ((current.random != null) ? current.random.val : 0));
-			current = current.next;
-		}
+		return copyHead.next;
 	}
-	
-	public static void main(String[] args) {
-		ListProblems lp = new ListProblems();
-		
-		ListRandom head = new ListRandom(1);
-		head.next = new ListRandom(2);
-		head.next.next = new ListRandom(3);
-//		head.next.next.next = new ListRandom(4);
-		head.random = head.next.next;
-//		head.next.random = head.next.next.next;
-		
-		lp.copyRandomList(head);
-	}
-
 }
