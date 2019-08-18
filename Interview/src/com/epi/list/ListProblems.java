@@ -97,4 +97,102 @@ public class ListProblems {
 		return res;	
 	}
 
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 4 ms. Optimal Run Time.
+	 * 
+	 * Given a linked list, find the next largest element for each node.  
+	 *  
+	 * @param head of the Linked List
+	 * @return array of next greater elements
+	 */
+	private <T extends Comparable<T>> int[] nextLargerNodes2(ListNode<T> head) {
+		int len = 0, pos = -1;
+		
+		// Find the length of Linked List
+		ListNode<T> current = head;
+		while(current != null) {
+			current = current.next;
+			len++;
+		}
+		
+		int[] res = new int[len];
+		int[] stack = new int[len];
+		int[] position = new int[len];
+		int top = -1;
+		current = head;
+		
+		while(current.next != null) {
+			pos++;
+			int val = (int) current.data;
+			while(top > -1 && stack[top] < val) {
+				res[position[top]] = val;
+				top--;
+			}
+			top++;
+			stack[top] = val;
+			position[top] = pos;
+			current = current.next;
+		}
+		
+		while(top > -1) {
+			if((int) current.data > stack[top])
+				res[position[top]] = (int) current.data;
+			top--;
+		}
+		return res;	
+	}	
+	
+	private void copyRandomList(ListRandom head) {
+		ListRandom node = head, nxt;
+		
+		while(node != null) {
+			nxt = node.next;
+			ListRandom duplicate = new ListRandom(node.val);
+			
+			node.next = duplicate;
+			duplicate.next = nxt;
+			node = nxt;
+		}
+		
+		node = head;
+		while(node != null) {
+			if(node.random != null)
+				node.next.random = node.random.next;
+			node = node.next.next;
+		}
+		
+		node = head;
+		ListRandom copyHead = new ListRandom(-1);
+		ListRandom copyNode = copyHead;
+		
+		while(node != null) {
+			copyNode.next = node.next;
+			node.next = node.next.next;
+			node = node.next;
+			copyNode = copyNode.next; 
+		}
+		
+		ListRandom current = copyHead.next;
+		
+		while(current != null) {
+			System.out.println(current.val + " " + ((current.random != null) ? current.random.val : 0));
+			current = current.next;
+		}
+	}
+	
+	public static void main(String[] args) {
+		ListProblems lp = new ListProblems();
+		
+		ListRandom head = new ListRandom(1);
+		head.next = new ListRandom(2);
+		head.next.next = new ListRandom(3);
+//		head.next.next.next = new ListRandom(4);
+		head.random = head.next.next;
+//		head.next.random = head.next.next.next;
+		
+		lp.copyRandomList(head);
+	}
+
 }
