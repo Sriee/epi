@@ -48,4 +48,53 @@ public class ListProblems {
 		
 		return components;
 	}
+	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 34 ms. Above Average run time. Majority of the run time is because of
+	 * using Stack collection.
+	 * 
+	 * Given a linked list, find the next largest element for each node.  
+	 *  
+	 * @param head of the Linked List
+	 * @return array of next greater elements
+	 */
+	private <T extends Comparable<T>> int[] nextLargerNodes(ListNode<T> head) {
+		int len = 0, pos = -1;
+		
+		// Find the length of Linked List
+		ListNode<T> current = head;
+		while(current != null) {
+			current = current.next;
+			len++;
+		}
+		
+		int[] res = new int[len];
+		Stack<int[]> stack = new Stack<>();
+		current = head;
+		
+		while(current.next != null) {
+			pos++;
+			int val = (int) current.data;
+			if(stack.isEmpty() || stack.peek()[1] >= val) {
+				stack.push(new int[] {pos, val});
+			} else {
+				while(!stack.isEmpty() && stack.peek()[1] < val) {
+					int[] top = stack.pop();
+					res[top[0]] = val;
+				}
+				stack.push(new int[] {pos, val});
+			} 
+			current = current.next;
+		}
+		
+		while(!stack.isEmpty()) {
+			int[] top = stack.pop();
+			if((int) current.data > top[1])
+				res[top[0]] = (int) current.data;
+		}
+		return res;	
+	}
+
 }
