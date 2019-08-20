@@ -17,12 +17,12 @@ public class TrieUtils {
 	public void insert(String word) {
 		TrieNode iter = this.root;
 		
-		for(int i = 0; i < word.length(); i++) {
-			int idx = word.charAt(i) - 'a';
-			if(iter.child.get(idx) == null) {
-				iter.child.set(idx, new TrieNode(word.charAt(i)));
+		for(char ch: word.toCharArray()) {
+			int idx = ch - 'a';
+			if(iter.child[idx] == null) {
+				iter.child[idx] = new TrieNode(ch);
 			}
-			iter = iter.child.get(idx);
+			iter = iter.child[idx];
 		}
 		iter.isWord = true;
 	}
@@ -30,11 +30,11 @@ public class TrieUtils {
 	public boolean search(String word) {
 		TrieNode iter = this.root;
 		
-		for(int i = 0; i < word.length(); i++) {
-			int idx = word.charAt(i) - 'a';
-			if(iter.child.get(idx) == null)
+		for(char ch : word.toCharArray()) {
+			int idx = ch - 'a';
+			if(iter.child[idx] == null)
 				return false;
-			iter = iter.child.get(idx);
+			iter = iter.child[idx];
 		}
 		return iter.isWord;
 	}
@@ -42,11 +42,11 @@ public class TrieUtils {
 	public boolean startsWith(String prefix) {
 		TrieNode iter = this.root;
 		
-		for(int i = 0; i < prefix.length(); i++) {
-			int idx = prefix.charAt(i) - 'a';
-			if(iter.child.get(idx) == null)
+		for(char ch : prefix.toCharArray()) {
+			int idx = ch - 'a';
+			if(iter.child[idx] == null)
 				return false;
-			iter = iter.child.get(idx);
+			iter = iter.child[idx];
 		}
 		return true;
 	}
