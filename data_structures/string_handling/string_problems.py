@@ -35,6 +35,57 @@ def backspace_compare(s, t):
     return ''.join(sk) == ''.join(tk)
 
 
+def camel_match(queries, pattern):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 36 ms. Above average run time.
+
+    Given a list of queries find whether the pattern matched the query. There may be 0
+    to n lower case letters in-between the pattern but shouldn't have any upper case
+    letter.
+
+    Example:
+        queries = ["FooseBar","meowFotBook", "FooBarTest", "AaBbFfBb"]
+        pattern = "FoBa"
+
+        -> [True, False, False, False]
+
+    :param queries: List of queries
+    :param pattern: Pattern to match
+    :return: List of boolean values, ith value is true if the pattern is found in ith
+    query, False otherwise
+    """
+    res = [True] * len(queries)
+
+    for i in range(len(queries)):
+        word, p, q = queries[i], 0, 0
+
+        if len(word) < len(pattern):
+            res[i] = False
+            continue
+
+        while p < len(word) and q < len(pattern):
+            if word[p] != pattern[q]:
+                if word[p].isupper():
+                    res[i] = False
+                    break
+            else:
+                q += 1
+            p += 1
+
+        if res[i]:
+            if p == len(word) and q != len(pattern):
+                res[i] = False
+            elif q == len(pattern) and p < len(word):
+                while p < len(word):
+                    if word[p].isupper():
+                        res[i] = False
+                        break
+                    p += 1
+    return res
+
+
 def reverse_vowels(inp):
     """
     Leet code. Solution -> Accepted
