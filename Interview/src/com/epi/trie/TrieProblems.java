@@ -1,5 +1,9 @@
 package com.epi.trie;
 
+import java.util.List;
+import java.util.ArrayList;
+
+
 /**
  * Leet code. Solution -> Accepted
  * 
@@ -86,14 +90,74 @@ class TrieProblems {
 		return result;
 	}
 
+	/**
+	 * Helper utility to replace words
+	 * 
+	 * @param token 
+	 * @return token if the root word is not found in dictionary else root word 
+	 */
+	private String replaceWordsHelper(String token) {
+		TNode iter = this.root;
+		
+		for(char ch : token.toCharArray()) {
+			int idx = ch - 'a';
+			if(iter.child[idx] == null)
+				return token;
+			else if(iter.child[idx].word != null)
+				return iter.child[idx].word;
+			else
+				iter = iter.child[idx];
+		}
+		
+		return token;
+	}
+	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 8 ms. Optimal solution.
+	 * 
+	 * Given a sentence, replace the words in the sentence with the root words which are stored in the dictionary. 
+	 * 
+	 * @param dict Dictionary of words 
+	 * @param sentence 
+	 * @return senten
+	 */
+	public String replaceWords(List<String> dict, String sentence) {
+		for(String word : dict)
+			this.insert(word);
+		
+		StringBuffer sb = new StringBuffer(); 
+		
+		for(String token : sentence.split(" ")) {
+			String res = this.replaceWordsHelper(token); 
+			System.out.println("I got " + res + " for " + token);
+			sb.append(res);
+			sb.append(" ");
+		}
+		
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
+	} 
+	
 	public static void main(String[] args) {
 		TrieProblems tp = new TrieProblems();
+		/*
 		String[] words = new String[] {"ap", "a", "app", "appl", "apple", "banana", "apply"};
 
 		for(String word : words)
 			tp.insert(word);
 
 		System.out.println(tp.longestWord(words.length));
+		*/
+		
+		List<String> dict = new ArrayList<>();
+		String[] words = new String[] {"cat", "bat", "batter", "mat"};
+		
+		for(String word: words)
+			dict.add(word);
+		
+		System.out.println(tp.replaceWords(dict, "the cattle was rattled by the batter matter"));
 	}
 
 }
