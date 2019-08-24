@@ -1,7 +1,6 @@
 package com.epi.trie;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 
 /**
@@ -18,7 +17,65 @@ class TrieProblems {
 	public TrieProblems() { 
 		root = new TNode(); 
 	}
+	
+	/**
+	 * Helper method to check if a word cab be formed by concatenating multiple words by traversing
+	 * through the trie
+	 * 
+	 * @param word ith word
+	 * @param idx index traversed so far in the word
+	 * @param count number of concatenated word already formed
+	 * @return true if the word is formed by concatenating more than 1 word, false otherwise
+	 */
+	private boolean verify(String word, int idx, int count) {
+		if(word.length() == idx)
+			return count > 1;
+		
+		TNode iter = this.root;
+		for(int i = idx; i < word.length(); i++) {
+			char ch = word.charAt(i);
+			int j = ch - 'a';
+			
+			if(iter.child[j] == null)
+				return false;
+			else if(iter.child[j].word != null && this.verify(word, i + 1, count + 1))
+				return true;
+			
+			iter = iter.child[j];
+		}
+		return false;
+	}
+	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 41 ms. Optimal solution
+	 * 
+	 * Given a list of words, give all the words which can be formed by contatenating word in the 
+	 * given list.
+	 * 
+	 * Example:
+	 * 	["dog", "dogcat", "cat"] -> "dogcat" (because it can be made by concatenating "dog" + "cat")
+	 * 
+	 * @param words Dictionary words
+	 * @return list of words that can be formed by concatenation
+	 */
+	public List<String> concatenateWords(String[] words) {
+		List<String> result = new LinkedList<>();
+		if(words == null || words.length == 0)
+			return result;
+		
+		for(String word: words)
+			this.insert(word);
+		
+		for(String word: words) {
+			if(this.verify(word, 0, 0))
+				result.add(word);
+		}
 
+		return result;
+	} 
+	
 	/**
 	 * Insert word in Trie (Prefix tree)
 	 * 
@@ -149,7 +206,7 @@ class TrieProblems {
 			tp.insert(word);
 
 		System.out.println(tp.longestWord(words.length));
-		*/
+		
 		
 		List<String> dict = new ArrayList<>();
 		String[] words = new String[] {"cat", "bat", "batter", "mat"};
@@ -158,6 +215,11 @@ class TrieProblems {
 			dict.add(word);
 		
 		System.out.println(tp.replaceWords(dict, "the cattle was rattled by the batter matter"));
+		*/
+		String[] words = new String[] {"cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"};
+		List<String> ans = tp.concatenateWords(words);
+		for(String i : ans)
+			System.out.print(i + " ");
 	}
 
 }
