@@ -8,6 +8,40 @@ import java.util.Queue;
 public class NaryTraversal {
 	
 	/**
+	 * Depth First Search Recursive helper method
+	 * 
+	 * @param node of a n-ary tree 
+	 * @param depth current depth
+	 * @return maximum depth at ith node
+	 */
+    private int dfs(NaryNode node, int depth) {
+        if(node == null)
+            return depth;
+        
+        int curMax = -1;
+        
+        for(NaryNode child : node.children) {
+            curMax = Math.max(curMax, this.dfs(child, depth + 1));
+        }
+        return (curMax == -1) ? depth : curMax; 
+    }
+    
+    /**
+     * Leet code. Solution -> Accepted
+     * 
+     * Depth of a n-ary tree.
+     * 
+     * @param root of the n-ary tree
+     * @return maximum depth of the n-ary tree
+     */
+    public int depth(NaryNode root) {
+        if(root == null)
+            return 0;
+        
+        return this.dfs(root, 0);   
+    }
+    
+	/**
 	 * Leet code. Solution -> Accepted
 	 * 
 	 * Run Time: 3 ms. Above average run time.
@@ -94,23 +128,5 @@ public class NaryTraversal {
 		}
 		
 		return res;
-	}
-	
-	public static void main(String[] args) {
-		NaryTraversal n = new NaryTraversal();
-		
-		NaryNode root = new NaryNode(1);
-		NaryNode three = new NaryNode(3);
-		three.children.add(new NaryNode(5));
-		three.children.add(new NaryNode(6));
-		
-		root.children.add(three);
-		root.children.add(new NaryNode(2));
-		root.children.add(new NaryNode(4));
-		
-		List<List<Integer>> result = n.levelOrder(root);
-		
-		for(List<Integer> i : result)
-			System.out.println(i);
 	}
 }
