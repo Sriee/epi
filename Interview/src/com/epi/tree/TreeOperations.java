@@ -1,6 +1,9 @@
 package com.epi.tree;
 
 import java.lang.Math;
+import java.util.Queue;
+import java.util.LinkedList;
+
 
 public class TreeOperations {
     
@@ -100,6 +103,47 @@ public class TreeOperations {
 		return this.checkBalanced(root).balanced;
 	}
 
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 14 ms. Below Average run time. Most run time is the use of variables  
+	 * 
+	 * Maximum Level Sum of Binary Tree
+	 * 
+	 * @param root of the binary tree
+	 * @return maximum sum in a level, tie break is on level
+	 */
+	public int maxLevelSum(TreeNode root) {
+		int level = 1, sum = 0, current = 1, next = 0;
+		Queue<TreeNode> queue = new LinkedList<>();
+		int[] currentMax = new int[] {0, Integer.MIN_VALUE};
+		
+		while(!queue.isEmpty()) {
+			TreeNode node = queue.remove();
+			current--;
+			
+			if(node != null) {
+				sum += node.val;
+				queue.add(node.left);
+				queue.add(node.right);
+				
+				next += 2;
+			}
+			if(current == 0) {
+				if(sum > currentMax[1]) {
+					currentMax[0] = level;
+					currentMax[1] = sum;
+				}
+				current = next;
+				next = 0;
+				sum = 0;
+				level++;
+			}
+		}
+		
+		return currentMax[0]; 
+	} 
+	
 	/**
 	 * Merge tree's
 	 * 
