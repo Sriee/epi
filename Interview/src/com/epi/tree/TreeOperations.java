@@ -106,7 +106,7 @@ public class TreeOperations {
 	/**
 	 * Leet code. Solution -> Accepted
 	 * 
-	 * Run Time: 14 ms. Below Average run time. Most run time is the use of variables  
+	 * Run Time: 9 ms. Above Average run time. Optimal time is recursive approach  
 	 * 
 	 * Maximum Level Sum of Binary Tree
 	 * 
@@ -114,34 +114,32 @@ public class TreeOperations {
 	 * @return maximum sum in a level, tie break is on level
 	 */
 	public int maxLevelSum(TreeNode root) {
-		int level = 1, sum = 0, current = 1, next = 0;
+		int level = 1, maxSum = Integer.MIN_VALUE, result = 0;
 		Queue<TreeNode> queue = new LinkedList<>();
-		int[] currentMax = new int[] {0, Integer.MIN_VALUE};
 		
 		while(!queue.isEmpty()) {
-			TreeNode node = queue.remove();
-			current--;
+			int current = queue.size(); 
+			int levelSum = 0;
 			
-			if(node != null) {
-				sum += node.val;
-				queue.add(node.left);
-				queue.add(node.right);
+			for(int i = 0; i < current; i++) {
+				TreeNode node = queue.remove();
+				levelSum += node.val;
 				
-				next += 2;
+				if(node.left != null)
+					queue.add(node.left);
+				
+				if(node.right != null)
+					queue.add(node.right);
 			}
-			if(current == 0) {
-				if(sum > currentMax[1]) {
-					currentMax[0] = level;
-					currentMax[1] = sum;
-				}
-				current = next;
-				next = 0;
-				sum = 0;
-				level++;
+			
+			if(levelSum > maxSum) {
+				maxSum = levelSum;
+				result = level;
 			}
+			level++;
 		}
 		
-		return currentMax[0]; 
+		return result; 
 	} 
 	
 	/**
