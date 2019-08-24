@@ -45,6 +45,33 @@ public class NaryTraversal {
 		return result;
 	}
 	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Pre-order traversal of an n-ary tree. (Iterative Implementation)
+	 * 
+	 * @param root of the n-ary tree
+	 * @return Pre-order traversal nodes
+	 */
+	public List<Integer> preOrder(NaryNode root) {
+		List<Integer> result = new LinkedList<>();
+		List<NaryNode> queue = new LinkedList<>();
+		
+		queue.add(root);
+		
+		while(!queue.isEmpty()) {
+			NaryNode node = queue.remove(0);
+			
+			if(node != null) {
+				result.add(node.val);
+				node.children.addAll(queue);
+				queue = node.children;
+			}
+		}
+		
+		return result;
+	}
+	
 	public static void main(String[] args) {
 		NaryTraversal n = new NaryTraversal();
 		
