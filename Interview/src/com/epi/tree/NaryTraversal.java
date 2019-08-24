@@ -1,5 +1,6 @@
 package com.epi.tree;
 
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -70,6 +71,29 @@ public class NaryTraversal {
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Post-order traversal of an n-ary tree. (Iterative Implementation)
+	 * @param root of the n-ary tree
+	 * @return Post-order traversal nodes
+	 */
+	public List<Integer> postOrder(NaryNode root) {
+		Deque<NaryNode> queue = new LinkedList<>();
+		List<Integer> res = new LinkedList<>();
+		queue.add(root);		
+
+		while(!queue.isEmpty()) {
+			NaryNode node = queue.removeLast();
+			if(node != null) {
+				res.add(0, node.val);
+				queue.addAll(node.children);
+			}
+		}
+		
+		return res;
 	}
 	
 	public static void main(String[] args) {
