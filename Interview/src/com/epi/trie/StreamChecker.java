@@ -1,40 +1,33 @@
 package com.epi.trie;
 
-import java.util.Queue;
-import java.util.LinkedList;
 
 /**
  * Leet code. Solution -> Accepted
  * 
- * Run Time: 955 ms. Below average run time. It's okay since hard problem got accepted (:+1)  
+ * Run Time: 144 ms. Above average run time. Trick was to insert words in trie in reverse order  
  * 
  */
 public class StreamChecker {
 	private TNode root;
-	private Queue<TNode> queue;
-	
-	public StreamChecker() { 
-		root = new TNode();
-		this.queue = new LinkedList<>();
-	}
+	private StringBuilder sb;
 	
 	public StreamChecker(String[] words) {
 		this.root = new TNode();
-		this.queue = new LinkedList<>();
+		this.sb = new StringBuilder();
 		for(String word: words)
 			this.insert(word);
 	}
 	
 	/**
-	 * Insert word in Trie (Prefix tree)
+	 * Insert word in Trie in the reverse order.
 	 * 
 	 * @param word
 	 */
 	public void insert(String word) {
 		TNode node = this.root;
 
-		for(char ch: word.toCharArray()) {
-			int idx = ch - 'a';
+		for(int i = word.length() - 1; i > -1; i--) {
+			int idx = word.charAt(i) - 'a';
 
 			if(node.child[idx] == null)
 				node.child[idx] = new TNode();
@@ -49,40 +42,23 @@ public class StreamChecker {
 	 * For some k >= 1, the last k characters queried (in order from oldest to newest, including this letter just queried) 
 	 * spell one of the words in the given list.
 	 * 
-	 * @param letter - Stream character
+	 * @param letter Stream character
 	 * @return true if the letter on stream is accepted, false otherwise
 	 */
-	public boolean query(char letter) {		
-		boolean found = false;
-		int idx = letter - 'a';
+	public boolean query(char letter) {
+		this.sb.append(letter);
+		TNode iter = this.root;
 		
-		if(queue.isEmpty()) {
-			if(this.root.child[idx] != null) {
-				queue.add(this.root.child[idx]);
-				found = this.root.child[idx].word != null;
-			} 
-		} else {
-				int curQ = this.queue.size();
-				int i = 0;
-				
-				while(i < curQ) {
-					TNode node = this.queue.remove();
-					
-					if(node.child[idx] != null) {
-						this.queue.add(node.child[idx]);
-						found = node.child[idx].word != null;
-					}
-					i++;
-				}
-				
-				if(this.root.child[idx] != null) {
-					this.queue.add(this.root.child[idx]);
-					if(this.root.child[idx].word != null)
-						found = true;
-				}
+		for(int i = this.sb.length() - 1; i > -1; i--) {
+			iter = iter.child[this.sb.charAt(i) - 'a'];
+			
+			if(iter == null)
+				return false;
+			
+			if(iter.word != null)
+				return true;
 		}
-		
-		return found;
+		return false;
 	}
 	
 	public static void main(String[] args) {
