@@ -197,6 +197,49 @@ class TrieProblems {
 		return sb.toString();
 	} 
 	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 1 ms. Optimal Solution using dynamic programming
+	 * 
+	 * Given a string and list of words tell me whether it can be made from more than
+	 * than one word from the given list
+	 * 
+	 * Note this may look similar to concatenate words problem, but implementing the 
+	 * solution throw TLE (Time Limit Exceeded)
+	 * 
+	 * Example:
+	 * s: leetcode, wordDict = ["leet", "code"] -> true
+	 *  
+	 * @param s String to find
+	 * @param wordDict List of words
+	 * @return true if the word can be made from word segments, false otherwise
+	 */
+	public boolean wordBreak(String s, String[] wordDict) {
+		// Populate the trie
+		for(String word : wordDict)
+			this.insert(word);
+		
+		boolean[] dp = new boolean[s.length() + 1];
+		// DP base case
+		dp[s.length()] = true;
+		
+		// Trick: Approached from right. Doing so we can avoid the following problem
+		// ["apple", "apples", "sand"]; "applesand"
+		for(int i = s.length() - 1; i >= 0; i--) {
+			TNode iter = this.root;
+		 
+			for(int j = i; j < s.length() && iter != null; j++) {
+				iter = iter.child[s.charAt(j) - 'a'];
+				if(iter != null && iter.word != null && dp[j + 1]) {
+					dp[i] = true;
+					break;
+				}
+			}
+		}
+		return dp[0];
+	}
+	
 	public static void main(String[] args) {
 		TrieProblems tp = new TrieProblems();
 		/*
@@ -217,9 +260,12 @@ class TrieProblems {
 		System.out.println(tp.replaceWords(dict, "the cattle was rattled by the batter matter"));
 		*/
 		String[] words = new String[] {"cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"};
+		System.out.println(tp.wordBreak("dogcat", words));
+		/*
 		List<String> ans = tp.concatenateWords(words);
 		for(String i : ans)
 			System.out.print(i + " ");
+		*/
 	}
 
 }
