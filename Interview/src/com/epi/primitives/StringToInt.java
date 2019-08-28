@@ -4,6 +4,42 @@ import java.util.Scanner;
 
 public class StringToInt {
 
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 0 ms. Optimal Solution
+	 * 
+	 * Given a string reverse only letters. Non letters should stay in the same position
+	 * 
+	 * Example:
+	 * 	a-b-c -> c-b-a
+	 * 
+	 * @param S Given string
+	 */
+	private void reverseOnlyLetters(String S) {
+		char[] result = new char[S.length()];
+		int i =0, j = 0; 
+		
+		for(; i < S.length(); i++) {
+			char ch = S.charAt(i);
+			if((ch - 'a' >= 0 && ch - 'a' < 26) || (ch - 'A' >= 0 && ch - 'A' < 26))
+				continue;
+			result[i] = ch;
+		}
+		
+		for(i = i - 1; i >= 0; i--) {
+			char ch = S.charAt(i);
+			if(result[j] != 0) {
+				i++;
+				j++;
+			} else if(ch - 'a' >=0 && ch - 'a' < 26)
+				result[j++] = ch;
+			else if(ch - 'A' >=0 && ch - 'A' < 26)
+				result[j++] = ch;
+		}
+		System.out.println(new String(result));
+	}
+	
 	public long stringToInt(String inp){
 		if(inp.isEmpty() || inp == null) throw new NullPointerException();
 		long num = 0;
@@ -82,12 +118,16 @@ public class StringToInt {
 			inp = scan.next();
 			toInt = new StringToInt();
 			System.out.println("Integer : " + toInt.stringToInt(inp));
+			
+			toInt.reverseOnlyLetters("a-B-Dc");
+			toInt.reverseOnlyLetters("a-bC-dEf-ghIj");
+			toInt.reverseOnlyLetters("Test1ng-Leet=code-Q!");
+
 		} catch(Exception e){
 			e.printStackTrace();	
 		} finally {
 			scan.close();
 		}
-
 	}
 
 }
