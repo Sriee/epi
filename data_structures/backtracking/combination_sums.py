@@ -84,6 +84,43 @@ def combination_sum2(candidates, target):
     return res
 
 
+def combination_sum3(k, n):
+    """
+    Leet code. Solution -> Accepted
+
+    Run time: 36 ms Optimized. Optimal solution
+
+    Find all possible combinations of k numbers that add up to a number n, given that
+    only numbers from 1 to 9 can be used and each combination should be a unique set of numbers.
+
+    Examples:
+        k: 3 n: 7
+
+        Output should be
+        [
+            [1, 2, 4],
+        ]
+
+    :param k: Length of combination
+    :param n: target sum
+    :return: list of candidates who sum is equal to candidates sum
+    """
+    res, candidates = [], [i for i in range(1, 10)]
+
+    def dfs(candidates, target, path):
+        if target == 0 and len(path) == k:
+            res.append(path)
+            return
+
+        for i in range(len(candidates)):
+            if target - candidates[i] >= 0 and len(path) + 1 <= k:
+                dfs(candidates[i + 1:], target - candidates[i], path + [candidates[i]])
+            else:
+                break
+    dfs(candidates, n, [])
+    return res
+
+
 def combination_sum_4(nums, target):
     """
     Leet Code. Time Limit Exceeded
