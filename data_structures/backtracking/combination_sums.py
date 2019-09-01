@@ -29,7 +29,7 @@ def combination_sum(candidates, target):
             return
 
         for i in range(index, len(candidates)):
-            if target-candidates[i] < 0:
+            if target - candidates[i] < 0:
                 continue
 
             path.append(candidates[i])
@@ -37,6 +37,50 @@ def combination_sum(candidates, target):
             path.pop()
 
     dfs(candidates, target, 0, [])
+    return res
+
+
+def combination_sum2(candidates, target):
+    """
+    Leet code. Solution -> Accepted
+
+    Run Time: 52 ms. Optimal solution
+
+    Given an array with duplicates. Find the list of candidates which are equal to
+    the target sum. Each element in the output array should appear once.
+
+    Examples:
+        nums: [10, 1, 2, 7, 6, 1, 5] target = 8
+
+        Output should be
+        [
+            [1, 7],
+            [1, 2, 5],
+            [2, 6],
+            [1, 1, 6]
+        ]
+
+    :param candidates: Given array
+    :param target: target sum
+    :return: list of candidates who sum is equal to candidates sum
+    """
+    res = []
+
+    def dfs(target, idx, path):
+        if target == 0:
+            res.append(path)
+            return
+
+        for i in range(idx, len(candidates)):
+            if i > idx and candidates[i] == candidates[i - 1]:
+                continue
+
+            if target - candidates[i] < 0 or candidates[i] > target:
+                break
+
+            dfs(target - candidates[i], i + 1, path + [candidates[i]])
+
+    dfs(target, 0, [])
     return res
 
 
