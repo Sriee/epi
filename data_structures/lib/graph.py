@@ -1,28 +1,37 @@
 class Vertex:
-    def __init__(self, key):
+    def __init__(self, label):
         """Initialize the vertex."""
-        self.id = key
-        self.connected_to = {}
+        self._label = label
+        self._neighbors = {}
 
-    def add_neighbor(self, neigh, weight=0):
+    def add_neighbor(self, neighbor, weight=0):
         """Adds the vertex to the list of connected vertices
 
-        :param neigh - The vertex to be connected
+        :param neighbor - The vertex to be connected
         :param weight- Weight of the connection
         """
-        self.connected_to[neigh] = weight
+        self._neighbors[neighbor] = weight
 
-    def get_id(self):
-        """Returns the id of the vertex."""
-        return self.id
+    @property
+    def label(self):
+        """Returns the label of the vertex."""
+        return self._label
 
-    def get_connections(self):
+    @property
+    def neighbors(self):
         """Return the vertices of the graph."""
-        return self.connected_to.keys()
+        return self._neighbors.keys()
 
-    def get_weight(self):
+    def weight(self, label):
         """Return the weight of the vertices."""
-        return self.connected_to.values()
+        return self._neighbors.get(label, 0)
+
+    def __delattr__(self, item):
+        """Delete's the vertex from the connected list."""
+        if item in self._neighbors:
+            del self._neighbors[item]
+        else:
+            raise KeyError
 
     def __contains__(self, item):
         """
@@ -32,19 +41,19 @@ class Vertex:
         :return: True - If the given vertex is connected to this vertex
                 False - Otherwise
         """
-        return item in self.connected_to.keys()
+        return item in self._neighbors
 
-    def __delattr__(self, item):
-        """Delete's the vertex from the connected list."""
-        if item in self.connected_to.keys():
-            del self.connected_to[item]
-        else:
-            raise KeyError
+    def __iter__(self):
+        return iter(self._neighbors)
+
+    def __len__(self):
+        return len(self._neighbors)
 
     def __str__(self):
         """Prints the vertex list connected to this vertex."""
-        return str(self.id + "is connected to " + [x.id for x in
-                                                   self.connected_to] + ".\n")
+
+        return '{} is connected to: [{}]'.format(self._label, ', '.join(
+                                                [x.label for x in self._neighbors]))
 
 
 class Graph:
@@ -70,47 +79,42 @@ class Graph:
 
     def __init__(self):
         """Initializes the graph."""
-        self.vertices_list = {}
-        self.num_of_vertices = 0
+        self._vertices_list = {}
 
-    def add_vertex(self, vx):
+    @property
+    def num_of_vertices(self):
+        return len(self._vertices_list)
+
+    @property
+    def vertices(self):
+        """List of vertices connected to a graph."""
+        return self._vertices_list.keys()
+
+    def add_vertex(self, vertex):
         """Add vertex to the Graph
 
-        :param vx - New vertex to be added to the Grapg
+        :param vertex - New vertex to be added to the Graph
         """
-        new_vertex = Vertex(vx)
-        self.vertices_list[vx] = new_vertex
-        self.num_of_vertices += 1
-        return new_vertex
+        self._vertices_list[vertex] = Vertex(vertex)
 
-    def get_vertex(self, vx):
-        """The vertices object connected to this vertex
-
-        :param vx: The vertex key
-        :return: The list of vertex object
-        """
-        if vx in self.vertices_list:
-            return self.vertices_list[vx]
-        else:
-            return None
-
-    def get_vertices(self):
-        """List of the vertices connected a vertex."""
-        return self.vertices_list.keys()
-
-    def add_edge(self, fromV, toV, weight=0):
+    def add_edge(self, from_vertex, to_vertex, weight=0):
         """Add an edge between vertex
 
-        :param fromV - from vertex
-        :param toV - to vertex
+        :param from_vertex - from vertex
+        :param to_vertex - to vertex
         :param weight - cost of the edge
         """
-        if fromV not in self.vertices_list:
-            self.add_vertex(fromV)
-        if toV not in self.vertices_list:
-            self.add_vertex(toV)
+        if from_vertex not in self._vertices_list:
+            self.add_vertex(from_vertex)
 
-        self.vertices_list[fromV].add_neighbor(self.vertices_list[toV], weight)
+        if to_vertex not in self._vertices_list:
+            self.add_vertex(to_vertex)
+
+        self._vertices_list[from_vertex].add_neighbor(self._vertices_list[to_vertex],
+                                                      weight)
+
+    def get_vertex(self, vertex):
+        return self._vertices_list[vertex]
 
     def __contains__(self, item):
         """Checks to see if there an edge connected to this vertex.
@@ -119,9 +123,8 @@ class Graph:
         :returns True - If there is a edge
                 False - Otherwise
         """
-        return item in self.vertices_list
+        return item in self._vertices_list
 
-    def __itr__(self):
+    def __iter__(self):
         """Iterate through the vertices object"""
-        for itm in self.vertices_list.values():
-            yield itm
+        return iter(self._vertices_list)
