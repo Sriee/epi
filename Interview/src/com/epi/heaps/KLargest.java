@@ -116,23 +116,26 @@ public class KLargest {
 	 * @return       List of k smallest pairs
 	 */
 	public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
-		PriorityQueue<int[]> queue = new PriorityQueue<>((a, b) -> (a[0] + a[1]) - (b[0] + b[1]));
-		List<List<Integer>> result = new LinkedList<>();
-		for(int i: nums1) {
-			for(int j: nums2) {
-				List<Integer> temp = new LinkedList<>();
-				temp.add(i);
-				temp.add(j);
-				
-				queue.add(temp);
-				if(queue.size() > k)
-					queue.poll();
-			}
-		}
-		
-		while(!queue.isEmpty()) {
-			result.add(0, queue.poll());
-		}
-		return result;
+        PriorityQueue<int[]> queue = new PriorityQueue<>((a, b) -> (a[0] + a[1]) - (b[0] + b[1]));
+        List<List<Integer>> result = new LinkedList<>();
+        
+        if(nums1.length == 0 || nums2.length == 0 || k == 0) 
+            return result;
+        
+        for(int i = 0; i < nums1.length && i < k; i++) 
+            queue.offer(new int[] {nums1[i], nums2[0], 0});
+        
+        while(k-- > 0 && !queue.isEmpty()) {
+            int[] top = queue.poll();
+            
+            result.add(Arrays.asList(top[0], top[1]));
+            
+            if(top[2] == nums2.length - 1)
+                continue;
+            
+            queue.offer(new int[] {top[0], nums2[top[2] + 1], top[2] + 1});
+        }
+        
+        return result;
 	}
 }
