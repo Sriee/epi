@@ -7,7 +7,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import com.epi.primitives.PrimeGen;
+
+import primitives.PrimeGen;
+
 import java.util.Arrays;
 
 /**

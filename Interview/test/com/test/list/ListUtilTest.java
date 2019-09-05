@@ -5,8 +5,9 @@ import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import com.epi.list.*;
 import org.junit.Test;
+
+import list.*;
 
 
 public class ListUtilTest {

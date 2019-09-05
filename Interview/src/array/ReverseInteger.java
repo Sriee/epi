@@ -1,4 +1,4 @@
-package com.epi.array;
+package array;
 
 public class ReverseInteger {
 

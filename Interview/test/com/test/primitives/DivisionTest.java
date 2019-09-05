@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.epi.primitives.Division;
+import primitives.Division;
 
 /**
  * @author sriee

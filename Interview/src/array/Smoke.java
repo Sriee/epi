@@ -1,4 +1,4 @@
-package com.epi.array;
+package array;
 
 import java.util.*;
 import java.util.Map.Entry;

@@ -12,7 +12,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.epi.primitives.PowerSet;
+import primitives.PowerSet;
 
 /**
  * @author sriee

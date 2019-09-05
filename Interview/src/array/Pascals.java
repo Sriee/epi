@@ -1,4 +1,4 @@
-package com.epi.array;
+package array;
 
 import java.util.List;
 import java.util.LinkedList;

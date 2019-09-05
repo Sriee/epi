@@ -9,7 +9,7 @@ import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.epi.primitives.BaseConversion;
+import primitives.BaseConversion;
 
 /**
  * @author sriee

@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.epi.primitives.Parity;
+import primitives.Parity;
 
 /**
  * @author sriee

@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.epi.primitives.Mul;
+import primitives.Mul;
 
 /**
  * @author sriee

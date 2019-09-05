@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.epi.company.Pure;
+import company.Pure;
 
 public class PureStorage {
 

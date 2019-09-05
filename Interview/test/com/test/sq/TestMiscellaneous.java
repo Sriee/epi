@@ -3,9 +3,10 @@ package com.test.sq;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.junit.Before;
 
-import com.epi.sq.Miscellaneous;
+import sq.Miscellaneous;
+
+import org.junit.Before;
 
 public class TestMiscellaneous {
 

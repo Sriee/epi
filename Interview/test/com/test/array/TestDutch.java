@@ -4,7 +4,7 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.epi.array.Dutch;
+import array.Dutch;
 
 public class TestDutch {
 

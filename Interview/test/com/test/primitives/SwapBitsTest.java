@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.epi.primitives.SwapBits;
+import primitives.SwapBits;
 
 /**
  * @author sriee

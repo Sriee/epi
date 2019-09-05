@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.epi.sq.NormalizePath;
+import sq.NormalizePath;
 
 public class TestPath {
 
