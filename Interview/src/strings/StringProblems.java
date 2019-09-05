@@ -1,11 +1,65 @@
 package strings;
 
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 
 public class StringProblems {
 
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 23 ms. Below average run time. Bulk of the time is because of 
+	 * Hashmap handling. 
+	 * 
+	 * Given a string s and p, find the indices of all anagrams of p in s. Both
+	 * the string consists of only lower case letter.
+	 * 
+	 * @param s given string
+	 * @param p substring whose anagrams to be matched
+	 * @return all the indices of anagrams of p in s
+	 */
+	public List<Integer> findAnagrams(String s, String p) {
+		List<Integer> result = new ArrayList<>();
+		Map<Character, Integer> mem = new HashMap<>();
+		
+		if(s == null || s.length() == 0)
+			return result;
+		
+		for(char ch : p.toCharArray())
+			mem.put(ch, mem.getOrDefault(ch, 0) + 1);
+		
+		int begin = 0, end = 0, counter = mem.size();
+		
+		while(end < s.length()) {
+			char ech = s.charAt(end);
+			
+			if(mem.containsKey(ech)) {
+				mem.put(ech, mem.get(ech) - 1);
+				if(mem.get(ech) == 0)
+					counter--;
+			}
+			end++;
+			while(counter == 0) {
+				
+				if(end - begin == p.length()) {
+					result.add(begin);
+				}
+				
+				char bch = s.charAt(begin);
+				
+				if(mem.containsKey(bch)) {
+					mem.put(bch, mem.get(bch) + 1);
+					if(mem.get(bch) > 0) {
+						counter++;
+					}
+				}
+				
+				begin++;
+			}
+		}
+		return result;
+	}
+	
 	/**
 	 * Leet code. Solution -> Accepted
 	 * 
@@ -69,6 +123,8 @@ public class StringProblems {
 	public static void main(String[] args) {
 		StringProblems sp = new StringProblems();
 		String ans = sp.minWindow("fgiowblkjadgfladfbmnyuhijo", "ibn");
+		sp.findAnagrams("abaacbabc", "abc");
+		
 		System.out.println(ans);
 	}
 }
