@@ -8,8 +8,7 @@ public class StringProblems {
 	/**
 	 * Leet code. Solution -> Accepted
 	 * 
-	 * Run Time: 23 ms. Below average run time. Bulk of the time is because of 
-	 * Hashmap handling. 
+	 * Run Time: 6 ms. Optimal run time
 	 * 
 	 * Given a string s and p, find the indices of all anagrams of p in s. Both
 	 * the string consists of only lower case letter.
@@ -19,45 +18,48 @@ public class StringProblems {
 	 * @return all the indices of anagrams of p in s
 	 */
 	public List<Integer> findAnagrams(String s, String p) {
+		// Use ArrayList instead of LinkedList
 		List<Integer> result = new ArrayList<>();
-		Map<Character, Integer> mem = new HashMap<>();
 		
-		if(s == null || s.length() == 0)
-			return result;
+		// Trick of using 256 int array instead of 26 int array
+		int[] table = new int[256]; 
+		int counter = 0, length = 0, begin = 0;
 		
-		for(char ch : p.toCharArray())
-			mem.put(ch, mem.getOrDefault(ch, 0) + 1);
-		
-		int begin = 0, end = 0, counter = mem.size();
-		
-		while(end < s.length()) {
-			char ech = s.charAt(end);
+		for(char ch : p.toCharArray()) {
+			table[ch]++;
+			counter++;
 			
-			if(mem.containsKey(ech)) {
-				mem.put(ech, mem.get(ech) - 1);
-				if(mem.get(ech) == 0)
-					counter--;
-			}
-			end++;
+			// Using length instead of p.length() lookup reduces the run time by 3 ms
+			length++;	
+		}
+		
+		char[] inp = s.toCharArray();
+		for(int end = 0; end < s.length(); end++) {
+			if(table[inp[end]]-- > 0)
+				counter--;
+			
 			while(counter == 0) {
-				
-				if(end - begin == p.length()) {
+				if(end - begin + 1 == length)
 					result.add(begin);
-				}
 				
-				char bch = s.charAt(begin);
-				
-				if(mem.containsKey(bch)) {
-					mem.put(bch, mem.get(bch) + 1);
-					if(mem.get(bch) > 0) {
-						counter++;
-					}
-				}
-				
-				begin++;
+				if(table[inp[begin++]]++ == 0)
+					counter++;
 			}
 		}
+		
 		return result;
+	}
+	
+	public void minWindowsOptimized(String s, String t) {
+		int[] table = new int[256];
+		
+		for(char ch : t.toCharArray())
+			table[ch]++;
+		
+		for(int i = 0; i < 256; i++) {
+			if(table[i] > 0)
+				System.out.println(i + " " + table[i]); 
+		}
 	}
 	
 	/**
@@ -124,7 +126,8 @@ public class StringProblems {
 		StringProblems sp = new StringProblems();
 		String ans = sp.minWindow("fgiowblkjadgfladfbmnyuhijo", "ibn");
 		sp.findAnagrams("abaacbabc", "abc");
-		
 		System.out.println(ans);
+		
+		sp.minWindowsOptimized("adad", "aBCAAazZ");
 	}
 }
