@@ -58,11 +58,43 @@ public class Microsoft {
 		System.out.println(result);
 	}
 
+	/**
+	 * Given a string which contains only chars 'a' & 'b' find the number of moves required to make 
+	 * the string valid. A string is said to be valid if it doesnot have more than 2 contiguous chars
+	 * 
+	 * The idea is to find 3 char which run continuously. For every 3 continuous character we can change  
+	 * a single char. 
+	 *  
+	 * Example:
+	 * 		aabbaa -> Valid. Moves = 0
+	 * 		aaabb -> Invalid, Moves = 1 <- ababb
+	 * 
+	 * @param s Given string
+	 */
+	public void icl(String s) {
+		int moves = 0, i;
+		
+		for(i = 0; i < s.length(); i++) {
+			int runner = 1;
+			for(; i + 1 < s.length() && s.charAt(i) == s.charAt(i + 1); i++)
+				runner++;
+			moves += runner / 3;
+		}
+		System.out.println(moves);
+	}
+	
 	public static void main(String[] args) {
 		Microsoft ms = new Microsoft();
 		ms.equalDigitSum(new int[] {51, 71, 17, 42, 33, 44, 24, 62}); // 133
 		ms.equalDigitSum(new int[] {51, 71, 17, 42}); // 93
 		ms.equalDigitSum(new int[] {51, 32, 43}); // -1
+		
+        ms.icl("baaaaa"); // 1
+        ms.icl("baaaaaa"); // 2
+        ms.icl("baaaab"); // 1
+        ms.icl("baaabbaabbba"); //2
+        ms.icl("baabab"); //0
+        ms.icl("bbaabbaabbabab"); //0
 	}
 
 }
