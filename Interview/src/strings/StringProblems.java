@@ -50,16 +50,39 @@ public class StringProblems {
 		return result;
 	}
 	
-	public void minWindowsOptimized(String s, String t) {
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 2 ms. Optimal run time.  
+	 * 
+	 * Given a string, find the length of the longest substring without repeating characters.
+	 * 
+	 * @param s Given string
+	 * @return length of the longest substring
+	 */
+	public int lengthOfLongestSubstring(String s) {
+		int len = 0, begin = 0, end = 0;
 		int[] table = new int[256];
 		
-		for(char ch : t.toCharArray())
+		while(end < s.length()) {
+			char ch = s.charAt(end); 
 			table[ch]++;
-		
-		for(int i = 0; i < 256; i++) {
-			if(table[i] > 0)
-				System.out.println(i + " " + table[i]); 
+			
+			if(table[ch] > 1 && end - begin > len) {
+				len = end - begin;
+			}
+			
+			while(table[ch] > 1) {
+				table[ s.charAt(begin++) ]--;
+			} 
+			
+			end++; 
 		}
+		
+		if(end - begin > len)
+			len = end - begin;
+		
+		return len;
 	}
 	
 	/**
@@ -128,6 +151,6 @@ public class StringProblems {
 		sp.findAnagrams("abaacbabc", "abc");
 		System.out.println(ans);
 		
-		sp.minWindowsOptimized("adad", "aBCAAazZ");
+		System.out.println(sp.lengthOfLongestSubstring("pwwkew"));
 	}
 }
