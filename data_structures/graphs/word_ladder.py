@@ -11,15 +11,7 @@ class WVertex(Vertex):
         super().__init__(label)
         self._distance = 0
         self._predecessor = None
-        self._color = "white"
-
-    @property
-    def color(self):
-        return self._color
-
-    @color.setter
-    def color(self, value):
-        self._color = value
+        self._visited = False
 
     @property
     def distance(self):
@@ -36,6 +28,14 @@ class WVertex(Vertex):
     @predecessor.setter
     def predecessor(self, value):
         self._predecessor = value
+
+    @property
+    def visited(self):
+        return self._visited
+
+    @visited.setter
+    def visited(self, value):
+        self._visited = value
 
     def __str__(self):
         nbr = ', '.join([x.label for x in self._neighbors])
@@ -91,12 +91,11 @@ def breath_first_search(start: WVertex):
     while queue.size() > 0:
         current_vtx = queue.deque()
         for nbr in current_vtx.neighbors:
-            if nbr.color == "white":
-                nbr.color = "gray"
+            if not nbr.visited:
                 nbr.distance = current_vtx.distance + 1
                 nbr.predecessor = current_vtx
                 queue.enqueue(nbr)
-        current_vtx.color = "black"
+        current_vtx.visited = True
 
 
 def traverse(start):
