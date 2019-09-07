@@ -83,6 +83,38 @@ public class Microsoft {
 		System.out.println(moves);
 	}
 	
+	/**
+	 * Microsoft Onile Assessment (OA - Sep 2019)
+	 * 
+	 * Given a string with multiple repeating characters return a string which only has characters
+	 * repeated at most 2 times.
+	 * 
+	 * Example:
+	 * 	aaabbb -> aabb
+	 *  abcd -> abcd
+	 *  
+	 * @param S string with multiple repeated characters
+	 * @return string with at most 2 repeated individual characters
+	 */
+	public String noTwoConsequitive(String S) {
+		StringBuilder sb = new StringBuilder();
+		
+		if(S == null || S.length() == 0)
+			return "";
+		
+		for(int i = 0; i < S.length(); i++) {
+			int runner = 1;
+			sb.append(S.charAt(i));
+			for(; i + 1 < S.length() && S.charAt(i) == S.charAt(i + 1); i++) {
+				runner++;
+				
+				if(runner < 3)
+					sb.append(S.charAt(i + 1));
+			}
+		}
+		return sb.toString();
+	}
+	
 	public static void main(String[] args) {
 		Microsoft ms = new Microsoft();
 		ms.equalDigitSum(new int[] {51, 71, 17, 42, 33, 44, 24, 62}); // 133
@@ -95,6 +127,8 @@ public class Microsoft {
         ms.icl("baaabbaabbba"); //2
         ms.icl("baabab"); //0
         ms.icl("bbaabbaabbabab"); //0
+        
+        System.out.println(ms.noTwoConsequitive("aaabbbaacdddcccxyz"));
 	}
 
 }
