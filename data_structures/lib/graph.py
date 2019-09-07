@@ -127,4 +127,4 @@ class Graph:
 
     def __iter__(self):
         """Iterate through the vertices object"""
-        return iter(self._vertices_list)
+        return iter(self._vertices_list.values())
