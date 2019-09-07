@@ -4,3 +4,4 @@
 .idea
 *.sublime-project
 *.sublime-workspace
+venv
