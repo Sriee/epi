@@ -148,11 +148,58 @@ public class Microsoft {
 		return S.substring(0, S.length() - 2);
 	}
 	
+	/**
+	 * Microsoft Onile Assessment (OA - Sep 2019)
+	 * 
+	 * Given a string with special character '?' replace the special character with lower case
+	 * english alphabets provided that there are no contiguous character in the resultant string
+	 * 
+	 * Example:
+	 * 		'ab?c' -> 'abac'
+	 * 		'??a?' -> 'zyax'
+	 * 
+	 * @param S Given String with '?' character
+	 * @return String with '?' replaced
+	 */
+	public String replaceSpecialChar(String S) {
+		if(S == null || S.length() == 0)
+			return "";
+		
+		int[] table = new int[26];
+		char[] res = S.toCharArray();
+		
+		for(int i = 0; i < res.length; i++) {
+			if(res[i] != '?') {
+				table[res[i] - 'a']++;
+				
+				if(i - 1 >= 0)
+					table[res[i - 1] - 'a']--;
+			} else {
+				if(i + 1 < res.length && res[i + 1] != '?')
+					table[res[i + 1] - 'a']++;
+				
+				for(int j = 0; j < 26; j++) {
+					if(table[j] == 0) {
+						res[i] = (char)(j + 97);
+						table[j]++;
+						break;
+					}
+				}
+				
+				if(i + 1 < res.length && res[i + 1] != '?')
+					table[res[i + 1] - 'a']--;
+			}
+		}
+			
+		return new String(res);
+	}
+	
 	public static void main(String[] args) {
 		Microsoft ms = new Microsoft();
 		ms.equalDigitSum(new int[] {51, 71, 17, 42, 33, 44, 24, 62}); // 133
 		ms.equalDigitSum(new int[] {51, 71, 17, 42}); // 93
 		ms.equalDigitSum(new int[] {51, 32, 43}); // -1
+		System.out.println();
 		
         ms.icl("baaaaa"); // 1
         ms.icl("baaaaaa"); // 2
@@ -160,12 +207,18 @@ public class Microsoft {
         ms.icl("baaabbaabbba"); //2
         ms.icl("baabab"); //0
         ms.icl("bbaabbaabbabab"); //0
+        System.out.println();
         
         System.out.println(ms.noTwoConsequitive("aaabbbaacdddcccxyz")); // aabbaacddccxyz
         System.out.println(ms.noTwoConsequitive("abccccccccccccc")); // abcc
+        System.out.println();
         
         System.out.println(ms.lexicographicallySmallest("aabzc")); // aabc
         System.out.println(ms.lexicographicallySmallest("acdefghi")); // acdefgh
+        System.out.println();
+        
+        System.out.println(ms.replaceSpecialChar("ab?a"));
+        System.out.println(ms.replaceSpecialChar("ab??"));
+        System.out.println(ms.replaceSpecialChar("????"));
 	}
-
 }
