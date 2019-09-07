@@ -115,6 +115,39 @@ public class Microsoft {
 		return sb.toString();
 	}
 	
+	/**
+	 * Microsoft Onile Assessment (OA - Sep 2019)
+	 * 
+	 * Given a string return lexicographically smallest string by removing at most 1 character
+	 * 
+	 * Example:
+	 * 		aabzc -> aabc; By removing 'z' 'aabc' will be lexicographically < 'aabzc'
+	 *   
+	 * @param S Given string
+	 * @return string which is lexicographically smaller
+	 */
+	public String lexicographicallySmallest(String S) {
+		StringBuilder sb = new StringBuilder();
+		
+		if(S == null || S.length() == 0)
+			return "";
+		
+		for(int i = 0; i < S.length() - 1; i++) {
+			if(S.charAt(i) > S.charAt(i + 1)) {
+				for(int j = 0; j < S.length(); j++) {
+					if(i != j)
+						sb.append(S.charAt(j));
+				}
+				
+				return sb.toString();
+			}
+		}
+		
+		// If we have reached here then the last character should be greater than its previous
+		// character so removing it
+		return S.substring(0, S.length() - 2);
+	}
+	
 	public static void main(String[] args) {
 		Microsoft ms = new Microsoft();
 		ms.equalDigitSum(new int[] {51, 71, 17, 42, 33, 44, 24, 62}); // 133
@@ -128,7 +161,11 @@ public class Microsoft {
         ms.icl("baabab"); //0
         ms.icl("bbaabbaabbabab"); //0
         
-        System.out.println(ms.noTwoConsequitive("aaabbbaacdddcccxyz"));
+        System.out.println(ms.noTwoConsequitive("aaabbbaacdddcccxyz")); // aabbaacddccxyz
+        System.out.println(ms.noTwoConsequitive("abccccccccccccc")); // abcc
+        
+        System.out.println(ms.lexicographicallySmallest("aabzc")); // aabc
+        System.out.println(ms.lexicographicallySmallest("acdefghi")); // acdefgh
 	}
 
 }
