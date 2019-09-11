@@ -3,6 +3,7 @@ class Vertex:
         """Initialize the vertex."""
         self._label = label
         self._neighbors = {}
+        self._visited = False
 
     def add_neighbor(self, neighbor, weight=0):
         """Adds the vertex to the list of connected vertices
@@ -25,6 +26,15 @@ class Vertex:
     def weight(self, label):
         """Return the weight of the vertices."""
         return self._neighbors.get(label, 0)
+
+    @property
+    def visited(self):
+        """Helper variable to mark a visited vertex"""
+        return self._visited
+
+    @visited.setter
+    def visited(self, value):
+        self._visited = value
 
     def __delattr__(self, item):
         """Delete's the vertex from the connected list."""

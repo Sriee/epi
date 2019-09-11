@@ -11,7 +11,6 @@ class WVertex(Vertex):
         super().__init__(label)
         self._distance = 0
         self._predecessor = None
-        self._visited = False
 
     @property
     def distance(self):
@@ -28,14 +27,6 @@ class WVertex(Vertex):
     @predecessor.setter
     def predecessor(self, value):
         self._predecessor = value
-
-    @property
-    def visited(self):
-        return self._visited
-
-    @visited.setter
-    def visited(self, value):
-        self._visited = value
 
     def __str__(self):
         nbr = ', '.join([x.label for x in self._neighbors])
@@ -55,22 +46,6 @@ class WGraph(Graph):
         :param vertex - New vertex to be added to the Graph
         """
         self._vertices_list[vertex] = WVertex(vertex)
-
-    def add_edge(self, from_vertex, to_vertex, weight=0):
-        """Add an edge between vertex
-
-        :param from_vertex - from vertex
-        :param to_vertex - to vertex
-        :param weight - cost of the edge
-        """
-        if from_vertex not in self._vertices_list:
-            self.add_vertex(from_vertex)
-
-        if to_vertex not in self._vertices_list:
-            self.add_vertex(to_vertex)
-
-        self._vertices_list[from_vertex].add_neighbor(self._vertices_list[to_vertex],
-                                                      weight)
 
 
 g = WGraph()
