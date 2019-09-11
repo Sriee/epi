@@ -138,3 +138,99 @@ class Graph:
     def __iter__(self):
         """Iterate through the vertices object"""
         return iter(self._vertices_list.values())
+
+
+class DFSVertex(Vertex):
+
+    def __init__(self, label):
+        """
+        Vertex for DFS graph.
+
+        Contains three helper variables that are useful in some graph algorithms
+
+        discovery - First time a vertex is discovered in a DFS Graph
+        finish - When all the vertices are discovered, the finish time is recorded
+        predecessor - The parent vertex
+
+        :param label: Vertex Id
+        """
+        super().__init__(label)
+        self._discovery = 0
+        self._finish = 0
+        self._predecessor = None
+
+    @property
+    def discovery(self):
+        return self._discovery
+
+    @discovery.setter
+    def discovery(self, value):
+        self._discovery = value
+
+    @property
+    def finish(self):
+        return self._finish
+
+    @finish.setter
+    def finish(self, value):
+        self._finish = value
+
+    @property
+    def predecessor(self):
+        return self._predecessor
+
+    @predecessor.setter
+    def predecessor(self, value):
+        self._predecessor = value
+
+    @property
+    def neighbors(self):
+        """
+        Function to return the neighbors of this vertex in sorted order. This
+        implementation sorts the vertex by its label, by the key can be changed to return
+        the vertex based on other parameters
+
+        :return: neighbors of this vertex in sorted order
+        """
+        return sorted(self._neighbors.keys(), key=lambda x: x.label)
+
+    def __iter__(self):
+        return iter(sorted(self._neighbors.items(), key=lambda x: x[0].label))
+
+    def __str__(self):
+        return '{0} ({1}/{2}), pred {3}, is connected to: [{4}]'.\
+            format(self._label, self._discovery, self._finish,
+                   self._predecessor.label if self._predecessor else -1,
+                   ', '.join([x.label for x in self._neighbors]))
+
+
+class DFSGraph(Graph):
+
+    def __init__(self):
+        super().__init__()
+        self.time = 0
+
+    def add_vertex(self, vertex):
+        """Add vertex to the Graph
+
+        :param vertex - New vertex to be added to the Graph
+        """
+        self._vertices_list[vertex] = DFSVertex(vertex)
+
+    def _helper(self, vertex: DFSVertex):
+        self.time += 1
+        vertex.discovery = self.time
+        vertex.visited = True
+        for next_vertex in vertex.neighbors:
+            if not next_vertex.visited:
+                next_vertex.predecessor = vertex
+                self._helper(next_vertex)
+
+        self.time += 1
+        vertex.finish = self.time
+
+    def dfs(self):
+        """Depth First Search implementation"""
+        for nbr in self:
+            if not nbr.visited:
+                self._helper(nbr)

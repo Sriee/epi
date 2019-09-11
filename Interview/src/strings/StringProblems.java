@@ -85,6 +85,35 @@ public class StringProblems {
 		return len;
 	}
 	
+	public int lengthOfLongestSubstringTwoDistinct(String s) {
+		int len = 0, end = 0, begin = 0, counter = 0;
+		int[] table = new int[256];
+		
+		while(end < s.length()) {
+			char ech = s.charAt(end);
+			table[ech]++;
+			
+			if(table[ech] == 1)
+				counter++;
+			
+			end++;
+			
+			while(counter > 2) {
+				char bch = s.charAt(begin);
+				
+				table[bch]--;
+				if(table[bch] == 0)
+					counter--;
+				begin++;
+			}
+			
+			if(end - begin > len)
+				len = end - begin;
+		}
+		
+		return len;
+	}
+	
 	/**
 	 * Leet code. Solution -> Accepted
 	 * 
