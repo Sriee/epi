@@ -8,7 +8,7 @@ class TestBinaryHeap():
         mxhp.insert(5)
         mxhp.insert(9)
         mxhp.insert(12)
-        print mxhp
+        print(mxhp)
 
 if __name__ == "__main__":
     unittest.main()
