@@ -27,7 +27,56 @@ class BinarySearchTree(object):
     def size(self):
         return self._size
 
-    def put_iterative(self, node, val):
+    def find_min(self, node):
+        """Helper method to find the node with minimum value in a BST"""
+        current = node
+        while current.left:
+            current = current.left
+        return current
+
+    def find_max(self, node):
+        """Helper method to find the node with maximum value in a BST"""
+        current = node
+        while current.right:
+            current = current.right
+        return current
+
+    def delete_node(self, node, val):
+        """Helper method to delete the node
+
+        :param node: Current node
+        :param val: value to delete
+        :return: node after deletion
+        """
+        if not node:
+            return node
+
+        if val < node.val:
+            node.left = self.delete_node(node.left, val)
+        elif val > node.val:
+            node.right = self.delete_node(node.right, val)
+        elif node.left and node.right:
+            node.val = self.find_min( node.right ).val
+            node.right = self.delete_node(node.right, node.val)
+        else:
+            node = node.left if node.left else node.right
+
+        return node
+
+    def delete(self, val):
+        """Delete a node in a BST
+
+        :param val: node to delete
+        """
+        if self._size > 1:
+            self.delete_node(self.root, val)
+        elif self._size == 1 and self.root.val == val:
+            self._size -= 1
+            self.root = None
+        else:
+            raise KeyError("Error, Key not in tree.")
+
+    def insert_iterative(self, node, val):
         """Insert into BST (iterative implementation)
 
         :param node: current node
@@ -48,7 +97,7 @@ class BinarySearchTree(object):
                     current.right = TreeNode(val)
                     current = None
 
-    def put_recursive(self, node, val):
+    def insert_recursive(self, node, val):
         """
         Insert into BST (recursive implementation)
 
@@ -57,23 +106,23 @@ class BinarySearchTree(object):
         """
         if val < node.val:
             if node.left:
-                self.put_recursive(node.left, val)
+                self.insert_recursive(node.left, val)
             else:
                 node.left = TreeNode(val)
         else:
             if node.right:
-                self.put_recursive(node.right, val)
+                self.insert_recursive(node.right, val)
             else:
                 node.right = TreeNode(val)
 
-    def put(self, val):
+    def insert(self, val):
         """Insert into BST"""
         if self.root:
             # Choose recursive/iterative implementation randomly
             if randint(0, 1) == 0:
-                self.put_recursive(self.root, val)
+                self.insert_recursive(self.root, val)
             else:
-                self.put_iterative(self.root, val)
+                self.insert_iterative(self.root, val)
         else:
             self.root = TreeNode(val)
         self._size += 1
