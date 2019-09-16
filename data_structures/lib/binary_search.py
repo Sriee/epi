@@ -8,6 +8,15 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
+    def __iter__(self):
+        if self.left:
+            for v in self.left:
+                yield v
+        yield self.val
+        if self.right:
+            for v in self.right:
+                yield v
+
     def __str__(self):
         s = 'TreeNode({}, left={}, right={})'.format(
             self.val,
@@ -69,6 +78,7 @@ class BinarySearchTree(object):
         :param val: node to delete
         """
         if self._size > 1:
+            self._size -= 1
             self.delete_node(self.root, val)
         elif self._size == 1 and self.root.val == val:
             self._size -= 1
@@ -181,6 +191,11 @@ class BinarySearchTree(object):
         """
         node = self.search(item)
         return True if node else False
+
+    def __iter__(self):
+        if self.root:
+            for v in self.root:
+                yield v
 
     def __len__(self):
         return self._size
