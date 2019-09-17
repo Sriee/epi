@@ -184,6 +184,7 @@ public class StringProblems {
 		if(s == null || s.length() == 0)
 			return result;
 		
+		// Initialize the frequency table
 		for(char ch : t.toCharArray())
 			mem.put(ch, mem.getOrDefault(ch, 0) + 1);
 		
@@ -192,6 +193,7 @@ public class StringProblems {
 		while(end < s.length()) {
 			char ch = s.charAt(end);
 			
+			// Decrement the count for the character
 			if(mem.containsKey(ch)) {
 				mem.put(ch, mem.get(ch) - 1);
 				if(mem.get(ch) == 0)
@@ -200,8 +202,10 @@ public class StringProblems {
 			
 			end++;
 			
+			// When counter reaches zero => t has every character of s
 			while(counter == 0) {
 				
+				// Logic to store the result
 				if(end - begin < length) {
 					length = end - begin;
 					result = s.substring(begin, end);
@@ -230,5 +234,15 @@ public class StringProblems {
 		System.out.println(ans);
 		
 		System.out.println(sp.lengthOfLongestSubstring("pwwkew"));
+		
+		System.out.println(sp.checkInclusion("ab", "eidaoboooba"));
+		System.out.println(sp.checkInclusion(
+				"atuietyeui",
+				"adfkjliutetyuqripojadgflkalvnbalcteoiyuhdjfasdf"
+				));
+		System.out.println(sp.checkInclusion(
+				"hello",
+				"ooolleoooleh"
+				));
 	}
 }
