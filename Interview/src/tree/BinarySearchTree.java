@@ -1,12 +1,12 @@
 package tree;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import list.ListNode;
+import list.ListUtil;
 
 public class BinarySearchTree {
-
+	
+	private ListNode<Integer> head = null;
+	
 	/**
 	 * Helper method to insert elements to BST
 	 * 
@@ -43,9 +43,34 @@ public class BinarySearchTree {
 	}
 
 	/**
+	 * Helper method which simulates the in-order traversal
+	 * 
+	 * @param low
+	 * @param high
+	 * @return constructed node
+	 */
+	private TreeNode construct(int low, int high) {
+		if (low > high)
+			return null;
+
+		int mid = low + (high - low) / 2;
+		// This lets us to call left sub tree recursively
+		// For the left most leaf left will become null
+		TreeNode left = this.construct(low, mid - 1);
+
+		TreeNode node = new TreeNode(this.head.data);
+		this.head = this.head.next;	// Trick of moving the list pointer
+
+		node.left = left;
+		node.right = this.construct(mid + 1, high);
+
+		return node;
+	}
+	
+	/**
 	 * Leet code. Solution -> Accepted
 	 * 
-	 * Run Time: 2 ms. Below Average Run Time
+	 * Run Time: 1 ms. Optimal solution
 	 * 
 	 * Given a linked list which is sorted create a height balanced binary search
 	 * tree.
@@ -53,23 +78,13 @@ public class BinarySearchTree {
 	 * @param head sorted linked list
 	 * @return root of constructed binary search tree
 	 */
-	public TreeNode sortedListtoBST(ListNode<Integer> head) {
-		List<Integer> list = new ArrayList<>();
-		ListNode<Integer> iter = head;
+	public TreeNode sortedListToBST(ListNode<Integer> head) {
+		int len = ListUtil.length(head);
+		this.head = head;
 
-		while (iter != null) {
-			list.add(iter.data);
-			iter = iter.next;
-		}
-
-		// Note: Converting list to int increases the run time from 2 ms to 37 ms
-		// Retaining the conversion to use the existing helper method
-		int[] nums = list.stream().mapToInt(i -> i).toArray();
-
-		return this.helper(nums, 0, list.size() - 1);
+		return this.construct(0, len - 1);
 	}
-
+	
 	public static void main(String[] args) {
 	}
-
 }
