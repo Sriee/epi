@@ -4,7 +4,43 @@ import java.util.*;
 
 
 public class StringProblems {
-
+	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 4 ms. Optimal run time
+	 * 
+	 * Given a string s1 and s2, check if s2 contains the permutation of s1. The string consists of only lower case letter.
+	 * 
+	 * @param s1 
+	 * @param s2
+	 * @return true if s2 contains permutation of s1, false otherwise
+	 */
+	public boolean checkInclusion(String s1, String s2) {
+		int[] table = new int[256];
+		int begin = 0, end = 0, counter = s1.length(), k = s1.length();
+		
+		for(char ch : s1.toCharArray())
+			table[ch]++;
+		
+		while(end < s2.length()) {
+			if(table[s2.charAt(end)]-- > 0)
+				counter--;
+			end++;
+			
+			while(counter == 0) {
+				if(end - begin == k)
+					return true;
+				
+				if(table[s2.charAt(begin)]++ == 0)
+					counter++;
+				
+				begin++;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * Leet code. Solution -> Accepted
 	 * 
@@ -85,6 +121,19 @@ public class StringProblems {
 		return len;
 	}
 	
+	/**
+	 * Leet code. Problem is locked
+	 * 
+	 * Given a string, find the length of the longest substring with atmost 2 distinct character.
+	 * 
+	 * Variation: atmost k distict character 
+	 * 
+	 * Example:
+	 * 	"aaaabcdd" -> 5
+	 * 
+	 * @param s Given string
+	 * @return length of the longest substring with 2 distinct characters
+	 */
 	public int lengthOfLongestSubstringTwoDistinct(String s) {
 		int len = 0, end = 0, begin = 0, counter = 0;
 		int[] table = new int[256];
