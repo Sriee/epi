@@ -2,6 +2,8 @@ package tree;
 
 import list.ListNode;
 import list.ListUtil;
+import java.util.Stack;
+
 
 public class BinarySearchTree {
 	
@@ -85,6 +87,50 @@ public class BinarySearchTree {
 		return this.construct(0, len - 1);
 	}
 	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 1 ms. Above average run time. Iterative implementation 
+	 * 
+	 * Find kth smallest element in a Binary Search Tree
+	 * 
+	 * @param root of the BST
+	 * @param k 
+	 * @return kth smallest element
+	 */
+	public int kthSmallest(TreeNode root, int k) {
+		if(root == null)
+			return 0;
+		
+		int[] result = new int[k];
+		int top = -1;
+		Stack<TreeNode> stack = new Stack<>();
+		
+		while(root != null || !stack.isEmpty()) {
+			while(root != null) {
+				stack.push(root);
+				root = root.left;
+			}
+			
+			TreeNode node = stack.pop();
+			result[++top] = node.val;
+			
+			if(top == k - 1)
+				break;
+			root = node.right;
+		}
+		
+		return result[k - 1];
+	}
+	
 	public static void main(String[] args) {
+		BinarySearchTree bst = new BinarySearchTree();
+		TreeNode root = new TreeNode(3);
+		TreeNode one = new TreeNode(1);
+		one.right = new TreeNode(2);
+		root.left = one;
+		root.right = new TreeNode(4);
+		
+		System.out.println(bst.kthSmallest(root, 2));
 	}
 }
