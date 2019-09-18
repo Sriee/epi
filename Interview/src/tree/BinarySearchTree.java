@@ -8,6 +8,8 @@ import java.util.Stack;
 public class BinarySearchTree {
 	
 	private ListNode<Integer> head = null;
+	private int[] result = null;
+	private int top = -1; 
 	
 	/**
 	 * Helper method to insert elements to BST
@@ -98,7 +100,7 @@ public class BinarySearchTree {
 	 * @param k 
 	 * @return kth smallest element
 	 */
-	public int kthSmallest(TreeNode root, int k) {
+	public int kthSmallestIterative(TreeNode root, int k) {
 		if(root == null)
 			return 0;
 		
@@ -121,6 +123,40 @@ public class BinarySearchTree {
 		}
 		
 		return result[k - 1];
+	}
+	
+	/**
+	 * In-order traversal of BST. Quits if we have visited k smallest elements
+	 * 
+	 * @param node
+	 * @param k
+	 */
+	private void krecursive(TreeNode node, int k) {
+		if(node == null)
+			return;
+		
+		this.krecursive(node.left, k);
+		
+		if(this.top == k - 1)
+			return;
+		
+		this.result[++this.top] = node.val;
+		this.krecursive(node.right, k);
+	}
+	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 0 ms. Optimal run time. Recursive implementation
+	 * 
+	 * @param root of BST
+	 * @param k
+	 * @return kth smallest element in BST
+	 */
+	public int kthSmallest(TreeNode root, int k) {
+		this.result = new int[k];
+		this.krecursive(root, k);
+		return this.result[k - 1];
 	}
 	
 	public static void main(String[] args) {
