@@ -90,7 +90,7 @@ def ladder_length(begin_word, end_word, word_list):
     """
     Leet code. Solution -> Accepted
 
-    Run Time: 184 ms. Average Run Time. Most of the time because of creation of graph
+    Run Time: 132 ms. Above Average Run Time. Solution without using Graph class
 
     Given two words (begin and end), and a dictionary's word list, find the length of
     shortest transformation sequence from begin word to end word, such that:
@@ -105,7 +105,7 @@ def ladder_length(begin_word, end_word, word_list):
     :return: 0 if there is no path else shortest transformation between start node and
     end node
     """
-    lew, bucket = len(begin_word), defaultdict(list)
+    lew, bucket, queue, is_visited = len(begin_word), defaultdict(list), deque(), {}
     word_list.append(begin_word)
 
     for word in word_list:
@@ -113,41 +113,22 @@ def ladder_length(begin_word, end_word, word_list):
             w = word[:i] + '_' + word[i + 1:]
             bucket[w].append(word)
 
-    # In python use deque for queue operations and not queue.Queue
-    g, queue = Graph(), deque()
-
-    for k in bucket:
-        for w1 in bucket[k]:
-            for w2 in bucket[k]:
-                if w1 != w2:
-                    g.add_edge(w1, w2)
-
-    if begin_word in g.vertices:
-        queue.append(g.vertices[begin_word])
-    else:
-        for i in range(lew):
-            w = begin_word[:i] + '_' + begin_word[i + 1:]
-            if w in bucket:
-                for word in bucket:
-                    g.add_edge(begin_word, word)
+    queue.append((begin_word, 1))
+    is_visited[begin_word] = True
 
     while queue:
-        # If you are using list instead of deque, you have to do this
-        # node = queue[0]
-        # del queue[0] which is a linear time operation
-        node = queue.popleft()
+        vertex, distance = queue.popleft()
+        for i in range(lew):
+            word = vertex[:i] + '_' + vertex[i + 1:]
 
-        for nbr in node.neighbors:
-            if not nbr.visited:
-                nbr.distance = node.distance + 1
+            for nbr in bucket[word]:
+                if nbr not in is_visited:
+                    if nbr == end_word:
+                        return distance + 1
 
-                # Note: we are setting visited flag here instead of after for loop
-                # If not, we will be updating distance of a node which has multiple
-                # neighbors of same length and are in the queue
-                nbr.visited = True
-                if nbr.key == end_word:
-                    return nbr.distance + 1
-                queue.append(nbr)
+                    is_visited[nbr] = True
+                    queue.append((nbr, distance + 1))
+            bucket[word] = []
 
     return 0
 
