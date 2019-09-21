@@ -56,15 +56,75 @@ public class Grid {
 		return matrix;
 	} 
 	
+	private int shortestPathBinaryMatrix(int[][] grid) {
+		int m = grid.length, n = grid[0].length, i = 0, j = 0;
+		Queue<int[]> queue = new LinkedList<>();
+		int[][] directions = new int[][] {{-1, -1}, {-1, 0}, {-1, 1}, {0, 1}, {0, -1}, {1, -1}, {1, 0}, {1, 1}};
+		
+		for(i = 0; i < m; i++) {
+			for(j = 0; j < n; j++) {
+				/*
+				if(grid[i][j] == 1)
+					grid[i][j] = -1;
+				*/
+				if(i == 0 && j == 0) {
+					grid[i][j] = 1;
+					queue.add(new int[] {i, j});
+					continue;
+				}
+					
+				
+				if(grid[i][j] == 0) {
+					queue.add(new int[] {i, j});
+					grid[i][j] = Integer.MAX_VALUE;	
+				} else
+					grid[i][j] = Integer.MIN_VALUE; 
+			}
+		}
+		
+		while(!queue.isEmpty()) {
+			int[] current = queue.remove();
+			
+			for(int[] d : directions) {
+				i = d[0] + current[0];
+				j = d[1] + current[1];
+				
+				if(i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == Integer.MIN_VALUE || grid[i][j] <= grid[current[0]][current[1]] + 1)
+					continue;
+				
+				grid[i][j] = grid[current[0]][current[1]] + 1;
+				queue.add(new int[] {i, j});
+			}
+			
+			System.out.println("=============================");
+			System.out.println(Arrays.toString(current) + "\n");
+			this.printMatrix(grid);
+		}
+		
+		// System.out.println();
+		// this.printMatrix(grid);
+		return (grid[m - 1][n - 1] == Integer.MIN_VALUE) ? -1 : grid[m - 1][n - 1];
+	}
+	
+	private void printMatrix(int[][] matrix) {
+		for(int i = 0; i < matrix.length; i++) {
+			for(int j = 0; j < matrix[0].length; j++) {
+				System.out.print(matrix[i][j] + " ");
+			}
+			System.out.println();
+		}	
+	}
+	
 	public static void main(String[] args) {
 		Grid g = new Grid();
 		
 		int[][] matrix = new int[][] {
-			{0, 0, 0},
-			{0, 1, 0},
-			{1, 1, 1}
+			{0, 0, 0, 0, 1, 0},
+			{0, 1, 1, 0, 1, 0},
+			{1, 0, 1, 1, 0, 1},
+			{1, 0, 0, 1, 1, 0}
 		};
-		
+		/*
 		matrix = g.updateMatrix(matrix);
 		for(int i = 0; i < matrix.length; i++) {
 			for(int j = 0; j < matrix[0].length; j++) {
@@ -72,5 +132,7 @@ public class Grid {
 			}
 			System.out.println();
 		}
+		*/
+		System.out.println(g.shortestPathBinaryMatrix(matrix));
 	}
 }
