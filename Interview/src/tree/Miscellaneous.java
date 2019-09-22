@@ -203,4 +203,71 @@ public class Miscellaneous {
         return result;
     }
 
+    /**
+     * Helper method to flatten binary tree
+     * 
+     * This approach uses DFS - pre-order traversal to flatten the nodes. 
+     * 
+     * @param sb String Builder
+     * @param node current node
+     */
+    private void encode(StringBuilder sb, TreeNode node) {
+        if(node == null) {
+            sb.append("#,");
+        } else {
+            sb.append(node.val).append(",");
+            encode(sb, node.left);
+            encode(sb, node.right);
+        }   
+    }
+    
+    // Encodes a tree to a single string.
+    /**
+     * Leet code. Solution -> Accepted
+     * 
+     * Run Time: 11 ms. Above Average Run Time. 
+     * 
+     * 
+     * Given a binary serialize it into a string. 
+     * 
+     * @param root of the tree
+     * @return Seriliazed Binary Tree as String
+     */
+    public String serialize(TreeNode root) {
+        StringBuilder sb = new StringBuilder();      
+        encode(sb, root);
+        return sb.toString();
+    }
+
+    /**
+     * Helper method
+     * 
+     * @param queue
+     * @return
+     */
+    private TreeNode decode(Deque<String> queue) {
+        String s = queue.pollFirst();
+        
+        if(s.equals("#") || s == null)
+            return null;
+        
+        TreeNode node = new TreeNode(Integer.valueOf(s));
+        node.left = decode(queue);
+        node.right = decode(queue);
+        return node;
+    }
+    
+    /**
+     * Decodes the encoded string above
+     * 
+     * @param data - encoded using encode function in this class
+     * @return root of the binary tree
+     */
+    public TreeNode deserialize(String data) {
+        Deque<String> queue = new LinkedList<>();
+        
+        // Can only use another collection to addAll method 
+        queue.addAll(Arrays.asList(data.split(",")));
+        return decode(queue);
+    }
 }
