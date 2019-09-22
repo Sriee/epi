@@ -1,5 +1,8 @@
 package tree;
 
+import java.util.*;
+
+
 public class Miscellaneous {
 	int rootToLeafSum = 0;
 	
@@ -99,4 +102,105 @@ public class Miscellaneous {
             
         return root;    
     }
+    
+    /**
+     * Leet code. Solution -> Accepted
+     * 
+     * Run Time: 5 ms. Below average solution. We take time to create a serialize
+     * version of the tree before we do breath first search
+     * 
+     * Given the root & target nodes of the binary tree, find nodes that are k distance from the target
+     * node. 
+     * 
+     * Approach:
+     * 		1. Serialize the Binary Tree - Should find a way to reduce this time.
+     * 		2. Do BFS
+     * 
+     * @param root of the tree
+     * @param target node 
+     * @param K distance
+     * @return List of nodes that are k distance from the target node 
+     */
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
+        List<Integer> result = new ArrayList<>();
+        
+        if(root == null || target == null)
+            return result;
+    
+        if(K == 0) {
+            result.add(target.val);
+            return result;
+        }
+        
+        Queue<Integer> populateQ = new LinkedList<>();
+        Queue<int[]> searchQ = new LinkedList<>();
+        Map<Integer, TreeNode> map = new HashMap<>();
+        
+        /**
+         * Why we use isVisited as map instead of an boolean array?
+         * What would be the result of serialization for a skewed right tree? 
+         */
+        Map<Integer, Boolean> isVisited = new HashMap<>();
+        
+        int found = -1, left, right, parent;
+        
+        map.put(0, null);
+        isVisited.put(0, true);
+        
+        map.put(1, root);
+        isVisited.put(1, false);
+        populateQ.add(1);
+        
+        while(!populateQ.isEmpty()) {
+            int pos = populateQ.remove();
+            TreeNode node = map.get(pos);
+            
+            if(node != null) {
+                if(node.val == target.val)
+                    found = pos;
+                
+                left = pos * 2;
+                populateQ.add(left);
+                map.put(left, node.left);
+                isVisited.put(left, false);
+                
+                right = pos * 2 + 1;
+                populateQ.add(right);
+                map.put(right, node.right);
+                isVisited.put(right, false);
+            }
+            
+        }
+        
+        isVisited.put(found, true);
+        searchQ.add(new int[] {found, 0});
+        
+        while(!searchQ.isEmpty()) {
+            int[] current = searchQ.remove();
+            TreeNode node = map.get(current[0]);
+            isVisited.put(current[0], true);
+            
+            if(node != null) {
+                if(current[1] == K) {
+                    result.add(node.val);
+                } else {
+                    parent = current[0] / 2;
+                    left = current[0] * 2;
+                    right = current[0] * 2 + 1;
+                    
+                    if(!isVisited.get(parent))
+                        searchQ.add(new int[] {parent, current[1] + 1});
+                    
+                    if(!isVisited.get(left))
+                        searchQ.add(new int[] {left, current[1] + 1});
+                
+                    if(!isVisited.get(right))
+                        searchQ.add(new int[] {right, current[1] + 1});    
+                }
+            }
+        }
+        
+        return result;
+    }
+
 }
