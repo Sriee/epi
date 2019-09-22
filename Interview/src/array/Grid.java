@@ -20,7 +20,7 @@ public class Grid {
 	 * @param matrix
 	 * @return matrix with distance to zero for each cell
 	 */
-	private int[][] updateMatrix(int[][] matrix) {
+	public int[][] updateMatrix(int[][] matrix) {
 		int[][] directions = new int[][] {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 		int m = matrix.length, n = matrix[0].length, i, j, ci, cj;
 		Queue<Integer> queue = new LinkedList<>();
@@ -67,7 +67,7 @@ public class Grid {
 	 * @param grid m x n matrix
 	 * @return shortest distance from top-left to bottom right else - 1
 	 */
-	private int shortestPathBinaryMatrix(int[][] grid) {
+	public int shortestPathBinaryMatrix(int[][] grid) {
 		int m = grid.length, n = grid[0].length, i = 0, j = 0;
 		
 		if(grid[0][0] == 1 || grid[m - 1][n - 1] == 1)
@@ -109,9 +109,75 @@ public class Grid {
 		return (grid[m - 1][n - 1] == 0) ? -1 : grid[m - 1][n - 1];
 	}
 	
+	/**
+	 * Leet code. Solution -> TLE
+	 * 
+	 * The solution gives correct answer but LC time constraints caused it to TLE.  
+	 * 
+	 * @param grid
+	 * @return
+	 */
+	public int numIslands(char[][] grid) {
+		if(grid == null || grid.length == 0 || grid[0].length == 0)
+			return 0;
+		
+		int numIslands = 0, m = grid.length, n = grid[0].length;
+		
+		Queue<int[]> queue = new LinkedList<>();
+		int[][] directions = new int[][] {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+		boolean[] island;
+		
+		for(int i = 0; i < m; i++) {
+			for(int j = 0; j < n; j++) {
+				if(grid[i][j] == '1') {
+					island = new boolean[] {false, false, false, false}; 
+					queue.add(new int[] {i, j});
+					
+					while(!queue.isEmpty()) {
+						int[] current = queue.remove();
+						grid[current[0]][current[1]] = 'v';
+						
+						for(int d = 0; d < 4; d++) {
+							int x = directions[d][0] + current[0];
+							int y = directions[d][1] + current[1];
+							
+							if(x < 0 || x >= m || y < 0 || y >= n) {
+								// left
+								if(x < 0)
+									island[0] = true;
+								
+								// right
+								if(x >= m)
+									island[1] = true;
+								
+								// up
+								if(y < 0)
+									island[2] = true;
+
+								// down
+								if(y >= n)
+									island[3] = true;
+								
+							} else if(grid[x][y] == '1') {
+								queue.add(new int[] {x, y});
+							} else if(grid[x][y] == '0') {// 0
+								island[d] = true;
+							}
+						}
+					}
+					
+					if(island[0] && island[1] && island[2] && island[3])
+						numIslands++;
+				}
+			}
+		}
+		
+		return numIslands;
+	}
+	
 	public static void main(String[] args) {
 		Grid g = new Grid();
-		
+		/*
 		int[][] matrix = new int[][] {
 			{0, 0, 0, 0, 1, 0},
 			{0, 1, 1, 0, 1, 0},
@@ -128,5 +194,14 @@ public class Grid {
 		}
 		
 		System.out.println(g.shortestPathBinaryMatrix(matrix));
+		*/
+		char[][] m = new char[][] {
+			{'1', '1', '0', '1', '0'},
+			{'1', '1', '0', '1', '0'},
+			{'1', '1', '0', '0', '0'},
+			{'0', '0', '0', '0', '1'}
+		};
+		
+		System.out.println(g.numIslands(m));
 	}
 }
