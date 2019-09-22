@@ -133,6 +133,44 @@ def ladder_length(begin_word, end_word, word_list):
     return 0
 
 
+def find_ladders(begin_word, end_word, word_list):
+    lew, res, bucket, queue = len(begin_word), set(), defaultdict(list), deque()
+
+    for word in word_list:
+        for i in range(lew):
+            bucket[word[:i] + '_' + word[i + 1:]].append(word)
+
+    queue.append(([begin_word], begin_word))
+    while queue:
+        path, vertex = queue.popleft()
+
+        if vertex == end_word:
+            res.add(tuple(path))
+            continue
+
+        for i in range(lew):
+            w = vertex[:i] + '_' + vertex[i + 1:]
+
+            if w in bucket:
+                for nbr in bucket[w]:
+                    if nbr not in path:
+                        # np = path.copy()
+                        # np.add(nbr)
+                        np = path + [nbr]
+                        queue.append((np, nbr))
+            # bucket[w] = []
+
+    for i in res:
+        print(i)
+
+    m = 100
+    for i in res:
+        if len(i) < m:
+            m = len(i)
+
+    return list(filter(lambda x : len(x) == m, res))
+
+
 if __name__ == '__main__':
     bucket, words = defaultdict(list), ['fool', 'foul', 'foil', 'fail', 'fall', 'cool',
                                         'pool', 'pall', 'poll', 'pole', 'pope', 'pale',
@@ -154,3 +192,5 @@ if __name__ == '__main__':
     # Build predecessor and distance relation
     breath_first_search(g.get_vertex("fool"))
     traverse(g.get_vertex("sage"))
+
+    print(find_ladders('hit', 'cog', ["hot","dot","dog","lot","log","cog"]))
