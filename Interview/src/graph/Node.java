@@ -5,11 +5,11 @@ import java.util.List;
 public class Node {
 	
 	public int val;
-	public List<Integer> neighbors;
+	public List<Node> neighbors;
 	
 	public Node() {}
 	
-	public Node(int _val, List<Integer> _neighbors) {
+	public Node(int _val, List<Node> _neighbors) {
 		this.val = _val;
 		this.neighbors = _neighbors;
 	}
