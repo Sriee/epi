@@ -14,23 +14,23 @@ public class GraphProblems {
 	 * @param node 
 	 * @return cloned graph head
 	 */
-	public Node cloneGraph(Node node) {
+	public Vertex cloneGraph(Vertex node) {
 		if (node == null)
 			return null;
 
-		Map<Node, Node> map = new HashMap<>();
-		Queue<Node> queue = new LinkedList<>();
+		Map<Vertex, Vertex> map = new HashMap<>();
+		Queue<Vertex> queue = new LinkedList<>();
 		
-		Node cloned = new Node(node.val, new LinkedList<>()), current = null;
+		Vertex cloned = new Vertex(node.val, new LinkedList<>()), current = null;
 		map.put(node, cloned);
 		queue.add(node);
 
 		while (!queue.isEmpty()) {
 			current = queue.remove();
-			for (Node nbr : current.neighbors) {
+			for (Vertex nbr : current.neighbors) {
 				
 				if (!map.containsKey(nbr)) {
-					map.put(nbr, new Node(nbr.val, new LinkedList<>()));
+					map.put(nbr, new Vertex(nbr.val, new LinkedList<>()));
 					queue.add(nbr);
 				}
 				
@@ -41,9 +41,12 @@ public class GraphProblems {
 		return cloned;
 	}
 
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		Vertex v = new Vertex(1);
+		v.addNeighbor(new Vertex(2));
+		v.addNeighbor(new Vertex(3));
+		System.out.println(v);
 	}
 
 }
