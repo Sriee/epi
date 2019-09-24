@@ -16,6 +16,4 @@ public class Graph {
 	public void addEdge(Vertex from, Vertex to) {
 		from.addNeighbor(to);
 	}
-	
-	
 }

@@ -36,7 +36,10 @@ public class Vertex {
 		sb.append(this.val + ", " + this.visited + ", [");
 		for(Vertex v : this.neighbors)
 			sb.append(v.val + ", ");
-		sb.delete(sb.length() - 2, sb.length());
+		
+		if(!sb.substring(sb.length() - 1).equals("["))
+			sb.delete(sb.length() - 2, sb.length());
+		
 		sb.append("])");
 		
 		return sb.toString();
