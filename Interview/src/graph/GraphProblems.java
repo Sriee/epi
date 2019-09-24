@@ -93,6 +93,43 @@ public class GraphProblems {
 		return false;
 	}
 	
+	/**
+	 * Utility method to detect cycle. We do a depth first traversal.
+	 * 
+	 * @param v vertex
+	 * @param parent vertex
+	 * @return true if cycle detected false otherwise
+	 */
+	private boolean hasCycle(Vertex v, Vertex parent) {
+		v.visited = true;
+		
+		for(Vertex neighbor: v.neighbors) {
+			if(!neighbor.visited) {
+				if(this.hasCycle(neighbor, v))
+					return true;
+			} else if(neighbor != parent) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Detect cycle in undirected graph
+	 * 
+	 * @param g graph
+	 * @return true if cycle is found false otherwise
+	 */
+	public boolean hasCycle(Graph g) {
+		for(Vertex u : g.adjList) {
+			if(!u.visited) {
+				if(this.hasCycle(u, null));
+					return true;
+			}
+		}
+		
+		return false;
+	}
 	public static void main(String[] args) {
 		GraphProblems gp = new GraphProblems();
 		
