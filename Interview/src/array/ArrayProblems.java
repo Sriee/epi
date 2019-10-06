@@ -1,5 +1,7 @@
 package array;
 
+import java.util.*;
+
 public class ArrayProblems {
 
 	public int distanceBetweenBusStops(int[] distance, int start, int destination) {
@@ -22,6 +24,24 @@ public class ArrayProblems {
 		return (clockwise < anti) ? clockwise : anti;
 	}
 	
+	public void trapWater() {
+		int[] A = new int[] {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+        Stack<Integer> s = new Stack<Integer>();
+        int i = 0, maxWater = 0, maxBotWater = 0;
+        while (i < A.length){
+            if (s.isEmpty() || A[i]<=A[s.peek()]){
+                s.push(i++);
+            }
+            else {
+                int bot = s.pop();
+                maxBotWater = s.isEmpty()? // empty means no il
+                0:(Math.min(A[s.peek()],A[i])-A[bot])*(i-s.peek()-1);
+                maxWater += maxBotWater;
+            }
+        }
+        System.out.println(maxWater);
+	}
+	
 	public static void main(String[] args) {
 		ArrayProblems ap = new ArrayProblems();
 		int res = ap.distanceBetweenBusStops(new int[] {1, 2, 3, 4},  0, 2);
@@ -31,7 +51,9 @@ public class ArrayProblems {
 		res = ap.distanceBetweenBusStops(arr,  18, 2);
 		System.out.println(res);
 		
-		System.out.println(arr.length);
+		ap.trapWater();
+		
+		List<Integer>[] key = new LinkedList[5];
 	}
 
 }
