@@ -33,7 +33,16 @@ class AvlTree(object):
         return self._size
 
     def balance(self, node: AvlNode):
+        """Balance the subtree. We need to handle 4 cases for balancing the subtree
 
+        Case 1: Left - Left [Single rotation] Hint: the opposite side
+        Case 2: Left - Right [Double rotation]
+        Case 3: Right - Left [Double rotation]
+        Case 4: Right - Right [Single rotation]
+
+        :param node: the subtree
+        :return: balanced subtree
+        """
         if self.balance_factor(node) > 1:
             # Handle left heavy tree
 
@@ -77,6 +86,12 @@ class AvlTree(object):
         return self._height(node.left) - self._height(node.right)
 
     def contains(self, node, val):
+        """Find whether the AVL tree has the node with the given value.
+
+        :param node: the subtree
+        :param val: value to find
+        :return: True if found False otherwise
+        """
         if not node:
             return False
 
@@ -88,10 +103,21 @@ class AvlTree(object):
             return True
 
     def delete(self, x):
+        """Delete a node with the given value. If a node is not found do nothing.
+
+        :param x: value
+        :return: None
+        """
         self.root = self._delete(self.root, x)
         self._size -= 1
 
     def _delete(self, node: AvlNode, x):
+        """Helper method to delete a node in the subtree
+
+        :param node: the subtree
+        :param x: value whose node has to be removed
+        :return: balanced subtree
+        """
         if not node:
             return node
 
@@ -115,25 +141,50 @@ class AvlTree(object):
         return self.balance(node)
 
     def find_min(self, node):
+        """Find the minimum node in the subtree. Minimum node would be the left most
+        node in the subtree
+
+        :param node: the subtree
+        :return: minimum node in the subtree
+        """
         x = node
         while x.left:
             x = x.left
         return x
 
     def height(self):
+        """Calculate the height of the root"""
         return self._height(self.root)
 
     def _height(self, node: AvlNode):
+        """Height of the subtree
+
+        :param node: the subtree
+        :return: subtree height or -1
+        """
         return node.height if node else -1
 
     def is_empty(self):
+        """Helper method to check if the tree is empty"""
         return self._size == 0
 
     def put(self, x):
+        """Insert a value in AVL Tree
+
+        :param x: value
+        :return: None
+        """
         self.root = self._put(self.root, x)
         self._size += 1
 
     def _put(self, node: AvlNode, x):
+        """Helper method to insert a value to the subtree. If the value is already is
+        present in the AVL Tree, occurrence's count will be updated.
+
+        :param node: the subtree
+        :param x: value to insert
+        :return:
+        """
         if not node:
             return AvlNode(x)
 
@@ -149,7 +200,7 @@ class AvlTree(object):
         return self.balance(node)  # Balance the node
 
     def rotate_left(self, k2: AvlNode):
-        """Rotate left
+        """Rotates the given subtree to the left
 
             1               2
              \             / \
@@ -157,8 +208,8 @@ class AvlTree(object):
                \
                 3
 
-        :param k2:
-        :return:
+        :param k2: the subtree
+        :return: root of the rotated subtree
         """
         k1 = k2.right
 
@@ -171,15 +222,15 @@ class AvlTree(object):
         return k1
 
     def rotate_right(self, k2: AvlNode):
-        """Rotate right
+        """Rotate the given subtree to the right
                 1             2
                /             / \
               2     -->     1   3
              /
             3
 
-        :param k2:
-        :return:
+        :param k2: the subtree
+        :return: root of the rotated subtree
         """
         k1 = k2.left
 
