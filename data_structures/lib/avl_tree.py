@@ -1,3 +1,6 @@
+from collections import deque
+
+
 class AvlNode(object):
 
     def __init__(self, val, left=None, right=None):
@@ -5,13 +8,13 @@ class AvlNode(object):
         self.left = left
         self.right = right
         self.height = 0
-        self.occurrence = 0
+        self.occurrence = 1
 
     def __str__(self):
         s = 'AvlNode({}, left={}, right={}, height={}, occurrence={})'.format(
             self.val,
-            self.left.val if self.val else None,
-            self.right.val if self.val else None,
+            self.left.val if self.left else None,
+            self.right.val if self.right else None,
             self.height,
             self.occurrence
         )
@@ -26,6 +29,7 @@ class AvlTree(object):
 
     @property
     def size(self):
+        """Number of elements in the tree"""
         return self._size
 
     def balance(self, node: AvlNode):
@@ -64,6 +68,12 @@ class AvlTree(object):
         return node
 
     def balance_factor(self, node: AvlNode):
+        """Find the balance factor of the subtree. Balance factor is defined as the
+        difference between height of left & right tree
+
+        :param node: the subtree
+        :return: balance factor
+        """
         return self._height(node.left) - self._height(node.right)
 
     def contains(self, node, val):
@@ -76,6 +86,39 @@ class AvlTree(object):
             return self.contains(node.right, val)
         else:
             return True
+
+    def delete(self, x):
+        self.root = self._delete(self.root, x)
+        self._size -= 1
+
+    def _delete(self, node: AvlNode, x):
+        if not node:
+            return node
+
+        if x < node.val:
+            node.left = self._delete(node.left, x)
+        elif x > node.val:
+            node.right = self._delete(node.right, x)
+        else:
+            node.occurrence -= 1
+            if node.occurrence != 0:
+                return node
+
+            if node.left and node.right:
+                y = node
+                node = self.find_min(y.right)
+                node.right = self._delete(node.right, node.val)
+                node.left = y.left
+            else:
+                return node.left if node.left else node.right
+        node.height = max(self._height(node.left), self._height(node.right)) + 1
+        return self.balance(node)
+
+    def find_min(self, node):
+        x = node
+        while x.left:
+            x = x.left
+        return x
 
     def height(self):
         return self._height(self.root)
@@ -95,15 +138,15 @@ class AvlTree(object):
             return AvlNode(x)
 
         if x < node.val:
-            return self._put(node.left, x)
+            node.left = self._put(node.left, x)
         elif x > node.val:
-            return self._put(node.right, x)
+            node.right = self._put(node.right, x)
         else:   # Found duplicate node
             node.occurrence += 1
 
         # Update height
         node.height = max(self._height(node.left), self._height(node.right)) + 1
-        self.balance(node)  # Balance the node
+        return self.balance(node)  # Balance the node
 
     def rotate_left(self, k2: AvlNode):
         """Rotate left
@@ -117,7 +160,7 @@ class AvlTree(object):
         :param k2:
         :return:
         """
-        k1: AvlNode = k2.right
+        k1 = k2.right
 
         k2.right = k1.left
         k1.left = k2
@@ -138,7 +181,7 @@ class AvlTree(object):
         :param k2:
         :return:
         """
-        k1: AvlNode = k2.left
+        k1 = k2.left
 
         # Since we are assigning k2's left to k1 it is guaranteed that k2's left
         # is empty. Also k1's right is guaranteed to be < k2
@@ -157,5 +200,46 @@ class AvlTree(object):
         return self._size
 
 
+def print_avl(root: AvlNode):
+    """Level order traversal"""
+    res, queue = [], deque()
+    queue.append(root)
+
+    while queue:
+        current = []
+        size = len(queue)
+
+        for _ in range(size):
+            node = queue.popleft()
+
+            if node:
+                if node is None:
+                    print('Why did I get here')
+                else:
+                    current.append(str(node))
+                queue.append(node.left)
+                queue.append(node.right)
+            else:
+                current.append('None')
+
+        res.append(current)
+
+    for i in res:
+        print(i)
+
+
 if __name__ == '__main__':
     a = AvlTree()
+    for i in range(5):
+        a.put(i)
+    a.put(3)
+    print_avl(a.root)
+    print('*' * 20)
+
+    a.delete(3)
+    print_avl(a.root)
+    print('*' * 20)
+
+    a.delete(3)
+    print_avl(a.root)
+    print('*' * 20)
