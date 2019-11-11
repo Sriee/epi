@@ -7,7 +7,9 @@ class AvlNode(object):
         self.val = val
         self.left = left
         self.right = right
+        # Maintain height information at each node to calculate the balance factor
         self.height = 0
+        # Variable to handle duplicates in the AVL Tree
         self.occurrence = 1
 
     def __str__(self):
@@ -22,7 +24,10 @@ class AvlNode(object):
 
 
 class AvlTree(object):
+    """AVL Tree Implementation
 
+    Reference: algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/AVLTreeST.java.html
+    """
     def __init__(self):
         self.root = None
         self._size = 0
@@ -55,7 +60,7 @@ class AvlTree(object):
                    \         /
                     3       2
                 """
-                node = self.rotate_left(node)
+                node.left = self.rotate_left(node.left)
 
             # Case 1: Left - Left
             node = self.rotate_right(node)
@@ -70,7 +75,7 @@ class AvlTree(object):
                      /           \
                     3             2
                 """
-                node = self.rotate_right(node)
+                node.right = self.rotate_right(node.right)
 
             # Case 4: Right - Right
             node = self.rotate_left(node)

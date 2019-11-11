@@ -57,6 +57,7 @@ class BinarySearchTree(object):
         :param val: value to delete
         :return: node after deletion
         """
+
         if not node:
             return node
 

@@ -52,5 +52,5 @@ class Deque:
     def print_deque(self):
         """Prints the deque data structure."""
         for i in self.deque:
-            print i,
-        print ""
+            print(i)
+        print()
