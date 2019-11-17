@@ -24,6 +24,46 @@ public class ArrayProblems {
 		return (clockwise < anti) ? clockwise : anti;
 	}
 	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 0ms. Optimal solution
+	 * 
+	 * Rotate the array k times
+	 * 
+	 * Solution uses Approach 2: Reversing the array to rotate it
+	 * 
+	 * @param nums given array
+	 * @param k number of times to rotate 
+	 */
+    public void rotate(int[] nums, int k) {
+        if(nums == null || nums.length == 0 || k == 0)
+            return;
+        
+        k %= nums.length;
+        reverse(nums, 0, nums.length - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, nums.length - 1);
+    }
+    
+    /**
+     * Utility method to reverse elements of an array
+     * 
+     * @param nums given array
+     * @param start pointer location
+     * @param end pointer location
+     */
+    public void reverse(int[] nums, int start, int end) {
+        while(start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            
+            start++;
+            end--;
+        }
+    }
+    
 	public void trapWater() {
 		int[] A = new int[] {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
         Stack<Integer> s = new Stack<Integer>();
@@ -42,6 +82,7 @@ public class ArrayProblems {
         System.out.println(maxWater);
 	}
 	
+	
 	public static void main(String[] args) {
 		ArrayProblems ap = new ArrayProblems();
 		int res = ap.distanceBetweenBusStops(new int[] {1, 2, 3, 4},  0, 2);
@@ -52,8 +93,6 @@ public class ArrayProblems {
 		System.out.println(res);
 		
 		ap.trapWater();
-		
-		List<Integer>[] key = new LinkedList[5];
 	}
 
 }
