@@ -46,6 +46,42 @@ public class ArrayProblems {
         reverse(nums, k, nums.length - 1);
     }
     
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 0ms. Optimal solution
+	 * 
+	 * Rotate the array k times
+	 * 
+	 * Solution uses Approach 1: Cyclic Replacement
+	 *  
+	 * We can directly place every number of the array at its required correct position. But if we do that, we will destroy the original element. 
+	 * Thus, we need to store the number being replaced in a temptemptemp variable. Then, we can place the replaced number(temp) at its correct position and so on
+	 *  
+	 * @param nums given array
+	 * @param k number of times to rotate 
+	 */
+    public void rotateCyclic(int[] nums, int k) {
+        if(nums == null || nums.length == 0 || k == 0)
+            return;
+        
+        k %= nums.length;
+        int count = 0, nextIdx = 0, currentIdx, prev, temp;
+        while(count < nums.length) {
+            currentIdx = nextIdx;
+            prev = nums[currentIdx];
+            
+            do {
+                nextIdx = (nextIdx + k) % nums.length;
+                temp = nums[nextIdx];
+                nums[nextIdx] = prev;
+                prev = temp;
+                count++;
+            } while(currentIdx != nextIdx);
+            nextIdx++;
+        }        	
+    }
+    
     /**
      * Utility method to reverse elements of an array
      * 

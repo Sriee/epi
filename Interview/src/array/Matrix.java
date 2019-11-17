@@ -36,6 +36,7 @@ public class Matrix {
 			end--;
 		}
 	}
+	
 	public static void main(String[] args) {
 		final int MATRIX_SIZE = 7;	
 		int[][] matrix = new int[MATRIX_SIZE][MATRIX_SIZE];
