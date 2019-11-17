@@ -175,6 +175,49 @@ public class Grid {
 		return numIslands;
 	}
 	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 0 ms. Optimal solution
+	 * 
+	 * Given a sudoku board, verify whether it is valid or not. Given board is valid and is always 9x9
+	 * 
+	 * @param board 9x9 sudoku board
+	 * @return true if the board is valid false otherwise
+	 */
+	public boolean isValidSudoku(char[][] board) {
+		boolean[][] rows = new boolean[10][10];
+		boolean[][] cols = new boolean[10][10];
+		boolean[][] subs = new boolean[10][10];
+		
+		for(int i = 0; i < 9; i++) {
+			for(int j = 0; j < 9; j++) {
+				if(board[i][j] == '.') continue;
+					
+				// Row check
+				if(rows[i][board[i][j] - '0'])
+					return false;
+				else
+					rows[i][board[i][j] - '0'] = true;
+				
+				// Column check
+				if(cols[j][board[i][j] - '0'])
+					return false;
+				else
+					cols[j][board[i][j] - '0'] = true;
+				
+				// Sub matrix check
+				int p = (i - i % 3) + (j / 3);
+				if(subs[p][board[i][j] - '0'])
+					return false;
+				else
+					subs[p][board[i][j] - '0'] = true;
+			}
+		}
+		
+		return true;
+	}
+	
 	public static void main(String[] args) {
 		Grid g = new Grid();
 		/*
@@ -194,7 +237,7 @@ public class Grid {
 		}
 		
 		System.out.println(g.shortestPathBinaryMatrix(matrix));
-		*/
+		
 		char[][] m = new char[][] {
 			{'1', '1', '0', '1', '0'},
 			{'1', '1', '0', '1', '0'},
@@ -203,5 +246,20 @@ public class Grid {
 		};
 		
 		System.out.println(g.numIslands(m));
+		*/
+		
+		char[][] b = new char[][] {
+			{'5', '3', '.', '.', '7', '.', '.', '.', '.'},
+			{'6', '.', '.', '1', '9', '5', '.', '.', '.'},
+			{'.', '9', '8', '.', '.', '.', '.', '6', '.'},
+			{'8', '.', '.', '.', '6', '.', '.', '.', '3'},
+			{'4', '.', '.', '8', '.', '3', '.', '.', '1'},
+			{'7', '.', '.', '.', '2', '.', '.', '.', '6'},
+			{'.', '6', '.', '.', '.', '.', '2', '8', '.'},
+			{'.', '.', '.', '4', '2', '9', '.', '.', '5'},
+			{'.', '.', '.', '.', '8', '.', '.', '7', '9'}
+		};
+		
+		System.out.println(g.isValidSudoku(b));
 	}
 }
