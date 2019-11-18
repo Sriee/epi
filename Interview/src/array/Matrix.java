@@ -37,8 +37,56 @@ public class Matrix {
 		}
 	}
 	
+	/**
+	 * Transopse a matrix
+	 * 
+	 * @param matrix
+	 */
+	public void transpose(int[][] matrix) {
+		for(int i = 0; i < matrix.length; i++) {
+			for(int j = i; j < matrix.length; j++) {
+				int temp = matrix[i][j];
+				matrix[i][j] = matrix[j][i];
+				matrix[j][i] = temp;
+			}
+		}
+	}
+	
+	/**
+	 * Flip matrix vertically. 
+	 * 
+	 * Similar to reversing an array using two pointer approach. 
+	 * 
+	 * @param matrix
+	 */
+	public void flipVertical(int[][] matrix) {
+		for(int i = 0; i < matrix.length; i++) {
+			// We traverse till the middle
+			for(int j = 0; j < matrix.length / 2; j++) {
+				int temp = matrix[i][j];
+				matrix[i][j] = matrix[i][matrix.length - 1];
+				matrix[i][matrix.length - 1] = temp;
+			}
+		}
+	}
+	
+	/**
+	 * Flip matrix horizontally
+	 * 
+	 * @param matrix
+	 */
+	public void flipHorizontal(int[][] matrix) {
+		for(int i = 0; i < matrix.length / 2; i++) {
+			for(int j = 0; j < matrix.length; j++) {
+				int temp = matrix[i][j];
+				matrix[i][j] = matrix[matrix.length - 1 - i][j];
+				matrix[matrix.length - 1 - i][j] = temp;
+			}
+		}
+	}
+	
 	public static void main(String[] args) {
-		final int MATRIX_SIZE = 7;	
+		final int MATRIX_SIZE = 4;	
 		int[][] matrix = new int[MATRIX_SIZE][MATRIX_SIZE];
 		int number = 1;
 		Matrix m = new Matrix();
@@ -54,7 +102,15 @@ public class Matrix {
 		m.printMatrix(matrix);
 		
 		System.out.println("*******************************\n");
-		m.rotateMatrix(matrix);
+		// m.rotateMatrix(matrix);
+		
+		m.flipHorizontal(matrix);
 		m.printMatrix(matrix);
+		
+		/*
+		m.transpose(matrix);
+		m.flipVertical(matrix);
+		m.printMatrix(matrix);
+		*/
 	}
 }
