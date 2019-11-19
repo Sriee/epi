@@ -229,6 +229,23 @@ public class ListUtil {
 	}
 
 	/**
+	 * Recursivly reversing the list
+	 * 
+	 * @param <S>
+	 * @param head
+	 * @return
+	 */
+	public static <S extends Comparable<S>> ListNode<S> reverseRecursive(ListNode<S> head) {
+		if(head == null || head.next == null) return head;
+		
+		ListNode<S> reverseNode = reverseRecursive(head.next);
+		head.next.next = head;
+		head.next = null;
+		
+		return reverseNode;
+	}
+	
+	/**
 	 * Utility function to print the list. The list will be printed in the
 	 * following format
 	 * 
