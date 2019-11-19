@@ -27,6 +27,39 @@ public class ArrayProblems {
 	/**
 	 * Leet code. Solution -> Accepted
 	 * 
+	 * Run time: 0ms for both approaches 
+	 * 
+	 * @param nums1 Array 1
+	 * @param m number of elements in first array
+	 * @param nums2 Array 2
+	 * @param n number of elements in second array
+	 */
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+    	/**
+    	 * Approach 1: Adding elements and sorting. Time Complexity O(m + n log (m + n))
+    	 */
+    	for(int i = 0, j = m; i < n; i++) {
+            nums1[j++] = nums2[i];
+        }    
+        
+        Arrays.sort(nums1);
+        
+        /**
+         * Approach 2: Two pointer approach. Time complexity: O(m + n)
+         */
+        int k = m + n - 1, i = m - 1, j = n - 1;
+        while(i >= 0 && j >= 0)
+        	nums1[k--] = (nums1[i] > nums2[j]) ? nums1[i--] : nums2[j--];  
+        
+        while(i >= 0)
+        	nums1[k--] = nums1[i--];
+        
+        while(j >= 0)
+        	nums1[k--] = nums2[j--];
+    }
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
 	 * Run Time: 0ms. Optimal solution
 	 * 
 	 * Rotate the array k times
