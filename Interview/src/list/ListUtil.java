@@ -321,6 +321,54 @@ public class ListUtil {
 		return newHead;
 	}
 
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 1 ms. Optimal Solution
+	 *  
+	 * This solution uses O(n) time & O(1) space complexity. Trivial solution would be to store all the 
+	 * node up to mid point in a HashMap. Then travese the second, keep checking the hashmap. 
+	 * 
+	 * @param <C> type
+	 * @param head list
+	 * @return true if list is a palindrome false otherwise
+	 */
+    public <C extends Comparable<C>> boolean isPalindrome(ListNode<C> head) {
+        ListNode<C> slow = head, fast = head;
+               
+        // Find mid
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        // Trick: When fast is null then we know that list has odd number of elements
+        if(fast != null)
+            slow = slow.next;
+        
+        // Another variation for reversing a list without using dummy head
+        // Reverse second half
+        ListNode<C> prev = null, temp;
+        
+        while(slow != null) {
+            temp = slow.next;
+            slow.next = prev;
+            prev = slow;
+            slow = temp;
+        }
+        
+        slow = prev; fast = head;
+        while(slow != null) {
+            if(fast.data != slow.data)
+                return false;
+
+            slow = slow.next;
+            fast = fast.next;
+        }
+        
+        return true;
+    }
+    
 	public static ListNode<Integer> generate(int n){
 
 	    int i = 1;
