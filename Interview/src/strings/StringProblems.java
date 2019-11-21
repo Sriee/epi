@@ -227,6 +227,32 @@ public class StringProblems {
 		return result;
 	}
 	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 3 ms. Above average solution. Calling character class is causing extra run time
+	 * 
+	 * Given a string, find whether it is a palindrome or not. String may contain other characters
+	 * as well. Ignore special characters, space and upper case letters.
+	 * 
+	 * @param s Given string
+	 * @return true if the 
+	 */
+    public boolean isPalindrome(String s) {
+        char[] ch = s.toCharArray();
+        int i = 0, j = s.length() - 1;
+        
+        while(i < j) {
+            if(!Character.isLetterOrDigit(ch[i]))
+                i++;
+            else if(!Character.isLetterOrDigit(ch[j]))
+                j--;
+            else if(Character.toLowerCase(ch[i++]) != Character.toLowerCase(ch[j--]))
+                return false;
+        }
+        return true;
+    }
+    
 	public static void main(String[] args) {
 		StringProblems sp = new StringProblems();
 		String ans = sp.minWindow("fgiowblkjadgfladfbmnyuhijo", "ibn");
