@@ -32,6 +32,28 @@ public class ReverseBits {
 		return res;
 	}
 	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 1 ms. Optimal Solution
+	 * 
+	 * Given a number, reverse it bits. 
+	 * 
+	 * @param n
+	 * @return
+	 */
+    public int reverseBits(int n) {
+        int result = (n & 1) == 1 ? 1 : 0;
+        n >>>= 1;
+        for(int i = 0; i < 31; i++) {
+            result <<= 1;
+            if((n & 1) == 1)
+                result = result | 1;
+            n >>>= 1;
+        }
+        return result;
+    }
+    
 	public long reverseBits(long number){
 		if(number < 0) throw new IllegalArgumentException("Number should be positive.");
 		return((number >> 48) & 0xFFFF) |
