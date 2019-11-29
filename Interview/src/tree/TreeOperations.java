@@ -1,8 +1,7 @@
 package tree;
 
 import java.lang.Math;
-import java.util.Queue;
-import java.util.LinkedList;
+import java.util.*;
 
 
 public class TreeOperations {
@@ -34,6 +33,43 @@ public class TreeOperations {
         
         return this.isSymmetric(p.left, q.right) && this.isSymmetric(p.right, q.left);
 	}	
+	
+    /**
+	 * Given a Binary Tree check whether its subtree's are symmetric (Iterative implementation)
+	 * 
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 1ms Optimal solution is the recursive version 
+	 * 
+	 * @param root Root of the tree
+	 * @return true if the sub tree's are symmetric, false otherwise
+	 */
+	public boolean isSymmetricIterative(TreeNode root) {
+        if(root == null)
+            return true;
+        
+        Deque<TreeNode> queue = new LinkedList<>();
+        queue.offer(root.left);
+        queue.offer(root.right);
+        
+        while(!queue.isEmpty()) {
+            TreeNode first = queue.pollFirst();
+            TreeNode last = queue.pollFirst();
+            
+            if(first == null && last == null)
+                continue;
+                
+            if(first == null || last == null || first.val != last.val)
+                return false;
+            
+            queue.offer(first.left);
+            queue.offer(last.right);
+            queue.offer(first.right);
+            queue.offer(last.left);
+        }
+        
+        return true;
+    }
 	
 	/**
 	 * Given a Binary Tree check whether the subtree's are same
