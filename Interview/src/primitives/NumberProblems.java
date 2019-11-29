@@ -1,5 +1,8 @@
 package primitives;
 
+import java.util.*;
+
+
 public class NumberProblems {
 
 	/**
@@ -65,6 +68,41 @@ public class NumberProblems {
          * }
          */
         return count; 
+    }
+    
+    /**
+     * Leet code. Solution -> Accepted
+     * 
+     * Run Time: 0ms. Optimal solution. 
+     * 
+     * Given a row number generate pascal triangle upto that row
+     * @param numRows
+     * @return
+     */
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> result = new LinkedList<>();
+        
+        if(numRows == 0)
+            return result;
+        
+        List<Integer> previous = new LinkedList<>(), current = null;
+        previous.add(1);
+        result.add(previous);
+        
+        for(int i = 1; i < numRows; i++) {
+            current = new LinkedList<>();
+            current.add(1);
+            
+            for(int j = 0; j + 1 < previous.size(); j++) 
+                current.add(previous.get(j) + previous.get(j + 1));
+            
+            current.add(1);
+            
+            result.add(current);
+            previous = current;
+        }
+        
+        return result;
     }
     
 	public static void main(String[] args) {
