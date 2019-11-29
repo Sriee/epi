@@ -2,12 +2,41 @@ package primitives;
 
 public class NumberProblems {
 
-    // you need to treat n as an unsigned value
 	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 0 ms. Optimal solution
+	 *  
+	 * The Hamming distance between two integers is the number of positions at which the corresponding bits are different.
+	 * Given two integers x and y, calculate the Hamming distance.
+	 * 
+	 * Ex:
+	 *  1 - 0 0 0 1
+	 *  4 - 0 1 0 0
+	 *        |   |
+	 *  Dist    2 
+	 *         
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+    public int hammingDistance(int x, int y) {
+        int count = 0;
+        while(x != 0 || y != 0) {
+            count = count + ((x & 1) ^ (y & 1));
+            x >>>= 1;
+            y >>>= 1;
+        }
+        return count;
+    }
+    
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 1 ms. Almost Optimal solution
+	 * 
 	 * Given an unsigned integer, compute the number of 1's in the number. This is known as 
 	 * Hamming Weight
-	 * 
-	 * Run Time: 1ms
 	 * 
 	 * @param n
 	 * @return
