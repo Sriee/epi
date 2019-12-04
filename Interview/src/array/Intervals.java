@@ -23,6 +23,38 @@ public class Intervals {
 	/**
 	 * Leet code. Solution -> Accepted
 	 * 
+	 * Run Time: 1 ms. Optimal solution. 
+	 * 
+	 * Insert an interval within the list of given intervals.
+	 * 
+	 * @param intervals
+	 * @param newInterval
+	 * @return
+	 */
+	public int[][] insert(int[][] intervals, int[] newInterval) {
+		List<int[]> left = new ArrayList<>(), right = new ArrayList<>();
+		int start = newInterval[0], end = newInterval[1];
+		
+		for(int[] i : intervals) {
+			if(i[1] < start)
+				left.add(i);
+			else if(i[0] > end)
+				right.add(i);
+			else {
+				start = Math.min(start, i[0]);
+				end = Math.max(end, i[1]);
+			}
+		}
+		
+		left.add(new int[] {start, end});
+		left.addAll(right);
+		
+		return left.toArray(new int[left.size()][2]);
+	}
+	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
 	 * Run Time: 6 ms. Above average solution. 
 	 * 
 	 * Merge interval pattern. 
