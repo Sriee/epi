@@ -20,6 +20,45 @@ public class Intervals {
 		}
 	}
 	
+	/**
+	 * Leet code. Solution -> Accepted
+	 * 
+	 * Run Time: 6 ms. Above average solution. 
+	 * 
+	 * Merge interval pattern. 
+	 * 
+	 * {@link educative.io -> Interview Patterns -> Merge Interval}
+	 * @param intervals
+	 * @return
+	 */
+    public int[][] merge(int[][] intervals) {
+        if(intervals == null || intervals.length == 0)
+            return intervals;
+        
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        int start = intervals[0][0], end = intervals[0][1];
+        List<int[]> results = new ArrayList<>();
+
+        for(int i = 1; i < intervals.length; i++) {
+            if(end < intervals[i][0]) {
+                results.add(new int[] {start, end});
+                
+                start = intervals[i][0];
+                end = intervals[i][1];
+            } else {
+                end = Math.max(end, intervals[i][1]);
+            }
+        }
+        
+        results.add(new int[] {start, end});
+        int[][] res = new int[results.size()][2];
+        
+        for(int i = 0; i < results.size(); i++)
+            res[i] = results.get(i);
+
+        return res;    
+    }
+    
 	public static void main(String[] args) {
 		Interval one = new Interval(6, 7);
 		Interval two = new Interval(2, 6);
