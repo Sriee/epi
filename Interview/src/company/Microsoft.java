@@ -227,6 +227,42 @@ public class Microsoft {
 		return new String(res);
 	}
 	
+	/**
+	 * Microsoft Onile Assessment (OA - Oct 2019)
+	 * 
+	 * Given a string s containing only a and b, find longest substring of s such that s does not contain more than two contiguous occurrences of a and b.
+	 * 
+	 * Example: 
+	 * 	"aabbaaaaabb" -> "aabbaa"
+	 * 
+	 * @param s input string
+	 * @return longest substring containing 
+	 */
+	public String validLongestSubstring(String s) {
+		if(s.length() < 3)
+			return s;
+		
+		String result = "";
+		int i = 1, count = 1, start = 0;
+		
+		for(i = 1; i < s.length(); i++) {
+			if(s.charAt(i) == s.charAt(i - 1))
+				count++;
+			else
+				count = 1;
+			
+			if(count > 2) {
+				if(i - start > result.length())
+					result = s.substring(start, i);
+
+				start = i - 1;
+				count = 1;
+			}
+		}
+		return (result.length() > i - start) ? result : s.substring(start, i);
+	}
+	
+	
 	public static void main(String[] args) {
 		Microsoft ms = new Microsoft();
 		/*
@@ -254,8 +290,16 @@ public class Microsoft {
         System.out.println(ms.replaceSpecialChar("ab?a"));
         System.out.println(ms.replaceSpecialChar("ab??"));
         System.out.println(ms.replaceSpecialChar("????"));
-        */
-        
+                
 		System.out.println(ms.networkRank(new int[] {1, 2, 3, 3},  new int[] {2, 3, 1, 4},  4));
+		*/
+		
+		System.out.println(ms.validLongestSubstring("aaabbbaacdddcccxyz")); // bbaacdd
+        System.out.println(ms.validLongestSubstring("abccccccccccccc")); // abcc
+        System.out.println(ms.validLongestSubstring("aabbaaaaabb"));	// aabbaa
+        System.out.println(ms.validLongestSubstring("aabbaabbaabbaa")); // aabbaabbaabbaa
+        System.out.println(ms.validLongestSubstring("abbaabbaaabbaaa")); // abbaabbaa
+        System.out.println();
+        
 	}
 }
