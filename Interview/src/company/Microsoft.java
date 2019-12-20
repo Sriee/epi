@@ -1,7 +1,6 @@
 package company;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Microsoft {
 	
@@ -149,6 +148,46 @@ public class Microsoft {
 	}
 	
 	/**
+	 * Microsoft Onile Assessment (OA - Oct 2019)
+	 * 
+	 * An infrastructure consisting of N cities (1 to N) and M bi-directional roads between them is given. Roads
+	 * won't intersect. For each pair of cities directly connected by a road, let's define their network rank
+	 * as the total number of roads that are connected to either of the two cities. 
+	 * 
+	 * In other words - Each city will have m ranks where "ranks" are the number of roads it's cities are connected
+	 * to. In this case find the highest netwrk rank.  
+	 * 
+	 * Arrays A & B will be of the same length.  
+	 * 
+	 * @param A 
+	 * @param B
+	 * @param N
+	 * @return
+	 */
+	public int networkRank(int[] A, int[] B, int N) {
+		int rank = 0, m = A.length;
+		Map<Integer, Set<Integer>> graph = new HashMap<>();
+		
+		for(int i = 0; i < m; i++) {
+			graph.putIfAbsent(A[i], new HashSet<>());
+			graph.putIfAbsent(B[i], new HashSet<>());
+			
+			graph.get(A[i]).add(B[i]);
+			graph.get(B[i]).add(A[i]);
+		}
+		
+		for(Integer i : graph.keySet()) {
+			Set<Integer> cities = graph.get(i);
+			System.out.println(i + " " + cities);
+			
+			for(Integer c : cities)
+				rank = Math.max(rank, cities.size() + graph.get(c).size() - 1);
+		}
+		
+		return rank;
+	}
+	
+	/**
 	 * Microsoft Onile Assessment (OA - Sep 2019)
 	 * 
 	 * Given a string with special character '?' replace the special character with lower case
@@ -196,6 +235,7 @@ public class Microsoft {
 	
 	public static void main(String[] args) {
 		Microsoft ms = new Microsoft();
+		/*
 		ms.equalDigitSum(new int[] {51, 71, 17, 42, 33, 44, 24, 62}); // 133
 		ms.equalDigitSum(new int[] {51, 71, 17, 42}); // 93
 		ms.equalDigitSum(new int[] {51, 32, 43}); // -1
@@ -220,5 +260,8 @@ public class Microsoft {
         System.out.println(ms.replaceSpecialChar("ab?a"));
         System.out.println(ms.replaceSpecialChar("ab??"));
         System.out.println(ms.replaceSpecialChar("????"));
+        */
+        
+		System.out.println(ms.networkRank(new int[] {1, 2, 3, 3},  new int[] {2, 3, 1, 4},  4));
 	}
 }
