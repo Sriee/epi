@@ -166,23 +166,17 @@ public class Microsoft {
 	 */
 	public int networkRank(int[] A, int[] B, int N) {
 		int rank = 0, m = A.length;
-		Map<Integer, Set<Integer>> graph = new HashMap<>();
 		
+		// We maintain an array where edge[i] = gives us the number of cities connected to i
+		int[] edges = new int[N + 1];
+	
 		for(int i = 0; i < m; i++) {
-			graph.putIfAbsent(A[i], new HashSet<>());
-			graph.putIfAbsent(B[i], new HashSet<>());
-			
-			graph.get(A[i]).add(B[i]);
-			graph.get(B[i]).add(A[i]);
+			edges[A[i]]++;
+			edges[B[i]]++;
 		}
 		
-		for(Integer i : graph.keySet()) {
-			Set<Integer> cities = graph.get(i);
-			System.out.println(i + " " + cities);
-			
-			for(Integer c : cities)
-				rank = Math.max(rank, cities.size() + graph.get(c).size() - 1);
-		}
+		for(int i = 0; i < m; i++) 
+			rank = Math.max(rank, edges[A[i]] + edges[B[i]] - 1);
 		
 		return rank;
 	}
