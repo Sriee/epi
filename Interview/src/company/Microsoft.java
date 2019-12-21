@@ -280,21 +280,25 @@ public class Microsoft {
 		if(s == null || s.length() == 0)
 			return 0;
 		
-		Map<Character, Integer> map = new HashMap<>();
-		int total = 0, max = Integer.MIN_VALUE;
+		int[] frequency = new int[26];
+		int deletions = 0;
+		for(char ch : s.toCharArray()) 
+			frequency[ch - 'a']++;
+
+		Arrays.sort(frequency);
 		
-		for(char ch : s.toCharArray()) {
-			map.put(ch, map.getOrDefault(ch, 0) + 1);
+		for(int i = 24; i >= 0; i--) {
 			
-			if(map.get(ch) > max)
-				max = map.get(ch);
+			// Why can't we check for only equals as we have already sorted the array in ascending order ?
+			// Because we are assigning ith value, trace for input "aabbffddeaee"
+			if(frequency[i] > 0 && frequency[i] >= frequency[i + 1]) {
+				int tmp = Math.max(0, frequency[i + 1] - 1);
+				deletions += frequency[i] - tmp;
+				frequency[i] = tmp;
+			}
 		}
 		
-		for(Map.Entry<Character, Integer> entry : map.entrySet()) 
-			total += entry.getValue();
-		
-		// Incorrect implementation 
-		return map.size() == 1 ? 0 :  total - ((max * (max + 1)) / 2);
+		return deletions;
 	}
 	
 	public static void main(String[] args) {
