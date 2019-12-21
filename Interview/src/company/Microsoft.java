@@ -262,6 +262,40 @@ public class Microsoft {
 		return (result.length() > i - start) ? result : s.substring(start, i);
 	}
 	
+	/**
+	 * Microsoft Onile Assessment (OA - Dec 2019)
+	 * 
+	 * Given a string s consisting of n lowercase letters, you have to delete the minimum number of characters from s so that every letter 
+	 * in s appears a unique number of times. We only care about the occurrences of letters that appear at least once in result.
+	 * 
+	 * Example: 
+	 * 
+	 * example -> 4. Frequency table => {'a': 1, 'e' : 2, 'm': 1, 'p': 1, 'l':1, 'x': 1}
+	 * We can have characters with frequencies 1 & 2 other characters with equal frequencies have to be eliminated.  
+	 * 
+	 * @param s input string
+	 * @return number of deletions required to make the string to have letters with unique frequencies
+	 */
+	public int uniqueFrequency(String s) {
+		if(s == null || s.length() == 0)
+			return 0;
+		
+		Map<Character, Integer> map = new HashMap<>();
+		int total = 0, max = Integer.MIN_VALUE;
+		
+		for(char ch : s.toCharArray()) {
+			map.put(ch, map.getOrDefault(ch, 0) + 1);
+			
+			if(map.get(ch) > max)
+				max = map.get(ch);
+		}
+		
+		for(Map.Entry<Character, Integer> entry : map.entrySet()) 
+			total += entry.getValue();
+		
+		// Incorrect implementation 
+		return map.size() == 1 ? 0 :  total - ((max * (max + 1)) / 2);
+	}
 	
 	public static void main(String[] args) {
 		Microsoft ms = new Microsoft();
@@ -292,7 +326,6 @@ public class Microsoft {
         System.out.println(ms.replaceSpecialChar("????"));
                 
 		System.out.println(ms.networkRank(new int[] {1, 2, 3, 3},  new int[] {2, 3, 1, 4},  4));
-		*/
 		
 		System.out.println(ms.validLongestSubstring("aaabbbaacdddcccxyz")); // bbaacdd
         System.out.println(ms.validLongestSubstring("abccccccccccccc")); // abcc
@@ -300,6 +333,11 @@ public class Microsoft {
         System.out.println(ms.validLongestSubstring("aabbaabbaabbaa")); // aabbaabbaabbaa
         System.out.println(ms.validLongestSubstring("abbaabbaaabbaaa")); // abbaabbaa
         System.out.println();
-        
+        */
+
+		System.out.println(ms.uniqueFrequency("eeeeffff")); // 1
+        System.out.println(ms.uniqueFrequency("abcd")); // 3
+        System.out.println(ms.uniqueFrequency("xxxx")); // 0
+        System.out.println(ms.uniqueFrequency("example")); // 4
 	}
 }
