@@ -151,6 +151,34 @@ public class ArrayProblems {
         System.out.println(maxWater);
 	}
 	
+	public List<List<Integer>> threeSum(int[] nums) {
+		List<List<Integer>> res = new ArrayList<>();
+		int len = nums.length; 
+		Arrays.sort(nums);
+		
+		for(int i = 0; i < len; i++) {
+			int low = i + 1, high = len - 1;
+			int sum = nums[i] + nums[low] + nums[high];
+			
+			if(sum > 0) {
+				high--;
+				if(nums[high] == nums[high + 1])
+					high--;
+			} else if(sum < 0) {
+				low++;
+				if(nums[low] == nums[low - 1])
+					low++;
+			} else {
+				List<Integer> curr = new ArrayList<>();
+				curr.add(nums[i]);
+				curr.add(nums[low]);
+				curr.add(nums[high]);
+				res.add(curr);
+			}
+		}
+		
+		return res;
+	}
 	
 	public static void main(String[] args) {
 		ArrayProblems ap = new ArrayProblems();
