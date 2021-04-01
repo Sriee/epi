@@ -61,10 +61,14 @@ public class IntegerGenerator implements Iterable<Integer>, Iterator<Integer>, G
     }
 
     @Override
-    public Iterator<Integer> iterator() { return this; }
+    public Iterator<Integer> iterator() {
+        return this;
+    }
 
     @Override
-    public boolean hasNext() { return this.index < this.size; }
+    public boolean hasNext() {
+        return this.index < this.size;
+    }
 
     @Override
     public Integer next() {
@@ -73,9 +77,13 @@ public class IntegerGenerator implements Iterable<Integer>, Iterator<Integer>, G
     }
 
     @Override
-    public void remove() { throw new UnsupportedOperationException("Cannot Remove values while iterating."); }
+    public void remove() {
+        throw new UnsupportedOperationException("Cannot Remove values while iterating.");
+    }
 
     @Override
-    public String toString() { return "IntegerGenerator(min= " + this.min + ", max= " + this.max + ")"; }
+    public String toString() {
+        return "IntegerGenerator(min= " + this.min + ", max= " + this.max + ")";
+    }
 
 }

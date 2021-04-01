@@ -15,41 +15,41 @@ public class DoubleGenerator implements Iterable<Double>, Iterator<Double>, Gene
     private double scale = -1;
     private Random rand = null;
 
-    public DoubleGenerator(){
+    public DoubleGenerator() {
         this.min = 0;
         this.max = Integer.MAX_VALUE;
     }
 
-    public DoubleGenerator(int min, int max){
+    public DoubleGenerator(int min, int max) {
         this.min = min;
         this.max = max;
     }
 
-    public DoubleGenerator(int places){
-        if(places <= 0)
+    public DoubleGenerator(int places) {
+        if (places <= 0)
             throw new IllegalArgumentException("Places should be > 0.");
         this.places = places;
     }
 
-    public DoubleGenerator(int min, int max, int places){
+    public DoubleGenerator(int min, int max, int places) {
         this.min = min;
         this.max = max;
 
-        if(places <= 0)
+        if (places <= 0)
             throw new IllegalArgumentException("Places should be > 0.");
         this.places = places;
     }
 
-    public double[] generate(int size){
+    public double[] generate(int size) {
 
-        if(size < 0)
+        if (size < 0)
             throw new IllegalArgumentException("Size should not be <= 0");
 
         double result[] = new double[size];
         double scale = Math.pow(10, this.places);
         Random rand = new Random();
 
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             result[i] = Math.round((rand.nextDouble() * ((this.max + 1 - this.min) + this.min)) * scale) / scale;
         }
 
@@ -57,21 +57,21 @@ public class DoubleGenerator implements Iterable<Double>, Iterator<Double>, Gene
     }
 
     @Override
-    public List<Double> generateAsList(int size){
-        if(size < 0)
+    public List<Double> generateAsList(int size) {
+        if (size < 0)
             throw new IllegalArgumentException("Size should not be <= 0");
 
         List<Double> resultList = new ArrayList<Double>();
         double scale = Math.pow(10, this.places);
         Random rand = new Random();
 
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             resultList.add(Math.round((rand.nextDouble() * ((this.max + 1 - this.min) + this.min)) * scale) / scale);
         }
         return resultList;
     }
 
-    public Iterator<Double> iterator(int size){
+    public Iterator<Double> iterator(int size) {
 
         // Initializing Iterator variables
         this.size = size;
@@ -82,10 +82,14 @@ public class DoubleGenerator implements Iterable<Double>, Iterator<Double>, Gene
     }
 
     @Override
-    public Iterator<Double> iterator() { return this; }
+    public Iterator<Double> iterator() {
+        return this;
+    }
 
     @Override
-    public boolean hasNext() { return this.index < this.size; }
+    public boolean hasNext() {
+        return this.index < this.size;
+    }
 
     @Override
     public Double next() {
@@ -94,9 +98,13 @@ public class DoubleGenerator implements Iterable<Double>, Iterator<Double>, Gene
     }
 
     @Override
-    public void remove() { throw new UnsupportedOperationException("Cannot Remove values while iterating."); }
+    public void remove() {
+        throw new UnsupportedOperationException("Cannot Remove values while iterating.");
+    }
 
     @Override
-    public String toString() { return "DoubleGenerator(min= " + this.min + ", max= " + this.max +")"; }
+    public String toString() {
+        return "DoubleGenerator(min= " + this.min + ", max= " + this.max + ")";
+    }
 
 }

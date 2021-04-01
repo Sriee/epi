@@ -15,9 +15,12 @@ public class CharacterGenerator implements Iterable<Character>, Iterator<Charact
     private final char[] UPPER_CASE_ALPHABETS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
     private final char[] MIXED_CASE_ALPHABETS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
-    public CharacterGenerator() { }
+    public CharacterGenerator() {
+    }
 
-    public CharacterGenerator(Case letterCase) { this.letterCase = letterCase; }
+    public CharacterGenerator(Case letterCase) {
+        this.letterCase = letterCase;
+    }
 
     public char[] generate(int size) {
 
@@ -46,10 +49,10 @@ public class CharacterGenerator implements Iterable<Character>, Iterator<Charact
         return resultList;
     }
 
-    private char getChar(){
+    private char getChar() {
         char ch = ' ';
 
-        if(this.letterCase == Case.LOWER_CASE){
+        if (this.letterCase == Case.LOWER_CASE) {
             ch = LOWER_CASE_ALPHABETS[rand.nextInt(26)];
         } else if (this.letterCase == Case.UPPER_CASE) {
             ch = UPPER_CASE_ALPHABETS[rand.nextInt(26)];
@@ -70,10 +73,14 @@ public class CharacterGenerator implements Iterable<Character>, Iterator<Charact
     }
 
     @Override
-    public Iterator<Character> iterator() { return this; }
+    public Iterator<Character> iterator() {
+        return this;
+    }
 
     @Override
-    public boolean hasNext() { return this.index < this.size; }
+    public boolean hasNext() {
+        return this.index < this.size;
+    }
 
     @Override
     public Character next() {
@@ -82,9 +89,13 @@ public class CharacterGenerator implements Iterable<Character>, Iterator<Charact
     }
 
     @Override
-    public void remove() { throw new UnsupportedOperationException("Cannot Remove values while iterating."); }
+    public void remove() {
+        throw new UnsupportedOperationException("Cannot Remove values while iterating.");
+    }
 
     @Override
-    public String toString() { return "CharacterGenerator(size= " + this.size + ")"; }
+    public String toString() {
+        return "CharacterGenerator(size= " + this.size + ")";
+    }
 
 }

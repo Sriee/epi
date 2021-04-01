@@ -4,109 +4,115 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileUtil{
+public class FileUtil {
 
     private String fileName;
     private long headLength;
     private long tailLength;
     private long sleep;
 
-    public FileUtil(){
+    public FileUtil() {
         this(null, 10, 10, 1);
     }
 
-    public FileUtil(String fileName){
+    public FileUtil(String fileName) {
         this(fileName, 10, 10, 1);
     }
 
-    public FileUtil(String fileName, long headLength, long tailLength, long sleep){
+    public FileUtil(String fileName, long headLength, long tailLength, long sleep) {
         this.fileName = fileName;
         this.headLength = headLength;
         this.tailLength = tailLength;
         this.sleep = sleep;
     }
-    
+
     /**
-	 * @return the fileName
-	 */
-	private String getFileName() {
-		return fileName;
-	}
-
-	/**
-	 * @param fileName the fileName to set
-	 */
-	private void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	/**
-	 * @return the headLength
-	 */
-	private long getHeadLength() {
-		return headLength;
-	}
-
-	/**
-	 * @param headLength the headLength to set
-	 */
-	private void setHeadLength(long headLength) {
-		this.headLength = headLength;
-	}
-
-	/**
-	 * @return the tailLength
-	 */
-	private long getTailLength() {
-		return tailLength;
-	}
-
-	/**
-	 * @param tailLength the tailLength to set
-	 */
-	private void setTailLength(long tailLength) {
-		this.tailLength = tailLength;
-	}
-
-	/**
-	 * @return the sleep
-	 */
-	private long getSleep() {
-		return sleep;
-	}
-
-	/**
-     * Displays the first [count] lines of the specified file.  If count is omitted it defaults to 10.
+     * @return the fileName
      */
-    public void head(){ headFunctionality(); }
+    private String getFileName() {
+        return fileName;
+    }
 
     /**
-     * Displays the first [count] lines of the specified file.  If count is omitted it defaults to 10.
+     * @param fileName the fileName to set
+     */
+    private void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    /**
+     * @return the headLength
+     */
+    private long getHeadLength() {
+        return headLength;
+    }
+
+    /**
+     * @param headLength the headLength to set
+     */
+    private void setHeadLength(long headLength) {
+        this.headLength = headLength;
+    }
+
+    /**
+     * @return the tailLength
+     */
+    private long getTailLength() {
+        return tailLength;
+    }
+
+    /**
+     * @param tailLength the tailLength to set
+     */
+    private void setTailLength(long tailLength) {
+        this.tailLength = tailLength;
+    }
+
+    /**
+     * @return the sleep
+     */
+    private long getSleep() {
+        return sleep;
+    }
+
+    /**
+     * Displays the first [count] lines of the specified file. If count is omitted
+     * it defaults to 10.
+     */
+    public void head() {
+        headFunctionality();
+    }
+
+    /**
+     * Displays the first [count] lines of the specified file. If count is omitted
+     * it defaults to 10.
      *
      * @param fileName Name of the file
      */
-    public void head(String fileName){
+    public void head(String fileName) {
         this.setFileName(fileName);
         headFunctionality();
     }
 
     /**
-     * Displays the first [count] lines of the specified file.  If count is omitted it defaults to 10.
+     * Displays the first [count] lines of the specified file. If count is omitted
+     * it defaults to 10.
      *
      * @param headLength number of lines to display
      */
-    public void head(long headLength){
+    public void head(long headLength) {
         this.setHeadLength(headLength);
         headFunctionality();
     }
 
     /**
-     * Displays the first [count] lines of the specified file.  If count is omitted it defaults to 10.
+     * Displays the first [count] lines of the specified file. If count is omitted
+     * it defaults to 10.
      *
-     * @param fileName Name of the file
+     * @param fileName   Name of the file
      * @param headLength number of lines to display
      */
-    public void head(String fileName, long headLength){
+    public void head(String fileName, long headLength) {
         this.setFileName(fileName);
         this.setHeadLength(headLength);
         headFunctionality();
@@ -115,7 +121,7 @@ public class FileUtil{
     /**
      * 'head' command feature implementation
      */
-    private void headFunctionality(){
+    private void headFunctionality() {
         BufferedReader bufferedReader = null;
         try {
             bufferedReader = new BufferedReader(new FileReader(this.getFileName()));
@@ -130,7 +136,8 @@ public class FileUtil{
             e.printStackTrace();
         } finally {
             try {
-                if (bufferedReader != null) bufferedReader.close();
+                if (bufferedReader != null)
+                    bufferedReader.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -138,39 +145,43 @@ public class FileUtil{
     }
 
     /**
-     * Displays the last [count] lines of the specified file.  If count is omitted it defaults to 10.
+     * Displays the last [count] lines of the specified file. If count is omitted it
+     * defaults to 10.
      */
-    public void tail(){
+    public void tail() {
         tailFunctionality();
     }
 
     /**
-     * Displays the last [count] lines of the specified file.  If count is omitted it defaults to 10.
+     * Displays the last [count] lines of the specified file. If count is omitted it
+     * defaults to 10.
      *
      * @param fileName Name of the file
      */
-    public void tail(String fileName){
+    public void tail(String fileName) {
         this.setFileName(fileName);
         tailFunctionality();
     }
 
     /**
-     * Displays the last [count] lines of the specified file.  If count is omitted it defaults to 10.
+     * Displays the last [count] lines of the specified file. If count is omitted it
+     * defaults to 10.
      *
      * @param tailLength number of lines to display
      */
-    public void tail(long tailLength){
+    public void tail(long tailLength) {
         this.setTailLength(tailLength);
         tailFunctionality();
     }
 
     /**
-     * Displays the last [count] lines of the specified file.  If count is omitted it defaults to 10.
+     * Displays the last [count] lines of the specified file. If count is omitted it
+     * defaults to 10.
      *
-     * @param fileName Name of the file
+     * @param fileName   Name of the file
      * @param tailLength number of lines to display
      */
-    public void tail(String fileName, long tailLength){
+    public void tail(String fileName, long tailLength) {
         this.setFileName(fileName);
         this.setTailLength(tailLength);
         tailFunctionality();
@@ -179,7 +190,7 @@ public class FileUtil{
     /**
      * 'tail' command feature implementation
      */
-    private void tailFunctionality(){
+    private void tailFunctionality() {
         RandomAccessFile raf = null;
         List<String> lines = new ArrayList<>();
         StringBuilder builder = new StringBuilder();
@@ -188,209 +199,216 @@ public class FileUtil{
             raf = new RandomAccessFile(this.getFileName(), "r");
             long length = raf.length(); // Length of the file in bytes
 
-            for(long seek = length-1; seek >= 0; --seek){
+            for (long seek = length - 1; seek >= 0; --seek) {
                 raf.seek(seek);
-                char ch = (char)raf.read();
+                char ch = (char) raf.read();
 
-                if(ch == '\n'){ // Encountered new line
+                if (ch == '\n') { // Encountered new line
                     lines.add(0, builder.toString() + "\n");
                     builder = new StringBuilder();
 
-                    if(lines.size() == this.getTailLength()) break;
+                    if (lines.size() == this.getTailLength())
+                        break;
                 } else {
                     builder.insert(0, ch);
                 }
             }
-            for(String line : lines)
+            for (String line : lines)
                 System.out.print(line);
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                if (raf != null) raf.close();
-            } catch (IOException e){
+                if (raf != null)
+                    raf.close();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
     /**
-     * Displays the last [count] lines of the specified file. If count is omitted it defaults to 10. After printing
-     * monitors the file for further additions
-     *
-     * Warning: This is a daemon thread. User should send SIGTERM to quit the program.
+     * Displays the last [count] lines of the specified file. If count is omitted it
+     * defaults to 10. After printing monitors the file for further additions
+     * Warning: This is a daemon thread. User should send SIGTERM to quit the
+     * program.
      */
-    public void tailFeed(){
+    public void tailFeed() {
         new Thread(new TailFeed(this.getFileName(), this.getSleep())).start();
     }
 
     /**
-     * Displays the last [count] lines of the specified file. If count is omitted it defaults to 10. After printing
-     * monitors the file for further additions
-     *
-     * Warning: This is a daemon thread. User should send SIGTERM to quit the program.
+     * Displays the last [count] lines of the specified file. If count is omitted it
+     * defaults to 10. After printing monitors the file for further additions
+     * Warning: This is a daemon thread. User should send SIGTERM to quit the
+     * program.
      *
      * @param fileName Name of the file
      */
-    public void tailFeed(String fileName){
+    public void tailFeed(String fileName) {
         new Thread(new TailFeed(this.getFileName(), this.getSleep())).start();
     }
 
     /**
-     * Displays the last [count] lines of the specified file. If count is omitted it defaults to 10. After printing
-     * monitors the file for further additions
-     *
-     * Warning: This is a daemon thread. User should send SIGTERM to quit the program.
+     * Displays the last [count] lines of the specified file. If count is omitted it
+     * defaults to 10. After printing monitors the file for further additions
+     * Warning: This is a daemon thread. User should send SIGTERM to quit the
+     * program.
      *
      * @param sleep update interval for feed
      */
-    public void tailFeed(long sleep){
+    public void tailFeed(long sleep) {
         new Thread(new TailFeed(this.getFileName(), this.getSleep())).start();
     }
 
     /**
-     * Displays the last [count] lines of the specified file. If count is omitted it defaults to 10. After printing
-     * monitors the file for further additions
-     *
-     * Warning: This is a daemon thread. User should send SIGTERM to quit the program.
+     * Displays the last [count] lines of the specified file. If count is omitted it
+     * defaults to 10. After printing monitors the file for further additions
+     * Warning: This is a daemon thread. User should send SIGTERM to quit the
+     * program.
      *
      * @param fileName Name of the file
-     * @param sleep update interval for feed
+     * @param sleep    update interval for feed
      */
-    public void tailFeed(String fileName, long sleep){
+    public void tailFeed(String fileName, long sleep) {
         new Thread(new TailFeed(this.getFileName(), this.getSleep())).start();
     }
-    
+
     @Override
     public String toString() {
-        return "FileUtil [File Name=\'" + this.getFileName() + "\', Head Count=" + this.getHeadLength() +
-                ", Tail Count=" + this.getTailLength() + ", Sleep=" + this.getSleep() + "]";
+        return "FileUtil [File Name=\'" + this.getFileName() + "\', Head Count=" + this.getHeadLength()
+                + ", Tail Count=" + this.getTailLength() + ", Sleep=" + this.getSleep() + "]";
     }
 
     /**
-     * Calculates the number of lines in a file. Empty lines will also be considered. If there is an empty line at the
-     * End of File, it won't be considered
+     * Calculates the number of lines in a file. Empty lines will also be
+     * considered. If there is an empty line at the End of File, it won't be
+     * considered
      *
      * @return Number of lines in a file, -1 if any error occurred
      */
-    public long length(){
+    public long length() {
         BufferedReader bufferedReader = null;
         long numLines = 0;
-        try{
+        try {
             bufferedReader = new BufferedReader(new FileReader(this.getFileName()));
-            while(bufferedReader.readLine() != null) numLines++;
+            while (bufferedReader.readLine() != null)
+                numLines++;
             bufferedReader.close();
             return numLines;
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return -1;
     }
 
     /**
-     * Calculates the number of words in a file. The default word separator is "space"
+     * Calculates the number of words in a file. The default word separator is
+     * "space"
      *
      * @return number of space separated words in a file, -1 if any error occurred
      */
-    public long word_count(){
+    public long word_count() {
         return this.word_count(null);
     }
 
     /**
-     * Calculates the number of words in a file. The default word separator is "space"
+     * Calculates the number of words in a file. The default word separator is
+     * "space"
      *
      * @param separator new word separator. Overrides the default separator
-     * @return number of words in a file separated by separator, -1 if any error occurred
+     * @return number of words in a file separated by separator, -1 if any error
+     *         occurred
      */
-    public long word_count(String separator){
+    public long word_count(String separator) {
         BufferedReader bufferedReader = null;
-        if(separator == null) separator = " ";
+        if (separator == null)
+            separator = " ";
         String line;
         long wordCount = 0;
-        try{
+        try {
             bufferedReader = new BufferedReader(new FileReader(this.getFileName()));
 
-            while((line = bufferedReader.readLine()) != null) {
-                if(line.trim().length() != 0) wordCount += line.split(separator).length;
+            while ((line = bufferedReader.readLine()) != null) {
+                if (line.trim().length() != 0)
+                    wordCount += line.split(separator).length;
             }
             bufferedReader.close();
             return wordCount;
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return -1;
     }
 
     /**
-     * Counts the number of characters in a file. Line breaks are also considered as characters
-     *
-     * Line breaks correspond to the Operating system in use
-     *  Unix and modern Mac's   : LF     (\n)     -- will be counted as 1
-     *  Windows                 : CR LF  (\r\n)   -- will be counted as 2
-     *  Older Macintosh Systems : CR     (\r)     -- will be counted as 1
+     * Counts the number of characters in a file. Line breaks are also considered as
+     * characters Line breaks correspond to the Operating system in use Unix and
+     * modern Mac's : LF (\n) -- will be counted as 1 Windows : CR LF (\r\n) -- will
+     * be counted as 2 Older Macintosh Systems : CR (\r) -- will be counted as 1
      *
      * @return number of characters in the file, -1 if any error occurred
      */
-    public long character_count(){
+    public long character_count() {
         RandomAccessFile randomAccessFile = null;
         long filePointer = 0, length = 0;
-        try{
+        try {
             randomAccessFile = new RandomAccessFile(this.getFileName(), "r");
             length = randomAccessFile.length();
-            while(filePointer < length) randomAccessFile.seek(filePointer++);
+            while (filePointer < length)
+                randomAccessFile.seek(filePointer++);
             return filePointer;
-        } catch (EOFException e){
+        } catch (EOFException e) {
             return filePointer;
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try{
-                if(randomAccessFile != null) randomAccessFile.close();
-            } catch (IOException e){
+            try {
+                if (randomAccessFile != null)
+                    randomAccessFile.close();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         return -1;
     }
 
-	/**
+    /**
      * Driver program for testing tail feed.
      *
      * @param args null
      */
     public static void main(String[] args) {
-    	final String fileName = "/home/sriee/data/test.txt";
+        final String fileName = "/home/sriee/data/test.txt";
         FileUtil fu = new FileUtil(fileName);
         fu.tailFeed();
-        
-    	String dummy[] = {
-    			"------------------------------ Start ----------------------------------\n",
-    			"07-05-2017 12:25 PM:DEBUG: Paths: ../template ../config ../reports\n",
-    			"07-05-2017 12:25 PM:INFO: Opening file at ../config/settings.json \n",
-    			"------------------------------- End ------------------------------------\n"
-    			};
-    	BufferedWriter bw = null;
-		try{
-			Thread.sleep(1000);
-			for(int i = 0; i < 10; i++){
-				Thread.sleep(1500);
-				bw = new BufferedWriter(
-						new FileWriter(fileName, true));
-				for(String line : dummy) {
-					bw.write(line);	
-				}
-				bw.close();
-			}
-		} catch (IOException | InterruptedException e){
-			e.printStackTrace();
-		} finally {
-			try {
-				if(bw != null) bw.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}	
+
+        String dummy[] = { "------------------------------ Start ----------------------------------\n",
+                "07-05-2017 12:25 PM:DEBUG: Paths: ../template ../config ../reports\n",
+                "07-05-2017 12:25 PM:INFO: Opening file at ../config/settings.json \n",
+                "------------------------------- End ------------------------------------\n" };
+        BufferedWriter bw = null;
+        try {
+            Thread.sleep(1000);
+            for (int i = 0; i < 10; i++) {
+                Thread.sleep(1500);
+                bw = new BufferedWriter(new FileWriter(fileName, true));
+                for (String line : dummy) {
+                    bw.write(line);
+                }
+                bw.close();
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bw != null)
+                    bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

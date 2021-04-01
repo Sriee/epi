@@ -9,51 +9,51 @@ public class ArrayUtilLengthTest {
 
     @Test
     public void testIsSameLengthByteArray() {
-        byte[] src = {-50, 120, 0, -4};
+        byte[] src = { -50, 120, 0, -4 };
         byte[] dest = ArrayUtil.clone(src);
         assertTrue(ArrayUtil.isSameLength(src, dest));
     }
 
     @Test
     public void testIsSameLengthShortArray() {
-        short[] src = {-50, 120, 0, -4};
+        short[] src = { -50, 120, 0, -4 };
         short[] dest = ArrayUtil.clone(src);
         assertTrue(ArrayUtil.isSameLength(src, dest));
     }
 
     @Test
     public void testIsSameLengthBooleanArray() {
-        boolean[] src = {false, true, true, false};
+        boolean[] src = { false, true, true, false };
         boolean[] dest = ArrayUtil.clone(src);
         assertTrue(ArrayUtil.isSameLength(src, dest));
     }
 
     @Test
     public void testIsSameLengthCharArray() {
-        char[] src = {'T', 'e', 's', 't', 'i', 'n', 'g'};
+        char[] src = { 'T', 'e', 's', 't', 'i', 'n', 'g' };
         char[] dest = ArrayUtil.clone(src);
         assertTrue(ArrayUtil.isSameLength(src, dest));
     }
 
     @Test
     public void testIsSameLengthIntArray() {
-        int[] src = {56780, -8720, 0, 5671};
+        int[] src = { 56780, -8720, 0, 5671 };
         int[] dest = ArrayUtil.clone(src);
         assertTrue(ArrayUtil.isSameLength(src, dest));
     }
 
     @Test
     public void testIsSameLengthLongArray() {
-        long[] src = {-50, 67890, 56789, -564, 13};
+        long[] src = { -50, 67890, 56789, -564, 13 };
         long[] dest = ArrayUtil.clone(src);
         assertTrue(ArrayUtil.isSameLength(src, dest));
     }
 
     @Test
     public void testIsSameLengthFloatArray() {
-        float[] src = {(float) 2304.4717, (float) 5979.8823, (float) 3807.3364, (float) 7541.264, (float) 6007.075,
+        float[] src = { (float) 2304.4717, (float) 5979.8823, (float) 3807.3364, (float) 7541.264, (float) 6007.075,
                 (float) 3134.0088, (float) 5867.4204, (float) 26.1774, (float) 3473.358, (float) 1370.6934,
-                (float) 1290.1748, (float) 926.0253, (float) 3618.7249, (float) 5131.829, (float) 7275.712};
+                (float) 1290.1748, (float) 926.0253, (float) 3618.7249, (float) 5131.829, (float) 7275.712 };
 
         float[] dest = ArrayUtil.clone(src);
         assertTrue(ArrayUtil.isSameLength(src, dest));
@@ -61,8 +61,8 @@ public class ArrayUtilLengthTest {
 
     @Test
     public void testIsSameLengthDoubleArray() {
-        double[] src = {6194.5681, 6721.0002, 6455.8963, 5049.3596, 2499.4945, 6371.5027, 1726.3004, 2127.0672,
-                8105.5676, 104.5984, 4230.1216, 4908.8545, 3075.7336, 7986.601, 1121.1457};
+        double[] src = { 6194.5681, 6721.0002, 6455.8963, 5049.3596, 2499.4945, 6371.5027, 1726.3004, 2127.0672,
+                8105.5676, 104.5984, 4230.1216, 4908.8545, 3075.7336, 7986.601, 1121.1457 };
 
         double[] dest = ArrayUtil.clone(src);
         assertTrue(ArrayUtil.isSameLength(src, dest));

@@ -15,7 +15,7 @@ public class ArrayUtilEmptyTest {
         byte[] checkEmpty = {};
         assertTrue(ArrayUtil.isEmpty(checkEmpty));
 
-        byte[] actual = {-50, 120, 0, -4};
+        byte[] actual = { -50, 120, 0, -4 };
         assertFalse(ArrayUtil.isEmpty(actual));
     }
 
@@ -27,7 +27,7 @@ public class ArrayUtilEmptyTest {
         short[] checkEmpty = {};
         assertTrue(ArrayUtil.isEmpty(checkEmpty));
 
-        short[] actual = {-50, 120, 0, -4};
+        short[] actual = { -50, 120, 0, -4 };
         assertFalse(ArrayUtil.isEmpty(actual));
     }
 
@@ -39,7 +39,7 @@ public class ArrayUtilEmptyTest {
         boolean[] checkEmpty = {};
         assertTrue(ArrayUtil.isEmpty(checkEmpty));
 
-        boolean[] actual = {false, true, true, false};
+        boolean[] actual = { false, true, true, false };
         assertFalse(ArrayUtil.isEmpty(actual));
     }
 
@@ -51,7 +51,7 @@ public class ArrayUtilEmptyTest {
         char[] checkEmpty = {};
         assertTrue(ArrayUtil.isEmpty(checkEmpty));
 
-        char[] actual = {'T', 'e', 's', 't', 'i', 'n', 'g'};
+        char[] actual = { 'T', 'e', 's', 't', 'i', 'n', 'g' };
         assertFalse(ArrayUtil.isEmpty(actual));
     }
 
@@ -63,7 +63,7 @@ public class ArrayUtilEmptyTest {
         int[] checkEmpty = {};
         assertTrue(ArrayUtil.isEmpty(checkEmpty));
 
-        int[] actual = {56780, -8720, 0, 5671};
+        int[] actual = { 56780, -8720, 0, 5671 };
         assertFalse(ArrayUtil.isEmpty(actual));
     }
 
@@ -75,7 +75,7 @@ public class ArrayUtilEmptyTest {
         long[] checkEmpty = {};
         assertTrue(ArrayUtil.isEmpty(checkEmpty));
 
-        long[] actual = {-50, 67890, 56789, -564, 13};
+        long[] actual = { -50, 67890, 56789, -564, 13 };
         assertFalse(ArrayUtil.isEmpty(actual));
     }
 
@@ -87,7 +87,7 @@ public class ArrayUtilEmptyTest {
         float[] checkEmpty = {};
         assertTrue(ArrayUtil.isEmpty(checkEmpty));
 
-        float[] actual = {(float) 2304.4717, (float) 5979.8823, (float) 3807.3364, (float) 7541.264};
+        float[] actual = { (float) 2304.4717, (float) 5979.8823, (float) 3807.3364, (float) 7541.264 };
         assertFalse(ArrayUtil.isEmpty(actual));
     }
 
@@ -99,7 +99,7 @@ public class ArrayUtilEmptyTest {
         double[] checkEmpty = {};
         assertTrue(ArrayUtil.isEmpty(checkEmpty));
 
-        double[] actual = {6194.5681, 6721.0002, 6455.8963, 5049.3596, 2499.4945, 6371.5027, 1726.3004};
+        double[] actual = { 6194.5681, 6721.0002, 6455.8963, 5049.3596, 2499.4945, 6371.5027, 1726.3004 };
         assertFalse(ArrayUtil.isEmpty(actual));
     }
 

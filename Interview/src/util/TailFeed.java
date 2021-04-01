@@ -2,7 +2,7 @@ package util;
 
 import java.io.RandomAccessFile;
 
-public class TailFeed implements Runnable{
+public class TailFeed implements Runnable {
 
     private String fileName;
     private long updateInterval;
@@ -13,22 +13,21 @@ public class TailFeed implements Runnable{
     }
 
     /**
-	 * @return the fileName
-	 */
-	private String getFileName() {
-		return fileName;
-	}
+     * @return the fileName
+     */
+    private String getFileName() {
+        return fileName;
+    }
 
-	/**
-	 * @return the updateInterval
-	 */
-	private long getUpdateInterval() {
-		return updateInterval;
-	}
+    /**
+     * @return the updateInterval
+     */
+    private long getUpdateInterval() {
+        return updateInterval;
+    }
 
-
-	@Override
-    public void run(){
+    @Override
+    public void run() {
         RandomAccessFile raf = null;
         long filePointer = 0;
         try {
@@ -49,6 +48,6 @@ public class TailFeed implements Runnable{
             }
         } catch (Exception e) {
             System.out.println("Tail feed has stopped.");
-		}
+        }
     }
 }

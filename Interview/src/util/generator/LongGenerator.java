@@ -27,7 +27,7 @@ public class LongGenerator implements Iterable<Long>, Iterator<Long>, Generator<
             throw new IllegalArgumentException("Size should not be <= 0");
         long result[] = new long[size];
         for (long i = 0; i < size; i++) {
-            result[(int)i] = ThreadLocalRandom.current().nextLong(this.min, this.max);
+            result[(int) i] = ThreadLocalRandom.current().nextLong(this.min, this.max);
         }
         return result;
     }
@@ -51,10 +51,14 @@ public class LongGenerator implements Iterable<Long>, Iterator<Long>, Generator<
     }
 
     @Override
-    public Iterator<Long> iterator() { return this; }
+    public Iterator<Long> iterator() {
+        return this;
+    }
 
     @Override
-    public boolean hasNext() { return this.index < this.size; }
+    public boolean hasNext() {
+        return this.index < this.size;
+    }
 
     @Override
     public Long next() {
@@ -63,9 +67,13 @@ public class LongGenerator implements Iterable<Long>, Iterator<Long>, Generator<
     }
 
     @Override
-    public void remove() { throw new UnsupportedOperationException("Cannot Remove values while iterating."); }
+    public void remove() {
+        throw new UnsupportedOperationException("Cannot Remove values while iterating.");
+    }
 
     @Override
-    public String toString() { return "IntegerGenerator(min= " + this.min + ", max= " + this.max + ")"; }
+    public String toString() {
+        return "IntegerGenerator(min= " + this.min + ", max= " + this.max + ")";
+    }
 
 }

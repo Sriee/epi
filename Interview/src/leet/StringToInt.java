@@ -24,20 +24,22 @@ public class StringToInt {
 
             num = literal + (num * 10);
 
-            if(isNegative) dummy = 0 - num;
+            if (isNegative)
+                dummy = 0 - num;
 
             if (dummy <= Integer.MIN_VALUE) {
                 return Integer.MIN_VALUE;
             }
 
-            if (num >= Integer.MAX_VALUE){
+            if (num >= Integer.MAX_VALUE) {
                 num = Integer.MAX_VALUE;
                 break;
             }
         }
 
-        if (isNegative) num = 0 - num;
-        return (int)num;
+        if (isNegative)
+            num = 0 - num;
+        return (int) num;
     }
 
     public static void main(String[] args) {

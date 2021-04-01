@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class Pascals {
 
-    private int pascal(int i, int j){
-        if(j == 0)
+    private int pascal(int i, int j) {
+        if (j == 0)
             return 1;
         else if (j == i)
             return 1;
@@ -15,11 +15,11 @@ public class Pascals {
             return pascal(i - 1, j - 1) + pascal(i - 1, j);
     }
 
-    private List<List<Integer>> print_pascals_triangle(int num){
+    private List<List<Integer>> print_pascals_triangle(int num) {
         List<List<Integer>> master = new LinkedList<>();
-        for(int i = 0; i < num; i++){
+        for (int i = 0; i < num; i++) {
             List<Integer> list = new LinkedList<>();
-            for(int j = 0; j <= i; j++){
+            for (int j = 0; j <= i; j++) {
                 list.add(this.pascal(i, j));
             }
             master.add(list);
@@ -32,7 +32,7 @@ public class Pascals {
         Scanner scan = new Scanner(System.in);
         int num = scan.nextInt();
         List<List<Integer>> result = p.print_pascals_triangle(num);
-        for(List<Integer> item : result){
+        for (List<Integer> item : result) {
             System.out.println(item.toString());
         }
         scan.close();

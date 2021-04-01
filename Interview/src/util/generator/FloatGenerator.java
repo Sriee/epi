@@ -15,34 +15,34 @@ public class FloatGenerator implements Iterable<Float>, Iterator<Float>, Generat
     private double scale = -1;
     private Random rand = null;
 
-    public FloatGenerator(){
+    public FloatGenerator() {
         this.min = 0;
         this.max = Integer.MAX_VALUE;
     }
 
-    public FloatGenerator(int min, int max){
+    public FloatGenerator(int min, int max) {
         this.min = min;
         this.max = max;
     }
 
-    public FloatGenerator(int min, int max, int places){
+    public FloatGenerator(int min, int max, int places) {
         this.min = min;
         this.max = max;
 
-        if(places <= 0)
+        if (places <= 0)
             throw new IllegalArgumentException("Places should be > 0.");
         this.places = places;
     }
 
-    public float[] generate(int size){
-        if(size < 0)
+    public float[] generate(int size) {
+        if (size < 0)
             throw new IllegalArgumentException("Size should not be <= 0");
 
         float result[] = new float[size];
         double scale = Math.pow(10, this.places);
         Random rand = new Random();
 
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             double value = Math.round((rand.nextFloat() * ((this.max + 1 - this.min) + this.min)) * scale) / scale;
             result[i] = (float) value;
         }
@@ -51,22 +51,22 @@ public class FloatGenerator implements Iterable<Float>, Iterator<Float>, Generat
     }
 
     @Override
-    public List<Float> generateAsList(int size){
-        if(size < 0)
+    public List<Float> generateAsList(int size) {
+        if (size < 0)
             throw new IllegalArgumentException("Size should not be <= 0");
 
         List<Float> resultList = new ArrayList<Float>();
         double scale = Math.pow(10, this.places);
         Random rand = new Random();
 
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             double value = Math.round((rand.nextFloat() * ((this.max + 1 - this.min) + this.min)) * scale) / scale;
             resultList.add((float) value);
         }
         return resultList;
     }
 
-    public Iterator<Float> iterator(int size){
+    public Iterator<Float> iterator(int size) {
 
         // Initializing Iterator variables
         this.size = size;
@@ -77,10 +77,14 @@ public class FloatGenerator implements Iterable<Float>, Iterator<Float>, Generat
     }
 
     @Override
-    public Iterator<Float> iterator() { return this; }
+    public Iterator<Float> iterator() {
+        return this;
+    }
 
     @Override
-    public boolean hasNext() { return this.index < this.size; }
+    public boolean hasNext() {
+        return this.index < this.size;
+    }
 
     @Override
     public Float next() {
@@ -90,9 +94,13 @@ public class FloatGenerator implements Iterable<Float>, Iterator<Float>, Generat
     }
 
     @Override
-    public void remove() { throw new UnsupportedOperationException("Cannot Remove values while iterating."); }
+    public void remove() {
+        throw new UnsupportedOperationException("Cannot Remove values while iterating.");
+    }
 
     @Override
-    public String toString() { return "FloatGenerator(min= " + this.min + ", max= " + this.max +")"; }
+    public String toString() {
+        return "FloatGenerator(min= " + this.min + ", max= " + this.max + ")";
+    }
 
 }

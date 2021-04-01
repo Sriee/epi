@@ -11,21 +11,22 @@ public class BooleanGenerator implements Iterable<Boolean>, Iterator<Boolean>, G
     private int index = 0;
     private Random rand = null;
 
-    public BooleanGenerator(){ }
+    public BooleanGenerator() {
+    }
 
-    public BooleanGenerator(int size){
+    public BooleanGenerator(int size) {
         this.size = size;
     }
-    
-    public boolean[] generate(int size){
 
-        if(size < 0)
+    public boolean[] generate(int size) {
+
+        if (size < 0)
             throw new IllegalArgumentException("Size should not be <= 0");
 
         boolean result[] = new boolean[size];
         Random rand = new Random();
 
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             result[i] = rand.nextInt(2) == 1;
         }
 
@@ -33,20 +34,20 @@ public class BooleanGenerator implements Iterable<Boolean>, Iterator<Boolean>, G
     }
 
     @Override
-    public List<Boolean> generateAsList(int size){
-        if(size < 0)
+    public List<Boolean> generateAsList(int size) {
+        if (size < 0)
             throw new IllegalArgumentException("Size should not be <= 0");
 
         List<Boolean> resultList = new ArrayList<Boolean>();
         Random rand = new Random();
 
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             resultList.add(rand.nextInt(2) == 1);
         }
         return resultList;
     }
 
-    public Iterator<Boolean> iterator(int size){
+    public Iterator<Boolean> iterator(int size) {
 
         // Initializing Iterator variables
         this.size = size;
@@ -72,7 +73,9 @@ public class BooleanGenerator implements Iterable<Boolean>, Iterator<Boolean>, G
     }
 
     @Override
-    public void remove() { throw new UnsupportedOperationException("Cannot Remove values while iterating."); }
+    public void remove() {
+        throw new UnsupportedOperationException("Cannot Remove values while iterating.");
+    }
 
     @Override
     public String toString() {

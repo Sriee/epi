@@ -9,21 +9,21 @@ import primitives.ReverseBits;
 
 public class ReverseBitsTest {
 
-	static ReverseBits rev = null;
-	
-	@Before
-	public void setUp() throws Exception {
-		rev = new ReverseBits();
-	}
+    static ReverseBits rev = null;
 
-	@Test(expected=IllegalArgumentException.class)
-	public void shouldRaiseException() {
-		assertEquals(rev.reverseBits(-231), 0);
-	}
+    @Before
+    public void setUp() throws Exception {
+        rev = new ReverseBits();
+    }
 
-	@Test
-	public void shouldWork(){
-		assertEquals(rev.reverseBits(4), 1125899906842624L);
-		assertEquals(rev.reverseBits(1125899906842624L), 4);
-	}
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldRaiseException() {
+        assertEquals(rev.reverseBits(-231), 0);
+    }
+
+    @Test
+    public void shouldWork() {
+        assertEquals(rev.reverseBits(4), 1125899906842624L);
+        assertEquals(rev.reverseBits(1125899906842624L), 4);
+    }
 }

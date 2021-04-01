@@ -18,7 +18,7 @@ public class ArrayUtilContainsTest {
     public void testContainsByteArray() {
         byte[] bNull = null;
         byte[] bEmpty = {};
-        byte[] by = {-2, 21, -67, 0};
+        byte[] by = { -2, 21, -67, 0 };
         byte valueToFind = 21, valueNotPresent = 93;
 
         assertFalse(ArrayUtil.contains(bNull, valueToFind));
@@ -31,7 +31,7 @@ public class ArrayUtilContainsTest {
     public void testContainsShortArray() {
         short[] shNull = null;
         short[] shEmpty = {};
-        short[] sh = {-2, 21, -67, 0};
+        short[] sh = { -2, 21, -67, 0 };
         short valueToFind = 21, valueNotPresent = 93;
 
         assertFalse(ArrayUtil.contains(shNull, valueToFind));
@@ -44,7 +44,7 @@ public class ArrayUtilContainsTest {
     public void testContainsBooleanArray() {
         boolean[] bNull = null;
         boolean[] bEmpty = {};
-        boolean[] bool = {false, false, false, false};
+        boolean[] bool = { false, false, false, false };
         boolean valueToFind = false, valueNotPresent = true;
 
         assertFalse(ArrayUtil.contains(bNull, valueToFind));
@@ -57,7 +57,7 @@ public class ArrayUtilContainsTest {
     public void testContainsCharArray() {
         char[] chNull = null;
         char[] chEmpty = {};
-        char[] ch = {'f', 'y', 'u', 'o', 'i', 'h', 'j'};
+        char[] ch = { 'f', 'y', 'u', 'o', 'i', 'h', 'j' };
         char valueToFind = 'y', valueNotPresent = 'a';
 
         assertFalse(ArrayUtil.contains(chNull, valueToFind));
@@ -70,7 +70,7 @@ public class ArrayUtilContainsTest {
     public void testContainsIntArray() {
         int[] intNull = null;
         int[] intEmpty = {};
-        int[] i = {467, -80, -6, 15319, 7123, 1, 27};
+        int[] i = { 467, -80, -6, 15319, 7123, 1, 27 };
         int valueToFind = 7123, valueNotPresent = -67;
 
         assertFalse(ArrayUtil.contains(intNull, valueToFind));
@@ -83,7 +83,7 @@ public class ArrayUtilContainsTest {
     public void testContainsLongArray() {
         long[] lNull = null;
         long[] lEmpty = {};
-        long[] l = {467, -80, -6, 15319, 7123, 1, 27};
+        long[] l = { 467, -80, -6, 15319, 7123, 1, 27 };
         long valueToFind = 7123, valueNotPresent = -67;
 
         assertFalse(ArrayUtil.contains(lNull, valueToFind));
@@ -96,7 +96,7 @@ public class ArrayUtilContainsTest {
     public void testContainsFloatArray() {
         float[] fNull = null;
         float[] fEmpty = {};
-        float[] f = {(float) 2304.4717, (float) 5979.8823, (float) 3807.3364, (float) 7541.264};
+        float[] f = { (float) 2304.4717, (float) 5979.8823, (float) 3807.3364, (float) 7541.264 };
         float valueToFind = (float) 5979.8823, valueNotPresent = -67;
 
         assertFalse(ArrayUtil.contains(fNull, valueToFind));
@@ -109,7 +109,7 @@ public class ArrayUtilContainsTest {
     public void testContainsDoubleArray() {
         double[] dNull = null;
         double[] dEmpty = {};
-        double[] d = {2304.4717, 5979.8823, 3807.3364, 7541.264, 3473.358, 1370.6934, 1290.1748, 926.0253,};
+        double[] d = { 2304.4717, 5979.8823, 3807.3364, 7541.264, 3473.358, 1370.6934, 1290.1748, 926.0253, };
         double valueToFind = 1370.6934, valueNotPresent = -67;
 
         assertFalse(ArrayUtil.contains(dNull, valueToFind));
