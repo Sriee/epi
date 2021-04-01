@@ -1,8 +1,15 @@
 .DS_Store
-*.pyc
 *.log
+
+# Python
+venv
+*.pyc
+
+# Editors
 .idea
+Interview/**/.idea
 *.sublime-project
 *.sublime-workspace
-venv
+
+# Project specific
 Interview/src/*/Scratch.java
