@@ -108,3 +108,52 @@ and algorithm used in libraries.
 ### 98. Validate Binary Search Tree 
 *TODO* Add trick to anki
 - There is a trick for iterative traversal using stack.  
+
+## Java Refresh
+
+Follow this [tutorial](http://tutorials.jenkov.com/java-collections/index.html) to learn about methods available for
+Java Collections.
+
+### Random
+
+import java.util.Random;
+Random Methods - nextInt(), nextInt(seed), next()
+
+### Arrays
+
+import java.util.Arrays;
+Methods
+
+- fill(T[], value)
+- toString(T[])
+- deepToString(T[][]) Multi dimensional array
+- sort(T[])
+- sort(T[], fromIndex, toIndex)
+- binarySearch(T[], value)
+- binarySearch(T[], fromIndex, toIndex, value)
+
+### List
+
+Cannot convert array of primitives to array of Objects. 
+	int[] arr = {1, 2, 3};
+	Integer[] arrObj = Arrays.asList(arr); // Won't work
+
+	// We should use the trivial solution of boxing individual elements
+	List<Integer> ls = new ArrayList<>();
+	for(int i : arr) ls.add(i);
+
+### Stack
+
+[Stack or List]<Integer> stk = new Stack<>();
+stack.push(0);
+stack.peek();
+stack.pop();
+stack.search(val); // + All methods of List Interface
+
+
+### Set
+
+Set<Integer> xs = new HashSet<>(), ys = new HashSet<>();
+Union = xs.addAll(ys);
+Intersection = xs.retainAll(ys);
+Difference = xs.removeAll(ys);
