@@ -1,1 +1,16 @@
-/bin/
+.DS_Store
+*.log
+
+# Java
+*.class
+
+# Editors
+.idea
+etemp.iml
+*.sublime-project
+*.sublime-workspace
+
+# Project specific
+out
+src/Scratch.java
+src/Practice.java
