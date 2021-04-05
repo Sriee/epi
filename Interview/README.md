@@ -7,3 +7,4 @@
 |323|Number of Connected Components in an Undirected Graph|[Sol](src/dfs/_323_ConnectedComponents.java)|DFS, Connected Component||
 |547|Number of Provinces|[Sol](src/dfs/_547_NumberProvinces.java)|DFS, Connected Component||
 |622|Circular Queue Implementation|[Sol](src/queue/_622_CircularQueue.java)|Design, Ring Buffer||
+|1448|Good Nodes in a Tree|[Sol](src/tree/_1448_CountNodes.java)|DFS, Tree||
