@@ -55,9 +55,9 @@ public class _84_LargestHistogram {
         return Math.max(Math.max(leftArea, rightArea), minArea);
     }
 
-    private int buildSegmentTree(int[] heights, int[] st, int start, int end, int index) {
+    private void buildSegmentTree(int[] heights, int[] st, int start, int end, int index) {
         if(start > end)
-            return -1;
+            return;
 
         if(start == end) {
             st[index] = start;
@@ -71,8 +71,6 @@ public class _84_LargestHistogram {
 
             st[index] = (heights[l] < heights[r]) ? l : r;
         }
-
-        return st[index];
     }
 
     /**
