@@ -1,7 +1,5 @@
 package tree;
 
-import java.util.Stack;
-
 /**
  * We got this problem in our 2019 Goldman Sachs Interview.
  */
@@ -21,22 +19,6 @@ public class _84_LargestHistogram {
         }
     }
     */
-
-    public static void main(String[] args) {
-        _84_LargestHistogram lha = new _84_LargestHistogram();
-
-        int[][] arr = {
-                {0, 1, 2, 3, 4, 5, 6, 7, 8},
-                {2, 1, 5, 6, 2, 3},
-                {2, 4},
-        };
-
-        for (int[] heights : arr) {
-            System.out.println("Segment Tree Approach:     " + lha.largestRectangleAreaSG(heights));
-            System.out.println("Smallest Element Approach: " + lha.largestRectangleAreaPrevNxtSmallestElement(heights));
-            System.out.println();
-        }
-    }
 
     private int findMinIndex(int[] heights, int[] st, int start, int end, int queryStart, int queryEnd, int index) {
         if (queryStart <= start && queryEnd >= end)
@@ -73,28 +55,6 @@ public class _84_LargestHistogram {
         return Math.max(Math.max(leftArea, rightArea), minArea);
     }
 
-    /**
-     * Approach 1: Divide and Conquer approach using Segment Tree's
-     */
-    public int largestRectangleAreaSG(int[] heights) {
-        int n = heights.length;
-
-        // Initialize segment tree arr
-        int[] st = new int[4 * heights.length];
-
-        // Construct segment tree
-        buildSegmentTree(heights, st, 0, n - 1, 0);
-
-        // find largest rectangle area
-        return calculateMax(heights, st, 0, n - 1);
-    }
-
-    /**
-     * ==========================================================================
-     * Previous/Next Smallest Element Approach
-     * ==========================================================================
-     */
-
     private void buildSegmentTree(int[] heights, int[] st, int start, int end, int index) {
         if (start > end)
             return;
@@ -114,51 +74,38 @@ public class _84_LargestHistogram {
     }
 
     /**
-     * Calculates the next smallest element in an array.
+     * Approach 1: Divide and Conquer approach using Segment Tree's
      */
-    private void nextSmallestElement(int[] arr, int[] nextSmallest, Stack<Integer> stack) {
-        stack.push(0);
-        for (int i = 1; i < arr.length; i++) {
-            while (!stack.isEmpty() && arr[stack.peek()] > arr[i]) {
-                nextSmallest[stack.pop()] = i;
-            }
-            stack.push(i);
-        }
-        while (!stack.isEmpty()) nextSmallest[stack.pop()] = arr.length;
+    public int largestRectangleAreaSG(int[] heights) {
+        int n = heights.length;
+
+        // Initialize segment tree arr
+        int[] st = new int[4 * heights.length];
+
+        // Construct segment tree
+        buildSegmentTree(heights, st, 0, n - 1, 0);
+
+        // find largest rectangle area
+        return calculateMax(heights, st, 0, n - 1);
     }
 
     /**
-     * Calculates the pervious smallest element in an array.
+     * ==========================================================================
+     * Stack Approach
+     * ==========================================================================
      */
-    private void previousSmallestElement(int[] arr, int[] previousSmallest, Stack<Integer> stack) {
-        for (int i = arr.length - 1; i >= 0; i--) {
-            while (!stack.isEmpty() && arr[i] < arr[stack.peek()]) {
-                previousSmallest[stack.pop()] = i;
-            }
-            stack.push(i);
-        }
 
-        while (!stack.isEmpty()) previousSmallest[stack.pop()] = -1;
-    }
+    public static void main(String[] args) {
+        _84_LargestHistogram lha = new _84_LargestHistogram();
 
-    private int largestRectangleAreaPrevNxtSmallestElement(int[] heights) {
-        int area = -1, n = heights.length;
-        int[] nextSmallest = new int[n];
-        int[] previousSmallest = new int[n];
-        Stack<Integer> stack = new Stack<>();
+        int[] arr;
+        arr = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
+        System.out.println(lha.largestRectangleAreaSG(arr));
 
-        // Next Smallest element in an array
-        nextSmallestElement(heights, nextSmallest, stack);
+        arr = new int[]{2, 1, 5, 6, 2, 3};
+        System.out.println(lha.largestRectangleAreaSG(arr));
 
-        // Previous Smallest element in an array
-        previousSmallestElement(heights, previousSmallest, stack);
-
-        // Calculate largest area of histogram
-        for (int i = 0; i < n; i++) {
-            int width = nextSmallest[i] - previousSmallest[i] - 1;
-            area = Math.max(area, heights[i] * width);
-        }
-
-        return area;
+        arr = new int[]{2, 4};
+        System.out.println(lha.largestRectangleAreaSG(arr));
     }
 }
