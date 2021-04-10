@@ -1,5 +1,7 @@
 package tree;
 
+import java.util.Stack;
+
 /**
  * We got this problem in our 2019 Goldman Sachs Interview.
  */
@@ -20,30 +22,46 @@ public class _84_LargestHistogram {
     }
     */
 
+    public static void main(String[] args) {
+        _84_LargestHistogram lha = new _84_LargestHistogram();
+
+        int[][] arr = {
+                {0, 1, 2, 3, 4, 5, 6, 7, 8},
+                {2, 1, 5, 6, 2, 3},
+                {2, 4},
+        };
+
+        for (int[] heights : arr) {
+            System.out.println("Segment Tree Approach:     " + lha.largestRectangleAreaSG(heights));
+            System.out.println("Smallest Element Approach: " + lha.largestRectangleAreaPrevNxtSmallestElement(heights));
+            System.out.println();
+        }
+    }
+
     private int findMinIndex(int[] heights, int[] st, int start, int end, int queryStart, int queryEnd, int index) {
-        if(queryStart <= start && queryEnd >= end)
+        if (queryStart <= start && queryEnd >= end)
             return st[index];
 
-        if(end < queryStart || start > queryEnd)
+        if (end < queryStart || start > queryEnd)
             return -1;
 
         int mid = start + (end - start) / 2;
         int l = findMinIndex(heights, st, start, mid, queryStart, queryEnd, 2 * index + 1);
         int r = findMinIndex(heights, st, mid + 1, end, queryStart, queryEnd, 2 * index + 2);
 
-        if(l == -1)
+        if (l == -1)
             return r;
-        else if(r == -1)
+        else if (r == -1)
             return l;
         else
             return (heights[l] < heights[r]) ? l : r;
     }
 
     private int calculateMax(int[] heights, int[] st, int start, int end) {
-        if(start > end)
+        if (start > end)
             return -1;
 
-        if(start == end)
+        if (start == end)
             return heights[start];
 
         int minIndex = findMinIndex(heights, st, 0, heights.length - 1, start, end, 0);
@@ -53,24 +71,6 @@ public class _84_LargestHistogram {
         int rightArea = calculateMax(heights, st, minIndex + 1, end);
 
         return Math.max(Math.max(leftArea, rightArea), minArea);
-    }
-
-    private void buildSegmentTree(int[] heights, int[] st, int start, int end, int index) {
-        if(start > end)
-            return;
-
-        if(start == end) {
-            st[index] = start;
-        } else {
-            int mid = (start + end) / 2;
-            buildSegmentTree(heights, st, start, mid, 2 * index + 1);
-            buildSegmentTree(heights, st, mid + 1, end, 2 * index + 2);
-
-            int l = st[2 * index + 1];
-            int r = st[2 * index + 2];
-
-            st[index] = (heights[l] < heights[r]) ? l : r;
-        }
     }
 
     /**
@@ -89,22 +89,76 @@ public class _84_LargestHistogram {
         return calculateMax(heights, st, 0, n - 1);
     }
 
-    /** ==========================================================================
-     *  Stack Approach
-     *  ==========================================================================
+    /**
+     * ==========================================================================
+     * Previous/Next Smallest Element Approach
+     * ==========================================================================
      */
 
-    public static void main(String[] args) {
-        _84_LargestHistogram lha = new _84_LargestHistogram();
+    private void buildSegmentTree(int[] heights, int[] st, int start, int end, int index) {
+        if (start > end)
+            return;
 
-        int[] arr;
-        arr = new int[] {0,1,2,3,4,5,6,7,8};
-        System.out.println(lha.largestRectangleAreaSG(arr));
+        if (start == end) {
+            st[index] = start;
+        } else {
+            int mid = (start + end) / 2;
+            buildSegmentTree(heights, st, start, mid, 2 * index + 1);
+            buildSegmentTree(heights, st, mid + 1, end, 2 * index + 2);
 
-        arr = new int[] {2,1,5,6,2,3};
-        System.out.println(lha.largestRectangleAreaSG(arr));
+            int l = st[2 * index + 1];
+            int r = st[2 * index + 2];
 
-        arr = new int[] {2, 4};
-        System.out.println(lha.largestRectangleAreaSG(arr));
+            st[index] = (heights[l] < heights[r]) ? l : r;
+        }
+    }
+
+    /**
+     * Calculates the next smallest element in an array.
+     */
+    private void nextSmallestElement(int[] arr, int[] nextSmallest, Stack<Integer> stack) {
+        stack.push(0);
+        for (int i = 1; i < arr.length; i++) {
+            while (!stack.isEmpty() && arr[stack.peek()] > arr[i]) {
+                nextSmallest[stack.pop()] = i;
+            }
+            stack.push(i);
+        }
+        while (!stack.isEmpty()) nextSmallest[stack.pop()] = arr.length;
+    }
+
+    /**
+     * Calculates the pervious smallest element in an array.
+     */
+    private void previousSmallestElement(int[] arr, int[] previousSmallest, Stack<Integer> stack) {
+        for (int i = arr.length - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && arr[i] < arr[stack.peek()]) {
+                previousSmallest[stack.pop()] = i;
+            }
+            stack.push(i);
+        }
+
+        while (!stack.isEmpty()) previousSmallest[stack.pop()] = -1;
+    }
+
+    private int largestRectangleAreaPrevNxtSmallestElement(int[] heights) {
+        int area = -1, n = heights.length;
+        int[] nextSmallest = new int[n];
+        int[] previousSmallest = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        // Next Smallest element in an array
+        nextSmallestElement(heights, nextSmallest, stack);
+
+        // Previous Smallest element in an array
+        previousSmallestElement(heights, previousSmallest, stack);
+
+        // Calculate largest area of histogram
+        for (int i = 0; i < n; i++) {
+            int width = nextSmallest[i] - previousSmallest[i] - 1;
+            area = Math.max(area, heights[i] * width);
+        }
+
+        return area;
     }
 }
