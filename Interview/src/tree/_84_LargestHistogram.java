@@ -146,6 +146,35 @@ public class _84_LargestHistogram {
         return area;
     }
 
+    /*
+     * ==========================================================================
+     * Stack Approach
+     * ==========================================================================
+     */
+
+    private int largestRectangleAreaStack(int[] heights) {
+        int area = -1, n = heights.length, h, width;
+        Stack<Integer> stack = new Stack<>();
+        stack.push(-1);
+
+        for (int i = 0; i < heights.length; i++) {
+            while (stack.peek() != -1 && heights[stack.peek()] >= heights[i]) {
+                h = heights[stack.pop()];
+                width = i - stack.peek() - 1;
+                area = Math.max(area, h * width);
+            }
+            stack.push(i);
+        }
+
+        while (stack.peek() != -1) {
+            h = heights[stack.pop()];
+            width = n - stack.peek() - 1;
+            area = Math.max(area, h * width);
+        }
+
+        return area;
+    }
+
     public static void main(String[] args) {
         _84_LargestHistogram lha = new _84_LargestHistogram();
 
@@ -156,6 +185,7 @@ public class _84_LargestHistogram {
         };
 
         for (int[] heights : arr) {
+            System.out.println("Stack Approach:            " + lha.largestRectangleAreaStack(heights));
             System.out.println("Segment Tree Approach:     " + lha.largestRectangleAreaSG(heights));
             System.out.println("Smallest Element Approach: " + lha.largestRectangleAreaPrevNxtSmallestElement(heights));
             System.out.println();
