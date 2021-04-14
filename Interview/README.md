@@ -11,6 +11,7 @@
 |218|The Skyline problem|[Sol](src/queue/_218_SkyLine.java)|TreeMap||
 |224|Basic Calculator|[Sol](src/string/_224_BasicCalculator.java)|Expression Parsing||
 |257|Binary Tree Paths|[Sol](src/tree/_257_BTPaths.java)|Tree|Microsoft|
+|286|Walls and Gates|[Sol](src/queue/_286_WallGates.java)|BFS||
 |297|Serialize and Deserialize a Tree|[sol](src/tree/_297_SerializeBT.java)|Design|
 |323|Number of Connected Components in an Undirected Graph|[Sol](src/dfs/_323_ConnectedComponents.java)|DFS, Connected Component||
 |346|Moving Average from Data Stream|[Sol](src/queue/_346_MovingAverage.java)|Queue||
