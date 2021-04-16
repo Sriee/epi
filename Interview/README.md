@@ -5,9 +5,10 @@
 |71|Simplify Path|[Sol](src/stack/_71_SimplifyPath.java)||Microsoft|
 |84|Largest Rectangle in Histogram|[Sol](src/tree/_84_LargestHistogram.java)|SegmentTree, Divide and Conquer, Stack|Goldman Sachs|
 |102|Binary Tree Level Order Traversal|[Sol](src/tree/_102_LevelOrder.java)|Tree||
+|133|Clone Graph|[Sol](src/dfs/_133_CloneGraph.java)|DFS||
 |150|Evaluate RPN Expression|[Sol](src/string/_150_EvaluateExpression.java)|Expression Parsing||
 |151|Reverse Strings in a Word|[Sol](src/string/_151_ReverseString.java)|||
-|155|Min Stack|[Sol](src/stack/_155_MinStack.java)| Stack||
+|155|Min Stack|[Sol](src/stack/_155_MinStack.java)|Stack||
 |186|Reverse Strings in a Word II|[Sol](src/string/_186_ReverseString.java)|||
 |200|Number of Islands|[Sol](src/dfs/_200_NumberIslands.java)|DFS, Connected Components||
 |215|Kth Largest Element in an Array|[Sol](src/queue/_215_KLargest.java)|Heap||
@@ -21,6 +22,7 @@
 |346|Moving Average from Data Stream|[Sol](src/queue/_346_MovingAverage.java)|Queue||
 |547|Number of Provinces|[Sol](src/dfs/_547_NumberProvinces.java)|DFS, Connected Component||
 |622|Circular Queue Implementation|[Sol](src/queue/_622_CircularQueue.java)|Design, Ring Buffer||
+|739|Daily Temperatures|[Sol](src/stack/_739_DailyTemperatures.java)|Stack||
 |752|Open Lock|[Sol](src/queue/_752_OpenLock.java)|BFS||
 |1304|Find N Unique Integers Sum up to Zero|[Sol](src/array/_1304_UniqueN.java)||Microsoft|
 |1239|Maximum Length of a Concatenated String with Unique Characters|[Sol](src/backtrack/_1239_MaxConcat.java)|Backtracking|Microsoft|
