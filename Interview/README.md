@@ -14,6 +14,7 @@
 |215|Kth Largest Element in an Array|[Sol](src/queue/_215_KLargest.java)|Heap||
 |218|The Skyline problem|[Sol](src/queue/_218_SkyLine.java)|TreeMap||
 |224|Basic Calculator|[Sol](src/string/_224_BasicCalculator.java)|Expression Parsing||
+|225|Implement Stack using Queue|[Sol](src/stack/_225_StackUsingQueue.java)|||
 |232|Implement Queue using Stack|[Sol](src/queue/_232_QueueUsingStack.java)|||
 |257|Binary Tree Paths|[Sol](src/tree/_257_BTPaths.java)|Tree|Microsoft|
 |279|Perfect Squares|[Sol](src/tree/_257_BTPaths.java)|BFS, DP|Amazon|
