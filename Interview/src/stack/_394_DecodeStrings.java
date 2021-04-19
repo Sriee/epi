@@ -5,68 +5,38 @@ import java.util.Stack;
 public class _394_DecodeStrings {
 
     /**
-     * Two Stack approach: Uglified implementation.
+     * Two Stack approach: Clean approach
      */
     public String decodeString(String s) {
-        String[] arr = s.split("");
-        Stack<String> stack = new Stack<>();
-        Stack<Integer> num = new Stack<>();
-        StringBuilder runner = new StringBuilder(), sb;
+        Stack<Integer> numStack = new Stack<>();
+        Stack<StringBuilder> stack = new Stack<>();
+        StringBuilder runner = new StringBuilder();
         int k = 0;
 
-        for (String curr : arr) {
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
 
-            if (Character.isDigit(curr.charAt(0))) {
-                if (runner.length() != 0) {
-                    while (!stack.isEmpty() && !stack.peek().equals("["))
-                        runner.insert(0, stack.pop());
+            // Didn't know character has a isDigit check. We were using our own implementation
+            if (Character.isDigit(ch)) {
+                k = (k * 10) + ch - '0';
+            } else if (ch == '[') {
+                stack.push(runner);
+                runner = new StringBuilder();
 
-                    stack.push(runner.toString());
-                    runner = new StringBuilder();
-                }
-
-                k = (k * 10) + curr.charAt(0) - '0';
-            } else if (curr.equals("[")) {
-                num.push(k);
-                stack.push(curr);
+                numStack.push(k);
                 k = 0;
-            } else if (curr.equals("]")) {
-                if (runner.length() != 0) {
-                    while (!stack.peek().equals("["))
-                        runner.insert(0, stack.pop());
+            } else if (ch == ']') {
+                StringBuilder decoded = stack.pop();
 
-                    stack.push(runner.toString());
-                    runner = new StringBuilder();
-                }
-
-                k = num.pop();
-                sb = new StringBuilder();
-
-                String top = stack.pop();
-                for (int i = 0; i < k; i++)
-                    sb.append(top);
-
-                stack.pop(); // Remove [
-
-                if (!stack.isEmpty() && !stack.peek().equals("["))
-                    sb.insert(0, stack.pop());
-
-                stack.push(sb.toString());
-                k = 0;
-
+                for (int n = numStack.pop(); n > 0; n--)
+                    decoded.append(runner); // Didn't know we can append StringBuilder to another StringBuilder
+                runner = decoded;
             } else {
-                runner.append(curr);
+                runner.append(ch);
             }
         }
 
-        if (runner.length() != 0)
-            stack.push(runner.toString());
-
-        sb = new StringBuilder();
-        while (!stack.isEmpty())
-            sb.insert(0, stack.pop());
-
-        return sb.toString();
+        return runner.toString();
     }
 
     public static void main(String[] args) {
