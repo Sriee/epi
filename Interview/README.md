@@ -24,6 +24,7 @@
 |346|Moving Average from Data Stream|[Sol](src/queue/_346_MovingAverage.java)|Queue||
 |394|Decode Strings|[Sol](src/stack/_394_DecodeStrings.java)|Stack||
 |494|Target Sum|[Sol](src/dfs/_494_TargetSum.java)|DFS||
+|542|Zero One Matrix|[Sol](src/bfs/_542_ZeroOne.java)|BFS||
 |547|Number of Provinces|[Sol](src/dfs/_547_NumberProvinces.java)|DFS, Connected Component||
 |622|Circular Queue Implementation|[Sol](src/queue/_622_CircularQueue.java)|Design, Ring Buffer||
 |733|Flood Fill|[Sol](src/bfs/_733_FloodFill.java)|BFS||
