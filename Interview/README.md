@@ -18,7 +18,7 @@
 |232|Implement Queue using Stack|[Sol](src/queue/_232_QueueUsingStack.java)|||
 |257|Binary Tree Paths|[Sol](src/tree/_257_BTPaths.java)|Tree|Microsoft|
 |279|Perfect Squares|[Sol](src/tree/_257_BTPaths.java)|BFS, DP|Amazon|
-|286|Walls and Gates|[Sol](src/queue/_286_WallGates.java)|BFS||
+|286|Walls and Gates|[Sol](src/bfs/_286_WallGates.java)|BFS||
 |297|Serialize and Deserialize a Tree|[sol](src/tree/_297_SerializeBT.java)|Design|
 |323|Number of Connected Components in an Undirected Graph|[Sol](src/dfs/_323_ConnectedComponents.java)|DFS, Connected Component||
 |346|Moving Average from Data Stream|[Sol](src/queue/_346_MovingAverage.java)|Queue||
@@ -26,7 +26,7 @@
 |494|Target Sum|[Sol](src/dfs/_494_TargetSum.java)|DFS||
 |547|Number of Provinces|[Sol](src/dfs/_547_NumberProvinces.java)|DFS, Connected Component||
 |622|Circular Queue Implementation|[Sol](src/queue/_622_CircularQueue.java)|Design, Ring Buffer||
-|733|Flood Fill|[Sol](src/queue/_733_FloodFill.java)|BFS||
+|733|Flood Fill|[Sol](src/bfs/_733_FloodFill.java)|BFS||
 |739|Daily Temperatures|[Sol](src/stack/_739_DailyTemperatures.java)|Stack||
 |752|Open Lock|[Sol](src/queue/_752_OpenLock.java)|BFS||
 |1304|Find N Unique Integers Sum up to Zero|[Sol](src/array/_1304_UniqueN.java)||Microsoft|
