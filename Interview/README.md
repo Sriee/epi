@@ -5,6 +5,7 @@
 |71|Simplify Path|[Sol](src/stack/_71_SimplifyPath.java)||Microsoft|
 |84|Largest Rectangle in Histogram|[Sol](src/tree/_84_LargestHistogram.java)|SegmentTree, Divide and Conquer, Stack|Goldman Sachs|
 |102|Binary Tree Level Order Traversal|[Sol](src/tree/_102_LevelOrder.java)|Tree||
+|112|Path Sum|[Sol](src/tree/_112_PathSum.java)|Tree||
 |133|Clone Graph|[Sol](src/dfs/_133_CloneGraph.java)|DFS||
 |150|Evaluate RPN Expression|[Sol](src/string/_150_EvaluateExpression.java)|Expression Parsing||
 |151|Reverse Strings in a Word|[Sol](src/string/_151_ReverseString.java)|||
@@ -16,6 +17,7 @@
 |224|Basic Calculator|[Sol](src/string/_224_BasicCalculator.java)|Expression Parsing||
 |225|Implement Stack using Queue|[Sol](src/stack/_225_StackUsingQueue.java)|||
 |232|Implement Queue using Stack|[Sol](src/queue/_232_QueueUsingStack.java)|||
+|250|Uni-value Trees|[Sol](src/tree/_250_Univalues.java)|Tree||
 |257|Binary Tree Paths|[Sol](src/tree/_257_BTPaths.java)|Tree|Microsoft|
 |279|Perfect Squares|[Sol](src/tree/_257_BTPaths.java)|BFS, DP|Amazon|
 |286|Walls and Gates|[Sol](src/bfs/_286_WallGates.java)|BFS||
