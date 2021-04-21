@@ -29,7 +29,8 @@
 |622|Circular Queue Implementation|[Sol](src/queue/_622_CircularQueue.java)|Design, Ring Buffer||
 |733|Flood Fill|[Sol](src/bfs/_733_FloodFill.java)|BFS||
 |739|Daily Temperatures|[Sol](src/stack/_739_DailyTemperatures.java)|Stack||
-|752|Open Lock|[Sol](src/queue/_752_OpenLock.java)|BFS||
+|752|Open Lock|[Sol](src/bfs/_752_OpenLock.java)|BFS||
+|841|Keys and Room|[Sol](src/dfs/_841_KeyRooms.java)|DFS, Connected Component||
 |1304|Find N Unique Integers Sum up to Zero|[Sol](src/array/_1304_UniqueN.java)||Microsoft|
 |1239|Maximum Length of a Concatenated String with Unique Characters|[Sol](src/backtrack/_1239_MaxConcat.java)|Backtracking|Microsoft|
 |1448|Good Nodes in a Tree|[Sol](src/tree/_1448_CountNodes.java)|DFS, Tree||
