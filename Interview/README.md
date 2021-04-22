@@ -8,6 +8,7 @@
 |105|Construct Binary Tree from Inorder and Preorder Traversal|[Sol](src/tree/_105_ConstructPreOrder.java)|Tree||
 |106|Construct Binary Tree from Inorder and Postorder Traversal|[Sol](src/tree/_106_ConstructPostOrder.java)|Tree||
 |112|Path Sum|[Sol](src/tree/_112_PathSum.java)|Tree||
+|116|Populating Next Right Pointers in Each Node I|[Sol](src/tree/_116_NextPointerComplete.java)|Tree||
 |133|Clone Graph|[Sol](src/dfs/_133_CloneGraph.java)|DFS||
 |150|Evaluate RPN Expression|[Sol](src/string/_150_EvaluateExpression.java)|Expression Parsing||
 |151|Reverse Strings in a Word|[Sol](src/string/_151_ReverseString.java)|||
