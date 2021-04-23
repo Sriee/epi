@@ -22,6 +22,7 @@
 |224|Basic Calculator|[Sol](src/string/_224_BasicCalculator.java)|Expression Parsing||
 |225|Implement Stack using Queue|[Sol](src/stack/_225_StackUsingQueue.java)|||
 |232|Implement Queue using Stack|[Sol](src/queue/_232_QueueUsingStack.java)|||
+|236|Lowest Common Ancestor of a Binary Tree|[Sol](src/tree/_236_Lca.java)|Tree||
 |250|Uni-value Trees|[Sol](src/tree/_250_Univalues.java)|Tree||
 |257|Binary Tree Paths|[Sol](src/tree/_257_BTPaths.java)|Tree|Microsoft|
 |279|Perfect Squares|[Sol](src/tree/_257_BTPaths.java)|BFS, DP|Amazon|
