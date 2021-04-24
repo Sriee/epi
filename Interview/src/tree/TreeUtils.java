@@ -21,6 +21,11 @@ public class TreeUtils {
         return node;
     }
 
+    /*
+     * ==========================================================================
+     * Inorder Traversal
+     * ==========================================================================
+     */
     public List<Integer> inOrder(TreeNode root) {
         Random rand = new Random();
         List<Integer> tree = new ArrayList<>();
