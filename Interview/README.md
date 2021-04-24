@@ -44,3 +44,4 @@
 |1448|Good Nodes in a Tree|[Sol](src/tree/_1448_CountNodes.java)|DFS, Tree||
 |1644|Lowest Common Ancestor of a Binary Tree 2|[Sol](src/tree/_1644_Lca2.java)|Tree||
 |1667|Minimum Deletions to Make Character Frequencies Unique|[Sol](src/array/_1647_MinDeletions.java)| |Microsoft|
+|1676|Lowest Common Ancestor of a Binary Tree 4|[Sol](src/tree/_1676_Lca4.java)|Tree||
