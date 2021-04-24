@@ -112,49 +112,6 @@ public class Traversal {
         return result;
     }
 
-    public TreeNode construct(int[] values, int idx) {
-        if (idx >= values.length)
-            return null;
-
-        TreeNode node = new TreeNode(values[idx]);
-        node.left = this.construct(values, 2 * idx + 1);
-        node.right = this.construct(values, 2 * idx + 2);
-        return node;
-    }
-
-    public void inOrder(TreeNode root) {
-        if (root == null)
-            return;
-
-        this.inOrder(root.left);
-        System.out.print(root.val + " ");
-        this.inOrder(root.right);
-    }
-
-    /**
-     * In order traversal using stack Leet code. Solution -> accepted
-     * 
-     * @param root of the tree
-     * @return List of inorder traversed node
-     */
-    public List<Integer> inOrderStack(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode current = root;
-
-        while (current != null || !stack.isEmpty()) {
-            while (current != null) {
-                stack.push(current);
-                current = current.left;
-            }
-
-            current = stack.pop();
-            result.add(current.val);
-            current = current.right;
-        }
-        return result;
-    }
-
     public void preOrder(TreeNode root) {
         if (root == null)
             return;
@@ -314,16 +271,5 @@ public class Traversal {
 
     public static void main(String[] args) {
         Traversal s = new Traversal();
-        int[] values = new int[3];
-
-        for (int i = 1; i < 4; i++) {
-            values[i - 1] = i;
-        }
-
-        System.out.println(Arrays.toString(values));
-        TreeNode root = s.construct(values, 0);
-        System.out.print("InOrder: ");
-        s.preOrder(root);
-
     }
 }
