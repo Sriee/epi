@@ -42,4 +42,5 @@
 |1304|Find N Unique Integers Sum up to Zero|[Sol](src/array/_1304_UniqueN.java)||Microsoft|
 |1239|Maximum Length of a Concatenated String with Unique Characters|[Sol](src/backtrack/_1239_MaxConcat.java)|Backtracking|Microsoft|
 |1448|Good Nodes in a Tree|[Sol](src/tree/_1448_CountNodes.java)|DFS, Tree||
+|1644|Lowest Common Ancestor of a Binary Tree 2|[Sol](src/tree/_1644_Lca2.java)|Tree||
 |1667|Minimum Deletions to Make Character Frequencies Unique|[Sol](src/array/_1647_MinDeletions.java)| |Microsoft|
