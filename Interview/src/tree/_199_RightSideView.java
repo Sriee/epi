@@ -5,34 +5,26 @@ import java.util.*;
 public class _199_RightSideView {
 
     /**
-     * DFS Approach. Other approach do a level order traversal with DFS.
-     * 1. The below approach asks for list of node that a node sees.
-     * 2. Once it receives the elements after traversal, we then make a decision on which elements needs to be sent to
-     * level N - 1.
+     * DFS Approach.
      */
     public List<Integer> rightSideDFS(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-
-        if (root == null)
-            return result;
-
-        result.add(root.val);
-        List<Integer> left = rightSideView(root.left);
-        List<Integer> right = rightSideView(root.right);
-
-        int ls = left.size(), rs = right.size();
-
-        if (ls == 0 || rs >= ls)
-            result.addAll(right);
-        else if (rs == 0)
-            result.addAll(left);
-        else {
-            result.addAll(right);
-            int start = ls - rs;
-            result.addAll(left.subList(ls - start, ls));
-        }
-
+        fillRightSide(root, result, 0);
         return result;
+    }
+
+    private void fillRightSide(TreeNode root, List<Integer> result, int depth) {
+        if (root == null)
+            return;
+
+        // Add element to the result set only when we discover a new level
+        if (depth == result.size())
+            result.add(root.val);
+
+        // Traverse right first so that the right most node will be visited first
+        // at each level
+        fillRightSide(root.right, result, depth + 1);
+        fillRightSide(root.left, result, depth + 1);
     }
 
     public List<Integer> rightSideBFS(TreeNode root) {
@@ -65,5 +57,22 @@ public class _199_RightSideView {
     public List<Integer> rightSideView(TreeNode root) {
         Random rand = new Random();
         return rand.nextInt(2) % 2 == 0 ? rightSideDFS(root) : rightSideBFS(root);
+    }
+
+    public static void main(String[] args) {
+        _199_RightSideView rsv = new _199_RightSideView();
+
+        // [43,23,47,null,37,null,53,29,41,null,null,null,31]
+        TreeNode root = new TreeNode(43);
+        root.left = new TreeNode(23);
+        root.right = new TreeNode(47);
+        root.left.right = new TreeNode(37);
+        root.right.right = new TreeNode(53);
+        root.left.right.left = new TreeNode(29);
+        root.left.right.right = new TreeNode(41);
+        root.left.right.left.right = new TreeNode(31);
+
+        List<Integer> res = rsv.rightSideView(root);
+        System.out.println(res);
     }
 }
