@@ -112,15 +112,6 @@ public class Traversal {
         return result;
     }
 
-    public void preOrder(TreeNode root) {
-        if (root == null)
-            return;
-
-        System.out.print(root.val + " ");
-        this.preOrder(root.left);
-        this.preOrder(root.right);
-    }
-
     public void postOrder(TreeNode root) {
         if (root == null)
             return;
@@ -150,30 +141,6 @@ public class Traversal {
                 stack.push(current.left);
             if (current.right != null)
                 stack.push(current.right);
-        }
-        return result;
-    }
-
-    /**
-     * Pre-order Traversal iteratively Leet code. Solution -> Accepted Runtime: 1ms.
-     * 0ms solution is not acceptable as it used recursion but the question was to
-     * do it iteratively
-     * 
-     * @param root Root of the tree
-     * @return List of nodes visited using pre-order traversal
-     */
-    public List<Integer> preOrderIteratively(TreeNode root) {
-        List<Integer> result = new LinkedList<>();
-        List<TreeNode> queue = new LinkedList<>();
-
-        queue.add(root);
-        while (!queue.isEmpty()) {
-            TreeNode node = queue.remove(0);
-            if (node != null) {
-                result.add(node.val);
-                queue.add(0, node.left);
-                queue.add(1, node.right);
-            }
         }
         return result;
     }

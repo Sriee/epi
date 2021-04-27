@@ -112,7 +112,7 @@ public class _84_LargestHistogram {
     }
 
     /**
-     * Calculates the pervious smallest element in an array.
+     * Calculates the previous smallest element in an array.
      */
     private void previousSmallestElement(int[] arr, int[] previousSmallest, Stack<Integer> stack) {
         for (int i = arr.length - 1; i >= 0; i--) {

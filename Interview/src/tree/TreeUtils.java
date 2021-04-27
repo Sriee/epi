@@ -3,6 +3,7 @@ package tree;
 import java.util.*;
 
 public class TreeUtils {
+    Random rand = new Random();
 
     public TreeNode construct(Integer[] arr) {
         if (arr == null || arr.length == 0)
@@ -27,14 +28,11 @@ public class TreeUtils {
      * ==========================================================================
      */
     public List<Integer> inOrder(TreeNode root) {
-        Random rand = new Random();
         List<Integer> tree = new ArrayList<>();
 
-        if (rand.nextInt(2) % 2 == 0) {
-            System.out.println("Using Recursive Approach.");
+        if (this.isRecursive()) {
             this.inOrderRecursive(root, tree);
         } else {
-            System.out.println("Using Iterative Approach.");
             this.inOrderIterative(root, tree);
         }
 
@@ -68,13 +66,61 @@ public class TreeUtils {
         }
     }
 
+    /*
+     * ==========================================================================
+     * Pre-order Traversal
+     * ==========================================================================
+     */
+    private List<Integer> preOrder(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+
+        if (this.isRecursive())
+            preOrderRecursive(root, result);
+        else
+            preOrderIterative(root, result);
+
+        return result;
+    }
+
+    private void preOrderRecursive(TreeNode root, List<Integer> result) {
+        if (root == null)
+            return;
+
+        result.add(root.val);
+        this.preOrderRecursive(root.left, result);
+        this.preOrderRecursive(root.right, result);
+    }
+
+    private void preOrderIterative(TreeNode root, List<Integer> result) {
+        if (root == null)
+            return;
+
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.pollFirst();
+            result.add(node.val);
+
+            if (node.right != null) queue.offerFirst(node.right);
+            if (node.left != null) queue.offerFirst(node.left);
+        }
+    }
+
+    private boolean isRecursive() {
+        boolean rec = rand.nextInt(2) % 2 == 0;
+        System.out.printf("Using %s Approach.", rec ? "Recursive" : "Iterative");
+        return rec;
+    }
+
     public static void main(String[] args) {
         TreeUtils util = new TreeUtils();
 
         Integer[] arr = {3, 5, 1, 6, 2, 0, 8, null, null, 7, 4};
         TreeNode root = util.construct(arr);
         List<Integer> tree = util.inOrder(root);
+        System.out.println(tree);
 
+        tree = util.preOrder(root);
         System.out.println(tree);
     }
 }
