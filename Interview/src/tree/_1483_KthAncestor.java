@@ -4,9 +4,6 @@ import java.util.Arrays;
 
 /**
  * This problem illustrates a concept called "Binary Lifting".
- * <p>
- * Note:
- * This solution works only works when parent[i] < i
  */
 public class _1483_KthAncestor {
     private final int log, n;
@@ -24,7 +21,21 @@ public class _1483_KthAncestor {
         for (int i = 0; i < n; i++)
             Arrays.fill(up[i], -1);
 
-        // Populate 'up' table
+        /*
+         * Populate 'up' table.
+         *
+         * The following way of populating up table only
+         * works when parent[i] < i. It fails for the following case
+         *
+         *   0
+         *    \
+         *     3
+         *    /
+         *   2
+         *
+         * because we will be looking up parent for not yet filled node. For instance,
+         * while filling up[2][1] we will be looking up up[3][0].
+         *
         for (int i = 0; i < n; i++) {
             up[i][0] = parent[i];
 
@@ -33,6 +44,24 @@ public class _1483_KthAncestor {
                     break;
 
                 up[i][j] = up[up[i][j - 1]][j - 1];
+            }
+        }
+        *
+        * To solve this problem, we will be filling n nodes for each level
+        */
+        // 2^0
+        for (int i = 0; i < n; i++) {
+            up[i][0] = parent[i];
+        }
+
+        // 2^j, j = 1 to log
+        for (int j = 1; j <= log; j++) {
+            for (int i = 0; i < n; i++) {
+                int p = up[i][j - 1];
+
+                // Since we are visiting all the array elements
+                // we can fill -1 for nodes without a parent
+                up[i][j] = p == -1 ? -1 : up[p][j - 1];
             }
         }
     }
