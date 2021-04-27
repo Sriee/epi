@@ -112,39 +112,6 @@ public class Traversal {
         return result;
     }
 
-    public void postOrder(TreeNode root) {
-        if (root == null)
-            return;
-        this.postOrder(root.left);
-        this.postOrder(root.right);
-        System.out.print(root.val + " ");
-    }
-
-    /**
-     * Post-Order Traversal stack Leet code. Solution -> Accepted
-     * 
-     * @param root of the tree
-     * @return List of nodes visited using post-order traversal
-     */
-    public List<Integer> postOrderStack(TreeNode root) {
-        List<Integer> result = new LinkedList<>();
-        Stack<TreeNode> stack = new Stack<>();
-
-        if (root == null)
-            return result;
-
-        stack.push(root);
-        while (!stack.isEmpty()) {
-            TreeNode current = stack.pop();
-            result.add(0, root.val);
-            if (current.left != null)
-                stack.push(current.left);
-            if (current.right != null)
-                stack.push(current.right);
-        }
-        return result;
-    }
-
     /**
      * Diameter of a tree Diameter is defined as the maximum distance between two
      * leaf nodes. Multiple maximum distances are possible Diameter doesn't have to

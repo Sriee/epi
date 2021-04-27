@@ -106,9 +106,47 @@ public class TreeUtils {
         }
     }
 
+    /*
+     * ==========================================================================
+     * Post-order Traversal
+     * ==========================================================================
+     */
+    private List<Integer> postOrder(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+
+        if (this.isRecursive())
+            postOrderRecursive(root, result);
+        else
+            postOrderIterative(root, result);
+
+        return result;
+    }
+
+    private void postOrderRecursive(TreeNode root, List<Integer> result) {
+        if (root == null)
+            return;
+
+        postOrderRecursive(root.left, result);
+        postOrderRecursive(root.right, result);
+        result.add(root.val);
+    }
+
+    private void postOrderIterative(TreeNode root, List<Integer> result) {
+        Stack<TreeNode> stack = new Stack<>();
+
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode current = stack.pop();
+            result.add(0, root.val);
+
+            if (current.left != null) stack.push(current.left);
+            if (current.right != null) stack.push(current.right);
+        }
+    }
+
     private boolean isRecursive() {
         boolean rec = rand.nextInt(2) % 2 == 0;
-        System.out.printf("Using %s Approach.", rec ? "Recursive" : "Iterative");
+        System.out.printf("Using %s Approach: ", rec ? "Recursive" : "Iterative");
         return rec;
     }
 
@@ -121,6 +159,9 @@ public class TreeUtils {
         System.out.println(tree);
 
         tree = util.preOrder(root);
+        System.out.println(tree);
+
+        tree = util.postOrder(root);
         System.out.println(tree);
     }
 }
