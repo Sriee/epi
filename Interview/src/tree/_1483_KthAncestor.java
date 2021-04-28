@@ -6,17 +6,16 @@ import java.util.Arrays;
  * This problem illustrates a concept called "Binary Lifting".
  */
 public class _1483_KthAncestor {
-    private final int log, n;
-    private final int[][] up;
+    private final int log;      // Height of the tree
+    private final int[][] up;   // 2^jth ancestor for each i
 
     public _1483_KthAncestor(int n, int[] parent) {
-        this.n = n;
         this.log = (int) (Math.log(n) / Math.log(2));
         this.up = new int[n][log + 1];
-        this.preProcess(parent);
+        this.preProcess(n, parent);
     }
 
-    private void preProcess(int[] parent) {
+    private void preProcess(int n, int[] parent) {
         // Initialize up
         for (int i = 0; i < n; i++)
             Arrays.fill(up[i], -1);
@@ -34,7 +33,7 @@ public class _1483_KthAncestor {
          *   2
          *
          * because we will be looking up parent for not yet filled node. For instance,
-         * while filling up[2][1] we will be looking up up[3][0].
+         * while filling up up[2][1] we will be looking up up[3][0].
          *
         for (int i = 0; i < n; i++) {
             up[i][0] = parent[i];
@@ -80,7 +79,7 @@ public class _1483_KthAncestor {
 
     // Print 'up'
     private void printUp() {
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < up.length; i++)
             System.out.println(i + " => " + Arrays.toString(up[i]));
     }
 
