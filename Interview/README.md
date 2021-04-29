@@ -25,6 +25,7 @@
 |232|Implement Queue using Stack|[Sol](src/queue/_232_QueueUsingStack.java)|||
 |236|Lowest Common Ancestor of a Binary Tree|[Sol](src/tree/_236_Lca.java)|Tree||
 |250|Uni-value Trees|[Sol](src/tree/_250_Univalues.java)|Tree||
+|252|Meeting Rooms|[Sol](src/array/_252_MeetingRoom.java)|Merge Interval||
 |257|Binary Tree Paths|[Sol](src/tree/_257_BTPaths.java)|Tree|Microsoft|
 |279|Perfect Squares|[Sol](src/tree/_257_BTPaths.java)|BFS, DP|Amazon|
 |286|Walls and Gates|[Sol](src/bfs/_286_WallGates.java)|BFS||
