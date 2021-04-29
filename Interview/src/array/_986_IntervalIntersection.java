@@ -5,6 +5,8 @@ import java.util.*;
 public class _986_IntervalIntersection {
 
     /*
+     * Approach 1: Merge sorted array
+     *
      * We followed Merge Sorted array pattern to solve this problem. Since we are creating
      * new array for each interval the time taken by OA is more but the complexities are
      * similar to other merge interval problems.
@@ -69,5 +71,26 @@ public class _986_IntervalIntersection {
         result = ii.intervalIntersection(first, second);
         ii.print(result);
 
+        // 2
+        second = new int[][]{{1, 5}, {8, 12}};
+        result = ii.intervalIntersection(new int[][]{}, second);
+        ii.print(result);
+
+        // 3
+        first = new int[][]{{1, 5}, {8, 12}};
+        result = ii.intervalIntersection(first, new int[][]{});
+        ii.print(result);
+
+        // 4
+        first = new int[][]{{1, 7}};
+        second = new int[][]{{3, 10}};
+        result = ii.intervalIntersection(first, second);
+        ii.print(result);
+
+        // 5
+        first = new int[][]{{8, 15}};
+        second = new int[][]{{2, 6}, {8, 10}, {12, 20}};
+        result = ii.intervalIntersection(first, second);
+        ii.print(result);
     }
 }
