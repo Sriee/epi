@@ -34,6 +34,7 @@
 |323|Number of Connected Components in an Undirected Graph|[Sol](src/dfs/_323_ConnectedComponents.java)|DFS, Connected Component||
 |346|Moving Average from Data Stream|[Sol](src/queue/_346_MovingAverage.java)|Queue||
 |394|Decode Strings|[Sol](src/stack/_394_DecodeStrings.java)|Stack||
+|435|Non-overlapping Intervals|[Sol](src/intervals/_435_NonOverlapping.java)|Merge Interval||
 |494|Target Sum|[Sol](src/dfs/_494_TargetSum.java)|DFS||
 |542|Zero One Matrix|[Sol](src/bfs/_542_ZeroOne.java)|BFS||
 |547|Number of Provinces|[Sol](src/dfs/_547_NumberProvinces.java)|DFS, Connected Component||
