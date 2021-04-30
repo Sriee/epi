@@ -2,7 +2,7 @@
 
 |  #  |      Title     |   Solution   | Pattern(s)  |    Notes    |
 |-----|----------------|--------------|-------------|-------------|
-|56|Merge Intervals|[Sol](src/array/_56_MergeIntervals.java)|Merge Interval||
+|56|Merge Intervals|[Sol](src/intervals/_56_MergeIntervals.java)|Merge Interval||
 |71|Simplify Path|[Sol](src/stack/_71_SimplifyPath.java)||Microsoft|
 |84|Largest Rectangle in Histogram|[Sol](src/tree/_84_LargestHistogram.java)|SegmentTree, Divide and Conquer, Stack|Goldman Sachs|
 |102|Binary Tree Level Order Traversal|[Sol](src/tree/_102_LevelOrder.java)|Tree||
@@ -25,8 +25,8 @@
 |232|Implement Queue using Stack|[Sol](src/queue/_232_QueueUsingStack.java)|||
 |236|Lowest Common Ancestor of a Binary Tree|[Sol](src/tree/_236_Lca.java)|Tree||
 |250|Uni-value Trees|[Sol](src/tree/_250_Univalues.java)|Tree||
-|252|Meeting Rooms|[Sol](src/array/_252_MeetingRoom.java)|Merge Interval||
-|253|Meeting Rooms II|[Sol](src/array/_253_MeetingRoom.java)|Merge Interval||
+|252|Meeting Rooms|[Sol](src/intervals/_252_MeetingRoom.java)|Merge Interval||
+|253|Meeting Rooms II|[Sol](src/intervals/_253_MeetingRoom.java)|Merge Interval||
 |257|Binary Tree Paths|[Sol](src/tree/_257_BTPaths.java)|Tree|Microsoft|
 |279|Perfect Squares|[Sol](src/tree/_257_BTPaths.java)|BFS, DP|Amazon|
 |286|Walls and Gates|[Sol](src/bfs/_286_WallGates.java)|BFS||
@@ -42,7 +42,7 @@
 |739|Daily Temperatures|[Sol](src/stack/_739_DailyTemperatures.java)|Stack||
 |752|Open Lock|[Sol](src/bfs/_752_OpenLock.java)|BFS||
 |841|Keys and Room|[Sol](src/dfs/_841_KeyRooms.java)|DFS, Connected Component||
-|986|Interval Intersection|[Sol](src/array/_986_IntervalIntersection.java)|Merge Interval||
+|986|Interval Intersection|[Sol](src/intervals/_986_IntervalIntersection.java)|Merge Interval||
 |1304|Find N Unique Integers Sum up to Zero|[Sol](src/array/_1304_UniqueN.java)||Microsoft|
 |1239|Maximum Length of a Concatenated String with Unique Characters|[Sol](src/backtrack/_1239_MaxConcat.java)|Backtracking|Microsoft|
 |1448|Good Nodes in a Tree|[Sol](src/tree/_1448_CountNodes.java)|DFS, Tree||

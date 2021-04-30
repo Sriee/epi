@@ -1,4 +1,4 @@
-package array;
+package intervals;
 
 import java.util.*;
 
