@@ -34,6 +34,7 @@
 |297|Serialize and Deserialize a Tree|[sol](src/tree/_297_SerializeBT.java)|Design|
 |323|Number of Connected Components in an Undirected Graph|[Sol](src/dfs/_323_ConnectedComponents.java)|DFS, Connected Component||
 |346|Moving Average from Data Stream|[Sol](src/queue/_346_MovingAverage.java)|Queue||
+|374|Guess Number Higher or Lower|[Sol](src/binary_search/_374_GuessNumber.java)|Binary Search, Template 1||
 |394|Decode Strings|[Sol](src/stack/_394_DecodeStrings.java)|Stack||
 |435|Non-overlapping Intervals|[Sol](src/intervals/_435_NonOverlapping.java)|Merge Interval||
 |452|Minimum Number of Arrows to Burst Balloons|[Sol](src/intervals/_452_BurstBalloons.java)|Merge Interval||
