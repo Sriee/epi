@@ -3,6 +3,7 @@
 |  #  |      Title     |   Solution   | Pattern(s)  |    Notes    |
 |-----|----------------|--------------|-------------|-------------|
 |56|Merge Intervals|[Sol](src/intervals/_56_MergeIntervals.java)|Merge Interval||
+|69|Sqrt(x)|[Sol](src/binary_search/_69_Sqrt.java)|Binary Search, Template 1||
 |71|Simplify Path|[Sol](src/stack/_71_SimplifyPath.java)||Microsoft|
 |84|Largest Rectangle in Histogram|[Sol](src/tree/_84_LargestHistogram.java)|SegmentTree, Divide and Conquer, Stack|Goldman Sachs|
 |102|Binary Tree Level Order Traversal|[Sol](src/tree/_102_LevelOrder.java)|Tree||
