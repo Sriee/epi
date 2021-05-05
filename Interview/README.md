@@ -14,6 +14,7 @@
 |116|Populating Next Right Pointers in Each Node I|[Sol](src/tree/_116_NextPointerComplete.java)|Tree||
 |117|Populating Next Right Pointers in Each Node II|[Sol](src/tree/_117_NextPointer.java)|Tree||
 |133|Clone Graph|[Sol](src/dfs/_133_CloneGraph.java)|DFS||
+|146|LRU Cache|[Sol](src/design/_146_LRU.java)|Design, Doubly Linked List||
 |150|Evaluate RPN Expression|[Sol](src/string/_150_EvaluateExpression.java)|Expression Parsing||
 |151|Reverse Strings in a Word|[Sol](src/string/_151_ReverseString.java)|||
 |155|Min Stack|[Sol](src/stack/_155_MinStack.java)|Stack||
