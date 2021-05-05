@@ -50,6 +50,9 @@ public class _146_LRU {
     }
 
     private void remove(DLLNode node) {
+        // The below prevents us deleting head / tail nodes because of how we initialize head/tail
+        // We assign only next to head - head.next = tail
+        // We assign only prev to tail - tail.prev = head
         if (node.next == null || node.prev == null)
             return;
 
