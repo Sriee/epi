@@ -4,42 +4,32 @@ package binary_search;
  * Binary Search Template 2
  */
 public class _162_PeakElement {
-    int[] n;
 
-    private boolean isPeak(int idx) {
-        boolean prev, next;
-
-        if (idx - 1 < 0)
-            prev = true;
-        else
-            prev = n[idx] > n[idx - 1];
-
-        if (idx + 1 >= n.length)
-            next = true;
-        else
-            next = n[idx] > n[idx + 1];
-
-        return prev && next;
-    }
-
-    public int findPeakElement(int[] nums) {
-        this.n = nums;
-        int left = 0, right = nums.length - 1;
+    /**
+     * For this template we need to look at Binary Search in a different way as an array with prefixes of True's
+     * followed by suffixes of False or vice versa.
+     * <p>
+     * For this problem as an example [3, 4, 9, 11, 23, 19, 13, 6], the array could be thought as
+     * [T, T, T, T, T, F, F, F] and we are find the last Truth value.
+     * <p>
+     * Note the placements of print statements for Binary Search problems. It helps us to identify
+     * the problems in our binary search routine.
+     */
+    public int findPeakElement(int[] arr) {
+        int left = 0, right = arr.length - 1, mid;
 
         while (left < right) {
-            int mid = left + (right - left) / 2;
+            mid = left + (right - left) / 2;
 
-            if (isPeak(mid))
-                return mid;
-            else if (nums[mid] < nums[mid + 1])
+            // System.out.println(left + " " + right + " " + mid);
+            if (arr[mid] < arr[mid + 1])
                 left = mid + 1;
             else
                 right = mid;
         }
-
+        // System.out.println(left + " " + right + " " + mid);
         return left;
     }
-
 
     public static void main(String[] args) {
         _162_PeakElement pe = new _162_PeakElement();
