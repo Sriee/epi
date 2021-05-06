@@ -4,54 +4,60 @@ import java.util.*;
 
 public class _34_SearchRange {
 
+    // Used a modified version of Template 2
     public int[] searchRange(int[] nums, int target) {
         int[] res = {-1, -1};
 
         if (nums == null || nums.length == 0)
             return res;
 
-        res[0] = leftBoundary(nums, target);
+        int left = leftBoundary(nums, target);
 
-        // TODO: We don't need to search for a right boundary if the element is not present in our previous search
+        if (left == -1)
+            return res;
+
+        res[0] = left;
         res[1] = rightBoundary(nums, target);
 
         return res;
     }
 
     private int leftBoundary(int[] nums, int target) {
-        int left = 0, right = nums.length - 1;
+        int left = 0, right = nums.length - 1, ans = -1;
 
-        while (left < right) {
+        while (left <= right) {
             int mid = left + (right - left) / 2;
 
             if (nums[mid] < target)
                 left = mid + 1;
-            else
-                right = mid;
+            else if (nums[mid] > target)
+                right = mid - 1;
+            else {
+                ans = mid;
+                right = mid - 1;
+            }
         }
 
-        return nums[left] == target ? left : -1;
+        return ans;
     }
 
     private int rightBoundary(int[] nums, int target) {
-        int left = 0, right = nums.length - 1;
+        int left = 0, right = nums.length - 1, ans = -1;
 
-        // The below method is represented as Binary Search Template 3 in leetcode but we can solve it using Ericchto
-        // Template 2
-        while (left + 1 < right) {  // left < right will result in a endless loop
+        while (left <= right) {
             int mid = left + (right - left) / 2;
 
-            if (nums[mid] > target)
+            if (nums[mid] < target)
+                left = mid + 1;
+            else if (nums[mid] > target)
                 right = mid - 1;
-            else
-                left = mid;
+            else {
+                ans = mid;
+                left = mid + 1;
+            }
         }
 
-        // We will end up with 2 values [left, left + 1]. We need to do a separate check for these two positions
-        if (nums[right] == target) return right;
-        if (nums[left] == target) return left;
-
-        return -1;
+        return ans;
     }
 
     public static void main(String[] args) {
