@@ -28,6 +28,7 @@
 |225|Implement Stack using Queue|[Sol](src/stack/_225_StackUsingQueue.java)|||
 |232|Implement Queue using Stack|[Sol](src/queue/_232_QueueUsingStack.java)|||
 |236|Lowest Common Ancestor of a Binary Tree|[Sol](src/tree/_236_Lca.java)|Tree||
+|248|First Bad Version|[Sol](src/binary_search/_248_FirstBadVersion.java)|Binary Search, Template 2||
 |250|Uni-value Trees|[Sol](src/tree/_250_Univalues.java)|Tree||
 |252|Meeting Rooms|[Sol](src/intervals/_252_MeetingRoom.java)|Merge Interval||
 |253|Meeting Rooms II|[Sol](src/intervals/_253_MeetingRoom.java)|Merge Interval||
