@@ -48,6 +48,7 @@
 |542|Zero One Matrix|[Sol](src/bfs/_542_ZeroOne.java)|BFS||
 |547|Number of Provinces|[Sol](src/dfs/_547_NumberProvinces.java)|DFS, Connected Component||
 |622|Circular Queue Implementation|[Sol](src/queue/_622_CircularQueue.java)|Design, Ring Buffer||
+|658|Find K Closest Elements|[Sol](src/binary_search/_658_KClosest.java)|Binary Search||
 |704|Binary Search|[Sol](src/binary_search/_704_BinarySearch.java)|Binary Search, Template 1||
 |733|Flood Fill|[Sol](src/bfs/_733_FloodFill.java)|BFS||
 |739|Daily Temperatures|[Sol](src/stack/_739_DailyTemperatures.java)|Stack||
