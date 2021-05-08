@@ -54,6 +54,7 @@
 |704|Binary Search|[Sol](src/binary_search/_704_BinarySearch.java)|Binary Search, Template 1||
 |733|Flood Fill|[Sol](src/bfs/_733_FloodFill.java)|BFS||
 |739|Daily Temperatures|[Sol](src/stack/_739_DailyTemperatures.java)|Stack||
+|744|Find Smallest Letter Greater Than Target|[Sol](src/binary_search/_744_NextCharacter.java)|Binary Search, Template 2||
 |752|Open Lock|[Sol](src/bfs/_752_OpenLock.java)|BFS||
 |841|Keys and Room|[Sol](src/dfs/_841_KeyRooms.java)|DFS, Connected Component||
 |852|Peak Index|[Sol](src/binary_search/_852_PeakIndex.java)|Binary Search, Template 2||
