@@ -18,6 +18,8 @@
 |146|LRU Cache|[Sol](src/design/_146_LRU.java)|Design, Doubly Linked List||
 |150|Evaluate RPN Expression|[Sol](src/string/_150_EvaluateExpression.java)|Expression Parsing||
 |151|Reverse Strings in a Word|[Sol](src/string/_151_ReverseString.java)|||
+|153|Find Minimum in Rotated Sorted Array I|[Sol](src/binary_search/_153_FindMinRotated.java)|Binary Search, Template 2||
+|154|Find Minimum in Rotated Sorted Array II|[Sol](src/binary_search/_154_FindMinRotatedDups.java)|Binary Search, Template 2||
 |155|Min Stack|[Sol](src/stack/_155_MinStack.java)|Stack||
 |162|Peak Element|[Sol](src/binary_search/_162_PeakElement.java)|Binary Search, Template 2||
 |186|Reverse Strings in a Word II|[Sol](src/string/_186_ReverseString.java)|||
