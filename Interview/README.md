@@ -39,6 +39,7 @@
 |270|Closest Binary Search Tree Value|[Sol](src/bst/_270_ClosetValue.java)|BST||
 |279|Perfect Squares|[Sol](src/tree/_257_BTPaths.java)|BFS, DP|Amazon|
 |286|Walls and Gates|[Sol](src/bfs/_286_WallGates.java)|BFS||
+|287|Find Duplicate Number|[Sol](src/array/_287_DuplicateNumber.java)|||
 |297|Serialize and Deserialize a Tree|[sol](src/tree/_297_SerializeBT.java)|Design|
 |323|Number of Connected Components in an Undirected Graph|[Sol](src/dfs/_323_ConnectedComponents.java)|DFS, Connected Component||
 |346|Moving Average from Data Stream|[Sol](src/queue/_346_MovingAverage.java)|Queue||
