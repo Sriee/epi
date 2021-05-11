@@ -7,7 +7,7 @@ import java.util.*;
  * modifying the array or using any additional space.
  */
 public class _287_DuplicateNumber {
-    private Random rand = new Random();
+    private final Random rand = new Random();
 
     /**
      * TC: O(n log n); O(n log n) for sort + O(n) for linear scan to find duplicates.
@@ -81,8 +81,61 @@ public class _287_DuplicateNumber {
         return res;
     }
 
+    /**
+     * Use the Array as a HashMap - map each number to its equivalent index in the array. Surprisingly this simple
+     * technique has many applications.
+     * <p>
+     * So let's start with the number at index 0 since it must be out of place. Say that the number at index 0 is
+     * first. Then first needs to be stored at nums[first]. But there's some other number at
+     * nums[first] that needs to be stored at its respective location (and so on).
+     * <p>
+     * Walk through for example: [1, 3, 3, 2]
+     * store(nums, 0) - We are using 0 as a starting element. We chose 0 because all numbers in nums are in range
+     * [1, n]
+     * - next = 1, nums = [0, 3, 3, 2]
+     * - call store(nums, 1)
+     * <p>
+     * store(nums, 1)
+     * - next = 3, nums = [0, 1, 3, 2]
+     * - call store(nums, 3)
+     * <p>
+     * store(nums, 3)
+     * - next = 2, nums = [0, 1, 3, 3]
+     * - call store(nums, 2)
+     * <p>
+     * store(nums, 2)
+     * - next = 3, nums = [0, 1, 2, 3]
+     * - call store(nums, 3)
+     * <p>
+     * since nums[3] = 3 this is the duplicate number
+     */
+    private int useArrAsMapApproach(int[] nums) {
+        return store(nums, 0);
+    }
+
+    private int store(int[] nums, int curr) {
+        if (nums[curr] == curr)
+            return curr;
+
+        int next = nums[curr];
+        nums[curr] = curr;
+        return store(nums, next);
+    }
+
+    private int useArrAsMapIterativeApproach(int[] nums) {
+        int curr = 0;
+
+        while (nums[curr] != curr) {
+            int next = nums[curr];
+            nums[curr] = curr;
+            curr = next;
+        }
+
+        return nums[curr];
+    }
+
     public int findDuplicate(int[] nums) {
-        int result = -1, op = rand.nextInt(4);
+        int result = -1, op = rand.nextInt(4) + 1;
 
         switch (op) {
             case 1:
@@ -96,6 +149,14 @@ public class _287_DuplicateNumber {
             case 3:
                 System.out.print("Negative Marking Approach. ");
                 result = negativeMarkingApproach(nums);
+                break;
+            case 4:
+                System.out.print("Using Array as Map (Recursive) Approach. ");
+                result = useArrAsMapApproach(nums);
+                break;
+            case 5:
+                System.out.print("Using Array as Map (Iterative) Approach. ");
+                result = useArrAsMapIterativeApproach(nums);
                 break;
             default:
                 System.out.println("Reached default.");
@@ -111,7 +172,7 @@ public class _287_DuplicateNumber {
         int[][] input = {
                 {1, 3, 4, 2, 2},
                 {2, 2, 2},
-                {3, 1, 3, 4},
+                {3, 1, 3, 4, 2},
                 {4, 6, 4, 2, 1, 4, 3, 5}
         };
 
@@ -121,6 +182,6 @@ public class _287_DuplicateNumber {
         }
 */
 
-        System.out.println(dn.negativeMarkingApproach(input[3]));
+        System.out.println(dn.useArrAsMapIterativeApproach(input[2]));
     }
 }
