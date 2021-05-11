@@ -134,8 +134,50 @@ public class _287_DuplicateNumber {
         return nums[curr];
     }
 
+    /**
+     * We can solve using binary search if we can think about the problem in a different.
+     * <p>
+     * For Example: [4, 3, 1, 4, 2, 6, 5] lets calculate the count of values <= nums[i]
+     * <p>
+     * Without duplicates = [1, 2, 3, 4, 5, 6]
+     * With duplicates = [1, 2, 3, 5, 6, 7] or [f, f, f, t, t, t]
+     * |-> (1, 2, 3, 4, 4)
+     * <p>
+     * if count of values > mid
+     * the search space = [1, mid - 1]
+     * else
+     * the search space = [mid + 1, n]
+     * <p>
+     * Also note, how binary search was applied without sorting the input array!
+     * <p>
+     * TC: O(n log n) - O(n) for finding count + O(log n) for binary search.
+     * SC: O(1)
+     */
+    private int binarySearchApproach(int[] nums) {
+        int left = 1, right = nums.length - 1, res = -1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            int count = 0;
+            for (int i : nums) {
+                if (i <= mid)
+                    count++;
+            }
+
+            if (count > mid) {
+                res = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return res;
+    }
+
     public int findDuplicate(int[] nums) {
-        int result = -1, op = rand.nextInt(4) + 1;
+        int result = -1, op = rand.nextInt(5) + 1;
 
         switch (op) {
             case 1:
@@ -158,6 +200,10 @@ public class _287_DuplicateNumber {
                 System.out.print("Using Array as Map (Iterative) Approach. ");
                 result = useArrAsMapIterativeApproach(nums);
                 break;
+            case 6:
+                System.out.print("Using Binary Search Approach. ");
+                result = binarySearchApproach(nums);
+                break;
             default:
                 System.out.println("Reached default.");
                 break;
@@ -173,15 +219,12 @@ public class _287_DuplicateNumber {
                 {1, 3, 4, 2, 2},
                 {2, 2, 2},
                 {3, 1, 3, 4, 2},
-                {4, 6, 4, 2, 1, 4, 3, 5}
+                {4, 6, 4, 2, 1, 4, 3, 5},
+                {4, 3, 1, 4, 2}
         };
 
-        /*
         for (int[] inp : input) {
             System.out.printf("Duplicate in %s is %s\n", Arrays.toString(inp), dn.findDuplicate(inp));
         }
-*/
-
-        System.out.println(dn.useArrAsMapIterativeApproach(input[2]));
     }
 }
