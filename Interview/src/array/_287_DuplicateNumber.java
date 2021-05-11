@@ -176,8 +176,33 @@ public class _287_DuplicateNumber {
         return res;
     }
 
+    /**
+     * Floyd's Cycle Detection Algorithm. Problem similar to finding cylce in a LinkedList.
+     * <p>
+     * TC: O(n)
+     * SC: O(1)
+     */
+    private int cycleApproach(int[] nums) {
+        int slow = nums[0], fast = nums[0];
+
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while (slow != fast);
+
+        // Reset slow
+        slow = nums[0];
+
+        while (fast != slow) {
+            fast = nums[fast];
+            slow = nums[slow];
+        }
+
+        return fast;
+    }
+
     public int findDuplicate(int[] nums) {
-        int result = -1, op = rand.nextInt(5) + 1;
+        int result = -1, op = rand.nextInt(6) + 1;
 
         switch (op) {
             case 1:
@@ -203,6 +228,10 @@ public class _287_DuplicateNumber {
             case 6:
                 System.out.print("Using Binary Search Approach. ");
                 result = binarySearchApproach(nums);
+                break;
+            case 7:
+                System.out.print("Using Floyd's Cycle Detection Algorithm. ");
+                result = cycleApproach(nums);
                 break;
             default:
                 System.out.println("Reached default.");
