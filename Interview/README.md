@@ -22,6 +22,7 @@
 |154|Find Minimum in Rotated Sorted Array II|[Sol](src/binary_search/_154_FindMinRotatedDups.java)|Binary Search, Template 2||
 |155|Min Stack|[Sol](src/stack/_155_MinStack.java)|Stack||
 |162|Peak Element|[Sol](src/binary_search/_162_PeakElement.java)|Binary Search, Template 2||
+|167|Two Sum Sorted|[Sol](src/binary_search/_167_2SumSorted.java)|Binary Search, Template 1||
 |186|Reverse Strings in a Word II|[Sol](src/string/_186_ReverseString.java)|||
 |199|Right side view of a tree|[Sol](src/tree/_199_RightSideView.java)|Tree||
 |200|Number of Islands|[Sol](src/dfs/_200_NumberIslands.java)|DFS, Connected Components||
@@ -39,7 +40,7 @@
 |270|Closest Binary Search Tree Value|[Sol](src/bst/_270_ClosetValue.java)|BST||
 |279|Perfect Squares|[Sol](src/tree/_257_BTPaths.java)|BFS, DP|Amazon|
 |286|Walls and Gates|[Sol](src/bfs/_286_WallGates.java)|BFS||
-|287|Find Duplicate Number|[Sol](src/array/_287_DuplicateNumber.java)|||
+|287|Find Duplicate Number|[Sol](src/array/_287_DuplicateNumber.java)|Seven Approaches||
 |297|Serialize and Deserialize a Tree|[sol](src/tree/_297_SerializeBT.java)|Design|
 |323|Number of Connected Components in an Undirected Graph|[Sol](src/dfs/_323_ConnectedComponents.java)|DFS, Connected Component||
 |346|Moving Average from Data Stream|[Sol](src/queue/_346_MovingAverage.java)|Queue||
