@@ -2,6 +2,7 @@
 
 |  #  |      Title     |   Solution   | Pattern(s)  |    Notes    |
 |-----|----------------|--------------|-------------|-------------|
+|4|Median of Two Sorted Arrays|[Sol](src/array/_4_MedianSortedArr.java)|||
 |33|Search in Rotated sorted array|[Sol](src/binary_search/_33_SearchRotated.java)|Binary Search, Template 1||
 |34|Search in a range|[Sol](src/binary_search/_34_SearchRange.java)|Binary Search, Template 2||
 |56|Merge Intervals|[Sol](src/intervals/_56_MergeIntervals.java)|Merge Interval||
