@@ -3,6 +3,7 @@ package array;
 import java.util.*;
 
 public class _4_MedianSortedArr {
+    private final Random rand = new Random();
 
     /**
      * Approach 1: Merge and sort
@@ -10,7 +11,7 @@ public class _4_MedianSortedArr {
      * TC: O((m + n) log (m + n))
      * SC: O(m + n)
      */
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+    public double mergeSortApproach(int[] nums1, int[] nums2) {
         int size = nums1.length + nums2.length;
         int mid = size / 2;
         int[] arr = new int[size];
@@ -23,6 +24,80 @@ public class _4_MedianSortedArr {
             return ((double) arr[mid] + arr[mid - 1]) / 2;
         else
             return arr[mid];
+    }
+
+    /**
+     * Approach 2: Priority Queue Approach
+     * <p>
+     * TC: O((m + n) log (m + n))
+     * SC: O(m + n)
+     */
+    public double pqApproach(int[] nums1, int[] nums2) {
+        int m = nums1.length, n = nums2.length;
+
+        if (m == 0)
+            return calcMedian(nums2, n);
+
+        if (n == 0)
+            return calcMedian(nums1, m);
+
+        int size = m + n;
+        boolean isEven = size % 2 == 0;
+        int mid = (size / 2) + 1;
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>(
+                (a, b) -> a[2] == b[2] ? a[1] - b[1] : Integer.compare(a[2], b[2])
+        );
+
+        pq.offer(new int[]{1, 0, nums1[0]});
+        pq.offer(new int[]{2, 0, nums2[0]});
+        int[] first = null, second = null, curr;
+
+        while (mid > 0) {
+            curr = pq.poll();
+
+            if (curr[0] == 1 && curr[1] + 1 < m)
+                pq.offer(new int[]{1, curr[1] + 1, nums1[curr[1] + 1]});
+
+            if (curr[0] == 2 && curr[1] + 1 < n)
+                pq.offer(new int[]{2, curr[1] + 1, nums2[curr[1] + 1]});
+
+            first = second;
+            second = curr;
+            mid--;
+        }
+
+        if (isEven) {
+            return ((double) first[2] + second[2]) / 2;
+        } else {
+            return second[2];
+        }
+    }
+
+    private double calcMedian(int[] arr, int len) {
+        int mid = len / 2;
+        if (len % 2 == 0)
+            return ((double) arr[mid] + arr[mid - 1]) / 2;
+        else
+            return arr[mid];
+    }
+
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        double result = -1;
+        int op = rand.nextInt(2) + 1;
+
+        switch (op) {
+            case 1:
+                System.out.print("Merge and Sort Approach. ");
+                result = mergeSortApproach(nums1, nums2);
+                break;
+            case 2:
+                System.out.print("Priority Queue Approach. ");
+                result = pqApproach(nums1, nums2);
+                break;
+        }
+
+        return result;
     }
 
     public static void main(String[] args) {
