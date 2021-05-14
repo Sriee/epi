@@ -90,9 +90,58 @@ public class _4_MedianSortedArr {
             return arr[mid];
     }
 
+    private double binarySearchApproach(int[] nums1, int[] nums2) {
+        int m = nums1.length, n = nums2.length;
+
+        if (m == 0)
+            return calcMedian(nums2, n);
+
+        if (n == 0)
+            return calcMedian(nums1, m);
+
+        if (m > n) {
+            return binarySearchApproach(nums2, nums1);
+        }
+
+        int left = 0, right = m;
+        int combinedLength = m + n;
+
+        while (left <= right) {
+            int partX = left + (right - left) / 2;
+            int partY = (combinedLength + 1) / 2 - partX;
+
+            int leftX = getMax(nums1, partX);
+            int rightX = getMin(nums1, partX);
+
+            int leftY = getMax(nums2, partY);
+            int rightY = getMin(nums2, partY);
+
+            if (leftX <= rightY && leftY <= rightX) {
+                if (combinedLength % 2 == 0)
+                    return (Math.max(leftX, leftY) + Math.min(rightX, rightY)) / 2.0;
+                return Math.max(leftX, leftY);
+            }
+
+            if (leftX <= rightY)
+                left = partX + 1;
+            else
+                right = partX - 1;
+        }
+
+        return -1;
+    }
+
+    private int getMax(int[] arr, int partition) {
+        return (partition == 0) ? Integer.MIN_VALUE : arr[partition - 1];
+    }
+
+    private int getMin(int[] arr, int partition) {
+        return (partition == arr.length) ? Integer.MAX_VALUE : arr[partition];
+    }
+
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         double result = -1;
-        int op = rand.nextInt(2) + 1;
+        int op = rand.nextInt(3) + 1;
 
         switch (op) {
             case 1:
@@ -102,6 +151,10 @@ public class _4_MedianSortedArr {
             case 2:
                 System.out.print("Priority Queue Approach. ");
                 result = pqApproach(nums1, nums2);
+                break;
+            case 3:
+                System.out.print("Binary Search Approach. ");
+                result = binarySearchApproach(nums1, nums2);
                 break;
         }
 
