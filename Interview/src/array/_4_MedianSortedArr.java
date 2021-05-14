@@ -30,7 +30,8 @@ public class _4_MedianSortedArr {
      * Approach 2: Priority Queue Approach
      * <p>
      * TC: O((m + n) log (m + n))
-     * SC: O(m + n)
+     * SC: O(1) - The bottleneck was that we were creating the new int[] arrays for fetching next elements of both
+     * arrays.
      */
     public double pqApproach(int[] nums1, int[] nums2) {
         int m = nums1.length, n = nums2.length;
@@ -51,19 +52,26 @@ public class _4_MedianSortedArr {
 
         pq.offer(new int[]{1, 0, nums1[0]});
         pq.offer(new int[]{2, 0, nums2[0]});
-        int[] first = null, second = null, curr;
+        int[] first = new int[3], second = new int[3], curr;
 
         while (mid > 0) {
             curr = pq.poll();
 
-            if (curr[0] == 1 && curr[1] + 1 < m)
-                pq.offer(new int[]{1, curr[1] + 1, nums1[curr[1] + 1]});
+            System.arraycopy(second, 0, first, 0, 3);
+            System.arraycopy(curr, 0, second, 0, 3);
 
-            if (curr[0] == 2 && curr[1] + 1 < n)
-                pq.offer(new int[]{2, curr[1] + 1, nums2[curr[1] + 1]});
+            curr[1]++;
 
-            first = second;
-            second = curr;
+            if (curr[0] == 1 && curr[1] < m) {
+                curr[2] = nums1[curr[1]];
+                pq.offer(curr);
+            }
+
+            if (curr[0] == 2 && curr[1] < n) {
+                curr[2] = nums2[curr[1]];
+                pq.offer(curr);
+            }
+
             mid--;
         }
 
