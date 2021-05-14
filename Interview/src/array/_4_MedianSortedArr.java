@@ -5,13 +5,35 @@ import java.util.*;
 public class _4_MedianSortedArr {
     private final Random rand = new Random();
 
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        double result = -1;
+        int op = rand.nextInt(3) + 1;
+
+        switch (op) {
+            case 1:
+                System.out.print("Merge and Sort Approach. ");
+                result = mergeSortApproach(nums1, nums2);
+                break;
+            case 2:
+                System.out.print("Priority Queue Approach. ");
+                result = pqApproach(nums1, nums2);
+                break;
+            case 3:
+                System.out.print("Binary Search Approach. ");
+                result = binarySearchApproach(nums1, nums2);
+                break;
+        }
+
+        return result;
+    }
+
     /**
      * Approach 1: Merge and sort
      * <p>
      * TC: O((m + n) log (m + n))
      * SC: O(m + n)
      */
-    public double mergeSortApproach(int[] nums1, int[] nums2) {
+    private double mergeSortApproach(int[] nums1, int[] nums2) {
         int size = nums1.length + nums2.length;
         int mid = size / 2;
         int[] arr = new int[size];
@@ -33,14 +55,8 @@ public class _4_MedianSortedArr {
      * SC: O(1) - The bottleneck was that we were creating the new int[] arrays for fetching next elements of both
      * arrays.
      */
-    public double pqApproach(int[] nums1, int[] nums2) {
+    private double pqApproach(int[] nums1, int[] nums2) {
         int m = nums1.length, n = nums2.length;
-
-        if (m == 0)
-            return calcMedian(nums2, n);
-
-        if (n == 0)
-            return calcMedian(nums1, m);
 
         int size = m + n;
         boolean isEven = size % 2 == 0;
@@ -56,6 +72,8 @@ public class _4_MedianSortedArr {
 
         while (mid > 0) {
             curr = pq.poll();
+
+            if (curr == null) break;
 
             System.arraycopy(second, 0, first, 0, 3);
             System.arraycopy(curr, 0, second, 0, 3);
@@ -82,22 +100,8 @@ public class _4_MedianSortedArr {
         }
     }
 
-    private double calcMedian(int[] arr, int len) {
-        int mid = len / 2;
-        if (len % 2 == 0)
-            return ((double) arr[mid] + arr[mid - 1]) / 2;
-        else
-            return arr[mid];
-    }
-
     private double binarySearchApproach(int[] nums1, int[] nums2) {
         int m = nums1.length, n = nums2.length;
-
-        if (m == 0)
-            return calcMedian(nums2, n);
-
-        if (n == 0)
-            return calcMedian(nums1, m);
 
         if (m > n) {
             return binarySearchApproach(nums2, nums1);
@@ -137,28 +141,6 @@ public class _4_MedianSortedArr {
 
     private int getMin(int[] arr, int partition) {
         return (partition == arr.length) ? Integer.MAX_VALUE : arr[partition];
-    }
-
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        double result = -1;
-        int op = rand.nextInt(3) + 1;
-
-        switch (op) {
-            case 1:
-                System.out.print("Merge and Sort Approach. ");
-                result = mergeSortApproach(nums1, nums2);
-                break;
-            case 2:
-                System.out.print("Priority Queue Approach. ");
-                result = pqApproach(nums1, nums2);
-                break;
-            case 3:
-                System.out.print("Binary Search Approach. ");
-                result = binarySearchApproach(nums1, nums2);
-                break;
-        }
-
-        return result;
     }
 
     public static void main(String[] args) {
