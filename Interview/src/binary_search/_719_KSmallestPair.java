@@ -4,29 +4,55 @@ import java.util.*;
 
 // https://www.youtube.com/watch?v=HiSvEhLIaTI
 public class _719_KSmallestPair {
+    private final Random rand = new Random();
+
+    public int smallestDistancePair(int[] arr, int k) {
+        int result = -1, op = rand.nextInt(3) + 1;
+
+        switch (op) {
+            case 1:
+                System.out.print("Tree Map count Approach: ");
+                result = smallestDistancePair1(arr, k);
+                break;
+            case 2:
+                System.out.print("Count Array Approach: ");
+                result = smallestDistancePair2(arr, k);
+                break;
+            case 3:
+                System.out.print("Binary Search + Sliding Window Approach: ");
+                result = smallestDistancePair3(arr, k);
+                break;
+            case 4:
+                System.out.print("Optimized Binary Search + Sliding Window Approach: ");
+//                result = smallestDistancePair4(arr, k);
+                break;
+        }
+
+        return result;
+    }
 
     /**
      * Modified TreeMap approach
      * <p>
      * TC: O(n log n) + O(n ^ 2) + O(log m) + O(m)
      * SC: O(m)
-     * where m = m = nums[nums.length - 1] + 1
+     * where m = m = arr[arr.length - 1] + 1
      * <p>
      * Solution TLE As expected.
      */
-    public int smallestDistancePair1(int[] nums, int k) {
+    public int smallestDistancePair1(int[] arr, int k) {
         // O(n log n)
-        Arrays.sort(nums);
+        Arrays.sort(arr);
 
         // We don't need to store the pairs. It was just for our trial purposes. Replacing it with a simple counter.
         Map<Integer, Integer> countMap = new TreeMap<>();
 
         // O(n^2)
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                int key = nums[j] - nums[i];
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                int key = arr[j] - arr[i];
 
-                // O (log m) where m = nums[nums.length - 1] + 1
+                // O (log m) where m = arr[arr.length - 1] + 1
                 countMap.put(key, countMap.getOrDefault(key, 0) + 1);
             }
         }
@@ -48,24 +74,24 @@ public class _719_KSmallestPair {
      * <p>
      * TC: O(n log n) + O(n ^ 2) + O(m)
      * SC: O(m)
-     * where m = m = nums[nums.length - 1] + 1
+     * where m = m = arr[arr.length - 1] + 1
      * <p>
      * Solution accepted but the time complexity is huge.
      */
-    public int smallestDistancePair2(int[] nums, int k) {
+    public int smallestDistancePair2(int[] arr, int k) {
         // O(n log n)
-        Arrays.sort(nums);
-        int n = nums.length;
+        Arrays.sort(arr);
+        int n = arr.length;
 
-        // Range of our count = max(nums) - min(nums)
+        // Range of our count = max(arr) - min(arr)
         // +1 to handle num[i] == num[j]  { 0 } or
-        //              max(nums) - 0 { max(nums) }
-        int[] count = new int[nums[n - 1] + 1];
+        //              max(arr) - 0 { max(arr) }
+        int[] count = new int[arr[n - 1] + 1];
 
         // O(n^2)
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
-                count[nums[j] - nums[i]]++;
+                count[arr[j] - arr[i]]++;
             }
         }
 
@@ -81,38 +107,93 @@ public class _719_KSmallestPair {
         return -1;
     }
 
-    public int smallestDistancePair3(int[] nums, int k) {
-        Arrays.sort(nums);
-        int lo = 0, hi = nums[nums.length - 1] - nums[0];
+    /**
+     * Binary Search + Sliding Window Approach.
+     * <p>
+     * TC: O(n log w) + O(n log n)
+     * SC: O(1)
+     */
+    public int smallestDistancePair3(int[] arr, int k) {
+        // O(n log n)
+        Arrays.sort(arr);
+        int lo = 0, hi = arr[arr.length - 1];
 
+        /*
+          Binary Search = O(log w) where w = [0, max(arr)]
+          since we do sliding window for each log w operation total TC = O(n log w)
+         */
         while (lo < hi) {
             int mid = lo + (hi - lo) / 2;
-            int j = 0, count = 0; //findNumPairs(nums, mid);
+            // O(n) - sliding window
+            int numPairs = findNumPairs(arr, mid);
 
-            for (int i = 0; i < nums.length; i++) {
-                while (j < nums.length && nums[j] <= nums[i] + mid) {
-//                    System.out.println(nums[j] + " " + nums[i] + "+" + mid + " = " + (j + 1));
-                    j++;
-                }
-                count += j - i - 1;
-//                System.out.println("count= " + count);
-            }
-
-            if (count >= k) {
+            if (numPairs >= k)
                 hi = mid;
-            } else {
+            else
                 lo = mid + 1;
-            }
         }
 
         return lo;
     }
 
+    private int findNumPairs(int[] arr, int target) {
+        int countPairs = 0, end = 1;
+
+        for (int start = 0; start < arr.length; start++) {
+            while (end < arr.length && arr[end] - arr[start] <= target)
+                end++;
+
+            countPairs += end - start - 1;
+        }
+
+        return countPairs;
+    }
+
+    private void visualizeCountArray(int[] arr) {
+        Arrays.sort(arr);
+        System.out.println(Arrays.toString(arr));
+        Map<Integer, List<int[]>> countMap = new TreeMap<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                int key = arr[j] - arr[i];
+                List<int[]> lst = countMap.getOrDefault(key, new ArrayList<>());
+                lst.add(new int[]{arr[i], arr[j]});
+                countMap.put(key, lst);
+            }
+        }
+
+        for (int count : countMap.keySet()) {
+            System.out.println(count + " " + Arrays.deepToString(countMap.get(count).toArray()));
+        }
+    }
+
+    public void runner(int[] arr, int[] ks) {
+        if (arr.length < 5)
+            visualizeCountArray(arr);
+
+        for (int k : ks) {
+            System.out.println(smallestDistancePair(arr, k));
+        }
+    }
+
     public static void main(String[] args) {
         _719_KSmallestPair sp = new _719_KSmallestPair();
-//        int[] nums = {39,5,6,0,8,15,20};
-        int[] nums = {3, 4, 1, 2, 5, 3, 7, 5};
-        System.out.println(sp.smallestDistancePair1(nums, 11));
-        System.out.println(sp.smallestDistancePair2(nums, 11));
+        int[] arr, ks;
+
+        // 1
+        arr = new int[]{39, 5, 6, 0, 8, 15, 20};
+        ks = new int[]{0, 2, 11, 19};
+        sp.runner(arr, ks);
+
+        // 2
+        arr = new int[]{3, 4, 1, 2, 5, 3, 7, 5};
+        ks = new int[]{4, 15, 13};
+        sp.runner(arr, ks);
+
+        // 3
+        arr = new int[]{1, 6, 1};
+        ks = new int[]{2, 0};
+        sp.runner(arr, ks);
     }
 }
