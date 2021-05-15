@@ -53,25 +53,37 @@ public class _719_KSmallestPair {
         return lo;
     }
 
-    // TreeMap approach
+    /**
+     * Modified TreeMap approach
+     * <p>
+     * TC: O(n log n) + O(n ^ 2) + O(log m) + O(m)
+     * SC: O(m)
+     * where m = m = nums[nums.length - 1] + 1
+     * <p>
+     * Solution TLE As expected.
+     */
     public int smallestDistancePair3(int[] nums, int k) {
+        // O(n log n)
         Arrays.sort(nums);
-        System.out.println(Arrays.toString(nums));
-        Map<Integer, List<int[]>> countMap = new TreeMap<>();
 
+        // We don't need to store the pairs. It was just for our trial purposes. Replacing it with a simple counter.
+        Map<Integer, Integer> countMap = new TreeMap<>();
+
+        // O(n^2)
         for (int i = 0; i < nums.length; i++) {
             for (int j = i + 1; j < nums.length; j++) {
                 int key = nums[j] - nums[i];
-                List<int[]> lst = countMap.getOrDefault(key, new ArrayList<>());
-                lst.add(new int[]{i, j});
-                countMap.put(key, lst);
+
+                // O (log m) where m = nums[nums.length - 1] + 1
+                countMap.put(key, countMap.getOrDefault(key, 0) + 1);
             }
         }
 
         int num = 0;
+
+        // Worst case: O(m)
         for (int count : countMap.keySet()) {
-            System.out.println(count + " " + Arrays.deepToString(countMap.get(count).toArray()));
-            num += countMap.get(count).size();
+            num += countMap.get(count);
             if (num >= k)
                 return count;
         }
