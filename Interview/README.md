@@ -61,6 +61,7 @@
 |658|Find K Closest Elements|[Sol](src/binary_search/_658_KClosest.java)|Binary Search||
 |702|Search for an element in an array of unknown size|[Sol](src/binary_search/_702_SearchUnknownSize.java)|Binary Search, Template 1||
 |704|Binary Search|[Sol](src/binary_search/_704_BinarySearch.java)|Binary Search, Template 1||
+|719|Find K-th Smallest Pair Distance|[Sol](src/binary_search/_719_KSmallestPair.java)|Binary Search, Template 3||
 |733|Flood Fill|[Sol](src/bfs/_733_FloodFill.java)|BFS||
 |739|Daily Temperatures|[Sol](src/stack/_739_DailyTemperatures.java)|Stack||
 |744|Find Smallest Letter Greater Than Target|[Sol](src/binary_search/_744_NextCharacter.java)|Binary Search, Template 2||
