@@ -100,17 +100,35 @@ public class _4_MedianSortedArr {
         }
     }
 
+    /**
+     * Approach 3:
+     * <p>
+     * TC: O(log(min(m, n))
+     * SC: O(1)
+     */
     private double binarySearchApproach(int[] nums1, int[] nums2) {
         int m = nums1.length, n = nums2.length;
 
+        // Trick: To make sure nums1.length is always < nums2.length. We don't need to do a explicit swap of the
+        // array's
         if (m > n) {
             return binarySearchApproach(nums2, nums1);
         }
+
+        /*
+            Why right = m instead of m - 1?
+            The idea is to think of the partition is between numbers [1, 2 | 3, 4] since we can't replicate this
+            literally, we will consider idx = 2 as the partition.
+                So left of the partition = 2 and right of the partition = 3. In order to achieve this we need to
+                consider right = m because let's say the partition end's up like - [1, 2, 3, 4] |. We need right = m
+                inorder to fetch 4 (m - 1).
+         */
 
         int left = 0, right = m;
         int combinedLength = m + n;
 
         while (left <= right) {
+            // What is the idea here?
             int partX = left + (right - left) / 2;
             int partY = (combinedLength + 1) / 2 - partX;
 
@@ -121,8 +139,11 @@ public class _4_MedianSortedArr {
             int rightY = getMin(nums2, partY);
 
             if (leftX <= rightY && leftY <= rightX) {
-                if (combinedLength % 2 == 0)
+                if (combinedLength % 2 == 0) {
+                    // Look at this trick below. Since we are dividing by 2.0 it provides a implicit cast to double.
+                    // We don't need to do ( (double) x + y ) / 2;
                     return (Math.max(leftX, leftY) + Math.min(rightX, rightY)) / 2.0;
+                }
                 return Math.max(leftX, leftY);
             }
 
