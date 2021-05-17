@@ -2,10 +2,12 @@ package binary_search;
 
 import java.util.*;
 
-// https://www.youtube.com/watch?v=HiSvEhLIaTI
 public class _719_KSmallestPair {
     private final Random rand = new Random();
 
+    /*
+     * Refer this video - https://www.youtube.com/watch?v=HiSvEhLIaTI to see why we are using a count array
+     */
     public int smallestDistancePair(int[] arr, int k) {
         int result = -1, op = rand.nextInt(3) + 1;
 
@@ -24,7 +26,7 @@ public class _719_KSmallestPair {
                 break;
             case 4:
                 System.out.print("Optimized Binary Search + Sliding Window Approach: ");
-//                result = smallestDistancePair4(arr, k);
+                result = smallestDistancePair4(arr, k);
                 break;
         }
 
@@ -147,6 +149,36 @@ public class _719_KSmallestPair {
         }
 
         return countPairs;
+    }
+
+    /**
+     * Optimized Binary Search + Sliding Window Approach.
+     * <p>
+     * TC: O(n log w) + O(n log n)
+     * SC: O(1)
+     */
+    public int smallestDistancePair4(int[] arr, int k) {
+        Arrays.sort(arr);
+        int lo, hi, n = arr.length, count = 0, start = 0;
+
+        // A neat trick to initialize variables. This avoids multiple int declaration inside the loop.
+        for (lo = 0, hi = n - 1; lo < hi; count = 0, start = 0) {
+            int mid = lo + (hi - lo) / 2;
+
+            // The run time in OJ seems to be fast when we increment the start pointer instead of the end pointer
+            for (int end = 0; end < n; end++) {
+                while (arr[end] - arr[start] > mid)
+                    start++;
+                count += end - start;
+            }
+
+            if (count >= k)
+                hi = mid;
+            else
+                lo = mid + 1;
+        }
+
+        return lo;
     }
 
     private void visualizeCountArray(int[] arr) {
