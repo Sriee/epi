@@ -21,21 +21,17 @@ public class _1482_MinDaysForMakingBouquets {
         while (left < right) {
             int mid = left + (right - left) / 2;
 
-            // There is a bottleneck is calculating the number of bouquets which is increasing the run time of the
-            // solution
-            int numBouquets = bouquetsWeCanMake(bloomDay, k, mid);
-
-            if (numBouquets < m) {
-                left = mid + 1;
-            } else {
+            if (feasible(bloomDay, m, k, mid)) {
                 right = mid;
+            } else {
+                left = mid + 1;
             }
         }
 
         return left;
     }
 
-    private int bouquetsWeCanMake(int[] bloomDay, int k, int mid) {
+    private boolean feasible(int[] bloomDay, int m, int k, int mid) {
         int bouquets = 0, flowers = 0;
 
         for (int b : bloomDay) {
@@ -45,9 +41,20 @@ public class _1482_MinDaysForMakingBouquets {
                 flowers = 0;
                 bouquets++;
             }
+
+            /*
+             * In the previous approach we traverse the entire bloomDay array to find num of bouquets that can be
+             * formed. But this is not required. We short circuit our search when we find out that we can make m
+             * bouquets for given mid.
+             *
+             * Worst case: We will still be doing a O(n) search but
+             * Average case: OJ reported a faster run time
+             */
+            if (bouquets == m)
+                return true;
         }
 
-        return bouquets;
+        return false;
     }
 
     public static void main(String[] args) {

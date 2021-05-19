@@ -75,6 +75,7 @@
 |1239|Maximum Length of a Concatenated String with Unique Characters|[Sol](src/backtrack/_1239_MaxConcat.java)|Backtracking|Microsoft|
 |1429|First Unique Number|[Sol](src/design/_1429_FirstUnique.java)|Design, LRU||
 |1448|Good Nodes in a Tree|[Sol](src/tree/_1448_CountNodes.java)|DFS, Tree||
+|1482|Minimum Number of Days to Make m Bouquets|[Sol](src/binary_search/_1482_MinDaysForMakingBouquets.java)|Binary Search, Template 3||
 |1483|Kth Ancestor of a Binary Tree|[Sol](src/tree/_1483_KthAncestor.java)|Binary Lifting||
 |1644|Lowest Common Ancestor of a Binary Tree 2|[Sol](src/tree/_1644_Lca2.java)|Tree||
 |1650|Lowest Common Ancestor of a Binary Tree 3|[Sol](src/tree/_1650_Lca3.java)|Tree||
