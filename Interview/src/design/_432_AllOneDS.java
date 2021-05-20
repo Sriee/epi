@@ -3,26 +3,36 @@ package design;
 import java.util.*;
 
 /**
- * The structure for the All One DS
+ * The optimized structure for the All One DS
  * <p>
- * <p>
- * head -> [1] -> [2] -> ... [n] -> tail -- Used Tree Map to maintain the sorted count order
- * |
- * head -> [k1, v1] -> [k2, v2] -> tail
- * <p>
- * Solution Accepted but the run time of the solution is 100 ms.
+ * head -> [k1, v1] -> [k2, v2] -> ... [kn, vn]-> tail
+ * where n is sorted according to its value
  */
 public class _432_AllOneDS {
 
     Map<String, DLLNode> keyMap;
-    TreeMap<Integer, DoublyLinkedList> aoMap;
+    DLLNode head = new DLLNode("", 0), tail = new DLLNode("", 0);
 
     /**
      * Initialize your data structure here.
      */
     public _432_AllOneDS() {
         keyMap = new HashMap<>();
-        aoMap = new TreeMap<>();
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    public void insert(DLLNode node, DLLNode prev) {
+        node.next = prev.next;
+        node.next.prev = node;
+
+        prev.next = node;
+        node.prev = prev;
+    }
+
+    public void remove(DLLNode node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
     }
 
     /**
@@ -31,20 +41,18 @@ public class _432_AllOneDS {
     public void inc(String key) {
         if (keyMap.containsKey(key)) {
             DLLNode node = keyMap.get(key);
-            aoMap.get(node.value).delete(node);
+            DLLNode current = node;
 
-            if (aoMap.get(node.value).isEmpty())
-                aoMap.remove(node.value);
+            while (current.value == node.value)
+                current = current.next;
 
+            remove(node);
             node.value++;
-            aoMap.putIfAbsent(node.value, new DoublyLinkedList());
-            aoMap.get(node.value).addFirst(node);
+            insert(node, current.prev);
         } else {
             DLLNode newNode = new DLLNode(key);
-            aoMap.putIfAbsent(1, new DoublyLinkedList());
-
             keyMap.put(key, newNode);
-            aoMap.get(1).addFirst(newNode);
+            insert(newNode, head);
         }
     }
 
@@ -53,42 +61,34 @@ public class _432_AllOneDS {
      */
     public void dec(String key) {
         DLLNode node = keyMap.get(key);
-
         if (node == null)
             return;
 
-        aoMap.get(node.value).delete(node);
-
-        if (aoMap.get(node.value).isEmpty())
-            aoMap.remove(node.value);
-
-        node.value--;
-
-        if (node.value == 0)
+        remove(node);
+        if (node.value == 1)
             keyMap.remove(key);
         else {
-            aoMap.putIfAbsent(node.value, new DoublyLinkedList());
-            aoMap.get(node.value).addFirst(node);
-        }
+            DLLNode current = node;
+            while (current.value == node.value)
+                current = current.prev;
 
+            node.value--;
+            insert(node, current);
+        }
     }
 
     /**
      * Returns one of the keys with maximal value.
      */
     public String getMaxKey() {
-        if (aoMap.isEmpty())
-            return "";
-        return aoMap.get(aoMap.lastKey()).firstKey();
+        return tail.prev.key;
     }
 
     /**
      * Returns one of the keys with Minimal value.
      */
     public String getMinKey() {
-        if (aoMap.isEmpty())
-            return "";
-        return aoMap.get(aoMap.firstKey()).firstKey();
+        return head.next.key;
     }
 
     public static void main(String[] args) {
