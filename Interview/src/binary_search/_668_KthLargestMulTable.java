@@ -12,7 +12,7 @@ public class _668_KthLargestMulTable {
      * <p>
      * OJ will give TLE
      */
-    public int findKthNumberPq(int m, int n, int k) {
+    public int findKthNumberPq(int m, int n, int k) throws NullPointerException {
         PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
 
         for (int i = 1; i <= m; i++) {
@@ -28,17 +28,13 @@ public class _668_KthLargestMulTable {
     }
 
     /**
-     * Binary Search - Template 3
+     * Approach 2: Binary Search - Template 3
      * <p>
-     * TC: O(mn log w) where w = [1, m * n]
+     * TC: O(n log w) where w = [1, m * n] and n is the number of rows
      * SC: O(1)
      * <p>
-     * OJ - TLE for large values of m, n, and k
      */
     public int findKthNumber(int m, int n, int k) {
-        if (m == n)
-            return -1;
-
         int left = 1, right = m * n;
 
         while (left < right) {
@@ -55,12 +51,10 @@ public class _668_KthLargestMulTable {
     }
 
     private boolean enough(int m, int n, int k, int mid) {
-        int val = 0;
-
         /*
          * The importance of binary search compared to the priority queue approach is that we don't have to search
          * m * n space to get the result. But we are doing the same thing here. Need a better search condition.
-         */
+         *
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
                 if (i * j <= mid) {
@@ -71,6 +65,24 @@ public class _668_KthLargestMulTable {
                 }
             }
         }
+        */
+
+        /*
+         * 1 2 3 --> If we look at the matrix, we can simply find the total number of numbers less than mid by
+         * 2 4 6     doing a simple row by row scan. We divide mid / (row num) => This gives us the number of elements
+         * 3 6 9     that are <= mid for that row.
+         */
+        int count = 0, numLtMid;
+        for (int i = 1; i <= m; i++) {
+            numLtMid = Math.min(mid / i, n);
+            if (numLtMid == 0)
+                break;
+
+            count += numLtMid;
+            if (count >= k)
+                return true;
+        }
+
         return false;
     }
 
@@ -78,7 +90,7 @@ public class _668_KthLargestMulTable {
         _668_KthLargestMulTable kmul = new _668_KthLargestMulTable();
 
         System.out.println(kmul.findKthNumberPq(3, 3, 5)); // 5
-        System.out.println(kmul.findKthNumberPq(30000, 30000, 99)); // 28
-        System.out.println(kmul.findKthNumberPq(30000, 30000, 899999)); // 91056
+        System.out.println(kmul.findKthNumber(30000, 30000, 99)); // 28
+        System.out.println(kmul.findKthNumber(30000, 30000, 899999)); // 91056
     }
 }
