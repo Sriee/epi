@@ -6,6 +6,7 @@
 |33|Search in Rotated sorted array|[Sol](src/binary_search/_33_SearchRotated.java)|Binary Search, Template 1||
 |34|Search in a range|[Sol](src/binary_search/_34_SearchRange.java)|Binary Search, Template 2||
 |35|Search Insert Position|[Sol](src/binary_search/_35_SearchInsertPosition.java)|Binary Search, Template 2||
+|41|First Missing Positive|[Sol](src/array/_41_MissingPositive.java)|Cyclic Sort Technique||
 |56|Merge Intervals|[Sol](src/intervals/_56_MergeIntervals.java)|Merge Interval||
 |69|Sqrt(x)|[Sol](src/binary_search/_69_Sqrt.java)|Binary Search, Template 1||
 |71|Simplify Path|[Sol](src/stack/_71_SimplifyPath.java)||Microsoft|
