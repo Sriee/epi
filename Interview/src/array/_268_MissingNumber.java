@@ -36,28 +36,35 @@ public class _268_MissingNumber {
     /**
      * Cyclic Sort technique
      * <p>
-     * The conditions for negative marking technique applies to this technique as well.
-     * 1. 0 <= nums[i] <= n
-     * 2. The array should have positive integers
+     * This is the template code for cyclic sort pattern.
+     * <p>
+     * TC: O(n) -> We will be making N-1 swaps. After N-1 swaps, the elements in the array would be in their correct
+     * position. After than we would make N comparisons. O(N-1) + O(n) = O(2N-1) = O(n).
+     * SC: O(1)
      */
-    public int missingNumber1(int[] nums) {
-        int idx = 0, next, n = nums.length;
-
-        while (idx < n) {
-            if (nums[idx] < n && nums[idx] != idx) {
-                next = nums[idx];
-                nums[idx] = nums[next];
-                nums[next] = next;
+    private int missingNumber1(int[] arr) {
+        int i = 0, n = arr.length;
+        while (i < n) {
+            int correct = arr[i] - 1;
+            if (correct < n && arr[i] != arr[correct]) {
+                swap(arr, i, correct);
             } else {
-                idx++;
+                i++;
             }
         }
 
-        for (int i = 0; i < n; i++) {
-            if (nums[i] != i)
-                return i;
+        for (int j = 0; j < n; j++) {
+            if (arr[j] != j)
+                return j;
         }
+
         return n;
+    }
+
+    private void swap(int[] arr, int first, int second) {
+        int temp = arr[first];
+        arr[first] = arr[second];
+        arr[second] = temp;
     }
 
     public static void main(String[] args) {
