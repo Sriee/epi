@@ -39,6 +39,7 @@
 |252|Meeting Rooms|[Sol](src/intervals/_252_MeetingRoom.java)|Merge Interval||
 |253|Meeting Rooms II|[Sol](src/intervals/_253_MeetingRoom.java)|Merge Interval||
 |257|Binary Tree Paths|[Sol](src/tree/_257_BTPaths.java)|Tree|Microsoft|
+|268|Find Missing Number|[Sol](src/array/_268_MissingNumber.java)|Negative marking, Cyclic sort technique||
 |270|Closest Binary Search Tree Value|[Sol](src/bst/_270_ClosetValue.java)|BST||
 |279|Perfect Squares|[Sol](src/tree/_257_BTPaths.java)|BFS, DP|Amazon|
 |286|Walls and Gates|[Sol](src/bfs/_286_WallGates.java)|BFS||

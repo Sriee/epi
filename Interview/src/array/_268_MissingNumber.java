@@ -1,6 +1,9 @@
 package array;
 
+import java.util.*;
+
 public class _268_MissingNumber {
+    private final Random rand = new Random();
 
     /**
      * Uses negative marking technique
@@ -30,6 +33,33 @@ public class _268_MissingNumber {
         return j;
     }
 
+    /**
+     * Cyclic Sort technique
+     * <p>
+     * The conditions for negative marking technique applies to this technique as well.
+     * 1. 0 <= nums[i] <= n
+     * 2. The array should have positive integers
+     */
+    public int missingNumber1(int[] nums) {
+        int idx = 0, next, n = nums.length;
+
+        while (idx < n) {
+            if (nums[idx] < n && nums[idx] != idx) {
+                next = nums[idx];
+                nums[idx] = nums[next];
+                nums[next] = next;
+            } else {
+                idx++;
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != i)
+                return i;
+        }
+        return n;
+    }
+
     public static void main(String[] args) {
         _268_MissingNumber mn = new _268_MissingNumber();
         int[][] inputs = {
@@ -40,7 +70,10 @@ public class _268_MissingNumber {
         };
 
         for (int[] arr : inputs) {
-            System.out.println(mn.missingNumber(arr));
+            if (mn.rand.nextInt(2) % 2 == 0)
+                System.out.println("Using Negative Marking Technique: " + mn.missingNumber(arr));
+            else
+                System.out.println("Using Cyclic Sort Technique: " + mn.missingNumber1(arr));
         }
     }
 }
