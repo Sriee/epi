@@ -56,6 +56,7 @@
 |410|Split Array Largest Sum|[Sol](src/binary_search/_410_SplitArrLargestSum.java)|Binary Search, Template 2||
 |432|All O`one Data Structure|[Sol](src/design/_432_AllOneDS.java)|Design, Doubly Linked List||
 |435|Non-overlapping Intervals|[Sol](src/intervals/_435_NonOverlapping.java)|Merge Interval||
+|442|Find All Duplicates in an Array|[Sol](src/array/_442_FindAllDuplicates.java)|Cyclic Sort Technique||
 |448|Find All Numbers Disappeared in an Array|[Sol](src/array/_448_FindDisappearedNums.java)|Cyclic Sort Technique||
 |452|Minimum Number of Arrows to Burst Balloons|[Sol](src/intervals/_452_BurstBalloons.java)|Merge Interval||
 |460|LFU Cache|[Sol](src/design/_460_LFU.java)|Design, Doubly Linked List||
