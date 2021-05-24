@@ -6,10 +6,11 @@
 |33|Search in Rotated sorted array|[Sol](src/binary_search/_33_SearchRotated.java)|Binary Search, Template 1||
 |34|Search in a range|[Sol](src/binary_search/_34_SearchRange.java)|Binary Search, Template 2||
 |35|Search Insert Position|[Sol](src/binary_search/_35_SearchInsertPosition.java)|Binary Search, Template 2||
-|41|First Missing Positive|[Sol](src/array/_41_MissingPositive.java)|Cyclic Sort Technique||
+|41|First Missing Positive|[Sol](src/array/cyclic_sort/_41_MissingPositive.java)|Cyclic Sort Technique||
 |56|Merge Intervals|[Sol](src/intervals/_56_MergeIntervals.java)|Merge Interval||
 |69|Sqrt(x)|[Sol](src/binary_search/_69_Sqrt.java)|Binary Search, Template 1||
 |71|Simplify Path|[Sol](src/stack/_71_SimplifyPath.java)||Microsoft|
+|76|Minimum Window Substring|[Sol](src/string/_76_MinWindowSubString.java)| |Sliding Window Pattern|
 |84|Largest Rectangle in Histogram|[Sol](src/tree/_84_LargestHistogram.java)|SegmentTree, Divide and Conquer, Stack|Goldman Sachs|
 |102|Binary Tree Level Order Traversal|[Sol](src/tree/_102_LevelOrder.java)|Tree||
 |105|Construct Binary Tree from Inorder and Preorder Traversal|[Sol](src/tree/_105_ConstructPreOrder.java)|Tree||
@@ -40,7 +41,7 @@
 |252|Meeting Rooms|[Sol](src/intervals/_252_MeetingRoom.java)|Merge Interval||
 |253|Meeting Rooms II|[Sol](src/intervals/_253_MeetingRoom.java)|Merge Interval||
 |257|Binary Tree Paths|[Sol](src/tree/_257_BTPaths.java)|Tree|Microsoft|
-|268|Find Missing Number|[Sol](src/array/_268_MissingNumber.java)|Negative marking, Cyclic sort technique||
+|268|Find Missing Number|[Sol](src/array/cyclic_sort/_268_MissingNumber.java)|Negative marking, Cyclic sort technique||
 |270|Closest Binary Search Tree Value|[Sol](src/bst/_270_ClosetValue.java)|BST||
 |279|Perfect Squares|[Sol](src/tree/_257_BTPaths.java)|BFS, DP|Amazon|
 |286|Walls and Gates|[Sol](src/bfs/_286_WallGates.java)|BFS||
@@ -56,15 +57,15 @@
 |410|Split Array Largest Sum|[Sol](src/binary_search/_410_SplitArrLargestSum.java)|Binary Search, Template 2||
 |432|All O`one Data Structure|[Sol](src/design/_432_AllOneDS.java)|Design, Doubly Linked List||
 |435|Non-overlapping Intervals|[Sol](src/intervals/_435_NonOverlapping.java)|Merge Interval||
-|442|Find All Duplicates in an Array|[Sol](src/array/_442_FindAllDuplicates.java)|Cyclic Sort Technique||
-|448|Find All Numbers Disappeared in an Array|[Sol](src/array/_448_FindDisappearedNums.java)|Cyclic Sort Technique||
+|442|Find All Duplicates in an Array|[Sol](src/array/cyclic_sort/_442_FindAllDuplicates.java)|Cyclic Sort Technique||
+|448|Find All Numbers Disappeared in an Array|[Sol](src/array/cyclic_sort/_448_FindDisappearedNums.java)|Cyclic Sort Technique||
 |452|Minimum Number of Arrows to Burst Balloons|[Sol](src/intervals/_452_BurstBalloons.java)|Merge Interval||
 |460|LFU Cache|[Sol](src/design/_460_LFU.java)|Design, Doubly Linked List||
 |494|Target Sum|[Sol](src/dfs/_494_TargetSum.java)|DFS||
 |542|Zero One Matrix|[Sol](src/bfs/_542_ZeroOne.java)|BFS||
 |547|Number of Provinces|[Sol](src/dfs/_547_NumberProvinces.java)|DFS, Connected Component||
 |622|Circular Queue Implementation|[Sol](src/queue/_622_CircularQueue.java)|Design, Ring Buffer||
-|645|Set Mismatch|[Sol](src/array/_645_SetMismatch.java)|Cyclic Sort Technique||
+|645|Set Mismatch|[Sol](src/array/cyclic_sort/_645_SetMismatch.java)|Cyclic Sort Technique||
 |658|Find K Closest Elements|[Sol](src/binary_search/_658_KClosest.java)|Binary Search||
 |668|Kth Largest Number in Multiplication Table|[Sol](src/binary_search/_668_KthLargestMulTable.java)|Binary Search, Template 3||
 |702|Search for an element in an array of unknown size|[Sol](src/binary_search/_702_SearchUnknownSize.java)|Binary Search, Template 1||
@@ -76,7 +77,7 @@
 |752|Open Lock|[Sol](src/bfs/_752_OpenLock.java)|BFS||
 |841|Keys and Room|[Sol](src/dfs/_841_KeyRooms.java)|DFS, Connected Component||
 |852|Peak Index|[Sol](src/binary_search/_852_PeakIndex.java)|Binary Search, Template 2||
-|875|Koko Eating Bananas|[Sol](src/binary_search/_875_Koko.java)|Binary Search, Template 3||
+|875|Kyoko Eating Bananas|[Sol](src/binary_search/_875_Koko.java)|Binary Search, Template 3||
 |986|Interval Intersection|[Sol](src/intervals/_986_IntervalIntersection.java)|Merge Interval||
 |1304|Find N Unique Integers Sum up to Zero|[Sol](src/array/_1304_UniqueN.java)||Microsoft|
 |1239|Maximum Length of a Concatenated String with Unique Characters|[Sol](src/backtrack/_1239_MaxConcat.java)|Backtracking|Microsoft|
