@@ -61,6 +61,7 @@
 |448|Find All Numbers Disappeared in an Array|[Sol](src/array/cyclic_sort/_448_FindDisappearedNums.java)|Cyclic Sort Technique||
 |452|Minimum Number of Arrows to Burst Balloons|[Sol](src/intervals/_452_BurstBalloons.java)|Merge Interval||
 |460|LFU Cache|[Sol](src/design/_460_LFU.java)|Design, Doubly Linked List||
+|485|Max Consecutive Ones|[Sol](src/array/_485_MaxConsecutiveOnes.java)|Arrays||
 |494|Target Sum|[Sol](src/dfs/_494_TargetSum.java)|DFS||
 |542|Zero One Matrix|[Sol](src/bfs/_542_ZeroOne.java)|BFS||
 |547|Number of Provinces|[Sol](src/dfs/_547_NumberProvinces.java)|DFS, Connected Component||
