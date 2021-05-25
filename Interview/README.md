@@ -79,7 +79,9 @@
 |841|Keys and Room|[Sol](src/dfs/_841_KeyRooms.java)|DFS, Connected Component||
 |852|Peak Index|[Sol](src/binary_search/_852_PeakIndex.java)|Binary Search, Template 2||
 |875|Kyoko Eating Bananas|[Sol](src/binary_search/_875_Koko.java)|Binary Search, Template 3||
+
 |986|Interval Intersection|[Sol](src/intervals/_986_IntervalIntersection.java)|Merge Interval||
+|1089|Duplicate Zeros|[Sol](src/array/_1089_DuplicateZeroes.java)|Arrays||
 |1304|Find N Unique Integers Sum up to Zero|[Sol](src/array/_1304_UniqueN.java)||Microsoft|
 |1239|Maximum Length of a Concatenated String with Unique Characters|[Sol](src/backtrack/_1239_MaxConcat.java)|Backtracking|Microsoft|
 |1429|First Unique Number|[Sol](src/design/_1429_FirstUnique.java)|Design, LRU||
