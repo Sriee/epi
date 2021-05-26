@@ -79,7 +79,7 @@
 |841|Keys and Room|[Sol](src/dfs/_841_KeyRooms.java)|DFS, Connected Component||
 |852|Peak Index|[Sol](src/binary_search/_852_PeakIndex.java)|Binary Search, Template 2||
 |875|Kyoko Eating Bananas|[Sol](src/binary_search/_875_Koko.java)|Binary Search, Template 3||
-
+|977|Squares of a Sorted Array|[Sol](src/array/_977_SquaresSorted.java)|Arrays||
 |986|Interval Intersection|[Sol](src/intervals/_986_IntervalIntersection.java)|Merge Interval||
 |1089|Duplicate Zeros|[Sol](src/array/_1089_DuplicateZeroes.java)|Arrays||
 |1304|Find N Unique Integers Sum up to Zero|[Sol](src/array/_1304_UniqueN.java)||Microsoft|
