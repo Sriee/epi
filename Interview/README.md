@@ -83,8 +83,9 @@
 |977|Squares of a Sorted Array|[Sol](src/array/_977_SquaresSorted.java)|Arrays||
 |986|Interval Intersection|[Sol](src/intervals/_986_IntervalIntersection.java)|Merge Interval||
 |1089|Duplicate Zeros|[Sol](src/array/_1089_DuplicateZeroes.java)|Arrays||
-|1304|Find N Unique Integers Sum up to Zero|[Sol](src/array/_1304_UniqueN.java)||Microsoft|
 |1239|Maximum Length of a Concatenated String with Unique Characters|[Sol](src/backtrack/_1239_MaxConcat.java)|Backtracking|Microsoft|
+|1304|Find N Unique Integers Sum up to Zero|[Sol](src/array/_1304_UniqueN.java)||Microsoft|
+|1346|Check If N and Its Double Exist|[Sol](src/array/_1346_NDoubleExist.java)||Arrays|
 |1429|First Unique Number|[Sol](src/design/_1429_FirstUnique.java)|Design, LRU||
 |1448|Good Nodes in a Tree|[Sol](src/tree/_1448_CountNodes.java)|DFS, Tree||
 |1482|Minimum Number of Days to Make m Bouquets|[Sol](src/binary_search/_1482_MinDaysForMakingBouquets.java)|Binary Search, Template 3||
