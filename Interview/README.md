@@ -45,6 +45,7 @@
 |268|Find Missing Number|[Sol](src/array/cyclic_sort/_268_MissingNumber.java)|Negative marking, Cyclic sort technique||
 |270|Closest Binary Search Tree Value|[Sol](src/bst/_270_ClosetValue.java)|BST||
 |279|Perfect Squares|[Sol](src/tree/_257_BTPaths.java)|BFS, DP|Amazon|
+|283|Move Zeroes|[Sol](src/array/_283_MoveZeroes.java)|Two Pointer Technique - In-place replacement||
 |286|Walls and Gates|[Sol](src/bfs/_286_WallGates.java)|BFS||
 |287|Find Duplicate Number|[Sol](src/array/_287_DuplicateNumber.java)|Seven Approaches||
 |297|Serialize and Deserialize a Tree|[sol](src/tree/_297_SerializeBT.java)|Design|
