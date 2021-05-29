@@ -85,6 +85,7 @@
 |941|Valid Mountain Array|[Sol](src/array/_941_ValidMountain.java)|Arrays||
 |977|Squares of a Sorted Array|[Sol](src/array/_977_SquaresSorted.java)|Arrays||
 |986|Interval Intersection|[Sol](src/intervals/_986_IntervalIntersection.java)|Merge Interval||
+|1051|Height Checker|[Sol](src/array/_1051_HeightChecker.java)|Arrays||
 |1089|Duplicate Zeros|[Sol](src/array/_1089_DuplicateZeroes.java)|Arrays||
 |1239|Maximum Length of a Concatenated String with Unique Characters|[Sol](src/backtrack/_1239_MaxConcat.java)|Backtracking|Microsoft|
 |1299|Replace Elements with Greatest Element on Right Side|[Sol](src/array/_1299_ReplaceGreatest.java)||Arrays|
