@@ -3,7 +3,11 @@ package hash_table;
 import java.util.LinkedList;
 
 /*
- * Separate Chaining + Rehashing = 30 ms
+ * Separate Chaining
+ *  - Using LinkedList
+ *      a. Rehashing = 30 ms
+ *      a. W/o Rehashing = 19 ms. Though the run time is reduced, compared to the hashing method, we should use the
+ * rehashing approach in interviews.
  */
 class _705_MyHashSet {
     LinkedList<Integer>[] bucket;
@@ -84,4 +88,3 @@ class _705_MyHashSet {
         System.out.println(hs.contains(1) + " " + hs.contains(2));
     }
 }
-
