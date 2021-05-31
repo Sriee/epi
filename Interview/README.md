@@ -57,6 +57,7 @@
 |374|Guess Number Higher or Lower|[Sol](src/binary_search/_374_GuessNumber.java)|Binary Search, Template 1||
 |394|Decode Strings|[Sol](src/stack/_394_DecodeStrings.java)|Stack||
 |410|Split Array Largest Sum|[Sol](src/binary_search/_410_SplitArrLargestSum.java)|Binary Search, Template 2||
+|414|Third Maximum Number|[Sol](src/heaps/_414_ThirdMaximumNumber.java)|Heap||
 |432|All O`one Data Structure|[Sol](src/design/_432_AllOneDS.java)|Design, Doubly Linked List||
 |435|Non-overlapping Intervals|[Sol](src/intervals/_435_NonOverlapping.java)|Merge Interval||
 |442|Find All Duplicates in an Array|[Sol](src/array/cyclic_sort/_442_FindAllDuplicates.java)|Cyclic Sort Technique||
