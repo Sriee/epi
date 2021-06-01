@@ -32,6 +32,7 @@
 |199|Right side view of a tree|[Sol](src/tree/_199_RightSideView.java)|Tree||
 |200|Number of Islands|[Sol](src/dfs/_200_NumberIslands.java)|DFS, Connected Components||
 |215|Kth Largest Element in an Array|[Sol](src/queue/_215_KLargest.java)|Heap||
+|217|Contains Duplicate|[Sol](src/hash_table/_217_ContainsDuplicate.java)|||
 |218|The Skyline problem|[Sol](src/queue/_218_SkyLine.java)|TreeMap||
 |224|Basic Calculator|[Sol](src/string/_224_BasicCalculator.java)|Expression Parsing||
 |225|Implement Stack using Queue|[Sol](src/stack/_225_StackUsingQueue.java)|||
