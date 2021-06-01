@@ -31,6 +31,7 @@
 |186|Reverse Strings in a Word II|[Sol](src/string/_186_ReverseString.java)|||
 |199|Right side view of a tree|[Sol](src/tree/_199_RightSideView.java)|Tree||
 |200|Number of Islands|[Sol](src/dfs/_200_NumberIslands.java)|DFS, Connected Components||
+|202|_202_HappyNumber|[Sol](src/hash_table/_202_HappyNumber.java)|Hash Table||
 |215|Kth Largest Element in an Array|[Sol](src/queue/_215_KLargest.java)|Heap||
 |217|Contains Duplicate|[Sol](src/hash_table/_217_ContainsDuplicate.java)|||
 |218|The Skyline problem|[Sol](src/queue/_218_SkyLine.java)|TreeMap||
