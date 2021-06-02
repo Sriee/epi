@@ -3,35 +3,20 @@ package hash_table;
 import java.util.*;
 
 /*
- * Approach 1: Doubly Linked List
- *
- * 17 / 19 test cases passes. getRandom returns elements in cyclic permutation. LC is running a Uniform Distribution
- * check on the result to make sure the elements are distributed without having a pattern.
- *
+ * Approach 2: HashMap + ArrayList
  */
 class _380_RandomizedSet {
 
-    private class DLLNode {
-        int key, count;
-        DLLNode prev, next;
-
-        public DLLNode(int key, int count) {
-            this.key = key;
-            this.count = count;
-        }
-    }
-
-    DLLNode head = new DLLNode(-1, Integer.MIN_VALUE), tail = new DLLNode(-1, Integer.MIN_VALUE);
-    Map<Integer, DLLNode> map;
+    Map<Integer, Integer> valToIdx; // Val => List Index Map
+    List<Integer> lst;
     Random rand;
 
     /**
      * Initialize your data structure here.
      */
     public _380_RandomizedSet() {
-        head.next = tail;
-        tail.prev = head;
-        map = new HashMap<>();
+        valToIdx = new HashMap<>();
+        lst = new ArrayList<>();
         rand = new Random();
     }
 
@@ -39,55 +24,43 @@ class _380_RandomizedSet {
      * Inserts a value to the set. Returns true if the set did not already contain the specified element.
      */
     public boolean insert(int val) {
-        if (map.containsKey(val))
+        if (valToIdx.containsKey(val))
             return false;
 
-        DLLNode node = new DLLNode(val, 0);
-        insertNode(node, head);
-        map.put(val, node);
+        valToIdx.put(val, lst.size());
+        lst.add(val);
         return true;
     }
 
-    /**
-     * Removes a value from the set. Returns true if the set contained the specified element.
-     */
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
     public boolean remove(int val) {
-        if (!map.containsKey(val))
+        if (!valToIdx.containsKey(val))
             return false;
 
-        DLLNode node = map.get(val);
-        removeNode(node);
-        map.remove(val);
+        int lastElement = lst.get(lst.size() - 1);
+        int idx = valToIdx.get(val);
+
+        /*
+         * Trick to delete an element in a list with O(1) run time.
+         *
+         * According to the comment in this post: https://leetcode
+         * .com/problems/insert-delete-getrandom-o1/discuss/85401/Java-solution-using-a-HashMap-and-an
+         * -ArrayList-along-with-a-follow-up.-(131-ms)/192282
+         *
+         * The implementation of ArrayList.java shows that the run time to delete an element at the end of an array
+         * is O(1)
+         */
+        lst.set(idx, lastElement);
+        valToIdx.put(lastElement, idx);
+
+        lst.remove(lst.size() - 1);
+        valToIdx.remove(val);
+
         return true;
     }
 
-    /**
-     * Get a random element from the set.
-     */
+    /** Get a random element from the set. */
     public int getRandom() {
-        DLLNode node = head.next;
-        DLLNode curr = node;
-        node.count += rand.nextInt(79);
-
-        while (curr.count <= node.count && curr != tail)
-            curr = curr.next;
-
-        removeNode(node);
-        insertNode(node, curr.prev);
-        return node.key;
+        return lst.get(rand.nextInt(lst.size()));
     }
-
-    private void insertNode(DLLNode node, DLLNode prev) {
-        node.next = prev.next;
-        node.next.prev = node;
-
-        prev.next = node;
-        node.prev = prev;
-    }
-
-    private void removeNode(DLLNode node) {
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
-    }
-
 }
