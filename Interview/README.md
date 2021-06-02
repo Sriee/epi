@@ -57,6 +57,7 @@
 |350|Intersection of two arrays (with Duplicates)|[Sol](src/array/_350_ArrayIntersection.java)|||
 |367|Valid Perfect Square|[Sol](src/binary_search/_367_PerfectSquare.java)|Binary Search, Template 1||
 |374|Guess Number Higher or Lower|[Sol](src/binary_search/_374_GuessNumber.java)|Binary Search, Template 1||
+|380|Randomized Set|[Sol](src/hash_table/_380_RandomizedSet.java)|Hash Table||
 |387|First Unique Character in a String|[Sol](src/hash_table/_387_FirstUnique.java)|Hash Table||
 |394|Decode Strings|[Sol](src/stack/_394_DecodeStrings.java)|Stack||
 |410|Split Array Largest Sum|[Sol](src/binary_search/_410_SplitArrLargestSum.java)|Binary Search, Template 2||
