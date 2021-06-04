@@ -58,6 +58,7 @@
 |346|Moving Average from Data Stream|[Sol](src/queue/_346_MovingAverage.java)|Queue||
 |349|Intersection of two arrays|[Sol](src/array/_349_ArrayIntersection.java)|||
 |350|Intersection of two arrays (with Duplicates)|[Sol](src/array/_350_ArrayIntersection.java)|||
+|359|Logger Rate Limiter|[Sol](src/hash_table/_359_LogRateLimiter.java)|Hash Table||
 |367|Valid Perfect Square|[Sol](src/binary_search/_367_PerfectSquare.java)|Binary Search, Template 1||
 |374|Guess Number Higher or Lower|[Sol](src/binary_search/_374_GuessNumber.java)|Binary Search, Template 1||
 |380|Randomized Set|[Sol](src/hash_table/_380_RandomizedSet.java)|Hash Table||
