@@ -6,23 +6,21 @@ public class _49_GroupAnagrams {
 
     /*
      * Design custom Key Technique.
+     *
+     * Improved run time by 1 ms. Removing additional List<List<String>>
      */
     public List<List<String>> groupAnagrams(String[] strs) {
-        List<List<String>> groups = new ArrayList<>();
-        Map<String, Integer> map = new HashMap<>();
+        Map<String, List<String>> map = new HashMap<>();
 
         for (String s : strs) {
             String key = computeKey(s);
-
-            if (map.containsKey(key)) {
-                groups.get(map.get(key)).add(s);
-            } else {
-                List<String> inner = new ArrayList<>();
-                inner.add(s);
-                map.put(key, groups.size());
-                groups.add(inner);
-            }
+            map.putIfAbsent(key, new ArrayList<>());
+            map.get(key).add(s);
         }
+
+        List<List<String>> groups = new ArrayList<>();
+        for (String k : map.keySet())
+            groups.add(map.get(k));
 
         return groups;
     }
