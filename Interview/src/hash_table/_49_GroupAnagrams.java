@@ -7,13 +7,13 @@ public class _49_GroupAnagrams {
     /*
      * Design custom Key Technique.
      *
-     * Improved run time by 1 ms. Removing additional List<List<String>>
+     * Improved run time to 5 ms using sorted character approach.
      */
     public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> map = new HashMap<>();
 
         for (String s : strs) {
-            String key = computeKey(s);
+            String key = computeKey2(s);
             map.putIfAbsent(key, new ArrayList<>());
             map.get(key).add(s);
         }
@@ -25,9 +25,11 @@ public class _49_GroupAnagrams {
         return groups;
     }
 
-    /*
+    /**
      * Since the String contains all lower case English letters we create count for each letter from a-z
-     *
+     * <p>
+     * "tea" => 1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,
+     * a       e                             t
      * TC: O(n)
      * SC: O(1)
      */
@@ -43,6 +45,22 @@ public class _49_GroupAnagrams {
         }
 
         return sb.toString();
+    }
+
+    /**
+     * Since the order of the elements in the string is not important. We sort the characters in a string to form the
+     * key.
+     * <p>
+     * "tea" = ate
+     * "ate" = ate
+     * <p>
+     * TC: O(k log k) k = len(s)
+     * SC: O(k)
+     */
+    private String computeKey2(String s) {
+        char[] letters = s.toCharArray();
+        Arrays.sort(letters);
+        return String.valueOf(letters);
     }
 
     public static void main(String[] args) {
