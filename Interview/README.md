@@ -9,6 +9,7 @@
 |34|Search in a range|[Sol](src/binary_search/_34_SearchRange.java)|Binary Search, Template 2||
 |35|Search Insert Position|[Sol](src/binary_search/_35_SearchInsertPosition.java)|Binary Search, Template 2||
 |41|First Missing Positive|[Sol](src/array/cyclic_sort/_41_MissingPositive.java)|Cyclic Sort Technique||
+|49|Group Anagrams|[Sol](src/hash_table/_49_GroupAnagrams.java)|Hash Table - Design Custom Key Technique||
 |56|Merge Intervals|[Sol](src/intervals/_56_MergeIntervals.java)|Merge Interval||
 |69|Sqrt(x)|[Sol](src/binary_search/_69_Sqrt.java)|Binary Search, Template 1||
 |71|Simplify Path|[Sol](src/stack/_71_SimplifyPath.java)||Microsoft|
