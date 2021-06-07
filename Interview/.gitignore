@@ -1,12 +1,25 @@
 .DS_Store
-*.log
 
-# Java
+# Compiled class file
 *.class
 
-# Editors
+# Log file
+*.log
+
+#== Editors
+
+# Eclipse
+.metadata
+.settings/
+bin/
+.classpath
+.project
+
+#
 .idea
-etemp.iml
+Interview.iml
+
+# Sublime
 *.sublime-project
 *.sublime-workspace
 
