@@ -16,13 +16,13 @@ public class ListProblems {
      * @param G    subset
      * @return number of sub components
      */
-    public <T extends Comparable<T>> int numComponents(ListNode<T> head, int[] G) {
+    public int numComponents(ListNode<Integer> head, int[] G) {
         int components = 0, run = 0;
 
         if (head == null || G.length == 0)
             return components;
 
-        ListNode<T> current = head;
+        ListNode<Integer> current = head;
         Set<Integer> set = new HashSet<>();
         for (int i : G)
             set.add(i);
@@ -51,11 +51,11 @@ public class ListProblems {
      * @param head of the Linked List
      * @return array of next greater elements
      */
-    public <T extends Comparable<T>> int[] nextLargerNodes(ListNode<T> head) {
+    public int[] nextLargerNodes(ListNode<Integer> head) {
         int len = 0, pos = -1;
 
         // Find the length of Linked List
-        ListNode<T> current = head;
+        ListNode<Integer> current = head;
         while (current != null) {
             current = current.next;
             len++;
@@ -67,23 +67,21 @@ public class ListProblems {
 
         while (current.next != null) {
             pos++;
-            int val = (int) current.data;
-            if (stack.isEmpty() || stack.peek()[1] >= val) {
-                stack.push(new int[] { pos, val });
-            } else {
+            int val = current.data;
+            if (!stack.isEmpty() && stack.peek()[1] < val) {
                 while (!stack.isEmpty() && stack.peek()[1] < val) {
                     int[] top = stack.pop();
                     res[top[0]] = val;
                 }
-                stack.push(new int[] { pos, val });
             }
+            stack.push(new int[] { pos, val });
             current = current.next;
         }
 
         while (!stack.isEmpty()) {
             int[] top = stack.pop();
-            if ((int) current.data > top[1])
-                res[top[0]] = (int) current.data;
+            if (current.data > top[1])
+                res[top[0]] = current.data;
         }
         return res;
     }
@@ -95,11 +93,11 @@ public class ListProblems {
      * @param head of the Linked List
      * @return array of next greater elements
      */
-    public <T extends Comparable<T>> int[] nextLargerNodesOptimal(ListNode<T> head) {
+    public int[] nextLargerNodesOptimal(ListNode<Integer> head) {
         int len = 0, pos = -1;
 
         // Find the length of Linked List
-        ListNode<T> current = head;
+        ListNode<Integer> current = head;
         while (current != null) {
             current = current.next;
             len++;
@@ -113,7 +111,7 @@ public class ListProblems {
 
         while (current.next != null) {
             pos++;
-            int val = (int) current.data;
+            int val = current.data;
             while (top > -1 && stack[top] < val) {
                 res[position[top]] = val;
                 top--;
@@ -125,8 +123,8 @@ public class ListProblems {
         }
 
         while (top > -1) {
-            if ((int) current.data > stack[top])
-                res[position[top]] = (int) current.data;
+            if (current.data > stack[top])
+                res[position[top]] = current.data;
             top--;
         }
         return res;
