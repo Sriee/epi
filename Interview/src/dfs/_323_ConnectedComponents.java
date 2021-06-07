@@ -68,7 +68,7 @@ public class _323_ConnectedComponents {
      */
     public int countComponents(int n, int[][] edges) {
         int count = 0;
-        Set<Integer>[] graph = new HashSet[n];
+        HashSet<Integer>[] graph = new HashSet[n];
         Stack<Integer> stack = new Stack<>();
         boolean[] visited = new boolean[n];
 
