@@ -4,9 +4,13 @@ import java.util.*;
 
 public class _49_GroupAnagrams {
 
-    /*
+    /**
      * Design custom Key Technique.
-     *
+     * <p>
+     * When to use this technique?
+     * As we know, a hash map can perform really well in grouping information by key. But we cannot use the original
+     * string as key directly. We have to design a proper key to present the type of anagrams.
+     * <p>
      * Improved run time to 5 ms using sorted character approach.
      */
     public List<List<String>> groupAnagrams(String[] strs) {
