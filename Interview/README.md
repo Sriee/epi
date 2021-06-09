@@ -94,6 +94,7 @@
 |739|Daily Temperatures|[Sol](src/stack/_739_DailyTemperatures.java)|Stack||
 |744|Find Smallest Letter Greater Than Target|[Sol](src/binary_search/_744_NextCharacter.java)|Binary Search, Template 2||
 |752|Open Lock|[Sol](src/bfs/_752_OpenLock.java)|BFS||
+|771|Jewels and Stones|[Sol](src/hash_table/_771_JewelsStones.java)|||
 |841|Keys and Room|[Sol](src/dfs/_841_KeyRooms.java)|DFS, Connected Component||
 |852|Peak Index|[Sol](src/binary_search/_852_PeakIndex.java)|Binary Search, Template 2||
 |875|Kyoko Eating Bananas|[Sol](src/binary_search/_875_Koko.java)|Binary Search, Template 3||
