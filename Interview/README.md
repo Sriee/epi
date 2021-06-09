@@ -86,6 +86,7 @@
 |652|Find Duplicate Subtrees|[Sol](src/tree/_652_DuplicateSubtrees.java)|Hash Table - Design Custom Key Technique|Amazon|
 |658|Find K Closest Elements|[Sol](src/binary_search/_658_KClosest.java)|Binary Search||
 |668|Kth Largest Number in Multiplication Table|[Sol](src/binary_search/_668_KthLargestMulTable.java)|Binary Search, Template 3||
+|692|Top K Frequent Words|[Sol](src/heaps/_692_TopKFrequentWords.java)|Binary Heap||
 |702|Search for an element in an array of unknown size|[Sol](src/binary_search/_702_SearchUnknownSize.java)|Binary Search, Template 1||
 |704|Binary Search|[Sol](src/binary_search/_704_BinarySearch.java)|Binary Search, Template 1||
 |719|Find K-th Smallest Pair Distance|[Sol](src/binary_search/_719_KSmallestPair.java)|Binary Search, Template 3||
