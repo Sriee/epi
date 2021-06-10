@@ -30,6 +30,7 @@
 |155|Min Stack|[Sol](src/stack/_155_MinStack.java)|Stack||
 |162|Peak Element|[Sol](src/binary_search/_162_PeakElement.java)|Binary Search, Template 2||
 |167|Two Sum Sorted|[Sol](src/binary_search/_167_2SumSorted.java)|Binary Search, Template 1||
+|170|Two Sum III - Data structure design|[Sol](src/hash_table/_170_TwoSum.java)|||
 |186|Reverse Strings in a Word II|[Sol](src/string/_186_ReverseString.java)|||
 |199|Right side view of a tree|[Sol](src/tree/_199_RightSideView.java)|Tree||
 |200|Number of Islands|[Sol](src/dfs/_200_NumberIslands.java)|DFS, Connected Components||
