@@ -95,7 +95,7 @@ public class BinarySearchTree {
             for (int i = 0; i < size; i++) {
                 BSTNode node = queue.poll();
                 assert(node != null);
-                
+
                 result.add(node);
                 if (node.left != null)
                     queue.offer(node.left);
