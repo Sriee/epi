@@ -1,5 +1,7 @@
 package bst;
 
+import java.util.*;
+
 public class BinarySearchTree {
 
     private BSTNode root;
@@ -38,6 +40,11 @@ public class BinarySearchTree {
             return node.val;
     }
 
+    public boolean contains(int key) {
+        int k = get(root, key);
+        return k != -1;
+    }
+
     public void remove(int key) {
         root = remove(root, key);
     }
@@ -71,5 +78,33 @@ public class BinarySearchTree {
             node = node.left;
 
         return node;
+    }
+
+    public List<BSTNode> getNodes() {
+        Queue<BSTNode> queue = new LinkedList<>();
+        List<BSTNode> result = new ArrayList<>();
+
+        if (root == null)
+            return result;
+
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+
+            for (int i = 0; i < size; i++) {
+                BSTNode node = queue.poll();
+                assert(node != null);
+                
+                result.add(node);
+                if (node.left != null)
+                    queue.offer(node.left);
+
+                if (node.right != null)
+                    queue.offer(node.right);
+            }
+        }
+
+        return result;
     }
 }

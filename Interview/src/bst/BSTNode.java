@@ -1,8 +1,8 @@
 package bst;
 
 public class BSTNode {
-    int key, val;
-    BSTNode left, right;
+    public int key, val;
+    public BSTNode left, right;
 
     public BSTNode(int k, int v) {
         this.key = k;
