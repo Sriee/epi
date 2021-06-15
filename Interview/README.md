@@ -121,3 +121,4 @@
 |1650|Lowest Common Ancestor of a Binary Tree 3|[Sol](src/tree/_1650_Lca3.java)|Tree||
 |1667|Minimum Deletions to Make Character Frequencies Unique|[Sol](src/array/_1647_MinDeletions.java)| |Microsoft|
 |1676|Lowest Common Ancestor of a Binary Tree 4|[Sol](src/tree/_1676_Lca4.java)|Tree||
+|1985|Find the Kth Largest Integer in the Array|[Sol]()|Quick Select, Heap||
