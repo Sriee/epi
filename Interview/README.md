@@ -37,7 +37,7 @@
 |200|Number of Islands|[Sol](src/dfs/_200_NumberIslands.java)|DFS, Connected Components||
 |202|Happy Number|[Sol](src/hash_table/_202_HappyNumber.java)|Hash Table||
 |205|Isomorphic String|[Sol](src/hash_table/_205_IsomorphicString.java)|Hash Table - Design Custom Key Technique||
-|215|Kth Largest Element in an Array|[Sol](src/queue/_215_KLargest.java)|Heap||
+|215|Kth Largest Element in an Array|[Sol](src/heaps/_215_KLargest.java)|Heap||
 |217|Contains Duplicate|[Sol](src/hash_table/_217_ContainsDuplicate.java)|||
 |218|The Skyline problem|[Sol](src/queue/_218_SkyLine.java)|TreeMap||
 |219|Contains Duplicate II |[Sol](src/hash_table/_219_ContainsDuplicateII.java)|Hash Table||

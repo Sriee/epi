@@ -43,6 +43,10 @@ public class _1985_KthLargestInteger {
     /**
      * Approach 3: Quick Select approach
      * <p>
+     * OJ reports this approach as the slowest one compared to the other two approaches. But this problem follows the
+     * Quick Select Template.
+     *
+     * <p>
      * TC: O(n) - Average case. O(n ^ 2) worst case. Since we are choosing the pivot index in a random, possibility for
      * worst case TC is drastically reduced.
      * SC: O(1)
