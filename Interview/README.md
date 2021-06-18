@@ -105,6 +105,7 @@
 |875|Kyoko Eating Bananas|[Sol](src/binary_search/_875_Koko.java)|Binary Search, Template 3||
 |905|Sort Array By Parity|[Sol](src/array/_905_SortArrayByParity.java)|Arrays||
 |941|Valid Mountain Array|[Sol](src/array/_941_ValidMountain.java)|Arrays||
+|973|K Closest Points to Origin|[Sol](src/heaps/_973_KClosest.java)|Quick Select||
 |977|Squares of a Sorted Array|[Sol](src/array/_977_SquaresSorted.java)|Arrays||
 |986|Interval Intersection|[Sol](src/intervals/_986_IntervalIntersection.java)|Merge Interval||
 |1002|Find Common Characters|[Sol](src/hash_table/_1002_FindCommon.java)|Hash Table||
