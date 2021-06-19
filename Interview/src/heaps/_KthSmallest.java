@@ -5,6 +5,18 @@ import java.util.*;
 public class _KthSmallest {
     Random rand;
 
+    /* ========================================================================
+     * Approach 1: Sort
+     * ========================================================================
+     * Trivial approach: not used in Interviews
+     */
+    public int kthSmallestSort(int[] nums, int k) {
+        int[] arr = new int[nums.length];
+        System.arraycopy(nums, 0, arr, 0, nums.length);
+        Arrays.sort(arr);
+        return arr[k - 1];
+    }
+
     public int kthSmallest(int[] nums, int k) {
         return quickSelect(nums, 0, nums.length - 1, k);
     }
@@ -13,7 +25,9 @@ public class _KthSmallest {
         while (left < right) {
             int partitionIdx = lomutoPartition(nums, left, right);
 
-            if (partitionIdx < k - 1)
+            if (partitionIdx == k - 1)
+                return nums[partitionIdx];
+            else if (partitionIdx < k - 1)
                 left = partitionIdx + 1;
             else
                 right = partitionIdx;
@@ -62,6 +76,15 @@ public class _KthSmallest {
         _KthSmallest ks = new _KthSmallest();
         ks.rand = new Random();
         int[] nums = {7, 10, 4, 3, 20, 15};
-        System.out.println(ks.kthSmallest(nums, 4));
+        int k = 4;
+        System.out.println(ks.kthSmallest(nums, k));
+
+        nums = new int[]{-1, 5, 6, 7, 4, 6, 8, 7, 3, 9, 1, 3, 8, 7, 3, 5, 4, 7, 3, 9, 4, 7, 9};
+        k = 8;
+        System.out.printf("Expected: %d, Actual: %d\n\n", ks.kthSmallestSort(nums, k), ks.kthSmallest(nums, k));
+
+        nums = new int[]{-1, 3, 0};
+        k = 1;
+        System.out.printf("Expected: %d, Actual: %d\n", ks.kthSmallestSort(nums, k), ks.kthSmallest(nums, k));
     }
 }
