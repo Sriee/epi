@@ -17,6 +17,14 @@ public class _KthSmallest {
         return arr[k - 1];
     }
 
+    /* ========================================================================
+     * Approach 2: Quick Select Algorithm
+     * ========================================================================
+     *
+     * This approach provides better run time algorithm.
+     * TC: O(n) - Average case. O(n ^ 2) - Worst case
+     * SC: O(1)
+     */
     public int kthSmallest(int[] nums, int k) {
         return quickSelect(nums, 0, nums.length - 1, k);
     }
@@ -25,9 +33,7 @@ public class _KthSmallest {
         while (left < right) {
             int partitionIdx = lomutoPartition(nums, left, right);
 
-            if (partitionIdx == k - 1)
-                return nums[partitionIdx];
-            else if (partitionIdx < k - 1)
+            if (partitionIdx < k - 1)
                 left = partitionIdx + 1;
             else
                 right = partitionIdx;
@@ -64,6 +70,37 @@ public class _KthSmallest {
 
         swap(nums, right, j);
         return j;
+    }
+
+    /**
+     * The following implementation covers the Hoare's partition scheme. Hoare scheme is much more efficient than
+     * Lomuto's because it does fewer swaps on average and it creates an efficient partition when all the values are
+     * equal. But for sorted array, similar to Lomuto's scheme, the run time degrades to O(n^2).
+     * <p>
+     * Note: In this scheme the pivot's final location is not necessarily at the index that was returned. Notice the
+     * change in driver function for this scheme. Also, we need to look at [left, pivot] and [pivot + 1, high] as
+     * opposed to [left, pivot - 1], [pivot + 1, right] as in Lomuto's scheme.
+     */
+    private int hoarePartition(int[] nums, int left, int right) {
+        int pivotIdx = left + rand.nextInt(right - left);
+        swap(nums, left, pivotIdx);
+        int pivot = nums[left], i = left - 1, j = right + 1;
+
+        while (true) {
+            do {
+                i++;
+            } while (nums[i] < pivot);
+
+            do {
+                j--;
+            } while (nums[j] > pivot);
+
+            if (i >= j) {
+                return j;
+            }
+
+            swap(nums, i, j);
+        }
     }
 
     private void swap(int[] nums, int first, int second) {
