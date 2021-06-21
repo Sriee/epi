@@ -5,6 +5,12 @@ import java.util.*;
 class _1471_kthStrongest {
     Random rand = new Random();
 
+    /**
+     * Approach 1: Sort + Two pointer approach
+     * <p>
+     * TC: O(n log n) + O (k)
+     * SC: O(log n) - Used by sorting algorithm
+     */
     public int[] getStrongest(int[] arr, int k) {
         Arrays.sort(arr);
         int m = arr[(arr.length - 1) / 2], left = 0, right = arr.length - 1, i = 0;
@@ -20,22 +26,44 @@ class _1471_kthStrongest {
         return res;
     }
 
+    /**
+     * Approach 2: Quick Select
+     * <p>
+     * TC:
+     * O(n)  +          O(n)           +      O(n)     +       O(k)         = O(n) + O(k)
+     * (Median) (Create arrWithStrength) (kth Strongest) (Construct res arr)
+     * SC:                O(n)            +                  O(k)
+     */
     public int[] getStrongestQS(int[] arr, int k) {
         int n = arr.length;
-        int medianIdx = quickSelect(arr, 0, n - 1, (n - 1) / 2, -1);
+        int medianIdx = findMedian(arr, 0, n - 1, (n - 1) / 2);
 
-        quickSelect(arr, 0, n - 1, n - k, arr[medianIdx]);
+        int median = arr[medianIdx];
+        int[][] arrWithStrength = new int[n][2];
+        for (int i = 0; i < n; i++) {
+            arrWithStrength[i][0] = Math.abs(arr[i] - median);
+            arrWithStrength[i][1] = arr[i];
+        }
 
-        return Arrays.copyOfRange(arr, n - k, n);
+        findKthStrongest(arrWithStrength, 0, n - 1, k);
+
+        System.out.println("\n" + Arrays.deepToString(arrWithStrength));
+
+        int[] res = new int[k];
+        for (int i = 0, j = 0; i < k; i++, j++) {
+            res[j] = arrWithStrength[i][1];
+        }
+        return res;
     }
 
-    private int quickSelect(int[] nums, int left, int right, int k, int median) {
+    /* ==============================================================
+     * Quick Select Algorithm to Find Median
+     * ==============================================================
+     */
+    private int findMedian(int[] nums, int left, int right, int k) {
         int partitionIdx;
         while (left < right) {
-            if (median == -1)
-                partitionIdx = findMedianPartition(nums, left, right);
-            else
-                partitionIdx = findKStrongestPartition(nums, left, right, median);
+            partitionIdx = findMedianPartition(nums, left, right);
 
             if (partitionIdx < k)
                 left = partitionIdx + 1;
@@ -67,44 +95,58 @@ class _1471_kthStrongest {
         }
     }
 
-    private int findKStrongestPartition(int[] nums, int left, int right, int median) {
+    private void swap(int[] nums, int first, int second) {
+        int temp = nums[first];
+        nums[first] = nums[second];
+        nums[second] = temp;
+    }
+
+    /* ==============================================================
+     * Quick Select Algorithm to Find Kth Strongest Values
+     * ==============================================================
+     */
+    private int findKthStrongest(int[][] nums, int left, int right, int k) {
+        int partitionIdx;
+        while (left < right) {
+            partitionIdx = findKStrongestPartition(nums, left, right);
+
+            if (partitionIdx < k)
+                left = partitionIdx + 1;
+            else
+                right = partitionIdx;
+        }
+
+        return left;
+    }
+
+    private int findKStrongestPartition(int[][] nums, int left, int right) {
         int pivotIdx = left + rand.nextInt(right - left + 1);
-        swap(nums, left, pivotIdx);
-        // int pivot = Math.abs(nums[left] - median);
-        int pivot = nums[left], i = left - 1, j = right + 1;
+        swap2D(nums, left, pivotIdx);
+        int[] pivot = nums[left];
+        int i = left - 1, j = right + 1;
 
         while (true) {
             do {
                 i++;
-            } while (compare1(nums, i, pivot, median));
-            //while (Math.abs(nums[i] - median) < pivot);
+            } while (compare(nums[i], pivot));
 
             do {
                 j--;
-            } while (compare2(nums, i, pivot, median));
-            // while (Math.abs(nums[j] - median) > pivot);
+            } while (compare(pivot, nums[j]));
 
             if (i >= j)
                 return j;
 
-            swap(nums, i, j);
+            swap2D(nums, i, j);
         }
     }
 
-    private boolean compare1(int[] nums, int i, int pivot, int median) {
-        int mi = Math.abs(nums[i] - median), mp = Math.abs(pivot - median);
-
-        return mi == mp ? nums[i] < pivot : mi < mp;
+    private boolean compare(int[] i, int[] pivot) {
+        return i[0] == pivot[0] ? i[1] > pivot[1] : i[0] > pivot[0];
     }
 
-    private boolean compare2(int[] nums, int i, int pivot, int median) {
-        int mi = Math.abs(nums[i] - median), mp = Math.abs(pivot - median);
-
-        return mi == mp ? nums[i] > pivot : mi > mp;
-    }
-
-    private void swap(int[] nums, int first, int second) {
-        int temp = nums[first];
+    private void swap2D(int[][] nums, int first, int second) {
+        int[] temp = nums[first];
         nums[first] = nums[second];
         nums[second] = temp;
     }
@@ -125,6 +167,20 @@ class _1471_kthStrongest {
         nums = new int[]{1, 1, 3, 5, 5};
         k = 2;
         System.out.println(Arrays.toString(ks.getStrongestQS(nums, k)));
-        //        int[] nums = {3, -1, 15};
+
+        // 4
+        nums = new int[]{6, 7, 11, 7, 6, 8};
+        k = 5;
+        System.out.println(Arrays.toString(ks.getStrongestQS(nums, k)));
+
+        // 5
+        nums = new int[]{6, -3, 7, 2, 11};
+        k = 3;
+        System.out.println(Arrays.toString(ks.getStrongestQS(nums, k)));
+
+        // 6
+        nums = new int[]{-7, 22, 17, 3};
+        k = 2;
+        System.out.println(Arrays.toString(ks.getStrongestQS(nums, k)));
     }
 }
