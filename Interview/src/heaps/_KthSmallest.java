@@ -9,6 +9,9 @@ public class _KthSmallest {
      * Approach 1: Sort
      * ========================================================================
      * Trivial approach: not used in Interviews
+     *
+     * TC: O(n log n)
+     * SC: O(log n)
      */
     public int kthSmallestSort(int[] nums, int k) {
         int[] arr = new int[nums.length];
@@ -31,7 +34,7 @@ public class _KthSmallest {
 
     private int quickSelect(int[] nums, int left, int right, int k) {
         while (left < right) {
-            int partitionIdx = lomutoPartition(nums, left, right);
+            int partitionIdx = hoarePartition(nums, left, right);
 
             if (partitionIdx < k - 1)
                 left = partitionIdx + 1;
@@ -109,12 +112,34 @@ public class _KthSmallest {
         nums[second] = temp;
     }
 
+    /* ========================================================================
+     * Approach 3: Priority Queue
+     * ========================================================================
+     *
+     * This is the default approach when we want to find kth something.
+     * TC: O(n log k)
+     * SC: O(k)
+     */
+    public int kthSmallestPQ(int[] nums, int k) {
+        // Max Heap
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> Integer.compare(b, a));
+
+        for (int i : nums) {
+            pq.offer(i);
+
+            if (pq.size() > k)
+                pq.poll();
+        }
+
+        return pq.poll();
+    }
+
     public static void main(String[] args) {
         _KthSmallest ks = new _KthSmallest();
         ks.rand = new Random();
         int[] nums = {7, 10, 4, 3, 20, 15};
         int k = 4;
-        System.out.println(ks.kthSmallest(nums, k));
+        System.out.println(ks.kthSmallestPQ(nums, k));
 
         nums = new int[]{-1, 5, 6, 7, 4, 6, 8, 7, 3, 9, 1, 3, 8, 7, 3, 5, 4, 7, 3, 9, 4, 7, 9};
         k = 8;
