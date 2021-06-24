@@ -7,9 +7,9 @@ class _1738_KthLargestXor {
 
     /**
      * Approach 1: Priority Queue
-     * <p>
+     *
      * Run Time: 589 ms.
-     * <p>
+     *
      * TC: O(2mn) + O(mn log k) - O(mn log k)
      * SC: O(k)
      */
@@ -41,12 +41,42 @@ class _1738_KthLargestXor {
     }
 
     /**
-     * Approach 2: Sorted Array.
+     * Approach 3: Priority Queue with a dp array.
      * <p>
-     * This approach TC is more than Priority Queue Approach but OJ's reports a lesser run time.
+     * This technique uses an additional dp array which we populate as we traverse the input array. The way we fill
+     * the dp array is based on a technique called "Summed Area Table".
      * <p>
      * Run Time: 64 ms.
      * <p>
+     * TC: O(mn log k)
+     * SC: O(mn) + O(k)
+     */
+    public int kthLargestXorPQ2(int[][] matrix, int k) {
+        int m = matrix.length, n = matrix[0].length;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                dp[i + 1][j + 1] = dp[i + 1][j] ^ dp[i][j + 1] ^ dp[i][j] ^ matrix[i][j];
+
+                pq.offer(dp[i + 1][j + 1]);
+                if (pq.size() > k)
+                    pq.poll();
+            }
+        }
+
+
+        return pq.poll();
+    }
+
+    /**
+     * Approach 2: Sorted Array.
+     *
+     * This approach TC is more than Priority Queue Approach but OJ's reports a lesser run time.
+     *
+     * Run Time: 64 ms.
+     *
      * TC: O(3mn) + O(mn log mn)
      * SC: O(mn) + O(log mn)
      */
@@ -73,7 +103,7 @@ class _1738_KthLargestXor {
         }
 
         Arrays.sort(arr);
-        return arr[arr.length - k];
+        return arr[arr.length - k ];
     }
 
     public int kthLargestValue(int[][] matrix, int k) {
@@ -85,8 +115,23 @@ class _1738_KthLargestXor {
             case 2:
                 ans = this.kthLargestXorArr(matrix, k);
                 break;
+            case 3:
+                ans = this.kthLargestXorPQ2(matrix, k);
+                break;
         }
         return ans;
+    }
+
+
+    private void print(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
     public static void main(String[] args) {
