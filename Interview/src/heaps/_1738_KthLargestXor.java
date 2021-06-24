@@ -76,6 +76,19 @@ class _1738_KthLargestXor {
         return arr[arr.length - k];
     }
 
+    public int kthLargestValue(int[][] matrix, int k) {
+        int ans = -1;
+        switch (rand.nextInt(2) + 1) {
+            case 1:
+                ans = this.kthLargestXorPQ(matrix, k);
+                break;
+            case 2:
+                ans = this.kthLargestXorArr(matrix, k);
+                break;
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
         _1738_KthLargestXor klx = new _1738_KthLargestXor();
         klx.rand = new Random();
@@ -87,7 +100,7 @@ class _1738_KthLargestXor {
                 {5, 2},
                 {1, 6}
         };
-        System.out.println(klx.kthLargestXorPQ(matrix, 4));
+        System.out.println(klx.kthLargestValue(matrix, 4));
 
         // 2
         matrix = new int[][]{
@@ -96,6 +109,6 @@ class _1738_KthLargestXor {
                 {1, 0, 9},
                 {3, 4, 8}
         };
-        System.out.println(klx.kthLargestXorArr(matrix, 10));
+        System.out.println(klx.kthLargestValue(matrix, 10));
     }
 }
