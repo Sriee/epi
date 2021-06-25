@@ -41,12 +41,13 @@ class _1738_KthLargestXor {
     }
 
     /**
-     * Approach 3: Priority Queue with a dp array.
+     * Approach 2: Priority Queue + Summed Area Table technique.
      * <p>
      * This technique uses an additional dp array which we populate as we traverse the input array. The way we fill
      * the dp array is based on a technique called "Summed Area Table".
+     *
      * <p>
-     * Run Time: 64 ms.
+     * Run Time: 228 ms.
      * <p>
      * TC: O(mn log k)
      * SC: O(mn) + O(k)
@@ -71,12 +72,12 @@ class _1738_KthLargestXor {
     }
 
     /**
-     * Approach 2: Sorted Array.
-     *
+     * Approach 3: Sorted Array.
+     * <p>
      * This approach TC is more than Priority Queue Approach but OJ's reports a lesser run time.
-     *
+     * <p>
      * Run Time: 64 ms.
-     *
+     * <p>
      * TC: O(3mn) + O(mn log mn)
      * SC: O(mn) + O(log mn)
      */
@@ -103,20 +104,50 @@ class _1738_KthLargestXor {
         }
 
         Arrays.sort(arr);
-        return arr[arr.length - k ];
+        return arr[arr.length - k];
+    }
+
+    /**
+     * Approach 4: Sorted Array with Summed Area Table technique.
+     * <p>
+     * This run time better than the PQ approach.
+     * <p>
+     * Run time: 46 ms
+     * <p>
+     * TC: O(mn) + O(mn log mn)
+     * SC: O(mn) + O(log mn)
+     */
+    public int kthLargestXorArr2(int[][] matrix, int k) {
+        int m = matrix.length, n = matrix[0].length;
+        int[][] dp = new int[m + 1][n + 1];
+        int[] arr = new int[m * n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                dp[i + 1][j + 1] = dp[i + 1][j] ^ dp[i][j + 1] ^ dp[i][j] ^ matrix[i][j];
+                arr[i * n + j] = dp[i + 1][j + 1];
+            }
+        }
+
+        Arrays.sort(arr);
+
+        return arr[arr.length - k];
     }
 
     public int kthLargestValue(int[][] matrix, int k) {
         int ans = -1;
-        switch (rand.nextInt(2) + 1) {
+        switch (rand.nextInt(3) + 1) {
             case 1:
                 ans = this.kthLargestXorPQ(matrix, k);
                 break;
             case 2:
-                ans = this.kthLargestXorArr(matrix, k);
+                ans = this.kthLargestXorPQ2(matrix, k);
                 break;
             case 3:
-                ans = this.kthLargestXorPQ2(matrix, k);
+                ans = this.kthLargestXorArr(matrix, k);
+                break;
+            case 4:
+                ans = this.kthLargestXorArr2(matrix, k);
                 break;
         }
         return ans;
