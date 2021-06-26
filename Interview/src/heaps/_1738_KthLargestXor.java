@@ -134,6 +134,39 @@ class _1738_KthLargestXor {
         return arr[arr.length - k];
     }
 
+    /**
+     * Approach 5: Sorted Array with Summed Area Table technique (without dp array).
+     * <p>
+     * This approach run time has increased because of the three if checks.
+     * <p>
+     * Run time: 55 ms
+     * <p>
+     * TC: O(mn) + O(mn log mn)
+     * SC: O(mn) + O(log mn)
+     */
+    public int kthLargestXorArr3(int[][] matrix, int k) {
+        int m = matrix.length, n = matrix[0].length, idx = 0;
+        int[] arr = new int[m * n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i > 0)
+                    matrix[i][j] ^= matrix[i - 1][j];
+
+                if (j > 0)
+                    matrix[i][j] ^= matrix[i][j - 1];
+
+                if (i > 0 && j > 0)
+                    matrix[i][j] ^= matrix[i - 1][j - 1];
+
+                arr[idx++] = matrix[i][j];
+            }
+        }
+
+        Arrays.sort(arr);
+        return arr[arr.length - k];
+    }
+
     public int kthLargestValue(int[][] matrix, int k) {
         int ans = -1;
         switch (rand.nextInt(3) + 1) {
