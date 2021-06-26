@@ -170,7 +170,7 @@ class _1738_KthLargestXor {
     /**
      * Approach 6: Quick Select approach
      * <p>
-     * Run time: 38 ms
+     * Run time: 27 ms (with the pivot trick)
      * <p>
      * TC: O(mn)
      * SC: O(mn)
@@ -211,9 +211,12 @@ class _1738_KthLargestXor {
     }
 
     private int partition(int[] arr, int left, int right) {
+        /*
         int pivotIdx = left + rand.nextInt(right - left + 1);
         swap(arr, left, pivotIdx);
-        int pivot = arr[left], i = left - 1, j = right + 1;
+        */
+        // Trick to choose the pivot without the above additional swap
+        int pivot = arr[(left + right) >> 1], i = left - 1, j = right + 1;
 
         while (true) {
             do {
