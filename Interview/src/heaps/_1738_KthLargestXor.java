@@ -7,13 +7,13 @@ class _1738_KthLargestXor {
 
     /**
      * Approach 1: Priority Queue
-     *
+     * <p>
      * Run Time: 589 ms.
-     *
+     * <p>
      * TC: O(2mn) + O(mn log k) - O(mn log k)
      * SC: O(k)
      */
-    public int kthLargestXorPQ(int[][] matrix, int k) {
+    private int kthLargestXorPQ(int[][] matrix, int k) {
         int m = matrix.length, n = matrix[0].length;
         PriorityQueue<Integer> pq = new PriorityQueue<>();
 
@@ -52,7 +52,7 @@ class _1738_KthLargestXor {
      * TC: O(mn log k)
      * SC: O(mn) + O(k)
      */
-    public int kthLargestXorPQ2(int[][] matrix, int k) {
+    private int kthLargestXorPQ2(int[][] matrix, int k) {
         int m = matrix.length, n = matrix[0].length;
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         int[][] dp = new int[m + 1][n + 1];
@@ -81,7 +81,7 @@ class _1738_KthLargestXor {
      * TC: O(3mn) + O(mn log mn)
      * SC: O(mn) + O(log mn)
      */
-    public int kthLargestXorArr(int[][] matrix, int k) {
+    private int kthLargestXorArr(int[][] matrix, int k) {
         int m = matrix.length, n = matrix[0].length;
 
         for (int i = 0; i < m; i++) {
@@ -117,7 +117,7 @@ class _1738_KthLargestXor {
      * TC: O(mn) + O(mn log mn)
      * SC: O(mn) + O(log mn)
      */
-    public int kthLargestXorArr2(int[][] matrix, int k) {
+    private int kthLargestXorArr2(int[][] matrix, int k) {
         int m = matrix.length, n = matrix[0].length;
         int[][] dp = new int[m + 1][n + 1];
         int[] arr = new int[m * n];
@@ -144,7 +144,7 @@ class _1738_KthLargestXor {
      * TC: O(mn) + O(mn log mn)
      * SC: O(mn) + O(log mn)
      */
-    public int kthLargestXorArr3(int[][] matrix, int k) {
+    private int kthLargestXorArr3(int[][] matrix, int k) {
         int m = matrix.length, n = matrix[0].length, idx = 0;
         int[] arr = new int[m * n];
 
@@ -167,9 +167,79 @@ class _1738_KthLargestXor {
         return arr[arr.length - k];
     }
 
+    /**
+     * Approach 6: Quick Select approach
+     * <p>
+     * Run time: 38 ms
+     * <p>
+     * TC: O(mn)
+     * SC: O(mn)
+     */
+    private int kthLargestXorQS(int[][] matrix, int k) {
+        int m = matrix.length, n = matrix[0].length, idx = 0;
+        int[] arr = new int[m * n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i > 0)
+                    matrix[i][j] ^= matrix[i - 1][j];
+
+                if (j > 0)
+                    matrix[i][j] ^= matrix[i][j - 1];
+
+                if (i > 0 && j > 0)
+                    matrix[i][j] ^= matrix[i - 1][j - 1];
+
+                arr[idx++] = matrix[i][j];
+            }
+        }
+
+        return quickSelect(arr, 0, arr.length - 1, arr.length - k);
+    }
+
+    private int quickSelect(int[] arr, int left, int right, int nk) {
+        while (left < right) {
+            int pIdx = partition(arr, left, right);
+
+            if (pIdx < nk)
+                left = pIdx + 1;
+            else
+                right = pIdx;
+        }
+
+        return arr[left];
+    }
+
+    private int partition(int[] arr, int left, int right) {
+        int pivotIdx = left + rand.nextInt(right - left + 1);
+        swap(arr, left, pivotIdx);
+        int pivot = arr[left], i = left - 1, j = right + 1;
+
+        while (true) {
+            do {
+                i++;
+            } while (arr[i] < pivot);
+
+            do {
+                j--;
+            } while (arr[j] > pivot);
+
+            if (i >= j)
+                return j;
+
+            swap(arr, i, j);
+        }
+    }
+
+    private void swap(int[] arr, int first, int second) {
+        int temp = arr[first];
+        arr[first] = arr[second];
+        arr[second] = temp;
+    }
+
     public int kthLargestValue(int[][] matrix, int k) {
         int ans = -1;
-        switch (rand.nextInt(3) + 1) {
+        switch (rand.nextInt(5) + 1) {
             case 1:
                 ans = this.kthLargestXorPQ(matrix, k);
                 break;
@@ -182,10 +252,15 @@ class _1738_KthLargestXor {
             case 4:
                 ans = this.kthLargestXorArr2(matrix, k);
                 break;
+            case 5:
+                ans = this.kthLargestXorArr3(matrix, k);
+                break;
+            case 6:
+                ans = this.kthLargestXorQS(matrix, k);
+                break;
         }
         return ans;
     }
-
 
     private void print(int[][] matrix) {
         int m = matrix.length, n = matrix[0].length;
