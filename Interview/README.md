@@ -56,6 +56,7 @@
 | 270  | Closest Binary Search Tree Value                               | [Sol](src/bst/_270_ClosetValue.java)                         | BST                                                                                                             ||
 | 279  | Perfect Squares                                                | [Sol](src/tree/_257_BTPaths.java)                            | BFS, DP                                                                                                         | Amazon                 |
 | 283  | Move Zeroes                                                    | [Sol](src/array/_283_MoveZeroes.java)                        | Two Pointer Technique - In-place replacement                                                                    ||
+| 285  | Inorder Successor in BST                                       | [Sol](src/bst/_285_InorderSuccessor.java)                    |||
 | 286  | Walls and Gates                                                | [Sol](src/bfs/_286_WallGates.java)                           | BFS                                                                                                             ||
 | 287  | Find Duplicate Number                                          | [Sol](src/array/_287_DuplicateNumber.java)                   | Seven Approaches                                                                                                ||
 | 288  | Unique Word Abbreviation                                       | [Sol](src/hash_table/_288_ValidWordAbbr.java)                |||
