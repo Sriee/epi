@@ -80,7 +80,7 @@ public class BinarySearchTree {
         return node;
     }
 
-    public List<BSTNode> getNodes() {
+    public List<BSTNode> getNodes(BSTNode root) {
         Queue<BSTNode> queue = new LinkedList<>();
         List<BSTNode> result = new ArrayList<>();
 
@@ -94,7 +94,6 @@ public class BinarySearchTree {
 
             for (int i = 0; i < size; i++) {
                 BSTNode node = queue.poll();
-                assert(node != null);
 
                 result.add(node);
                 if (node.left != null)
@@ -106,5 +105,9 @@ public class BinarySearchTree {
         }
 
         return result;
+    }
+
+    public List<BSTNode> getNodes() {
+        return getNodes(this.root);
     }
 }

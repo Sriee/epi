@@ -4,6 +4,11 @@ public class BSTNode {
     public int key, val;
     public BSTNode left, right;
 
+    public BSTNode(int v) {
+        this.key = -1;
+        this.val = v;
+    }
+
     public BSTNode(int k, int v) {
         this.key = k;
         this.val = v;
