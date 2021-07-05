@@ -2,12 +2,24 @@ package bst;
 
 import java.util.*;
 
+/**
+ * The optimal solution is to flatten the BST into a linked list and then retrieve elements from the BST. If the
+ * interviewer changed the question to use streams, the flattening approach won't work. Inorder traversal is the
+ * right approach for this problem.
+ */
 class _173_BSTIterator {
 
-    Stack<BSTNode> stack;
+    /*
+     * Stack run time = 31 ms
+     * Deque run time = 15 ms
+     *
+     * Just changing from stack to Deque saved us run time. The methods needn't be changed as well.
+     * We will use deque in place of stack here after.
+     */
+    Deque<BSTNode> stack;
 
     public _173_BSTIterator(BSTNode root) {
-        stack = new Stack<>();
+        stack = new ArrayDeque<>();
         fillStack(root);
     }
 
