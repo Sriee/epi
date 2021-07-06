@@ -1,5 +1,7 @@
 package bst;
 
+import java.util.*;
+
 public class _701_InsertBST {
     public BSTNode insertIntoBST(BSTNode root, int val) {
         if (root == null)
@@ -21,5 +23,10 @@ public class _701_InsertBST {
         for (int i : arr) {
             root = ib.insertIntoBST(root, i);
         }
+
+        BinarySearchTree bst = new BinarySearchTree();
+        List<BSTNode> lst = bst.getNodes(root);
+        for (BSTNode node : lst)
+            System.out.print(node.val + " ");
     }
 }
