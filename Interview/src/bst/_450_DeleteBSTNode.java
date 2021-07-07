@@ -1,5 +1,7 @@
 package bst;
 
+import java.util.List;
+
 class _450_DeleteBSTNode {
     public BSTNode deleteNode(BSTNode root, int key) {
         if (root == null)
@@ -42,6 +44,16 @@ class _450_DeleteBSTNode {
         root.left.right.left = new BSTNode(29);
         root.left.right.right = new BSTNode(41);
 
+        BinarySearchTree bst = new BinarySearchTree();
+        List<BSTNode> lst = bst.getNodes(root);
+        for (BSTNode node : lst)
+            System.out.print(node.val + " ");
+        System.out.println();
+
         dn.deleteNode(root, 53);
+        lst = bst.getNodes(root);
+        for (BSTNode node : lst)
+            System.out.print(node.val + " ");
+        System.out.println();
     }
 }
