@@ -48,6 +48,7 @@
 | 224  | Basic Calculator                                               | [Sol](src/string/_224_BasicCalculator.java)                  | Expression Parsing                                                                                              ||
 | 225  | Implement Stack using Queue                                    | [Sol](src/stack/_225_StackUsingQueue.java)                   |||
 | 232  | Implement Queue using Stack                                    | [Sol](src/queue/_232_QueueUsingStack.java)                   |||
+| 235  | Lowest Common Ancestor of a Binary Search Tree                 | [Sol](src/bst/_235_LCAofBST.java)                            |||
 | 236  | Lowest Common Ancestor of a Binary Tree                        | [Sol](src/tree/_236_Lca.java)                                | Tree                                                                                                            ||
 | 248  | First Bad Version                                              | [Sol](src/binary_search/_248_FirstBadVersion.java)           | Binary Search, Template 2                                                                                       ||
 | 249  | Group Shifted Strings                                          | [Sol](src/hash_table/_249_GroupShifts.java)                  | Hash Table - Design Custom Key Technique                                                                        ||
