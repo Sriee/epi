@@ -3,12 +3,13 @@ package bst;
 import java.util.*;
 
 class _235_LCAofBST {
+    Random rand = new Random();
 
     /**
      * Approach 1: Storing visited nodes by node p in a set and traverse q. If q has the same ancestor as p, we save
      * that as we progress.
      */
-    public BSTNode lowestCommonAncestor(BSTNode root, BSTNode p, BSTNode q) {
+    public BSTNode storeAncestorLCA(BSTNode root, BSTNode p, BSTNode q) {
         Set<BSTNode> seen = new HashSet<>();
         BSTNode iter = root, lca = null;
         while (iter != null) {
@@ -35,6 +36,45 @@ class _235_LCAofBST {
         }
 
         return lca;
+    }
+
+    /**
+     * Approach 2: This solution is the same as finding the LCA for a Binary Tree. The Disadvantage of using this
+     * approach is that, in the worst case, when p and q are in the rightmost subtree, we will be traversing the entire
+     * left subtree. This approach does not utilize the Binary Search Tree property to find the LCA.
+     */
+    public BSTNode recursiveLCA(BSTNode root, BSTNode p, BSTNode q) {
+        if (root == null)
+            return null;
+
+        if (root == p || root == q)
+            return root;
+
+        BSTNode left = recursiveLCA(root.left, p, q);
+        BSTNode right = recursiveLCA(root.right, p, q);
+
+        if (left == null)
+            return right;
+        else if (right == null)
+            return left;
+        else
+            return root;
+    }
+
+    public BSTNode lowestCommonAncestor(BSTNode root, BSTNode p, BSTNode q) {
+        BSTNode res = null;
+        switch (rand.nextInt(3)) {
+            case 0:
+                System.out.println("Store Ancestor");
+                res = storeAncestorLCA(root, p, q);
+                break;
+            case 1:
+                System.out.println("Recursive Approach");
+                res = recursiveLCA(root, p, q);
+                break;
+        }
+
+        return res;
     }
 
     public static void main(String[] args) {
