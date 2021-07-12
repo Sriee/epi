@@ -61,6 +61,21 @@ class _235_LCAofBST {
             return root;
     }
 
+    /**
+     * Approach 3: Optimal solution which uses BST Property to find the LCA.
+     */
+    public BSTNode usingBSTProperty(BSTNode root, BSTNode p, BSTNode q) {
+        if (root == null)
+            return null;
+
+        if (p.val < root.val && q.val < root.val)
+            return lowestCommonAncestor(root.left, p, q);
+        else if (p.val > root.val && q.val > root.val)
+            return lowestCommonAncestor(root.right, p, q);
+        else
+            return root;
+    }
+
     public BSTNode lowestCommonAncestor(BSTNode root, BSTNode p, BSTNode q) {
         BSTNode res = null;
         switch (rand.nextInt(3)) {
@@ -71,6 +86,10 @@ class _235_LCAofBST {
             case 1:
                 System.out.println("Recursive Approach");
                 res = recursiveLCA(root, p, q);
+                break;
+            case 2:
+                System.out.println("Using BST Property");
+                res = usingBSTProperty(root, p, q);
                 break;
         }
 
