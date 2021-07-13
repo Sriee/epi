@@ -21,6 +21,7 @@
 | 105  | Construct Binary Tree from Inorder and Preorder Traversal      | [Sol](src/tree/_105_ConstructPreOrder.java)                  | Tree                                                                                                            ||
 | 106  | Construct Binary Tree from Inorder and Postorder Traversal     | [Sol](src/tree/_106_ConstructPostOrder.java)                 | Tree                                                                                                            ||
 | 108  | Convert Sorted Array to Binary Search Tree                     | [Sol](src/bst/_108_ArrToBST.java)                            |||
+| 110  | Balanced Binary Tree                                           | [Sol](src/bst/_110_isBalanced.java)                          |||
 | 112  | Path Sum                                                       | [Sol](src/tree/_112_PathSum.java)                            | Tree                                                                                                            ||
 | 116  | Populating Next Right Pointers in Each Node I                  | [Sol](src/tree/_116_NextPointerComplete.java)                | Tree                                                                                                            ||
 | 117  | Populating Next Right Pointers in Each Node II                 | [Sol](src/tree/_117_NextPointer.java)                        | Tree                                                                                                            ||
