@@ -16,12 +16,18 @@ class _109_BSTfromSortedList {
         ListNode<Integer> iter = head;
         int len = 0;
 
-        while (iter != null) {
-            len++;
-            iter = iter.next;
+        /*
+         * Technique to find the length sooner. We use a fast pointer to calculate
+         * length of the linked list.
+         *
+         * Note: This did not improve the run time of the solution.
+         */
+        while (iter != null && iter.next != null) {
+            len += 2;
+            iter = iter.next.next;
         }
 
-        return len;
+        return iter == null ? len : len + 1;
     }
 
     private BSTNode construct(int begin, int end) {
