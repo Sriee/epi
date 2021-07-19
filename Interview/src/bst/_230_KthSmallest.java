@@ -5,19 +5,27 @@ import java.util.*;
 class _230_KthSmallest {
     Random rand = new Random();
 
+    /*
+     * We don't need to maintain a list to store bst's nodes. We only care about the kth smallest node.
+     * 'prev' will store the desired node.
+     */
+    BSTNode prev = null;
+    int ck;
+
     public int inorderApproach(BSTNode root, int k) {
-        List<Integer> lst = new ArrayList<>();
-        inOrder(root, lst, k);
-        return lst.get(k - 1);
+        ck = k;
+        inOrder(root);
+        return prev.val;
     }
 
-    private void inOrder(BSTNode node, List<Integer> lst, int k) {
-        if (node != null && lst.size() < k) {
-            inOrder(node.left, lst, k);
+    private void inOrder(BSTNode node) {
+        if (node != null && ck > 0) {
+            inOrder(node.left);
 
-            if (lst.size() < k) {
-                lst.add(node.val);
-                inOrder(node.right, lst, k);
+            if (ck > 0) {
+                prev = node;
+                ck--;
+                inOrder(node.right);
             }
         }
     }
