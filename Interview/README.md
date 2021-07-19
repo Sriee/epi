@@ -49,6 +49,7 @@
 | 219  | Contains Duplicate II                                          | [Sol](src/hash_table/_219_ContainsDuplicateII.java)          | Hash Table                                                                                                      ||
 | 224  | Basic Calculator                                               | [Sol](src/string/_224_BasicCalculator.java)                  | Expression Parsing                                                                                              ||
 | 225  | Implement Stack using Queue                                    | [Sol](src/stack/_225_StackUsingQueue.java)                   |||
+| 230  | Kth Smallest Element in a BST                                  | [Sol](src/bst/_230_KthSmallest.java)                         |||
 | 232  | Implement Queue using Stack                                    | [Sol](src/queue/_232_QueueUsingStack.java)                   |||
 | 235  | Lowest Common Ancestor of a Binary Search Tree                 | [Sol](src/bst/_235_LCAofBST.java)                            |||
 | 236  | Lowest Common Ancestor of a Binary Tree                        | [Sol](src/tree/_236_Lca.java)                                | Tree                                                                                                            ||
