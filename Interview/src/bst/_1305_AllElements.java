@@ -3,6 +3,43 @@ package bst;
 import java.util.*;
 
 class _1305_AllElements {
+
+    /**
+     * Optimal run time but the following approach looks hacky.
+     */
+    public List<Integer> getAllElements2(BSTNode root1, BSTNode root2) {
+        List<Integer> res = new ArrayList<>();
+
+        BSTNode[] s1 = new BSTNode[2500], s2 = new BSTNode[2500];
+        int t1 = -1, t2 = -1;
+        BSTNode iter1 = root1, iter2 = root2;
+
+        while (t1 != -1 || t2 != -1 || iter1 != null || iter2 != null) {
+
+            while (iter1 != null) {
+                s1[++t1] = iter1;
+                iter1 = iter1.left;
+            }
+
+            while (iter2 != null) {
+                s2[++t2] = iter2;
+                iter2 = iter2.left;
+            }
+
+            if (t2 == -1 || t1 != -1 && (s1[t1].val <= s2[t2].val)) {
+                BSTNode n1 = s1[t1--];
+                res.add(n1.val);
+                iter1 = n1.right;
+            } else {
+                BSTNode n2 = s2[t2--];
+                res.add(n2.val);
+                iter2 = n2.right;
+            }
+        }
+
+        return res;
+    }
+
     public List<Integer> getAllElements(BSTNode root1, BSTNode root2) {
         List<Integer> lst1 = new ArrayList<>(), lst2 = new ArrayList<>();
 
@@ -67,7 +104,7 @@ class _1305_AllElements {
         System.out.println(res);
 
         // root1 = [0,-10,10], root2 = [5,1,7,0,2]
-        res = ae.getAllElements(root1, root2);
+        res = ae.getAllElements2(root1, root2);
         System.out.println(res);
     }
 }
