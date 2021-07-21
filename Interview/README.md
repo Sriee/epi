@@ -142,5 +142,6 @@
 | 1676 | Lowest Common Ancestor of a Binary Tree 4                      | [Sol](src/tree/_1676_Lca4.java)                              | Tree                                                                                                            ||
 | 1679 | Max Number of K-Sum Pairs                                      | [Sol](src/array/_1679_MaxKPairs.java)                        |||
 | 1738 | Find Kth Largest XOR Coordinate Value                          | [Sol](src/heaps/_1738_KthLargestXor.java)                    | [Summed Area Table](https://computersciencesource.wordpress.com/2010/09/03/computer-vision-the-integral-image/) ||
+| 1973 | Count Nodes Equal to Sum of Descendants                        | [Sol](src/tree/_1973_CountDependents.java)                   |||
 | 1985 | Find the Kth Largest Integer in the Array                      | [Sol](src/heaps/_1985_KthLargestInteger.java)                | Quick Select, Heap                                                                                              ||
 | 2006 | Count Number of Pairs With Absolute Difference K               | [Sol](src/array/_2006_CountDifference.java)                  |||
