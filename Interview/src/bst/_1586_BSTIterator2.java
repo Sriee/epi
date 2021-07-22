@@ -2,6 +2,11 @@ package bst;
 
 import java.util.*;
 
+/**
+ * The optimal solution specified in the solution article is to store the inorder traversal of the left subtree in a
+ * list and make use of pointers to retrieve prev and next calls. When the pointer has reached the end of a list then
+ * we do an inorder walk and populate the list.
+ */
 class _1586_BSTIterator2 {
     Deque<BSTNode> stack, prevStack;
 
