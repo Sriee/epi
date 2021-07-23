@@ -4,7 +4,7 @@ import list.ListNode;
 
 import java.util.Random;
 
-class _109_BSTfromSortedList {
+class _109_ListToBST {
     Random rand = new Random();
     ListNode<Integer> lstNode;
 
@@ -116,7 +116,7 @@ class _109_BSTfromSortedList {
     }
 
     public static void main(String[] args) {
-        _109_BSTfromSortedList bsl = new _109_BSTfromSortedList();
+        _109_ListToBST bsl = new _109_ListToBST();
         // [-10,-3,0,5,9]
         ListNode<Integer> dummy = new ListNode<>();
         ListNode<Integer> iter = dummy;
