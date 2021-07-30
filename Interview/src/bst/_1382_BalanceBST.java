@@ -1,38 +1,69 @@
 package bst;
 
-import java.util.*;
-
 class _1382_BalanceBST {
 
     /**
      * Naive Approach
      * 1. Do an inorder walk and store the sorted values in a list
      * 2. Construct BST from sorted array as in _108_ArrToBST.java
+     * <p>
+     * A hack to improve run time is to use an array instead of List data type.
+     * <p>
+     * DSW Algorithm
+     * <p>
+     * See See <a href="https://csactor.blogspot.com/2018/08/dsw-day-stout-warren-algorithm-dsw.html">DSW Algorithm</a>
      */
     public BSTNode balanceBST(BSTNode root) {
-        List<BSTNode> lst = new ArrayList<>();
-        inorder(root, lst);
-        return construct(lst, 0, lst.size() - 1);
+        BSTNode grand = new BSTNode(-1);
+        grand.right = root;
+
+        // Step 1: Make vine - Right shift till we create a vine
+        int n = makeVine(grand);
+        int h = (int) (Math.log(n + 1) / Math.log(2));
+        int m = (int) (Math.pow(2, h) - 1);
+
+        // Step 2: Construct a balanced BST - Left shift
+        construct(grand, n - m);
+        for (m = m / 2; m > 0; m /= 2) {
+            construct(grand, m);
+        }
+
+        return grand.right;
     }
 
-    private void inorder(BSTNode root, List<BSTNode> lst) {
-        if (root == null)
-            return;
-        inorder(root.left, lst);
-        lst.add(root);
-        inorder(root.right, lst);
+    private int makeVine(BSTNode grand) {
+        int count = 0;
+        BSTNode curr = grand.right;
+
+        while (curr != null) {
+            if (curr.left != null) {
+                BSTNode temp = curr;
+                curr = curr.left;
+                temp.left = curr.right;
+                curr.right = temp;
+                grand.right = curr;
+            } else {
+                count++;
+                grand = curr;
+                curr = curr.right;
+            }
+        }
+
+        return count;
     }
 
-    private BSTNode construct(List<BSTNode> lst, int start, int end) {
-        if (start > end)
-            return null;
+    private void construct(BSTNode grand, int m) {
+        BSTNode curr = grand.right, temp;
 
-        int mid = start + (end - start) / 2;
-        BSTNode node = lst.get(mid);
-        node.left = construct(lst, start, mid - 1);
-        node.right = construct(lst, mid + 1, end);
-
-        return node;
+        while (m-- > 0) {
+            temp = curr;
+            curr = curr.right;
+            grand.right = curr;
+            temp.right = curr.left;
+            curr.left = temp;
+            grand = curr;
+            curr = curr.right;
+        }
     }
 
     public static void main(String[] args) {
