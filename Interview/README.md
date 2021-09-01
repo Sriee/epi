@@ -48,6 +48,7 @@
 | 217  | Contains Duplicate                                             | [Sol](src/hash_table/_217_ContainsDuplicate.java)            | Hash Table                                                                                                      ||
 | 218  | The Skyline problem                                            | [Sol](src/queue/_218_SkyLine.java)                           | TreeMap                                                                                                         ||
 | 219  | Contains Duplicate II                                          | [Sol](src/hash_table/_219_ContainsDuplicateII.java)          | Hash Table                                                                                                      ||
+| 220  | Contains Duplicate III                                         | [Sol](src/array/_220_ContainsDuplicate3.java)                |||
 | 224  | Basic Calculator                                               | [Sol](src/string/_224_BasicCalculator.java)                  | Expression Parsing                                                                                              ||
 | 225  | Implement Stack using Queue                                    | [Sol](src/stack/_225_StackUsingQueue.java)                   |||
 | 230  | Kth Smallest Element in a BST                                  | [Sol](src/bst/_230_KthSmallest.java)                         |||
