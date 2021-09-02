@@ -3,7 +3,18 @@ package bst;
 import java.util.*;
 
 public class _701_InsertBST {
-    public BSTNode insertIntoBST(BSTNode root, int val) {
+
+    public BSTNode constructBST(int[] nums) {
+        BSTNode root = null;
+
+        for (int i : nums) {
+            root = insertIntoBST(root, i);
+        }
+
+        return root;
+    }
+
+    private BSTNode insertIntoBST(BSTNode root, int val) {
         if (root == null)
             return new BSTNode(val);
 
@@ -17,12 +28,8 @@ public class _701_InsertBST {
 
     public static void main(String[] args) {
         _701_InsertBST ib = new _701_InsertBST();
-        BSTNode root = null;
-
-        int[] arr = {4, 2, 7, 1, 3};
-        for (int i : arr) {
-            root = ib.insertIntoBST(root, i);
-        }
+        int[] nums = {4, 2, 7, 1, 3};
+        BSTNode root = ib.constructBST(nums);
 
         BinarySearchTree bst = new BinarySearchTree();
         List<BSTNode> lst = bst.getNodes(root);
