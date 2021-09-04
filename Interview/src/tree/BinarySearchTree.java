@@ -58,7 +58,7 @@ public class BinarySearchTree {
         // For the left most leaf left will become null
         TreeNode left = this.construct(low, mid - 1);
 
-        TreeNode node = new TreeNode(this.head.data);
+        TreeNode node = new TreeNode(this.head.val);
         this.head = this.head.next; // Trick of moving the list pointer
 
         node.left = left;
