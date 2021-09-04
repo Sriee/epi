@@ -95,8 +95,8 @@ public class AddTwo {
         ListNode<Integer> newHead = new ListNode<>(1);
         newHead.next = addHelper(a, b, diff);
 
-        if (newHead.next.data > 9) {
-            newHead.next.data -= 10;
+        if (newHead.next.val > 9) {
+            newHead.next.val -= 10;
         } else {
             newHead = newHead.next;
         }
@@ -116,12 +116,12 @@ public class AddTwo {
         }
 
         if (temp != null) {
-            if (temp.data > 9) {
+            if (temp.val > 9) {
                 carry = 1;
-                temp.data -= 10;
+                temp.val -= 10;
             }
         }
-        ListNode<Integer> newNode = new ListNode<>(((a == null) ? 0 : a.data) + ((b == null) ? 0 : b.data) + carry);
+        ListNode<Integer> newNode = new ListNode<>(((a == null) ? 0 : a.val) + ((b == null) ? 0 : b.val) + carry);
         newNode.next = temp;
         return newNode;
     }

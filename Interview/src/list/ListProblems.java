@@ -28,7 +28,7 @@ public class ListProblems {
             set.add(i);
 
         while (current != null) {
-            if (set.contains(current.data)) {
+            if (set.contains(current.val)) {
                 run++;
             } else if (run > 0) {
                 run = 0;
@@ -67,7 +67,7 @@ public class ListProblems {
 
         while (current.next != null) {
             pos++;
-            int val = current.data;
+            int val = current.val;
             if (!stack.isEmpty() && stack.peek()[1] < val) {
                 while (!stack.isEmpty() && stack.peek()[1] < val) {
                     int[] top = stack.pop();
@@ -80,8 +80,8 @@ public class ListProblems {
 
         while (!stack.isEmpty()) {
             int[] top = stack.pop();
-            if (current.data > top[1])
-                res[top[0]] = current.data;
+            if (current.val > top[1])
+                res[top[0]] = current.val;
         }
         return res;
     }
@@ -111,7 +111,7 @@ public class ListProblems {
 
         while (current.next != null) {
             pos++;
-            int val = current.data;
+            int val = current.val;
             while (top > -1 && stack[top] < val) {
                 res[position[top]] = val;
                 top--;
@@ -123,8 +123,8 @@ public class ListProblems {
         }
 
         while (top > -1) {
-            if (current.data > stack[top])
-                res[position[top]] = current.data;
+            if (current.val > stack[top])
+                res[position[top]] = current.val;
             top--;
         }
         return res;

@@ -25,7 +25,7 @@ public class ListSort {
                 if (iter == null) {
                     prev.next = toInsert;
                     isInserted = true;
-                } else if (toInsert.data.compareTo(iter.data) <= 0) {
+                } else if (toInsert.val.compareTo(iter.val) <= 0) {
                     prev.next = toInsert;
                     toInsert.next = iter;
                     isInserted = true;

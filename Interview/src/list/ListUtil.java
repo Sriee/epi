@@ -27,7 +27,7 @@ public class ListUtil {
         } else if (cursor.next == null) {
             previous.next = null;
         } else {
-            previous.data = cursor.next.data;
+            previous.val = cursor.next.val;
             previous.next = cursor.next.next;
         }
     }
@@ -67,7 +67,7 @@ public class ListUtil {
         ListNode<T> dummy = new ListNode<>(null, null);
         ListNode<T> c1 = list1, c2 = list2, current = dummy;
         while (c1 != null && c2 != null) {
-            if (c1.data.compareTo(c2.data) <= 0) {
+            if (c1.val.compareTo(c2.val) <= 0) {
                 current.next = c1;
                 c1 = c1.next;
             } else {
@@ -82,7 +82,7 @@ public class ListUtil {
 
     /**
      * Leet code problem. Solution -> Accepted Solutions that did not work Trial 1 -
-     * Using a class called Pair to hold [data, index]. While linking to cursor need
+     * Using a class called Pair to hold [val, index]. While linking to cursor need
      * to create a new link node. Increases space complexity. Trial 2 - Wrote
      * Priority queue comparator for int[] instead of a class Trial 3 - Store
      * list[i]th element in priority queue and keep pointing the cursor to head of
@@ -247,10 +247,10 @@ public class ListUtil {
             return;
         ListNode<S> cursor = head;
         while (cursor.next != null) {
-            System.out.print(cursor.data + " -> ");
+            System.out.print(cursor.val + " -> ");
             cursor = cursor.next;
         }
-        System.out.println(cursor.data);
+        System.out.println(cursor.val);
     }
 
     /**
@@ -344,7 +344,7 @@ public class ListUtil {
         slow = prev;
         fast = head;
         while (slow != null) {
-            if (fast.data != slow.data)
+            if (fast.val != slow.val)
                 return false;
 
             slow = slow.next;

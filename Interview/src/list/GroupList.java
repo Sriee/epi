@@ -32,7 +32,7 @@ public class GroupList {
         ListNode<R> cursor = head;
 
         while (cursor.next != null) {
-            if (cursor.data == cursor.next.data) {
+            if (cursor.val == cursor.next.val) {
                 cursor.next = cursor.next.next;
             } else {
                 cursor = cursor.next;
@@ -52,7 +52,7 @@ public class GroupList {
         while (cursor != null) {
             boolean dirty = false;
             nextDistinct = cursor.next;
-            while (nextDistinct != null && nextDistinct.data == cursor.data) {
+            while (nextDistinct != null && nextDistinct.val == cursor.val) {
                 dirty = true;
                 nextDistinct = nextDistinct.next;
             }
@@ -85,7 +85,7 @@ public class GroupList {
         ListNode<P> before = new ListNode<>(null), after = new ListNode<>(null), cursor = head;
         ListNode<P> b = before, a = after;
         while (cursor != null) {
-            if (cursor.data.compareTo(pivot) < 0) {
+            if (cursor.val.compareTo(pivot) < 0) {
                 b.next = cursor;
                 b = b.next;
             } else {
