@@ -95,6 +95,7 @@
 | 485  | Max Consecutive Ones                                           | [Sol](src/array/_485_MaxConsecutiveOnes.java)                | Arrays                                                                                                          ||
 | 487  | Max Consecutive Ones II                                        | [Sol](src/array/_487_MaxConsecutiveOnesII.java)              | Arrays                                                                                                          ||
 | 494  | Target Sum                                                     | [Sol](src/dfs/_494_TargetSum.java)                           | DFS                                                                                                             ||
+
 | 501  | Find Mode in Binary Search Tree                                | [Sol](src/bst/_501_FindMode.java)                            | Inorder Traversal - Technique 2                                                                                 ||
 | 510  | Inorder Successor in BST II                                    | [Sol](src/bst/_510_InorderSuccessor2.java)                   |||
 | 542  | Zero One Matrix                                                | [Sol](src/bfs/_542_ZeroOne.java)                             | BFS                                                                                                             ||
