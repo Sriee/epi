@@ -56,24 +56,24 @@ public class ListUtilTest {
         ListNode<Integer> b = new ListNode<>(3);
 
         ListNode<Integer> _res = ListUtil.merge(null, a);
-        assertEquals(-1, (int) _res.data);
+        assertEquals(-1, (int) _res.val);
         assertEquals(1, ListUtil.length(_res));
 
         _res = ListUtil.merge(b, null);
-        assertEquals(3, (int) _res.data);
+        assertEquals(3, (int) _res.val);
         assertEquals(1, ListUtil.length(_res));
 
         _res = ListUtil.merge(a, b);
         assertEquals(2, ListUtil.length(_res));
-        assertEquals(-1, (int) _res.data);
-        assertEquals(3, (int) _res.next.data);
+        assertEquals(-1, (int) _res.val);
+        assertEquals(3, (int) _res.next.val);
 
         a.next = new ListNode<>(10);
         _res = ListUtil.merge(a, b);
         assertEquals(3, ListUtil.length(_res));
-        assertEquals(-1, (int) _res.data);
-        assertEquals(3, (int) _res.next.data);
-        assertEquals(10, (int) _res.next.next.data);
+        assertEquals(-1, (int) _res.val);
+        assertEquals(3, (int) _res.next.val);
+        assertEquals(10, (int) _res.next.next.val);
     }
 
     @Test
@@ -91,12 +91,12 @@ public class ListUtilTest {
         assertEquals(7, ListUtil.length(_res));
 
         // -2147483648 -> -1 -> 3 -> 10 -> 27 -> 783 -> 2147483647
-        assertEquals(Integer.MIN_VALUE, (int) _res.data);
-        assertEquals(-1, (int) _res.next.data);
-        assertEquals(3, (int) _res.next.next.data);
-        assertEquals(10, (int) _res.next.next.next.data);
-        assertEquals(27, (int) _res.next.next.next.next.data);
-        assertEquals(783, (int) _res.next.next.next.next.next.data);
-        assertEquals(Integer.MAX_VALUE, (int) _res.next.next.next.next.next.next.data);
+        assertEquals(Integer.MIN_VALUE, (int) _res.val);
+        assertEquals(-1, (int) _res.next.val);
+        assertEquals(3, (int) _res.next.next.val);
+        assertEquals(10, (int) _res.next.next.next.val);
+        assertEquals(27, (int) _res.next.next.next.next.val);
+        assertEquals(783, (int) _res.next.next.next.next.next.val);
+        assertEquals(Integer.MAX_VALUE, (int) _res.next.next.next.next.next.next.val);
     }
 }

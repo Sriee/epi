@@ -54,7 +54,7 @@ public class TestListSort {
         ListNode<Integer> _ex = expected, _so = sorted;
 
         while (_ex != null) {
-            assertEquals(_ex.data, _so.data);
+            assertEquals(_ex.val, _so.val);
             _ex = _ex.next;
             _so = _so.next;
         }
@@ -70,8 +70,8 @@ public class TestListSort {
 
         toSort.next = new ListNode<>(-2);
         ListNode<Integer> sorted = is.mergeSort(toSort);
-        assertEquals(-2, (int) sorted.data);
-        assertEquals(1, (int) sorted.next.data);
+        assertEquals(-2, (int) sorted.val);
+        assertEquals(1, (int) sorted.next.val);
     }
 
     @Test
@@ -103,7 +103,7 @@ public class TestListSort {
         ListNode<Integer> _ex = expected, _so = sorted;
 
         while (_ex != null) {
-            assertEquals(_ex.data, _so.data);
+            assertEquals(_ex.val, _so.val);
             _ex = _ex.next;
             _so = _so.next;
         }
