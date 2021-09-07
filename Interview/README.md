@@ -76,6 +76,7 @@
 | 288  | Unique Word Abbreviation                                       | [Sol](src/hash_table/_288_ValidWordAbbr.java)                |||
 | 297  | Serialize and Deserialize a Tree                               | [sol](src/tree/_297_SerializeBT.java)                        | Design                                                                                                          |
 | 323  | Number of Connected Components in an Undirected Graph          | [Sol](src/dfs/_323_ConnectedComponents.java)                 | DFS, Connected Component                                                                                        ||
+| 344  | Reverse String                                                 | [Sol](src/string/_344_ReverseString.java)                    |||
 | 346  | Moving Average from Data Stream                                | [Sol](src/queue/_346_MovingAverage.java)                     | Queue                                                                                                           ||
 | 347  | Top K Frequent Elements                                        | [Sol](src/design/_347_TopKFrequentElements.java)             | Design, Doubly Linked List                                                                                      ||
 | 349  | Intersection of two arrays                                     | [Sol](src/array/_349_ArrayIntersection.java)                 |||
