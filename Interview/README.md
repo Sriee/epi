@@ -29,6 +29,7 @@
 | 112  | Path Sum                                                       | [Sol](src/tree/_112_PathSum.java)                            | Tree                                                                                                            ||
 | 116  | Populating Next Right Pointers in Each Node I                  | [Sol](src/tree/_116_NextPointerComplete.java)                | Tree                                                                                                            ||
 | 117  | Populating Next Right Pointers in Each Node II                 | [Sol](src/tree/_117_NextPointer.java)                        | Tree                                                                                                            ||
+| 118  | Pascal's Triangle                                              | [Sol](src/array/_118_PascalTriangle.java)                    |||
 | 133  | Clone Graph                                                    | [Sol](src/dfs/_133_CloneGraph.java)                          | DFS                                                                                                             ||
 | 136  | Single Number                                                  | [Sol](src/array/_136_SingleNumber.java)                      |||
 | 146  | LRU Cache                                                      | [Sol](src/design/_146_LRU.java)                              | Design, Doubly Linked List                                                                                      ||
