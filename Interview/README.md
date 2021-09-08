@@ -5,6 +5,7 @@
 | 4    | Median of Two Sorted Arrays                                    | [Sol](src/array/_4_MedianSortedArr.java)                     |||
 | 15   | 3 Sum                                                          | [Sol](src/array/two_sum/_15_threeSum.java)                   | Two Pointer Technique                                                                                           ||
 | 18   | 4 Sum                                                          | [Sol](src/array/two_sum/_18_FourSum.java)                    | K sum template                                                                                                  ||
+|26|Remove Duplicates from Sorted Array|[Sol](src/array/_26_RemoveDupSortedArray.java)|Two Pointer Technique - In-place replacement||
 | 27   | Remove Element                                                 | [Sol](src/array/_27_RemoveElement.java)                      | Two Pointer Technique - In-place replacement                                                                    ||
 | 33   | Search in Rotated sorted array                                 | [Sol](src/binary_search/_33_SearchRotated.java)              | Binary Search, Template 1                                                                                       ||
 | 34   | Search in a range                                              | [Sol](src/binary_search/_34_SearchRange.java)                | Binary Search, Template 2                                                                                       ||
