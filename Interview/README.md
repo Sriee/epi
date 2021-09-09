@@ -46,6 +46,7 @@
 | 170  | Two Sum III - Data structure design                            | [Sol](src/hash_table/_170_TwoSum.java)                       |||
 | 173  | BSTIterator                                                    | [Sol](src/bst/_173_BSTIterator.java)                         | BST, Inorder Traversal                                                                                          ||
 | 186  | Reverse Strings in a Word II                                   | [Sol](src/string/_186_ReverseString.java)                    |||
+| 189  | Rotate Array                                                   | [Sol](src/array/_189_RotateArray.java)                       |||
 | 199  | Right side view of a tree                                      | [Sol](src/tree/_199_RightSideView.java)                      | Tree                                                                                                            ||
 | 200  | Number of Islands                                              | [Sol](src/dfs/_200_NumberIslands.java)                       | DFS, Connected Components                                                                                       ||
 | 202  | Happy Number                                                   | [Sol](src/hash_table/_202_HappyNumber.java)                  | Hash Table                                                                                                      ||
