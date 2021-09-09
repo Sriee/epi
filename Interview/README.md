@@ -5,7 +5,7 @@
 | 4    | Median of Two Sorted Arrays                                    | [Sol](src/array/_4_MedianSortedArr.java)                     |||
 | 15   | 3 Sum                                                          | [Sol](src/array/two_sum/_15_threeSum.java)                   | Two Pointer Technique                                                                                           ||
 | 18   | 4 Sum                                                          | [Sol](src/array/two_sum/_18_FourSum.java)                    | K sum template                                                                                                  ||
-|26|Remove Duplicates from Sorted Array|[Sol](src/array/_26_RemoveDupSortedArray.java)|Two Pointer Technique - In-place replacement||
+| 26   | Remove Duplicates from Sorted Array                            | [Sol](src/array/_26_RemoveDupSortedArray.java)               | Two Pointer Technique - In-place replacement                                                                    ||
 | 27   | Remove Element                                                 | [Sol](src/array/_27_RemoveElement.java)                      | Two Pointer Technique - In-place replacement                                                                    ||
 | 33   | Search in Rotated sorted array                                 | [Sol](src/binary_search/_33_SearchRotated.java)              | Binary Search, Template 1                                                                                       ||
 | 34   | Search in a range                                              | [Sol](src/binary_search/_34_SearchRange.java)                | Binary Search, Template 2                                                                                       ||
@@ -32,6 +32,7 @@
 | 116  | Populating Next Right Pointers in Each Node I                  | [Sol](src/tree/_116_NextPointerComplete.java)                | Tree                                                                                                            ||
 | 117  | Populating Next Right Pointers in Each Node II                 | [Sol](src/tree/_117_NextPointer.java)                        | Tree                                                                                                            ||
 | 118  | Pascal's Triangle                                              | [Sol](src/array/_118_PascalTriangle.java)                    |||
+| 119  | Pascal's Triangle II                                           | [Sol](src/array/_119_PascalTriangleII.java)                  |||
 | 133  | Clone Graph                                                    | [Sol](src/dfs/_133_CloneGraph.java)                          | DFS                                                                                                             ||
 | 136  | Single Number                                                  | [Sol](src/array/_136_SingleNumber.java)                      |||
 | 146  | LRU Cache                                                      | [Sol](src/design/_146_LRU.java)                              | Design, Doubly Linked List                                                                                      ||
