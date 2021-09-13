@@ -108,6 +108,7 @@
 | 542  | Zero One Matrix                                                | [Sol](src/bfs/_542_ZeroOne.java)                             | BFS                                                                                                             ||
 | 547  | Number of Provinces                                            | [Sol](src/dfs/_547_NumberProvinces.java)                     | DFS, Connected Component                                                                                        ||
 | 557  | Reverse Words in a String III                                  | [Sol](src/string/_557_RevWords.java)                         |||
+| 561  | Array Partition I                                              | [Sol](src/array/_561_ArrayPartitionI.java)                   |||
 | 599  | Minimum Index Sum of Two Lists                                 | [Sol](src/hash_table/_599_FindRestaurant.java)               | Hash Table                                                                                                      ||
 | 622  | Circular Queue Implementation                                  | [Sol](src/queue/_622_CircularQueue.java)                     | Design, Ring Buffer                                                                                             ||
 | 645  | Set Mismatch                                                   | [Sol](src/array/cyclic_sort/_645_SetMismatch.java)           | Cyclic Sort Technique                                                                                           ||
