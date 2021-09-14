@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.time.Duration;
 import java.util.Random;
 
-public class BuySellStock {
+public class _121_BuySellStock {
 
     public int maxCut(int[] prices, int n) {
         if (n == 0)
@@ -50,7 +50,7 @@ public class BuySellStock {
     }
 
     public static void main(String[] args) {
-        BuySellStock stock = new BuySellStock();
+        _121_BuySellStock stock = new _121_BuySellStock();
         int[] prices = null;
         /*
          * int[] prices = new int[] { 17, 15, 1, 17, 9, 5, 23, 12, 7, 2, 25, 12, 23, 19,
