@@ -1,8 +1,6 @@
-package backtracking;
+package backtrack;
 
-import java.util.Arrays;
-
-public class NQueens {
+public class _51_NQueens {
     private int n;
     private boolean[][] board;
     
@@ -71,7 +69,7 @@ public class NQueens {
     }
     
     public static void main(String[] args) {
-        NQueens nq = new NQueens();
+        _51_NQueens nq = new _51_NQueens();
         System.out.println(nq.totalQueens(3));
     }
 }
