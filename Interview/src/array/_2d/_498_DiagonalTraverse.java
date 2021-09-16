@@ -1,4 +1,4 @@
-package array;
+package array._2d;
 
 import java.util.*;
 
