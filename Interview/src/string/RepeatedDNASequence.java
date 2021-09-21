@@ -39,48 +39,6 @@ public class RepeatedDNASequence {
         return new ArrayList<>(output);
     }
 
-    /* *
-     * This version of the code is not working. Need to figure out the reason for the failures.
-     * /
-    private List<String> findRepeatedSequences(String s, int k) {
-        Set<Long> seen = new HashSet<>();
-        Set<String> out = new HashSet<>();
-        long prime = 31, pow = 1L, hash = 0L;
-
-
-        int m = (int) (1e9 + 9);
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < k; i++) {
-            char ch = s.charAt(i);
-            sb.append(ch);
-            hash = (hash + (ch - 'A' + 1) * pow) % m;
-            pow = (pow * prime) % m;
-        }
-
-        seen.add(hash);
-
-        for (int i = k; i < s.length() - k; i++) {
-            char ch = s.charAt(i);
-            long nextHash = (((hash - sb.charAt(0) * pow) * prime) + (ch - 'A' + 1)) % m;
-
-            if (seen.contains(nextHash)) {
-                out.add(new String(sb));
-            }
-
-            sb.deleteCharAt(0);
-            sb.append(ch);
-            seen.add(nextHash);
-        }
-        List<String> res = new ArrayList<>();
-
-        for (String str : out)
-            res.add(str);
-
-        return res;
-    }
-    */
-
     public static void main(String[] args) {
         RepeatedDNASequence seq = new RepeatedDNASequence();
         String[] inputs = {
