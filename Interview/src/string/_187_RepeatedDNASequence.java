@@ -2,37 +2,44 @@ package string;
 
 import java.util.*;
 
-public class RepeatedDNASequence {
+public class _187_RepeatedDNASequence {
 
-    public static List<String> findRepeatedSequences(String s, int k) {
-        int len = s.length();
-        if (len <= k)
+    public List<String> findRepeatedDnaSequences(String s, int k) {
+        int n = s.length();
+        if (n < k)
             return new ArrayList<>();
 
-        Map<Character, Integer> map = new HashMap<>();
-        map.put('A', 1); map.put('C', 2); map.put('G', 3); map.put('T', 4);
+        if (n == k) {
+            List<String> res = new ArrayList<String>();
+            res.add(s);
+            return res;
+        }
 
-        Set<Integer> seen = new HashSet<>();
+        int base = 4, pow = 1;
+        long prevHash = 0, currHash = 0;
+        Set<Long> seen = new HashSet<>();
         Set<String> output = new HashSet<>();
-        int base = 4, prevHash = 0, currHash = 0, pow = 1;
 
-        // Calculate initial hash
-        for (int i = k - 1; i >= 0; i--) {
+        Map<Character, Integer> map = new HashMap<>();
+        map.put('A', 1);
+        map.put('C', 2);
+        map.put('G', 3);
+        map.put('T', 4);
+
+        for (int i = 9; i >= 0; i--) {
             prevHash += (map.get(s.charAt(i)) * pow);
             pow *= base;
         }
         pow /= base;
         seen.add(prevHash);
 
-        for (int start = 1; start <= len - k; start++) {
-            currHash = (prevHash - map.get(s.charAt(start - 1)) * pow) * base + map.get(s.charAt(start + k - 1));
-
-            if (seen.contains(currHash))
-                output.add(s.substring(start, start + k));
+        for (int i = 1; i < n - 9; i++) {
+            currHash = ((prevHash - map.get(s.charAt(i - 1)) * pow) * base) + map.get(s.charAt(i + 9));
+            if (seen.contains(currHash)) {
+                output.add(s.substring(i, i + 10));
+            }
 
             seen.add(currHash);
-
-            // Reset prevHash & currHash
             prevHash = currHash;
         }
 
@@ -40,25 +47,23 @@ public class RepeatedDNASequence {
     }
 
     public static void main(String[] args) {
-        RepeatedDNASequence seq = new RepeatedDNASequence();
+        _187_RepeatedDNASequence seq = new _187_RepeatedDNASequence();
         String[] inputs = {
                 "AAAAACCCCCAAAAACCCCCC",
                 "GGGGGGGGGGGGGGGGGGGGGGGGG",
                 "TTTTTCCCCCCCTTTTTTCCCCCCCTTTTTTT",
                 "AAAAAACCCCCCCAAAAAAAACCCCCCCTG",
                 "ATATATATATATATAT",
+                "AAAAAAAAAAA"
         };
+        int[] ks = new int[]{8, 12, 10, 10, 6, 10};
 
-        int[] ks = new int[] {8, 12, 10, 10, 6};
-        int i = 0;
-
-        // for (int i = 0; i < ks.length; i++) {
-            List<String> res = seq.findRepeatedSequences(inputs[i], ks[i]);
-//            List<String> res = seq.findRepeatedSequences("AGACCTAGAC", 3);
+        for (int i = 0; i < ks.length; i++) {
+            List<String> res = seq.findRepeatedDnaSequences(inputs[i], ks[i]);
             for (String str : res) {
                 System.out.print(str + " ");
             }
             System.out.println();
-        //}
+        }
     }
 }
