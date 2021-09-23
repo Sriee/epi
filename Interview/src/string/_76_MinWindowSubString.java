@@ -51,8 +51,8 @@ class _76_MinWindowSubString {
     public static void main(String[] args) {
         _76_MinWindowSubString mws = new _76_MinWindowSubString();
 
-        String[] s = {"ADOBECODEBANC", "aabcdebadd"};
-        String[] t = {"ABC", "abd"};
+        String[] s = {"ADOBECODEBANC", "aabcdebadd", "ABDFGDCKAB"};
+        String[] t = {"ABC", "abd", "ABCD"};
         for (int i = 0; i < s.length; i++) {
             System.out.println(mws.minWindow(s[i], t[i]));
         }
