@@ -4,6 +4,21 @@ import java.util.*;
 
 public class _187_RepeatedDNASequence {
 
+    /**
+     * Rolling Hash technique.
+     *
+     * For a string "abcd" and k = 3 this is how the rolling hash technique works.
+     * H(abc) => a * (5 ^ 2) + b * (5 ^ 1) + c * (5 ^ 0)
+     *        => 97*25 + 98*5 + 99*1 = 3014
+     *
+     * H(bcd) => b * (5 ^ 2) + c * (5 ^ 1) + d * (5 ^ 0)
+     *        => 98*25 + 99*5 + 100*1 = 3045
+     *
+     * Instead of doing the above, we can calculate the H(bcd) based on H(abc)
+     * H(bcd) => (H(abc) - a * (5 ^ 2) ) *5 + d * (5 ^ 0)
+     *        => (3014 - 97 * 25) * 5 + 100 * 1
+     *        => 3045
+     */
     public List<String> findRepeatedDnaSequences(String s, int k) {
         int n = s.length();
         if (n < k)
@@ -15,7 +30,10 @@ public class _187_RepeatedDNASequence {
             return res;
         }
 
+        // The base is important. Changing to 128 did not yeild the right result.
         int base = 4, pow = 1;
+
+        // use long instead of int. This avoids integer overflow errors.
         long prevHash = 0, currHash = 0;
         Set<Long> seen = new HashSet<>();
         Set<String> output = new HashSet<>();
