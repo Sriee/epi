@@ -137,6 +137,7 @@
 | 752  | Open Lock                                                      | [Sol](src/bfs/_752_OpenLock.java)                            | BFS                                                                                                             ||
 | 771  | Jewels and Stones                                              | [Sol](src/hash_table/_771_JewelsStones.java)                 |||
 | 841  | Keys and Room                                                  | [Sol](src/dfs/_841_KeyRooms.java)                            | DFS, Connected Component                                                                                        ||
+| 848  | Shifting Letters                                               | [Sol](src/string/_848_ShiftingLetters.java)                  |||
 | 852  | Peak Index                                                     | [Sol](src/binary_search/_852_PeakIndex.java)                 | Binary Search, Template 2                                                                                       ||
 | 875  | Kyoko Eating Bananas                                           | [Sol](src/binary_search/_875_Koko.java)                      | Binary Search, Template 3                                                                                       ||
 | 905  | Sort Array By Parity                                           | [Sol](src/array/_905_SortArrayByParity.java)                 | Arrays                                                                                                          ||
