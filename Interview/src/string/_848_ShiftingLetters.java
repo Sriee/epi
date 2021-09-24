@@ -4,11 +4,11 @@ public class _848_ShiftingLetters {
 
     /**
      * This approach uses extra space to handle wrapping around alphabets. This is not the fastest solution.
-     *
+     * <p>
      * Time Complexity: O(n)
      * Space Complexity: O(1)
      */
-    public String shiftingLetters(String s, int[] shifts) {
+    private String shiftingLetters(String s, int[] shifts) {
         int toShift = 0, i = 0, counter = 0;
         char[] srcArr = s.toCharArray();
         char[] alphabets = new char[52];
@@ -24,6 +24,24 @@ public class _848_ShiftingLetters {
         }
 
         return String.valueOf(srcArr);
+    }
+
+    /**
+     * Optimal approach without extra space for wrapping around.
+     *
+     * TC: O(n)
+     * SC: O(1)
+     */
+    private String shiftingLetters2(String s,int[] shifts){
+        char[] arr = s.toCharArray();
+        int toShift = 0;
+
+        for (int i = s.length() - 1; i >= 0; i--) {
+            toShift += shifts[i] % 26;
+            arr[i] = (char) ((arr[i] - 'a' + toShift) % 26 + 'a');
+        }
+
+        return new String(arr);
     }
 
     public static void main(String[] args) {
@@ -44,8 +62,12 @@ public class _848_ShiftingLetters {
             }
         };
 
+
+
         for (int i = 0; i < inputs.length; i++) {
-            System.out.println(sl.shiftingLetters(inputs[i], shifts[i]));
+            System.out.print(sl.shiftingLetters(inputs[i], shifts[i]));
+            System.out.print(" ");
+            System.out.println(sl.shiftingLetters2(inputs[i], shifts[i]));
         }
     }
 }
