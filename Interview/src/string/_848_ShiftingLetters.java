@@ -62,8 +62,6 @@ public class _848_ShiftingLetters {
             }
         };
 
-
-
         for (int i = 0; i < inputs.length; i++) {
             System.out.print(sl.shiftingLetters(inputs[i], shifts[i]));
             System.out.print(" ");
