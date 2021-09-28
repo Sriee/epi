@@ -3,20 +3,21 @@ package hash_table;
 import java.util.*;
 
 class _202_HappyNumber {
-    public boolean isHappy(int n) {
-        if (n == 1)
-            return true;
 
+    /**
+     * Brute Force Approach.
+     *
+     * TC: O(log n)
+     * SC: O(n) -> Using hash set
+     */
+    public boolean isHappy(int n) {
         Set<Integer> seen = new HashSet<>();
 
         while (n > 0) {
-            n = findHappyNumber(n);
+            n = sumDigits(n);
 
-            if (n == 1)
-                return true;
-
-            if (seen.contains(n))
-                break;
+            if (n == 1) return true;
+            if (seen.contains(n)) break;
 
             seen.add(n);
         }
@@ -24,11 +25,10 @@ class _202_HappyNumber {
         return false;
     }
 
-    private int findHappyNumber(int n) {
+    private int sumDigits(int n) {
         int sum = 0;
-        while (n > 0) {
-            int d = n % 10;
-            n = n / 10;
+        for (int i = n; i > 0; i /= 10) {
+            int d = i % 10;
             sum += d * d;
         }
 
