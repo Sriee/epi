@@ -66,6 +66,7 @@
 | 232  | Implement Queue using Stack                                    | [Sol](src/queue/_232_QueueUsingStack.java)                   |||
 | 235  | Lowest Common Ancestor of a Binary Search Tree                 | [Sol](src/bst/_235_LCAofBST.java)                            |||
 | 236  | Lowest Common Ancestor of a Binary Tree                        | [Sol](src/tree/_236_Lca.java)                                | Tree                                                                                                            ||
+| 239  | Sliding Window Maximum                                         | [Sol](src/string/_239_SlidingWindowSubseq.java)              | Sliding Window Pattern                                                                                          ||
 | 248  | First Bad Version                                              | [Sol](src/binary_search/_248_FirstBadVersion.java)           | Binary Search, Template 2                                                                                       ||
 | 249  | Group Shifted Strings                                          | [Sol](src/hash_table/_249_GroupShifts.java)                  | Hash Table - Design Custom Key Technique                                                                        ||
 | 250  | Uni-value Trees                                                | [Sol](src/tree/_250_Univalues.java)                          | Tree                                                                                                            ||
