@@ -2,6 +2,9 @@ package array._2d;
 
 public class _48_RotateImage {
 
+    /**
+     * Formula to rotate a matrix 90 degree = Reverse the rows in the arr + Transpose the matrix
+     */
     public void rotate(int[][] matrix) {
         int n = matrix.length;
 
