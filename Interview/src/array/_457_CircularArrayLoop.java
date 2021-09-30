@@ -4,6 +4,9 @@ public class _457_CircularArrayLoop {
 
     int len = 0;
 
+    /**
+     * Floyd Cycle Detection Algorithm using slow/fast pointer technique.
+     */
     public boolean circularArrayLoop(int[] nums) {
         if (nums == null || nums.length < 2) return false;
 
@@ -14,7 +17,8 @@ public class _457_CircularArrayLoop {
 
             boolean currDir = nums[i] >= 0;
 
-            slow = i; fast = i;
+            slow = i;
+            fast = i;
             while (slow != -1 || fast != -1) {
                 slow = nextStep(nums, currDir, slow);
 
@@ -43,7 +47,17 @@ public class _457_CircularArrayLoop {
     public static void main(String[] args) {
         _457_CircularArrayLoop cal = new _457_CircularArrayLoop();
         int[][] inputs = {
-            {1, 3, -2, -4, 1}
+            {2,-1,1,2,2},               // true
+            {-1},                       // false
+            {1, 3, -2, -4, 1},          // true
+            {-2, -3, -9},               // false
+            {-5, -4, -3, -2, -1},       // true
+            {-1, -2, -3, -4, -5},       // false
+            {-1, -2, -3, -4, -5, 6},    // false
+            {2, 1, -1, -2, 2},          // false
+            {2, 1, -1, -2},             // false
+            {3, -2, -1, 1},             // true
+            {1, 2, -3, 3, 4, 7, 1}      // true
         };
 
         for (int[] inp : inputs) {
