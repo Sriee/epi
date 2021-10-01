@@ -25,6 +25,15 @@ public class _28_StrStr {
         return -1;
     }
 
+    /**
+     * Rabin Karp algorithm implementation. This is concise and should be used to solve leetcode problems.
+     *
+     * TC: Best Case O(m + n).
+     *     Worst Case: O(m * (n -m + 1)) This is because of the check function. Matching strings guarantees matching
+     *     hashes. However, the reverse is not always true: matching hashes does not guarantee matching strings.
+     *     For this reason, we use the check function to iterate 'm' times. Test case 3 & 4 are good examples.
+     * SC: O(1)
+     */
     private int strStrRK(String text, String pattern) {
         if (text.length() < pattern.length())
             return -1;
@@ -41,7 +50,7 @@ public class _28_StrStr {
                 pow = (pow * base) % modulus;
         }
 
-        if (windowHash == patternHash && check(text, pattern, 0))
+        if (windowHash == patternHash && check(text, pattern, m, 0))
             return 0;
 
         for (int i = 1; i < n - m + 1; i++) {
@@ -50,15 +59,15 @@ public class _28_StrStr {
 
             // Adding character at i + m - 1
             windowHash = (windowHash * base + text.charAt(i + m - 1)) % modulus;
-            if (windowHash == patternHash && check(text, pattern, i))
+            if (windowHash == patternHash && check(text, pattern, m, i))
                 return i;
         }
 
         return -1;
     }
 
-    private boolean check(String text, String pat, int offset) {
-        for (int i = 0; i < pat.length(); i++) {
+    private boolean check(String text, String pat, int m, int offset) {
+        for (int i = 0; i < m; i++) {
             if (text.charAt(i + offset) != pat.charAt(i))
                 return false;
         }
