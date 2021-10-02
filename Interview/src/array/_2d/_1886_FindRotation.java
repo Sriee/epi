@@ -1,9 +1,11 @@
 package array._2d;
 
 import java.util.BitSet;
+import java.util.Random;
 
 public class _1886_FindRotation {
 
+    private Random rand;
     public boolean findRotationHack(int[][] m, int[][] t) {
         //4 bits for each rotation, i bit false -> i rotation equals to m
         BitSet r = new BitSet(4);
@@ -24,7 +26,7 @@ public class _1886_FindRotation {
     }
 
     int n;
-    public boolean findRotation(int[][] mat, int[][] target) {
+    public boolean findRotationRotateMatrix(int[][] mat, int[][] target) {
         n = mat.length;
 
         for (int i = 0; i < 4; i++) {
@@ -75,6 +77,24 @@ public class _1886_FindRotation {
         }
 
         return true;
+    }
+
+    private boolean findRotation(int[][] mat, int[][] target) {
+        boolean result = false;
+        int op = rand.nextInt(2) + 1;
+
+        switch (op) {
+            case 1:
+                System.out.print("Hack Approach. ");
+                result = findRotationHack(mat, target);
+                break;
+            case 2:
+                System.out.print("Rotating Matrix Approach. ");
+                result = findRotationRotateMatrix(mat, target);
+                break;
+        }
+
+        return result;
     }
 
     public static void main(String[] args) {
