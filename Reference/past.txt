@@ -1,6 +1,6 @@
 GIT_AUTHOR_DATE='Mon Jul 05 6:20:51 2021 -0400' GIT_COMMITTER_DATE='Thu Jul 02 5:58:13 2021 -0400' git commit -m 'Morris inorder traversal technique'
 
-GIT_AUTHOR_DATE='2021-09-20 4:42:23 -0400' GIT_COMMITTER_DATE='2021-09-20 4:42:23 -0400' git commit -m 'Remove empty file'
+GIT_AUTHOR_DATE='2021-10-05 5:05:06 -0400' GIT_COMMITTER_DATE='2021-10-05 5:05:06 -0400' git commit -m 'move references out of project'
 
 date '+%Y-%m-%d %k:%M:%S %z' - to note down hours and seconds
 
