@@ -18,15 +18,19 @@ public class KMP {
         if (text.length() < pattern.length())
             return -1;
 
-        int n = text.length(), m = pattern.length(), i =0, j = 0;
+        int n = text.length(), m = pattern.length(), i = 0, j = 0;
         int[] lps = new int[m];
 
         computeLps(pattern, lps, m);
 
+        // Start searching pattern in text with the help of the lps array
         while (i < n) {
             if (text.charAt(i) == pattern.charAt(j)) {
-                i++; j++;
-            } else if (j != 0){
+                i++;
+                j++;
+            } else if (j != 0) {
+                // On a mismatch, we reset 'j' to index stored in the lps array
+                // This will prevent us to search the whole prefix from the start
                 j = lps[j - 1];
             } else {
                 i++;
@@ -37,6 +41,9 @@ public class KMP {
         return -1;
     }
 
+    /**
+     * Construct the longest proper prefix which is also a prefix array for the pattern.
+     */
     private void computeLps(String pattern, int[] lps, int m) {
         int prevLps = 0, i = 1;
 
