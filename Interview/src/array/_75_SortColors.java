@@ -1,8 +1,11 @@
 package array;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class _75_SortColors {
+
+    private Random rand;
 
     /**
      * Using Dutch national flag algorithm.
@@ -58,8 +61,24 @@ public class _75_SortColors {
         }
     }
 
+    private void sortColors(int[] nums){
+        int op = rand.nextInt(2) + 1;
+
+        switch (op) {
+            case 1:
+                System.out.println("Dutch National Flag Algorithm Approach. ");
+                sortColorsDNF(nums);
+                break;
+            case 2:
+                System.out.println("Two pass Approach. ");
+                sortColorsTwoPass(nums);
+                break;
+        }
+    }
+
     public static void main(String[] args) {
         _75_SortColors sc = new _75_SortColors();
+        sc.rand = new Random();
 
         int[][] inputs = {
             {2, 0, 2, 1, 1, 0},
@@ -70,8 +89,8 @@ public class _75_SortColors {
         };
 
         for (int[] inp : inputs) {
-            sc.sortColorsTwoPass(inp);
-            System.out.println(Arrays.toString(inp));;
+            sc.sortColors(inp);
+            System.out.println(Arrays.toString(inp) + "\n");;
         }
     }
 }
