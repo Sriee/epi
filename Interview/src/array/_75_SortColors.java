@@ -7,10 +7,13 @@ public class _75_SortColors {
     /**
      * Using Dutch national flag algorithm.
      *
+     * Not adding it as a pattern since I haven't seen the usage of this algorithm
+     * in other problems.
+     *
      * TC: O(n)
      * SC: O(1)
      */
-    public void sortColors(int[] nums) {
+    public void sortColorsDNF(int[] nums) {
         int left = 0, curr = 0, right = nums.length - 1;
 
         while (curr <= right) {
@@ -22,6 +25,27 @@ public class _75_SortColors {
                 right--;
             } else {
                 curr++;
+            }
+        }
+    }
+
+    /**
+     * Two pass approach
+     *
+     * TC: O(n)
+     * SC: O(1)
+     */
+    public void sortColorsTwoPass(int[] nums) {
+        int[] count = new int[3];
+
+        for (int i : nums)
+            count[i]++;
+
+        for (int i = 0, j = 0; i < nums.length; i++) {
+            if (count[j]-- > 0)
+                nums[i] = j;
+            else {
+                j++; i--;
             }
         }
     }
@@ -46,7 +70,7 @@ public class _75_SortColors {
         };
 
         for (int[] inp : inputs) {
-            sc.sortColors(inp);
+            sc.sortColorsTwoPass(inp);
             System.out.println(Arrays.toString(inp));;
         }
     }
