@@ -53,13 +53,19 @@ public class _759_EmployeeFreeTime {
 
         // 1 Exp: [6, 8]
         schedule = eft.constructTestInput(new int[][][]{
-            {
-                {3, 5}, {8, 10}
-            }, {
-            {4, 6}, {9, 12}
-        }, {
-            {5, 6}, {8, 10}
-        }
+            {{3, 5}, {8, 10}},
+            {{4, 6}, {9, 12}},
+            {{5, 6}, {8, 10}}
+        });
+        result = eft.employeeFreeTime(schedule);
+        eft.print(result);
+
+        // 2 Exp: [2, 3] [4, 5] [6, 7] [8, 9] [10, 11]
+        schedule = eft.constructTestInput(new int[][][] {
+            {{1, 2}, {3, 4}, {5, 6}, {7, 8}, {9, 10}, {11, 12}},
+            {{1, 2}, {3, 4}, {5, 6}, {7, 8}, {9, 10}, {11, 12}},
+            {{1, 2}, {3, 4}, {5, 6}, {7, 8}, {9, 10}, {11, 12}},
+            {{1, 2}, {3, 4}, {5, 6}, {7, 8}, {9, 10}, {11, 12}}
         });
         result = eft.employeeFreeTime(schedule);
         eft.print(result);
