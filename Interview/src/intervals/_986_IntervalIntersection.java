@@ -57,8 +57,8 @@ public class _986_IntervalIntersection {
 
     /**
      * Approach 2: Two Pointer
-     * <p>
-     * TC: O(n)
+     *
+     * TC: O(n + m)
      * SC: O(m + n)
      */
     public int[][] intervalIntersection2(int[][] firstList, int[][] secondList) {
@@ -70,32 +70,11 @@ public class _986_IntervalIntersection {
 
         while (i < firstList.length && j < secondList.length) {
             int[] a = firstList[i], b = secondList[j];
+            int start = Math.max(a[0], b[0]);
+            int end = Math.min(a[1], b[1]);
 
-            /*
-               Checking for overlap
-               as    ae     bs    be
-                |____|       |____|
-                   |            |
-                   bs           as
-
-                if the intervals overlap, we are only storing the overlapped portions of
-                both intervals.
-
-                Why can't we use b[0] <= a[1] here?
-                To use the merge interval patterns overlapping check the following condition
-                a.start <= b.start must be met. Due to the way we advance the first and second
-                list this might not be always the case.
-                Ex: First test case
-                i = 2 -> a = {13, 23}
-                j = 1 -> b = {8, 12}
-                b[0] <= a[1] will be true and will result in {13, 12} which is wrong.
-             */
-            if ((a[0] >= b[0] && a[0] <= b[1]) || (b[0] >= a[0] && b[0] <= a[1])) {
-                result.add(new int[]{
-                        Math.max(a[0], b[0]),
-                        Math.min(a[1], b[1])
-                });
-            }
+            if (start <= end)
+                result.add(new int[] {start, end});
 
             // How do we know which two intervals to compare? By comparing their
             // end times
@@ -108,9 +87,13 @@ public class _986_IntervalIntersection {
     }
 
     private void print(int[][] arr) {
-        for (int[] row : arr) System.out.print(Arrays.toString(row) + " ");
+        if (arr.length == 0) {
+            System.out.println("Empty.");
+        } else {
+            for (int[] row : arr) System.out.print(Arrays.toString(row) + " ");
 
-        System.out.println();
+            System.out.println();
+        }
     }
 
     public static void main(String[] args) {
