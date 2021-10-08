@@ -25,4 +25,43 @@ public class _759_EmployeeFreeTime {
 
         return res;
     }
+
+    private List<List<Interval>> constructTestInput(int[][][] testCase) {
+        List<List<Interval>> schedule = new ArrayList<>();
+
+        for (int i = 0; i < testCase.length; i++) {
+            List<Interval> empSchedule = new ArrayList<>();
+            for (int j = 0; j < testCase[0].length; j++) {
+                empSchedule.add(new Interval(testCase[i][j][0], testCase[i][j][1]));
+            }
+            schedule.add(empSchedule);
+        }
+
+        return schedule;
+    }
+
+    private void print(List<Interval> intervals) {
+        for (Interval it : intervals)
+            System.out.print(it + " ");
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        _759_EmployeeFreeTime eft = new _759_EmployeeFreeTime();
+        List<List<Interval>> schedule;
+        List<Interval> result;
+
+        // 1 Exp: [6, 8]
+        schedule = eft.constructTestInput(new int[][][]{
+            {
+                {3, 5}, {8, 10}
+            }, {
+            {4, 6}, {9, 12}
+        }, {
+            {5, 6}, {8, 10}
+        }
+        });
+        result = eft.employeeFreeTime(schedule);
+        eft.print(result);
+    }
 }
