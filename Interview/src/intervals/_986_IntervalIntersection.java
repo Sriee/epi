@@ -86,16 +86,6 @@ public class _986_IntervalIntersection {
         return result.toArray(new int[result.size()][]);
     }
 
-    private void print(int[][] arr) {
-        if (arr.length == 0) {
-            System.out.println("Empty.");
-        } else {
-            for (int[] row : arr) System.out.print(Arrays.toString(row) + " ");
-
-            System.out.println();
-        }
-    }
-
     public static void main(String[] args) {
         _986_IntervalIntersection ii = new _986_IntervalIntersection();
         int[][] first, second, result;
@@ -104,28 +94,28 @@ public class _986_IntervalIntersection {
         first = new int[][]{{0, 2}, {5, 10}, {13, 23}, {24, 25}};
         second = new int[][]{{1, 5}, {8, 12}, {15, 24}, {25, 26}};
         result = ii.intervalIntersection2(first, second);
-        ii.print(result);
+        System.out.println(Arrays.deepToString(result));
 
         // 2
         second = new int[][]{{1, 5}, {8, 12}};
         result = ii.intervalIntersection(new int[][]{}, second);
-        ii.print(result);
+        System.out.println(Arrays.deepToString(result));
 
         // 3
         first = new int[][]{{1, 5}, {8, 12}};
         result = ii.intervalIntersection2(first, new int[][]{});
-        ii.print(result);
+        System.out.println(Arrays.deepToString(result));
 
         // 4
         first = new int[][]{{1, 7}};
         second = new int[][]{{3, 10}};
         result = ii.intervalIntersection(first, second);
-        ii.print(result);
+        System.out.println(Arrays.deepToString(result));
 
         // 5
         first = new int[][]{{8, 15}};
         second = new int[][]{{2, 6}, {8, 10}, {12, 20}};
         result = ii.intervalIntersection2(first, second);
-        ii.print(result);
+        System.out.println(Arrays.deepToString(result));
     }
 }
