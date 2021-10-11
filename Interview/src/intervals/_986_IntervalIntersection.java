@@ -58,6 +58,10 @@ public class _986_IntervalIntersection {
     /**
      * Approach 2: Two Pointer
      *
+     * This is a second template of merge interval pattern that is used when
+     * two list of intervals are given and ask us to find overlapping or free
+     * time between two intervals.
+     *
      * TC: O(n + m)
      * SC: O(m + n)
      */
