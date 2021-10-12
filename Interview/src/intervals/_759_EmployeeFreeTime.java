@@ -3,8 +3,16 @@ package intervals;
 import java.util.*;
 
 public class _759_EmployeeFreeTime {
+
+    /**
+     * Merge interval second template.
+     *
+     * TC: O(k log k)
+     * SC: O(k)
+     *      where k = mn; m intervals in n schedule.
+     */
     public List<Interval> employeeFreeTime(List<List<Interval>> schedule) {
-        List<Interval> res = new ArrayList<Interval>(), intervals = new ArrayList<>();
+        List<Interval> res = new ArrayList<>(), intervals = new ArrayList<>();
 
         for (List<Interval> lst : schedule)
             intervals.addAll(lst);
