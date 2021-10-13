@@ -16,4 +16,23 @@ public class ListUtils {
         return fast == null ? len : len + 1;
     }
 
+    /**
+     * Utility function to print the list. The list will be printed in the following
+     * format a -> b -> c -> d -> e
+     *
+     * @param head List head
+     */
+    public static void print(ListNode head) {
+        if (head == null)
+            return;
+
+        ListNode cursor = head;
+
+        while (cursor.next != null) {
+            System.out.print(cursor.val + " -> ");
+            cursor = cursor.next;
+        }
+
+        System.out.println(cursor.val);
+    }
 }
