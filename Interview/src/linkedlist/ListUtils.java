@@ -3,6 +3,24 @@ package linkedlist;
 public class ListUtils {
 
     /**
+     * Utility function to construct a singly-linked list.
+     *
+     * @param arr input array
+     * @return head of the newly constructed linked list
+     */
+    public static ListNode construct(int[] arr) {
+        ListNode head = new ListNode(arr[0]);
+        ListNode cursor = head;
+
+        for (int i = 1; i < arr.length; i++) {
+            cursor.next = new ListNode(arr[i]);
+            cursor = cursor.next;
+        }
+
+        return head;
+    }
+
+    /**
      * Calculate length of a LinkedList
      */
     public static int length(ListNode node) {
