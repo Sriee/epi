@@ -1,5 +1,7 @@
 package linkedlist;
 
+import java.util.Random;
+
 public class ListUtils {
 
     /**
@@ -14,6 +16,26 @@ public class ListUtils {
 
         for (int i = 1; i < arr.length; i++) {
             cursor.next = new ListNode(arr[i]);
+            cursor = cursor.next;
+        }
+
+        return head;
+    }
+
+    /**
+     * Utility function to construct a singly-linked list.
+     *
+     * @param n number of nodes needed
+     * @return head of the newly constructed linked list
+     */
+    public static ListNode construct(int n) {
+        Random rand = new Random();
+
+        ListNode head = new ListNode(rand.nextInt (25001));
+        ListNode cursor = head;
+
+        for (int i = 1; i < n; i++) {
+            cursor.next = new ListNode(rand.nextInt (25001));
             cursor = cursor.next;
         }
 
