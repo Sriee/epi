@@ -2,6 +2,9 @@ package linkedlist;
 
 public class _206_ReverseList {
 
+    /**
+     * Iterative approach.
+     */
     public ListNode reverse(ListNode head) {
         if (head == null || head.next == null)
             return head;
@@ -15,6 +18,20 @@ public class _206_ReverseList {
             dummy.next = temp;
         }
         return dummy.next;
+    }
+
+    /**
+     * Recursive approach.
+     */
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+
+        ListNode node = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+
+        return node;
     }
 
     public static void main(String[] args) {
