@@ -2,28 +2,6 @@ package list;
 
 public class GroupList {
 
-    private <T extends Comparable<T>> ListNode<T> swapPairs(ListNode<T> head) {
-        if (head == null)
-            return null;
-
-        ListNode<T> first = head, second = head.next, temp = null, prev = null;
-        while (first != null && second != null) {
-            temp = second.next;
-            first.next = temp;
-            second.next = first;
-            if (prev == null) {
-                head = second;
-            } else {
-                prev.next = second;
-            }
-            prev = first;
-            first = (first != null) ? first.next : null;
-            second = (first != null) ? first.next : null;
-        }
-
-        return head;
-    }
-
     /**
      * Leetcode problem. Solution -> Accepted Deletes the duplicate nodes in a
      * sorted linked list.
@@ -168,15 +146,12 @@ public class GroupList {
         System.out.println("\nGroup Odd Even");
         ListUtil.print(gHead);
 
-        System.out.println("\nSwap Pairs");
-        ListNode<Integer> swapped = gl.swapPairs(head);
-        ListUtil.print(swapped);
 
         System.out.println("\nPartitioned");
         ListNode<Integer> part = gl.partition(headb, 35);
         ListUtil.print(part);
 
-        ListNode<Integer> lst = ListUtil.generate(15);
+        ListNode<Integer> lst = head;
         ListUtil.print(lst);
         ListNode<Integer>[] sp = gl.splitList(lst, 5);
         for (ListNode<Integer> item : sp)
