@@ -1,7 +1,5 @@
 package list;
 
-import util.generator.IntegerGenerator;
-
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
@@ -130,9 +128,9 @@ public class ListUtil {
     /**
      * Leetcode problem. Solution -> Accepted Solution uses recursion and does
      * require the length of the lists to be known
-     */
+     * /
     public <I extends Comparable<I>> ListNode<I> intersection(ListNode<I> l1, ListNode<I> l2) {
-        int len1 = length(l1), len2 = length(l2), diff = 0;
+        int len1 = ListUtils.length(l1), len2 = length(l2), diff = 0;
         if (len1 <= len2) {
             diff = len2 - len1;
             return this.intersectionHelper(l1, l2, diff);
@@ -141,6 +139,7 @@ public class ListUtil {
             return this.intersectionHelper(l2, l1, diff);
         }
     }
+     */
 
     private <I extends Comparable<I>> ListNode<I> intersectionHelper(ListNode<I> first, ListNode<I> second, int diff) {
         if (diff != 0) {
@@ -220,7 +219,7 @@ public class ListUtil {
 
     /**
      * Recursivly reversing the list
-     * 
+     *
      * @param <S>
      * @param head
      * @return
@@ -239,7 +238,7 @@ public class ListUtil {
     /**
      * Utility function to print the list. The list will be printed in the following
      * format a -> b -> c -> d -> e
-     * 
+     *
      * @param head List head
      */
     public static <S extends Comparable<S>> void print(ListNode<S> head) {
@@ -255,7 +254,7 @@ public class ListUtil {
 
     /**
      * Utility function to calculate the length of a Linked List
-     * 
+     *
      * @param head Linked List head
      * @return length of the list
      */
@@ -354,22 +353,6 @@ public class ListUtil {
         return true;
     }
 
-    public static ListNode<Integer> generate(int n) {
-
-        int i = 1;
-        IntegerGenerator gen = new IntegerGenerator(1, 500);
-        int num[] = gen.generate(n);
-        ListNode<Integer> head = new ListNode<Integer>(num[0]);
-        ListNode<Integer> temp = head;
-
-        while (i < n) {
-            temp.next = new ListNode<>(num[i]);
-            temp = temp.next;
-            i++;
-        }
-        return head;
-    }
-
     public static void main(String[] args) {
         ListNode<Integer> temp = new ListNode<>(25);
         ListNode<Integer> l1 = new ListNode<>(5);
@@ -379,10 +362,7 @@ public class ListUtil {
         l1.next.next.next.next = temp;
         l1.next.next.next.next.next = new ListNode<>(60);
         l1.next.next.next.next.next.next = new ListNode<>(77);
-        // print(l1);
 
-        ListNode<Integer> lst = generate(10);
-        print(lst);
         /*
          * delete(l1, temp); print(l1); ListNode<Integer> reversed = reverseKSublist(l1,
          * 3); print(reversed); ListNode<Integer> l2 = new ListNode<>(5); l2.next = new
