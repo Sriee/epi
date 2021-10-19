@@ -12,15 +12,14 @@ public class _1721_SwapNodes {
      */
     public ListNode swapNodes(ListNode head, int k) {
         // Left
-        ListNode left = head;
-        for (int i = 1; i < k; i++)
-            left = left.next;
+        ListNode left = head, iter = head;
+        for (int i = 0; i < k; i++) {
+            if (i != 0) left = left.next;
+            iter = iter.next;   // move iter and left pointer in the same loop
+        }
 
         // Right
-        ListNode right = head, iter = head;
-        for (int i = 0; i < k; i++)
-            iter = iter.next;
-
+        ListNode right = head;
         while (iter != null) {
             right = right.next;
             iter = iter.next;
