@@ -160,6 +160,7 @@
 | 973  | K Closest Points to Origin                                     | [Sol](src/heaps/_973_KClosest.java)                          | Quick Select                                                                                                    ||
 | 977  | Squares of a Sorted Array                                      | [Sol](src/array/_977_SquaresSorted.java)                     | Arrays                                                                                                          ||
 | 986  | Interval Intersection                                          | [Sol](src/intervals/_986_IntervalIntersection.java)          | Merge Interval Second Template                                                                                  ||
+| 989  | Add to Array-Form of Integer                                   | [Sol](src/array/_989_AddArrayForm.java)                      |||
 | 1002 | Find Common Characters                                         | [Sol](src/hash_table/_1002_FindCommon.java)                  | Hash Table                                                                                                      ||
 | 1008 | Construct Binary Search Tree from Preorder Traversal           | [Sol](src/bst/_1008_BSTfromPreorder.java)                    |||
 | 1011 | Capacity To Ship Packages Within D Days                        | [Sol](src/binary_search/_1011_ShipWithinDays.java)           | Binary Search, Template 3                                                                                       ||
