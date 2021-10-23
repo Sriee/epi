@@ -3,12 +3,15 @@ package string;
 import java.util.*;
 
 public class _763_PartitionLabel {
-    public List<Integer> partitionLabels(String s) {
-        Map<Integer, Integer> map = new TreeMap<>();
-        int[] table = new int[26];
-        int partition = 0;
 
-        for (int i = 0; i < s.length(); i++) {
+    /**
+     * Improve time complexity by removing the usage of tree map
+     */
+    public List<Integer> partitionLabels(String s) {
+        int partition = 0, n = s.length(), prev = -1, max = 0;
+        int[] table = new int[26], map = new int[n + 1];
+
+        for (int i = 0; i < n; i++) {
             int idx = s.charAt(i) - 'a';
 
             if (table[idx] == 0) {
@@ -18,19 +21,24 @@ public class _763_PartitionLabel {
                 for (int j = 0; j < 26; j++) {
                     if (table[j] <= partition)
                         continue;
-                    map.remove(table[j]);
+                    map[table[j]] = 0;
                     table[j] = partition;
                 }
             }
-            map.put(partition, i);
+            map[partition] = i;
         }
 
+        // find max partition
+        for (int j = 1; j <= n; j++) {
+            if (map[j] != 0)
+                max = j;
+        }
+
+        // Calculate result
         List<Integer> res = new ArrayList<>();
-        int prev = -1;
-        for (Integer key : map.keySet()) {
-            int val = map.get(key);
-            res.add(val - prev);
-            prev = val;
+        for (int i = 1; i <= max; i++) {
+            res.add(map[i] - prev);
+            prev = map[i];
         }
 
         return res;
