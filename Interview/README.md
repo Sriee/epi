@@ -150,6 +150,7 @@
 | 747  | Largest Number At Least Twice of Others                        | [Sol](src/array/_747_LargestTwice.java)                      | Arrays                                                                                                          ||
 | 752  | Open Lock                                                      | [Sol](src/bfs/_752_OpenLock.java)                            | BFS                                                                                                             ||
 | 759  | Employee Free Time                                             | [Sol](src/intervals/_759_EmployeeFreeTime.java)              | Merge Interval Second Template                                                                                  ||
+| 763  | Partition Labels                                               | [Sol](src/string/_763_PartitionLabel.java)                   |                                                                                                                 ||
 | 771  | Jewels and Stones                                              | [Sol](src/hash_table/_771_JewelsStones.java)                 |||
 | 841  | Keys and Room                                                  | [Sol](src/dfs/_841_KeyRooms.java)                            | DFS, Connected Component                                                                                        ||
 | 848  | Shifting Letters                                               | [Sol](src/string/_848_ShiftingLetters.java)                  |||
