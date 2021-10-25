@@ -92,6 +92,15 @@ public class _1367_LLinBT {
         ListNode head = ListUtils.construct(list);
         System.out.println(lb.search(head, root));
 
+        // Tree: [2, null, 2, null, 2, null, 1]
+        root = new TreeNode(2);
+        root.right = new TreeNode(2);
+        root.right.right = new TreeNode(2);
+        root.right.right.right = new TreeNode(1);
 
+        // LL: [2, 2, 1]
+        list = new int[] {2, 2, 1};
+        head = ListUtils.construct(list);
+        System.out.println(lb.search(head, root));
     }
 }
