@@ -6,31 +6,66 @@ import linkedlist.ListUtils;
 public class _1367_LLinBT {
 
     /**
-     * TC: O(N * min(L, H))
-     * SC: O(H)
+     * TC: O(N + L)
+     * SC: O(H + L)
      *
-     *  N - Number of nodes in the tree
-     *  H - Height of the tree
-     *  L - Length of the Linked List
+     * where N - Number of nodes in the tree
+     *       H - Height of the tree
+     *       L - Length of the Linked List
      */
-    public boolean isSubPath(ListNode head, TreeNode root) {
-        if (head == null)
-            return true;
+    private boolean search(ListNode head, TreeNode root) {
+        int[] pattern = convertListToArr(head);
+        int[] lps = computeLps(pattern);
 
-        if (root == null)
-            return false;
-
-        return search(head, root) || isSubPath(head, root.left) || isSubPath(head, root.right);
+        return search(root, pattern, lps, 0);
     }
 
-    private boolean search(ListNode head, TreeNode root) {
-        if (head == null)
+    private boolean search(TreeNode root, int[] pattern, int[] lps, int idx) {
+        if (idx == pattern.length)
             return true;
 
         if (root == null)
             return false;
 
-        return head.val == root.val && (search(head.next, root.left) || search(head.next, root.right));
+        while (idx > 0 && root.val != pattern[idx])
+            idx = lps[idx - 1];
+
+        if (root.val == pattern[idx])
+            idx++;
+
+        return search(root.left, pattern, lps, idx) || search(root.right, pattern, lps, idx);
+    }
+
+    private int[] convertListToArr(ListNode head) {
+        int len = ListUtils.length(head), i = 0;
+        int[] arr = new int[len];
+        ListNode iter = head;
+
+        while (iter != null) {
+            arr[i++] = iter.val;
+            iter = iter.next;
+        }
+
+        return arr;
+    }
+
+    private int[] computeLps(int[] pattern) {
+        int n = pattern.length, i = 1, j = 0;
+        int[] lps = new int[n];
+
+        while (i < n) {
+            if (pattern[i] == pattern[j]) {
+                lps[i] = ++j;
+                i++;
+            } else if (j != 0) {
+                j = lps[j - 1];
+            } else {
+                lps[i] = 0;
+                i++;
+            }
+        }
+
+        return lps;
     }
 
     public static void main(String[] args) {
@@ -55,6 +90,8 @@ public class _1367_LLinBT {
         // Linked List
         int[] list = {4, 2, 8};
         ListNode head = ListUtils.construct(list);
-        System.out.println(lb.isSubPath(head, root));
+        System.out.println(lb.search(head, root));
+
+
     }
 }
