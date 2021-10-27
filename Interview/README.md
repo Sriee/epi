@@ -93,6 +93,7 @@
 | 288  | Unique Word Abbreviation                                       | [Sol](src/hash_table/_288_ValidWordAbbr.java)                |||
 | 297  | Serialize and Deserialize a Tree                               | [sol](src/tree/_297_SerializeBT.java)                        | Design                                                                                                          |
 | 300  | Longest Increasing Subsequence                                 | [Sol](src/dp/_300_LongestIncreasingSubsequence.java)         |||
+| 304  | Range Sum 2D                                                   | [Sol](src/design/_304_RangeSum2D.java)                       | Cumulative sum - 2D                                                                                             ||
 | 323  | Number of Connected Components in an Undirected Graph          | [Sol](src/dfs/_323_ConnectedComponents.java)                 | DFS, Connected Component                                                                                        ||
 | 344  | Reverse String                                                 | [Sol](src/string/_344_ReverseString.java)                    |||
 | 346  | Moving Average from Data Stream                                | [Sol](src/queue/_346_MovingAverage.java)                     | Queue                                                                                                           ||
