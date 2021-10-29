@@ -35,26 +35,25 @@ public class _268_MissingNumber {
 
     /**
      * Cyclic Sort technique
-     * <p>
+     *
      * This is the template code for cyclic sort pattern.
-     * <p>
-     * TC: O(n) -> We will be making N-1 swaps. After N-1 swaps, the elements in the array would be in their correct
-     * position. After than we would make N comparisons. O(N-1) + O(n) = O(2N-1) = O(n).
+     *
+     * TC: O(N) -> We will be making N-1 swaps. After N-1 swaps, the elements in the array would be in their correct
+     * position. After than we would make N comparisons. O(N-1) + O(N) = O(2N-1) = O(N).
      * SC: O(1)
      */
-    private int missingNumber1(int[] arr) {
-        int i = 0, n = arr.length;
+    private int missingNumber1(int[] nums) {
+        int i = 0, n = nums.length;
         while (i < n) {
-            int correct = arr[i] - 1;
-            if (correct < n && arr[i] != arr[correct]) {
-                swap(arr, i, correct);
+            if (nums[i] < n && nums[i] != i) {
+                swap(nums, i, nums[i]);
             } else {
                 i++;
             }
         }
 
         for (int j = 0; j < n; j++) {
-            if (arr[j] != j)
+            if (nums[j] != j)
                 return j;
         }
 
@@ -73,7 +72,8 @@ public class _268_MissingNumber {
                 {3, 0, 1},  // 2
                 {0, 1},     // 2
                 {2, 1},     // 0
-                {9, 6, 4, 2, 3, 5, 7, 0, 1} // 8
+                {9, 6, 4, 2, 3, 5, 7, 0, 1}, // 8
+                {5, 3, 1, 2, 0} // 4
         };
 
         for (int[] arr : inputs) {
