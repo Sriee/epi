@@ -1,4 +1,4 @@
-package sq;
+package queue;
 
 import java.util.Arrays;
 
@@ -7,12 +7,12 @@ import java.util.Arrays;
  * 
  * @author sriee
  */
-public class CircularDeque {
+public class _641_CircularDeque {
 
     private int head = -1, tail = -1, num = 0;
     private Integer[] elements;
 
-    public CircularDeque(int k) {
+    public _641_CircularDeque(int k) {
         elements = new Integer[k];
     }
 
@@ -107,7 +107,7 @@ public class CircularDeque {
     // [[77],[89],[],[],[],[19],[23],[23],[82],[],[45],[]]
     public static void main(String[] args) {
         // 1
-        CircularDeque c = new CircularDeque(77);
+        _641_CircularDeque c = new _641_CircularDeque(77);
         c.insertFront(89);
         System.out.println(c.getRear());
         c.deleteLast();
