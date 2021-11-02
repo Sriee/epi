@@ -155,6 +155,7 @@
 | 759  | Employee Free Time                                             | [Sol](src/intervals/_759_EmployeeFreeTime.java)              | Merge Interval Second Template                                                                                  ||
 | 763  | Partition Labels                                               | [Sol](src/string/_763_PartitionLabel.java)                   |                                                                                                                 ||
 | 771  | Jewels and Stones                                              | [Sol](src/hash_table/_771_JewelsStones.java)                 |||
+| 832  | Flipping an Image                                              | [Sol](src/bitwise/_832_FlippingImage.java)                   | Bitwise Manipulation                                                                                            ||
 | 841  | Keys and Room                                                  | [Sol](src/dfs/_841_KeyRooms.java)                            | DFS, Connected Component                                                                                        ||
 | 848  | Shifting Letters                                               | [Sol](src/string/_848_ShiftingLetters.java)                  |||
 | 852  | Peak Index                                                     | [Sol](src/binary_search/_852_PeakIndex.java)                 | Binary Search, Template 2                                                                                       ||
@@ -167,7 +168,7 @@
 | 989  | Add to Array-Form of Integer                                   | [Sol](src/array/_989_AddArrayForm.java)                      |||
 | 1002 | Find Common Characters                                         | [Sol](src/hash_table/_1002_FindCommon.java)                  | Hash Table                                                                                                      ||
 | 1008 | Construct Binary Search Tree from Preorder Traversal           | [Sol](src/bst/_1008_BSTfromPreorder.java)                    |||
-| 476  | NumberComplement                                               | [Sol](src/bitwise/_476_NumberComplement.java)                | Bitwise Manipulation                                                                                            ||
+| 1009 | Complement of Base 10 Number                                   | [Sol](src/bitwise/_1009_TenComplement.java)                  | Bitwise Manipulation                                                                                            ||
 | 1011 | Capacity To Ship Packages Within D Days                        | [Sol](src/binary_search/_1011_ShipWithinDays.java)           | Binary Search, Template 3                                                                                       ||
 | 1046 | Last Stone Weight                                              | [Sol](src/heaps/_1046_LastStoneWeight.java)                  | Binary Heap                                                                                                     ||
 | 1051 | Height Checker                                                 | [Sol](src/array/_1051_HeightChecker.java)                    |                                                                                                                 ||
