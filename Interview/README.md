@@ -43,7 +43,7 @@
 | 119  | Pascal's Triangle II                                           | [Sol](src/array/_119_PascalTriangleII.java)                  |||
 | 121  | Best Time to Buy and Sell Stock                                | [Sol](src/dp/_121_BuySellStock.java)                         |||
 | 133  | Clone Graph                                                    | [Sol](src/dfs/_133_CloneGraph.java)                          | DFS                                                                                                             ||
-| 136  | Single Number                                                  | [Sol](src/array/_136_SingleNumber.java)                      |||
+| 136  | Single Number                                                  | [Sol](src/array/_136_SingleNumber.java)                      | Bitwise Manipulation                                                                                            ||
 | 146  | LRU Cache                                                      | [Sol](src/design/_146_LRU.java)                              | Design, Doubly Linked List                                                                                      ||
 | 150  | Evaluate RPN Expression                                        | [Sol](src/string/_150_EvaluateExpression.java)               | Expression Parsing                                                                                              ||
 | 151  | Reverse Strings in a Word                                      | [Sol](src/string/_151_ReverseString.java)                    |||
@@ -83,6 +83,7 @@
 | 253  | Meeting Rooms II                                               | [Sol](src/intervals/_253_MeetingRoom.java)                   | Merge Interval                                                                                                  ||
 | 255  | Verify Preorder Sequence in Binary Search Tree                 | [Sol](src/bst/_255_VerifyPreorder.java)                      |||
 | 257  | Binary Tree Paths                                              | [Sol](src/tree/_257_BTPaths.java)                            | Tree                                                                                                            | Microsoft     |
+| 260  | Single Number III                                              | [Sol](src/bitwise/_260_SingleNumberIII.java)                      | Bitwise Manipulation                                                                                            ||
 | 268  | Find Missing Number                                            | [Sol](src/array/cyclic_sort/_268_MissingNumber.java)         | Negative marking, Cyclic sort technique                                                                         ||
 | 270  | Closest Binary Search Tree Value                               | [Sol](src/bst/_270_ClosetValue.java)                         | BST                                                                                                             ||
 | 279  | Perfect Squares                                                | [Sol](src/tree/_257_BTPaths.java)                            | BFS, DP                                                                                                         | Amazon        |
