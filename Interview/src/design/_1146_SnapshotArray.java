@@ -15,15 +15,29 @@ class _1146_SnapshotArray {
         }
     }
 
+    /**
+     * If set function is called M times for value N
+     *
+     * TC: O(M * log N)
+     * SC: O(M * N)
+     */
     public void set(int index, int val) {
         this.array[index].put(this.snapId, val);
     }
 
+    /**
+     * TC: O(1)
+     * SC: O(1)
+     */
     public int snap() {
         this.snapId++;
         return this.snapId - 1;
     }
 
+    /**
+     * TC: (log N)
+     * SC: O(1)
+     */
     public int get(int index, int snap_id) {
         TreeMap<Integer, Integer> map = this.array[index];
         Integer val = map.get(snap_id);
