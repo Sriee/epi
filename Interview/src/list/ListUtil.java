@@ -33,34 +33,6 @@ public class ListUtil {
     /**
      * Leetcode problem. Solution -> Accepted
      */
-    public <R extends Comparable<R>> ListNode<R> removeNthFromEnd(ListNode<R> head, int n) {
-        if (head == null)
-            return head;
-
-        int count = n;
-        ListNode<R> slow = head, fast = head;
-
-        while (count != 0 && fast != null) {
-            fast = fast.next;
-            count--;
-        }
-
-        if (fast == null) {
-            head = head.next;
-            return head;
-        }
-        while (fast.next != null) {
-            slow = slow.next;
-            fast = fast.next;
-        }
-
-        slow.next = slow.next.next;
-        return head;
-    }
-
-    /**
-     * Leetcode problem. Solution -> Accepted
-     */
     public static <T extends Comparable<T>> ListNode<T> merge(ListNode<T> list1, ListNode<T> list2) {
         ListNode<T> dummy = new ListNode<>(null, null);
         ListNode<T> c1 = list1, c2 = list2, current = dummy;
