@@ -3,86 +3,71 @@ package heaps.two_heaps;
 import java.util.*;
 
 /**
- * Two Heap Pattern - Using priority queue's
+ * Two Heap Pattern - Using TreeSet aka Balanced Binary Search Tree
  *
- * The solution works but gives a TLE because the removal operation of priority queue takes O(k).
+ * Since remove in priority queue was degrading the runtime. TreeSet is used, which has O(log n) time complexity for
+ * adding and removing elements. The solution works, but it's not the fastest solution.
  *
  * TC:
  *  For n insertions = add = O(n log k)
- *    n - k deletion = remove = O((n - k) k) = O(nk - k ^ 2) = O(nk)
+ *    n - k deletion = remove = O((n - k) log k) = O(n log k - k log k) = O(n log k)
+ *         getMedian = O(1)
  *
- *    Overall time complexity = O(n log k) + O(nk) = O(nk)
- *
- *  add
- *  ===
- *    Insertion into either of the queues - O(log k)
- *    Worst case -> we re-balance for each insertion - add + removeHead = O(log k) + O(1)
- *
- *  remove <-- Problem
- *  ======
- *    Remember removing an element in priority queue takes linear time
- *    O(k)
- *
- *  getMedian - O(1)
+ *    Overall time complexity = O(n log k) + O(n log k) = 2 O(n log k) = O(n log k)
  *
  * SC: O(k) - Number of elements in both the heaps will be equal to the sliding window
  */
 public class _480_SlidingWindowMedian {
 
-    PriorityQueue<Integer> leftMaxHeap = new PriorityQueue<>(Collections.reverseOrder());
-    PriorityQueue<Integer> rightMinHeap = new PriorityQueue<>();
+    TreeSet<Integer> left, right;
+    boolean isEven = false;
 
     public double[] medianSlidingWindow(int[] nums, int k) {
-        int n = nums.length, i = 0;
-        double[] medians = new double[n - k + 1];
+        isEven = k % 2 == 0;
 
-        if (k == 1) {
-            return Arrays.stream(nums).asDoubleStream().toArray();
+        /*
+         * Drawback of using tree set is that duplicates will be ignored. We solved this drawback customizing the
+         * comparator to use index, but this pattern cannot be used for other problems.
+         */
+        Comparator<Integer> comparator = (a, b) -> nums[a] == nums[b] ? a - b : Integer.compare(nums[a], nums[b]);
+        left = new TreeSet<>(comparator.reversed());
+        right = new TreeSet<>(comparator);
+        double[] result = new double[nums.length - k + 1];
+
+        for (int i = 0; i < nums.length; i++) {
+            if (i >= k)
+                remove(i - k);
+            add(i);
+
+            if (i >= k - 1)
+                result[i - k + 1] = getMedian(nums);
         }
 
-        for (i = 0; i < k; i++)
-            add(nums[i]);
+        return result;
+    }
 
-        for (; i < n; i++) {
-            medians[i - k] = getMedian();
-            add(nums[i]);
-            remove(nums[i - k]);
+    private void add(int idx) {
+        left.add(idx);
+        right.add(left.pollFirst());
+
+        if (left.size() < right.size())
+            left.add(right.pollFirst());
+    }
+
+    private void remove(int idx) {
+        if (left.remove(idx)) {
+            if (left.size() < right.size())
+                left.add(right.pollFirst());
+        } else {
+            right.remove(idx);
+
+            if (left.size() > right.size() + 1)
+                right.add(left.pollFirst());
         }
-
-        medians[i - k] = getMedian();
-        return medians;
     }
 
-    private void add(int num) {
-        if (leftMaxHeap.isEmpty() || leftMaxHeap.peek() >= num)
-            leftMaxHeap.add(num);
-        else
-            rightMinHeap.add(num);
-
-        rebalance();
-    }
-
-    private double getMedian() {
-        return leftMaxHeap.size() == rightMinHeap.size() ? (leftMaxHeap.peek() / 2.0 + rightMinHeap.peek() / 2.0) : leftMaxHeap.peek() / 1.0;
-    }
-
-    private void rebalance() {
-        if (leftMaxHeap.size() == rightMinHeap.size())
-            return;
-
-        if (leftMaxHeap.size() > rightMinHeap.size() + 1)
-            rightMinHeap.add(leftMaxHeap.remove());
-        else if (leftMaxHeap.size() < rightMinHeap.size())
-            leftMaxHeap.add(rightMinHeap.remove());
-    }
-
-    private void remove(int num) {
-        if (num > leftMaxHeap.peek())
-            rightMinHeap.remove(num);
-        else
-            leftMaxHeap.remove(num);
-
-        rebalance();
+    private double getMedian(int[] nums) {
+        return isEven ? nums[left.first()] / 2.0 + nums[right.first()] / 2.0 : nums[left.first()];
     }
 
     public static void main(String[] args) {
