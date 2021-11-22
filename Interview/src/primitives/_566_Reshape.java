@@ -1,6 +1,6 @@
-package leet;
+package primitives;
 
-public class Reshape {
+public class _566_Reshape {
 
     private static int[][] reshape(int[][] mat, int r, int c) {
         int row = mat.length, column = mat[0].length;
