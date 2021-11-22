@@ -1,6 +1,6 @@
-package leet;
+package string;
 
-public class StringToInt {
+public class _8_StringToInt {
 
     private static int atoi(String inp) {
         inp = inp.trim();
