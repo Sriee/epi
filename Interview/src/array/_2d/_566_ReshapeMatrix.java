@@ -1,6 +1,6 @@
-package primitives;
+package array._2d;
 
-public class _566_Reshape {
+public class _566_ReshapeMatrix {
 
     private static int[][] reshape(int[][] mat, int r, int c) {
         int row = mat.length, column = mat[0].length;
