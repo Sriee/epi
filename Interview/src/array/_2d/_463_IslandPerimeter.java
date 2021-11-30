@@ -1,67 +1,36 @@
 package array._2d;
 
-import java.util.*;
-
 public class _463_IslandPerimeter {
 
     /**
-     * BFS - Iterative Approach
+     * Simple Counting Approach - Since we are moving from left to right and top to bottom, we add 4 sides to the
+     * perimeter when we encounter a land. If the left and top of the current position is also a land, we deduct 2
+     * (shared) sides of the land from our perimeter and continue.
      *
-     * Worst case when all the cells are land cells.
-     *
-     * TC - O(mn)
-     * SC - O(mn)
+     * TC: O(mn)
+     * SC: O(1)
      */
     public int islandPerimeter(int[][] grid) {
-        Deque<int[]> queue = new ArrayDeque<>();
-        int[][] directions = {
-            {0, -1}, // left
-            {-1, 0}, // top
-            {0, 1}, // right
-            {1, 0} // bottom
-        };
-        boolean stop = false;
-        int perimeter = 0, m = grid.length, n = grid[0].length;
+        int numRow = grid.length, numCol = grid[0].length, perimeter = 0;
 
-        for (int row = 0; row < m && !stop; row++) {
-            for (int col = 0; col < n && !stop; col++) {
-                if (grid[row][col] == 1) {
-                    queue.offer(new int[] {row, col});
-                    stop = true;
-                }
+        for (int row = 0; row < numRow; row++) {
+            for (int col = 0; col < numCol; col++) {
+                if (grid[row][col] == 0)
+                    continue;
+
+                perimeter += 4;
+
+                // Left
+                if (row > 0 && grid[row - 1][col] == 1)
+                    perimeter -= 2;
+
+                // Up
+                if (col > 0 && grid[row][col - 1] == 1)
+                    perimeter -= 2;
             }
         }
 
-        while (!queue.isEmpty()) {
-            int[] currentPosition = queue.poll();
-
-            if (grid[currentPosition[0]][currentPosition[1]] == 2)
-                continue;
-
-            grid[currentPosition[0]][currentPosition[1]] = 2;
-
-            for (int i = 0; i < 4; i++) {
-                int nextRow = currentPosition[0] + directions[i][0];
-                int nextCol = currentPosition[1] + directions[i][1];
-
-                if (nextRow < 0 || nextRow >= m || nextCol < 0 || nextCol >= n || grid[nextRow][nextCol] == 0)
-                    perimeter++;
-                else if (grid[nextRow][nextCol] == 1)
-                    queue.offer(new int[] {nextRow, nextCol});
-            }
-        }
-
-        // print(grid);
         return perimeter;
-    }
-
-    private void print(int[][] mat) {
-        for (int row = 0; row < mat.length; row++) {
-            for (int col = 0; col < mat[0].length; col++) {
-                System.out.print(mat[row][col] + " ");
-            }
-            System.out.println();
-        }
     }
 
     public static void main(String[] args) {
