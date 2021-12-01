@@ -58,54 +58,9 @@ public class KReverse {
         return value;
     }
 
-    private static String base7(int num) {
-        StringBuilder sb = new StringBuilder();
-        boolean isNegative = false;
-        if (num < 0) {
-            isNegative = true;
-            num = num * -1;
-        }
-        while (num != 0) {
-            sb.append(num % 7);
-            num = num / 7;
-        }
-        if (isNegative)
-            sb.append("-");
-        return sb.reverse().toString();
-    }
-
-    private static int majority(int[] arr) {
-        Arrays.sort(arr);
-        return arr[arr.length / 2];
-    }
-
-    private static String kReverse(String inp, int k) {
-        int l = 0, idx = 0;
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < inp.length(); i++) {
-            if (l < k) {
-                sb.insert((2 * k * idx), inp.charAt(i));
-            } else {
-                sb.append(inp.charAt(i));
-            }
-            l = (l + 1) % (2 * k);
-            if (l == 0)
-                idx++;
-        }
-
-        return sb.toString();
-    }
-
     public static void main(String[] args) {
-        System.out.println("abcdef " + kReverse("abcdef", 2));
-        System.out.println("ab " + kReverse("ab", 4));
-        System.out.println("Thisisaline " + kReverse("Thisisaline", 1));
-        System.out.println("Thiscouldbeasentenceabcdef " + kReverse("Thiscouldbeasentenceabcdef", 3));
-        System.out.println(majority(new int[] { 2, 2, 2, 3 }));
         System.out.println(romanToInt("xxXvi"));
         System.out.println(romanToInt("MDCCCLXXXIV"));
         System.out.println(romanToInt("MmXII"));
-        System.out.println(base7(100));
-        System.out.println(base7(-7));
     }
 }
