@@ -2,69 +2,55 @@ package primitives;
 
 public class _13_RomanToInt {
 
-    private int romanToInt(String s) {
-        int value = 0, i = 0, n = s.length();
+    /**
+     * Simplified version of Roman to Integers
+     *
+     * How to handle the edge cases 4, 9, 40, 90, 400, 900?
+     *   i. Iterate from right to left
+     *  ii. For normal cases, the value keeps increasing as we progress from right to left, but for edge cases, the
+     *  value at i will be less than value at (i + 1).
+     */
+    public int romanToInt(String s) {
+        int sum = 0, prev = 0, curr = 0;
 
-        while (i < n) {
-            switch (s.charAt(i)) {
+        for (int i = s.length() - 1; i >=0; i--) {
+            switch(s.charAt(i)) {
                 case 'I':
-                    if (i != n - 1 && s.charAt(i + 1) == 'V') {
-                        value += 4;
-                        i += 2;
-                    } else if (i != n - 1 && s.charAt(i + 1) == 'X') {
-                        value += 9;
-                        i += 2;
-                    } else {
-                        value += 1;
-                        i += 1;
-                    }
+                    curr = 1;
                     break;
                 case 'V':
-                    value += 5;
-                    i += 1;
+                    curr = 5;
                     break;
                 case 'X':
-                    if (i != n - 1 && s.charAt(i + 1) == 'L') {
-                        value += 40;
-                        i += 2;
-                    } else if (i != n - 1 && s.charAt(i + 1) == 'C') {
-                        value += 90;
-                        i += 2;
-                    } else {
-                        value += 10;
-                        i += 1;
-                    }
+                    curr = 10;
                     break;
                 case 'L':
-                    value += 50;
-                    i += 1;
+                    curr = 50;
                     break;
                 case 'C':
-                    if (i != n - 1 && s.charAt(i + 1) == 'D') {
-                        value += 400;
-                        i += 2;
-                    } else if (i != n - 1 && s.charAt(i + 1) == 'M') {
-                        value += 900;
-                        i += 2;
-                    } else {
-                        value += 100;
-                        i += 1;
-                    }
+                    curr = 100;
                     break;
                 case 'D':
-                    value += 500;
-                    i += 1;
+                    curr = 500;
                     break;
                 case 'M':
-                    value += 1000;
-                    i += 1;
+                    curr = 1000;
+                    break;
                 default:
-                    value += 0;
+                    curr = 0;
                     break;
             }
+
+            // Handling edge case with previous and current value check
+            if (prev > curr)
+                sum -= curr;
+            else
+                sum += curr;
+
+            prev = curr;
         }
 
-        return value;
+        return sum;
     }
 
     public static void main(String[] args) {
