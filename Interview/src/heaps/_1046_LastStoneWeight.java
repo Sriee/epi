@@ -1,40 +1,27 @@
 package heaps;
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class _1046_LastStoneWeight {
     /**
-     * Leet code problem. Solution -> Accepted Each turn, choose the two heaviest
-     * rocks If x == y, it cancels out each other; If x != y, the stone of weight x
-     * is totally destroyed, and the stone of weight y has new weight y-x. At the
-     * end, there is at most 1 stone left. Return the weight of the stone (or 0 if
-     * there are no stones left.)
-     *
-     * @param stones array of weights
-     * @return the weight of the stone
+     * TC = O(n log n) where n is the number of stones
+     * SC = O(n)
      */
     public int lastStoneWeight(int[] stones) {
-        PriorityQueue<Integer> queue = new PriorityQueue<>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer i, Integer j) {
-                return j.compareTo(i);
-            }
-        });
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
 
-        for (int i : stones)
-            queue.add(i);
+        for (int stone : stones)
+            maxHeap.offer(stone);
 
-        while (queue.size() > 1) {
-            int x = queue.poll();
-            int y = queue.poll();
+        while (maxHeap.size() > 1) {
+            int x = maxHeap.poll();
+            int y = maxHeap.poll();
 
             if (x != y)
-                queue.add(x - y);
-
+                maxHeap.offer(x - y);
         }
 
-        return queue.isEmpty() ? 0 : queue.peek();
+        return maxHeap.isEmpty() ? 0 : maxHeap.peek();
     }
 
     public static void main(String[] args) {
