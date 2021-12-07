@@ -1,6 +1,6 @@
 GIT_AUTHOR_DATE='Mon Jul 05 6:20:51 2021 -0400' GIT_COMMITTER_DATE='Thu Jul 02 5:58:13 2021 -0400' git commit -m 'Morris inorder traversal technique'
 
-GIT_AUTHOR_DATE='2021-10-05 5:05:06 -0400' GIT_COMMITTER_DATE='2021-10-05 5:05:06 -0400' git commit -m 'move references out of project'
+GIT_AUTHOR_DATE='2021-12-07 5:19:32 -0400' GIT_COMMITTER_DATE='2021-12-07 5:19:32 -0400' git commit -m '' 
 
 date '+%Y-%m-%d %k:%M:%S %z' - to note down hours and seconds
 
@@ -20,11 +20,25 @@ date '+%Y-%m-%d %k:%M:%S %z' - to note down hours and seconds
 [x] heaps
 [x] intervals
 [] leet
+  - 17 - 11/17
 [] list
-[] primitives
+[] primitives - 12
 [x] queue
-[] sq - We have split sq into separate folders.
+[] sq - We have split sq into separate folders. - 8
 [x] stack
-[] string
-[] tree
-[] trie
+[] string - 13
+[] tree - 13
+[] trie - 9
+
+Holidays
+Add till Dec 17
+
+12k
+5k -> Nov = 
+  17000 - 2500 for RESP 
+= 
+
+Amazon OA Canada
+
+https://leetcode.com/discuss/interview-question/2561958/Amazon-AWS-or-Vancouver-Canada-or-OA
+2281. https://leetcode.com/problems/sum-of-total-strength-of-wizards/description/
