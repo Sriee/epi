@@ -1,6 +1,7 @@
 package top_sort;
 
 import java.util.*;
+
 public class _207_CourseSchedule {
 
     /**
@@ -9,59 +10,54 @@ public class _207_CourseSchedule {
      * SC: O(V) - Vertices that were stores in graph and in-degree map
      */
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        if (prerequisites == null || prerequisites.length == 0)
+        if (prerequisites.length == 0)
             return true;
 
+        int[] inDegree = new int[numCourses];
         Map<Integer, List<Integer>> graph = new HashMap<>();
-        Map<Integer, Integer> inDegree = new HashMap<>();
+
+        /*
+          Use Deque instead of Linked List for queue operations because
+          {@link https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/ArrayDeque.html Javadoc} states
+          that Deque implementation is faster for stacks and queues.
+          Queue<Integer> queue = new LinkedList<>();
+         */
         Deque<Integer> queue = new ArrayDeque<>();
 
-        // Initialize in-degree map
-        for (int[] preq : prerequisites) {
-            if (!inDegree.containsKey(preq[1]))
-                inDegree.put(preq[1], 0);
-
-            inDegree.put(preq[0], inDegree.getOrDefault(preq[0], 0) + 1);
-            List<Integer> neighbor = graph.getOrDefault(preq[1], new ArrayList<>());
-            neighbor.add(preq[0]);
-            graph.put(preq[1], neighbor);
+        for (int i = 0; i < numCourses; i++) {
+            graph.put(i, new ArrayList<>());
         }
 
-        // Add sources to the queue
-        Iterator<Integer> iter = inDegree.keySet().iterator();
-        while(iter.hasNext()) {
-            Integer key = iter.next();
-            if (inDegree.get(key) == 0) {
-                queue.offerLast(key);
-                iter.remove();
-            }
+        for (int[] prerequisite : prerequisites) {
+            inDegree[prerequisite[0]]++;
+            graph.get(prerequisite[1]).add(prerequisite[0]);
         }
 
-        // Find Topological order
+        for (int i = 0; i < numCourses; i++) {
+            if (inDegree[i] == 0)
+                queue.offer(i);
+        }
+
+        int visited = 0;
         while (!queue.isEmpty()) {
-            Integer node = queue.removeFirst();
-            if (!graph.containsKey(node))
-                continue;
+            int vertex = queue.poll();
+            visited++;
 
-            for (Integer neighbor : graph.get(node)) {
-                Integer degrees = inDegree.get(neighbor);
-                if (degrees == 1) {
-                    queue.offerLast(neighbor);
-                    inDegree.remove(neighbor);
-                } else {
-                    inDegree.put(neighbor, degrees - 1);
-                }
+            for (int neighbor : graph.get(vertex)) {
+                inDegree[neighbor]--;
+                if (inDegree[neighbor] == 0)
+                    queue.offer(neighbor);
             }
         }
 
-        return inDegree.isEmpty();
+        return numCourses == visited;
     }
 
     public static void main(String[] args) {
         _207_CourseSchedule cs = new _207_CourseSchedule();
 
-//        System.out.println(cs.canFinish(1, new int[][] { }));
-        System.out.println(cs.canFinish(5, new int[][] {
+        System.out.println(cs.canFinish(1, new int[][] { }));
+        System.out.println(cs.canFinish(5, new int[][]{
                 {1, 4}, {2, 4}, {3, 1}, {3, 2}
         }));
     }
