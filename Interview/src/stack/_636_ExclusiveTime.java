@@ -8,13 +8,35 @@ public class _636_ExclusiveTime {
         public boolean isStart;
 
         public Log(String logStatement) {
-            String[] tokens = logStatement.split(":");
-            id = Integer.parseInt(tokens[0]);
-            isStart = "start".equals(tokens[1]);
-            time = Integer.parseInt(tokens[2]);
+            int i = 0;
+
+            // Optimized version of extracting tokens from log statement. Reduces the solution time from 10 ms to 5 ms
+            while (logStatement.charAt(i) != ':') {
+                id = id * 10 + logStatement.charAt(i++) - '0';
+            }
+
+            if (logStatement.charAt(++i) == 's') {
+                isStart = true;
+                i += 6;
+            } else {
+                i += 4;
+            }
+
+            while (i < logStatement.length()) {
+                time = time * 10 + logStatement.charAt(i++) - '0';
+            }
         }
     }
 
+    /**
+     * Each statement has function id, start/end characters, and time.
+     * The start/end characters are constant.
+     * How many digits does the function id has? n
+     * How many digits does the timestamp has? t where 0 <= t <= 10^9
+     *
+     * TC: O(n)
+     * SC: O(n)
+     */
     public int[] exclusiveTime(int n, List<String> logs) {
         int[] result = new int[n];
         Deque<Log> stack = new ArrayDeque<>();
