@@ -11,11 +11,14 @@ public class _227_BasicCalculatorII {
 
         for (int i = 0; i < len; i++) {
             char ch = s.charAt(i);
-            boolean num = isNumeric(ch - '0');
+            boolean num = isNumeric(ch);
             if (num) {
                 number = number * 10 + (ch - '0');
             }
 
+            // This another if case is required for special cases.
+            // Case 1: " 3/2 " when i = len - 1 & ch == " "
+            // Case 2: To evaluate the end of expression
             if ((!num && ch != ' ') || i == len - 1) {
                 switch (operator) {
                     case '+':
@@ -43,7 +46,11 @@ public class _227_BasicCalculatorII {
         return result;
     }
 
-    private boolean isNumeric(int num) {
+    /**
+     * Using this helper method is faster than using Character.isDigit()
+     */
+    private boolean isNumeric(char ch) {
+        int num = ch - '0';
         return num >= 0 && num < 10;
     }
 
