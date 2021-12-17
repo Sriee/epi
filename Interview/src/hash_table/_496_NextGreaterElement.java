@@ -14,19 +14,21 @@ public class _496_NextGreaterElement {
      * SC: O(n)
      */
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-        Deque<Integer> stack = new ArrayDeque<>();
+        // Using int[] as stack to improve run time
+        int[] stack = new int[nums2.length];
         int[] res = new int[nums1.length];
         Map<Integer, Integer> map = new HashMap<>();
+        int top = -1;
 
         for (int i : nums2) {
-            while (!stack.isEmpty() && stack.peek() < i) {
-                map.put(stack.pop(), i);
+            while (top != -1 && stack[top] < i) {
+                map.put(stack[top--], i);
             }
-            stack.push(i);
+            stack[++top] = i;
         }
 
-        while (!stack.isEmpty())
-            map.put(stack.pop(), -1);
+        while (top != -1)
+            map.put(stack[top--], -1);
 
         for (int i = 0; i < nums1.length; i++) {
             res[i] = map.get(nums1[i]);
