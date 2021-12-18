@@ -33,15 +33,37 @@ class _205_IsomorphicString {
         return sb.toString();
     }
 
+    /**
+     * Using two hash map approach
+     */
+    public boolean isIsomorphic2(String s, String t) {
+        char[] _1to2 = new char[256], _2to1 = new char[256];
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch1 = s.charAt(i), ch2 = t.charAt(i);
+
+            if (_1to2[ch1] != '\0' && _1to2[ch1] != ch2)
+                return false;
+
+            if (_2to1[ch2] != '\0' && _2to1[ch2] != ch1)
+                return false;
+
+            _1to2[ch1] = ch2;
+            _2to1[ch2] = ch1;
+        }
+
+        return true;
+    }
+
     public static void main(String[] args) {
         _205_IsomorphicString is = new _205_IsomorphicString();
 
-        String[] first = {"egg", "foo", "paper"};
-        String[] second = {"add", "bar", "title"};
+        String[] first = {"egg", "foo", "paper", "ab", "aaeaa"};
+        String[] second = {"add", "bar", "title", "aa", "uuxyy"};
 
         for (int i = 0; i < first.length; i++) {
             System.out.printf("\"%s\" and \"%s\" are%s isomorphic\n",
-                    first[i], second[i], is.isIsomorphic(first[i], second[i]) ? "" : " not");
+                    first[i], second[i], is.isIsomorphic2(first[i], second[i]) ? "" : " not");
         }
     }
 }
