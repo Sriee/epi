@@ -10,7 +10,7 @@ public class RabinKarp {
 
     /**
      * Searches for pattern in the given text This method is similar to Java's indexOf() method. Note that it could
-     * easily extended to return index of all occurrences of pattern within string
+     * easily be extended to return index of all occurrences of pattern within string
      *
      * TC: O(n * (n - m + 1)) where n >>> m: O(nm) <-- Worst case time complexity.
      *      This is because of the check function. Matching strings guarantees matching hashes. However, the reverse
@@ -19,59 +19,60 @@ public class RabinKarp {
      *
      * SC: O(1)
      *
-     * @param text
-     * @param pattern
+     * @param text The string to search
+     * @param pattern The search pattern
      * @return index of first found pattern in text
      */
     public int search(String text, String pattern) {
         // Corner Cases
-        if (pattern.length() == 0)
-            return 0;
-
-        if (text.length() < pattern.length())
+        if (text == null || pattern == null || text.length() < pattern.length())
             return -1;
 
-        int n = text.length(), m = pattern.length(), base = 256, modulus = (1 << 31) - 1;
+        int patternLen = pattern.length(), textLen = text.length(), modulus = 13, base = 256;
+        if (patternLen == 0)
+            return 0;
+
         long windowHash = 0L, patternHash = 0L, pow = 1L;
 
-        for (int i = 0; i < m; i++) {
-            windowHash = (windowHash * base + text.charAt(i)) % modulus;
-            patternHash = (patternHash * base + pattern.charAt(i)) % modulus;
-            if (i != m - 1)
+        // Calculate hash value for pattern and text
+        for (int i = 0; i < patternLen; i++) {
+            patternHash = (base * patternHash + pattern.charAt(i)) % modulus;
+            windowHash = (base * windowHash + text.charAt(i)) % modulus;
+            if (i != patternLen - 1)
                 pow = (pow * base) % modulus;
         }
 
-        if (windowHash == patternHash && check(text, pattern, m, 0))
-            return 0;
-
-        for (int i = 1; i < n - m + 1; i++) {
-            // Remove left most character
-            windowHash = (windowHash + modulus - text.charAt(i - 1) * pow % modulus) % modulus;
-
-            // Add right most character
-            windowHash = (windowHash * base + text.charAt(i + m - 1)) % modulus;
-
-            if (windowHash == patternHash && check(text, pattern, m, i))
+        // Find the match
+        for (int i = 0; i <= textLen - patternLen; i++) {
+            if (patternHash == windowHash && check(text, pattern, i) == patternLen)
                 return i;
+
+            /*
+             * Why are we using a modulus?
+             * When the hash value of the pattern matches with the hash value of a window of the text but the window is
+             * not the actual pattern then it is called a spurious hit.
+             *
+             * Spurious hit increases the time complexity of the algorithm. In order to minimize spurious hit,
+             * we use modulus. It greatly reduces the spurious hit.
+             */
+            if (i < textLen - patternLen) {
+                windowHash = (base * (windowHash - text.charAt(i) * pow) + text.charAt(i + patternLen))
+                        % modulus;
+                if (windowHash < 0)
+                    windowHash += modulus;
+            }
         }
 
         return -1;
     }
 
-    /**
-     * Check if str1 == str2
-     * 
-     * @param pattern
-     * @param text
-     * @param offset  starting point of comparison of text
-     * @return true if str1 == str2 false otherwise
-     */
-    private boolean check(String text, String pattern, int m, int offset) {
-        for (int i = 0; i < m; i++) {
+    private int check(String text, String pattern, int offset) {
+        int i;
+        for (i = 0; i < pattern.length(); i++) {
             if (pattern.charAt(i) != text.charAt(offset + i))
-                return false;
+                break;
         }
-        return true;
+        return i;
     }
 
     public static void main(String[] args) {
