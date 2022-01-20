@@ -3,6 +3,19 @@ package heaps;
 import java.util.*;
 
 public class _767_ReorganizeString {
+
+    /**
+     * Let n be the number of characters in the string
+     * and c be the number of distinct characters in the string
+     *
+     * TC -
+     * O(n) - To populate the frequency table
+     *      - Worst case, we might be pushing the distinct character and each push takes (log c) time
+     * Total - O(n log c). But the characters will be lowercase letter = 26 so log c could be considered a constant
+     * so TC - O(n)
+     *
+     * SC - O(c)
+     */
     public String reorganizeString(String s) {
         int[] table = new int[26];
         for (char ch : s.toCharArray()) {
