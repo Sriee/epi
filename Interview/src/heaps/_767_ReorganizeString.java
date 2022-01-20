@@ -4,32 +4,33 @@ import java.util.*;
 
 public class _767_ReorganizeString {
     public String reorganizeString(String s) {
-        Map<Character, Integer> map = new HashMap<>();
+        int[] table = new int[26];
         for (char ch : s.toCharArray()) {
-            map.put(ch, map.getOrDefault(ch, 0) + 1);
+            table[ch - 'a']++;
         }
 
-        PriorityQueue<Map.Entry<Character, Integer>> pq = new PriorityQueue<>(
-                (a, b) -> Integer.compare(b.getValue(), a.getValue()));
-        pq.addAll(map.entrySet());
-        Map.Entry<Character, Integer> previous = null;
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> Integer.compare(table[b], table[a]));
+        for (int i = 0; i < 26; i++) {
+            if (table[i] > 0) pq.offer(i);
+        }
+
+        int previous = -1;
         StringBuilder result = new StringBuilder();
 
-        while (!pq.isEmpty() || previous != null) {
-            if (previous != null && pq.isEmpty())
+        while (!pq.isEmpty() || previous != -1) {
+            if (previous != -1 && pq.isEmpty())
                 return "";
 
-            Map.Entry<Character, Integer> current = pq.poll();
-            result.append(current.getKey());
+            int current = pq.poll();
+            result.append((char)(current + 'a'));
 
-            if (previous != null) {
+            if (previous != -1) {
                 pq.offer(previous);
-                previous = null;
+                previous = -1;
             }
 
-            int count = current.getValue() - 1;
-            if (count != 0) {
-                previous =  new AbstractMap.SimpleEntry<Character, Integer>(current.getKey(), count);
+            if (--table[current] != 0) {
+                previous =  current;
             }
         }
 
