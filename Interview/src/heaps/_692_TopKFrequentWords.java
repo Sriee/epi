@@ -3,6 +3,20 @@ package heaps;
 import java.util.*;
 
 class _692_TopKFrequentWords {
+
+    /* ========================================================================
+     * Approach 1: Min Heap
+     * ========================================================================
+     *
+     * TC: O (n) - To construct the frequency map
+     *   + O(n log k) - To add unique words to the min-heap
+     *   + O(k log k) - Comparator sorting when words are polled out of min-heap
+     *   since k << n && (n log k) > O(n), the total TC = O(n log k)
+     *
+     * SC: O(n) - result list
+     *   + O(k) - heap size
+     *   since k << n, the total SC = O(n)
+     */
     public List<String> topKFrequent(String[] words, int k) {
         Map<String, Integer> map = new HashMap<>();
 
@@ -30,6 +44,22 @@ class _692_TopKFrequentWords {
         return res;
     }
 
+    /* ===========================================================================================
+     * Approach 2: Quick Select
+     * ===========================================================================================
+     * The number of steps in quick select is considerably larger and need additional creation of
+     * arrays. Prefer the bucket sort + trie approach for this problem.
+     *
+     * TC: O (n) - To construct the frequency map
+     *   + O(n) - To form unique String[]
+     *   + O(n) - Quick select
+     *   + O(2n) - Arrays.copyOfRange
+     *   + O(n log n) - Sort unique array
+     *   TC = O(n log n).
+     *
+     * SC: O(n + 2n + n + k) - freqMap, unique array, sort, and result
+     *   Total SC = O(n)
+     */
     Map<String, Integer> freqMap;
 
     public List<String> topKFrequentQS(String[] words, int k) {
