@@ -26,10 +26,10 @@ public class StreamChecker {
         for (int i = word.length() - 1; i > -1; i--) {
             int idx = word.charAt(i) - 'a';
 
-            if (node.child[idx] == null)
-                node.child[idx] = new TNode();
+            if (node.children[idx] == null)
+                node.children[idx] = new TNode();
 
-            node = node.child[idx];
+            node = node.children[idx];
         }
 
         node.word = word;
@@ -48,7 +48,7 @@ public class StreamChecker {
         TNode iter = this.root;
 
         for (int i = this.sb.length() - 1; i > -1; i--) {
-            iter = iter.child[this.sb.charAt(i) - 'a'];
+            iter = iter.children[this.sb.charAt(i) - 'a'];
 
             if (iter == null)
                 return false;

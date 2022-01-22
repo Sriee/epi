@@ -34,12 +34,12 @@ class TrieProblems {
             char ch = word.charAt(i);
             int j = ch - 'a';
 
-            if (iter.child[j] == null)
+            if (iter.children[j] == null)
                 return false;
-            else if (iter.child[j].word != null && this.verify(word, i + 1, count + 1))
+            else if (iter.children[j].word != null && this.verify(word, i + 1, count + 1))
                 return true;
 
-            iter = iter.child[j];
+            iter = iter.children[j];
         }
         return false;
     }
@@ -80,10 +80,10 @@ class TrieProblems {
         for (char ch : word.toCharArray()) {
             int idx = ch - 'a';
 
-            if (iter.child[idx] == null)
-                iter.child[idx] = new TNode();
+            if (iter.children[idx] == null)
+                iter.children[idx] = new TNode();
 
-            iter = iter.child[idx];
+            iter = iter.children[idx];
         }
 
         iter.word = word;
@@ -108,7 +108,7 @@ class TrieProblems {
         TNode[] stack = new TNode[size];
         int top = -1;
 
-        for (TNode child : iter.child) {
+        for (TNode child : iter.children) {
             if (child == null)
                 continue;
 
@@ -124,7 +124,7 @@ class TrieProblems {
                         || (node.word.length() == result.length() && node.word.compareTo(result) < 0))
                     result = node.word;
 
-                for (TNode child : node.child) {
+                for (TNode child : node.children) {
                     if (child == null)
                         continue;
 
@@ -146,12 +146,12 @@ class TrieProblems {
 
         for (char ch : token.toCharArray()) {
             int idx = ch - 'a';
-            if (iter.child[idx] == null)
+            if (iter.children[idx] == null)
                 return token;
-            else if (iter.child[idx].word != null)
-                return iter.child[idx].word;
+            else if (iter.children[idx].word != null)
+                return iter.children[idx].word;
             else
-                iter = iter.child[idx];
+                iter = iter.children[idx];
         }
 
         return token;
@@ -210,7 +210,7 @@ class TrieProblems {
             TNode iter = this.root;
 
             for (int j = i; j < s.length() && iter != null; j++) {
-                iter = iter.child[s.charAt(j) - 'a'];
+                iter = iter.children[s.charAt(j) - 'a'];
                 if (iter != null && iter.word != null && dp[j + 1]) {
                     dp[i] = true;
                     break;
