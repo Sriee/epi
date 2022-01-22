@@ -1,5 +1,8 @@
 package heaps;
 
+import trie.TNode;
+import util.PrintHypens;
+
 import java.util.*;
 
 class _692_TopKFrequentWords {
@@ -130,14 +133,103 @@ class _692_TopKFrequentWords {
         words[second] = temp;
     }
 
+    /* ===========================================================================================
+     * Approach 3: Bucket Sort + Trie
+     * ===========================================================================================
+     * Create buckets to store a Trie based on frequency. Do a DFS on the Trie from the most freq
+     * bucket to the least freq bucket to retrieve the words in lexicographic order.
+     *
+     * TC: O(n) - To construct the frequency map
+     *   + O(n) - To construct tries
+     *   + O(k) - To retrieve words from Trie. The path is negligible < 10 length.
+     *   = O(2n + k) since k << n. TC = O(n)
+     *
+     * TC: O(n) - frequency map
+     *   + O(n) - buckets = Worst case when there is 1 count of each word
+     *   + O(n) - To store the words in Trie
+     *   = O(3n). SC = O(n)
+     *
+     */
+    private void addWord(TNode root, String word) {
+        TNode iter = root;
+
+        for (char ch : word.toCharArray()) {
+            int idx = ch - 'a';
+            if (iter.children[idx] == null)
+                iter.children[idx] = new TNode();
+            iter = iter.children[idx];
+        }
+
+        iter.word = word;
+    }
+
+    private void getWords(TNode node) {
+        if (k == 0) {
+            return;
+        }
+
+        if (node.word != null) {
+            k--;
+            res.add(node.word);
+        }
+
+        for (int i = 0; i < 26; i++) {
+            if (node.children[i] != null) {
+                getWords(node.children[i]);
+            }
+        }
+    }
+
+    int k = 0;
+    List<String> res;
+
+    public List<String> topKFrequentTrie(String[] words, int k) {
+        this.k = k;
+        this.res = new ArrayList<>();
+        int n = words.length;
+
+        TNode[] buckets = new TNode[n + 1];
+
+        Map<String, Integer> freq = new HashMap<>();
+        for (String word : words) {
+            freq.put(word, freq.getOrDefault(word, 0) + 1);
+        }
+
+        for (String uniqueWord : freq.keySet()) {
+            int frequency = freq.get(uniqueWord);
+
+            if (buckets[frequency] == null) {
+                buckets[frequency] = new TNode();
+            }
+
+            addWord(buckets[frequency], uniqueWord);
+        }
+
+        for (int i = n; i > 0 && k > 0; i--) {
+            if (buckets[i] != null) {
+                getWords(buckets[i]);
+            }
+        }
+
+        return res;
+    }
+
     public static void main(String[] args) {
         _692_TopKFrequentWords tkfw = new _692_TopKFrequentWords();
         String[][] inputs = {
                 {"i", "love", "leetcode", "i", "love", "coding"},
-                {"the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"}
+                {"the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"},
+                {"lets", "play", "cricket", "and", "then", "lets", "play", "badminton"}
         };
-        int[] ks = {2, 4};
-        System.out.println(tkfw.topKFrequent(inputs[0], ks[0]));
-        System.out.println(tkfw.topKFrequentQS(inputs[1], ks[1]));
+        int[] ks = {2, 4, 3};
+
+        for (int i = 0; i < inputs.length; i++) {
+            System.out.printf("\n%d.\tWords: %s\n", i + 1, Arrays.toString(inputs[i]));
+            List<String> result = i == 0 ?
+                    tkfw.topKFrequent(inputs[i], ks[i]) : (i == 1) ? tkfw.topKFrequentQS(inputs[i], ks[i]) :
+                                                                     tkfw.topKFrequentTrie(inputs[i], ks[i]);
+            System.out.printf("\tTop %d frequent words: %s\n", ks[i], result);
+            System.out.println(PrintHypens.generate());
+        }
     }
 }
