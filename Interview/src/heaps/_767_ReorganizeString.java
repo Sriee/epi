@@ -1,5 +1,7 @@
 package heaps;
 
+import util.PrintHypens;
+
 import java.util.*;
 
 public class _767_ReorganizeString {
@@ -66,7 +68,7 @@ public class _767_ReorganizeString {
             System.out.print(i + 1);
             System.out.println(".\tInput string: \"" + inputs[i] + "\"");
             System.out.println("\tReorganized string: \"" + rs.reorganizeString(inputs[i]) + "\"");
-            System.out.println(new String(new char[100]).replace('\0', '-'));
+            System.out.println(PrintHypens.generate());
         }
     }
 }
