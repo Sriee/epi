@@ -1,32 +1,42 @@
 package graph.union_find;
 
 public class QuickUnion {
-    int[] root;
+    int[] root, rank;
     public QuickUnion(int size) {
         root = new int[size];
-        for (int i = 0; i < size; i++)
+        rank = new int[size];
+
+        for (int i = 0; i < size; i++) {
             root[i] = i;
+            rank[i] = 1;
+        }
     }
 
-    // TC: O(n)
+    // Using path compression to optimize find function to constant time O(1)
     public int find(int x) {
-        while (x != root[x])
-            x = root[x];
-
-        return x;
+        if (x == root[x])
+            return x;
+        root[x] = find(root[x]);
+        return root[x];
     }
 
-    // TC: O(n)
     public boolean isConnected(int x, int y) {
         return find(x) == find(y);
     }
 
-    // TC: O(n)
+    // Using union by rank to optimize TC of union function
     public void union(int x, int y) {
         int rootX = find(x), rootY = find(y);
 
         if (rootX != rootY) {
-            root[rootY] = rootX;
+            if (rank[rootX] > rank[rootY])
+                root[rootY] = rootX;
+            else if (rank[rootX] < rank[rootY])
+                root[rootX] = rootY;
+            else {
+                root[rootY] = rootX;
+                rank[rootX]++;
+            }
         }
     }
 
