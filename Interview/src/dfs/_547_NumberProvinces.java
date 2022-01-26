@@ -40,6 +40,7 @@ public class _547_NumberProvinces {
      * ===========================================================================================
      */
     int[] root, rank;
+    int count;
 
     private int find(int x) {
         if (x == root[x])
@@ -59,13 +60,15 @@ public class _547_NumberProvinces {
                 root[rootY] = rootX;
                 rank[rootX]++;
             }
+            count--;
         }
     }
 
     public int findNumOfProvinces(int[][] isConnected) {
-        int n = isConnected.length, counter = 0;
+        int n = isConnected.length;
         root = new int[n];
         rank = new int[n];
+        count = n;
 
         for (int i = 0; i < n; i++) {
             root[i] = i;
@@ -80,12 +83,7 @@ public class _547_NumberProvinces {
             }
         }
 
-        Set<Integer> set = new HashSet<>();
-        for (int i = 0; i < n; i++) {
-            set.add(find(i));
-        }
-
-        return set.size();
+        return count;
     }
 
     public static void main(String[] args) {
