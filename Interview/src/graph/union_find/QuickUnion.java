@@ -2,6 +2,12 @@ package graph.union_find;
 
 public class QuickUnion {
     int[] root, rank;
+
+    /**
+     * TC: O(n) to initialize the root and the rank array
+     *
+     * @param size - Number of vertices in a graph
+     */
     public QuickUnion(int size) {
         root = new int[size];
         rank = new int[size];
@@ -12,19 +18,36 @@ public class QuickUnion {
         }
     }
 
-    // Using path compression to optimize find function to constant time O(1)
+    /**
+     * Path compression
+     *  While traversing the root array to find the root node, we update the parent of intermediate nodes to point
+     *  to the root node.
+     *
+     *  New Time Complexity is O(α(N)) where α(N) is called an ackermann function. This function has O(1) TC on average
+     *  so Best Case & Average Case TC = O(1)
+     *   & Worst case TC = O(α(N))
+     */
     public int find(int x) {
         if (x == root[x])
             return x;
-        root[x] = find(root[x]);
-        return root[x];
+
+        return root[x] = find(root[x]);
     }
 
+    /**
+     * Since this function depends on find calls, it shares the same TC as the find function.
+     */
     public boolean isConnected(int x, int y) {
         return find(x) == find(y);
     }
 
-    // Using union by rank to optimize TC of union function
+    /**
+     * Union by rank
+     *  In this optimization we use the rank array to avoid the graph to be a skewed tree by joining a subtree with a
+     *  lower rank to a tree with a higher rank.
+     *
+     * Since this function depends on find calls, it shares the same TC as the find function.
+     */
     public void union(int x, int y) {
         int rootX = find(x), rootY = find(y);
 
