@@ -91,6 +91,57 @@ public class _323_ConnectedComponents {
         return count;
     }
 
+    /* ===========================================================================================
+     * Approach 3: Union Find Approach
+     *
+     * TC: O(n) Best case: O(1)
+     * SC: O(n)
+     * ===========================================================================================
+     */
+    int[] root, rank;
+    int count;
+
+    public int countComponentsUF(int n, int[][] edges) {
+        root = new int[n];
+        rank = new int[n];
+        count = n;
+
+        for (int i = 0; i < n; i++) {
+            root[i] = i;
+            rank[i] = 1;
+        }
+
+        // Initialize graph
+        for (int[] edge: edges) {
+            union(edge[0], edge[1]);
+        }
+
+        return count;
+    }
+
+    private void union(int x, int y) {
+        int rootX = find(x), rootY = find(y);
+
+        if (rootX != rootY) {
+            if (rank[rootX] > rank[rootY]) {
+                root[rootY] = rootX;
+            } else if (rank[rootX] < rank[rootY]) {
+                root[rootX] = rootY;
+            } else {
+                root[rootY] = rootX;
+                rank[rootX]++;
+            }
+            count--;
+        }
+    }
+
+    private int find(int x) {
+        if (x == root[x])
+            return x;
+
+        return root[x] = find(root[x]);
+    }
+
     public static void main(String[] args) {
         _323_ConnectedComponents cc = new _323_ConnectedComponents();
 
@@ -109,9 +160,9 @@ public class _323_ConnectedComponents {
         for (int i = 0, j = 0; i < inputs.length; i++) {
             System.out.printf("\n%d.\tEdges = %s\n", (i + 1), Arrays.deepToString(inputs[i]));
             int numberOfComponents = switch (j) {
-                case 0 -> cc.countComponentsDFS(ns[i], inputs[i]);
-                case 1 -> cc.countComponentsBFS(ns[i], inputs[i]);
-                case 2 -> cc.countComponentsUF(ns[i], inputs[i]);
+                case 0 -> cc.countComponentsUF(ns[i], inputs[i]);
+                case 1 -> cc.countComponentsDFS(ns[i], inputs[i]);
+                case 2 -> cc.countComponentsBFS(ns[i], inputs[i]);
                 default -> 0;
             };
             j = (j + 1) % 3;
