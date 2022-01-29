@@ -53,35 +53,37 @@ public class _323_ConnectedComponents {
      * SC: O(V + E)
      * ===========================================================================================
      */
-    public int countComponents(int n, int[][] edges) {
+    public int countComponentsBFS(int n, int[][] edges) {
+        List<List<Integer>> graph = new ArrayList<>();
+        Deque<Integer> queue = new ArrayDeque<>();
         int count = 0;
-        Set<Integer>[] graph = new HashSet[n];
-        Stack<Integer> stack = new Stack<>();
-        boolean[] visited = new boolean[n];
 
-        // Build graph
         for (int i = 0; i < n; i++)
-            graph[i] = new HashSet<>();
+            graph.add(new ArrayList<>());
 
-        for (int[] pair : edges) {
-            graph[pair[0]].add(pair[1]);
-            graph[pair[1]].add(pair[0]);
+        for (int[] edge : edges) {
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
         }
 
-        // DFS on each node
+        boolean[] seen = new boolean[n];
         for (int i = 0; i < n; i++) {
-            if (!visited[i]) {
-                count++;
-                stack.push(i);
+            if (seen[i])
+                continue;
 
-                while (!stack.isEmpty()) {
-                    int vertex = stack.pop();
-                    visited[vertex] = true;
-                    for (int neighbor : graph[vertex]) {
-                        if (!visited[neighbor]) {
-                            stack.push(neighbor);
-                        }
-                    }
+            seen[i] = true;
+            count++;
+            queue.offer(i);
+
+            while (!queue.isEmpty()) {
+                int node = queue.poll();
+
+                for (int neighbor: graph.get(node)) {
+                    if (seen[neighbor])
+                        continue;
+
+                    seen[neighbor] = true;
+                    queue.offer(neighbor);
                 }
             }
         }
@@ -104,9 +106,16 @@ public class _323_ConnectedComponents {
         };
         int[] ns = new int[]{5, 5, 5, 10};
 
-        for (int i = 0; i < inputs.length; i++) {
+        for (int i = 0, j = 0; i < inputs.length; i++) {
             System.out.printf("\n%d.\tEdges = %s\n", (i + 1), Arrays.deepToString(inputs[i]));
-            System.out.println("\tNumber of connected components " + cc.countComponents(ns[i], inputs[i]));
+            int numberOfComponents = switch (j) {
+                case 0 -> cc.countComponentsDFS(ns[i], inputs[i]);
+                case 1 -> cc.countComponentsBFS(ns[i], inputs[i]);
+                case 2 -> cc.countComponentsUF(ns[i], inputs[i]);
+                default -> 0;
+            };
+            j = (j + 1) % 3;
+            System.out.println("\tNumber of connected components " + numberOfComponents);
             System.out.println(PrintHypens.generate());
         }
     }
