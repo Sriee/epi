@@ -58,21 +58,23 @@ public class Flip {
      */
     public static void decimalToHex(int num) {
         StringBuilder sb = new StringBuilder();
-        char literals[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+        char[] literals = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
         while (num != 0) {
-            sb.append(literals[num & 15]);
+            int idx = num & 15;
+            sb.append(literals[idx]);
             num = num >>> 4;
         }
         System.out.println(sb.reverse().toString());
     }
 
     public static void main(String[] args) {
+        /*
         System.out.println(calPoints(new String[] { "5", "2", "C", "D", "+" }));
         System.out.println(calPoints(new String[] { "5", "-2", "4", "C", "D", "9", "+", "+" }));
         System.out.println(calPoints(new String[] { "5" }));
-        /*
-         * System.out.println(flipBit(2147483647)); decimalToHex(-2);
-         */
+        System.out.println(flipBit(2147483647));
+        */
+        decimalToHex(-1);
     }
 }
