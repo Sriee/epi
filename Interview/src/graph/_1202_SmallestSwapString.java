@@ -11,12 +11,10 @@ public class _1202_SmallestSwapString {
      * E = edges
      * V = vertices
      *
-     * TC: O((E + V) + V log V)
+     * TC: O((E + V))
      *      O(E + V) - constructing union find
-     *      O(V + log V) - Sorting the character list
      * SC: O(V + log V) = O(V)
      *      O(V) - rank, root, result, indexToRootMap
-     *      O(log V) - Collections.sort() quick sort implementation space
      */
     public String smallestStringWithSwaps(String s, List<List<Integer>> pairs) {
         if (s.length() <= 1 || pairs == null || pairs.isEmpty())
@@ -35,29 +33,26 @@ public class _1202_SmallestSwapString {
             union(pair.get(0), pair.get(1));
         }
 
-        Map<Integer, List<Integer>> indexToRootMap = new HashMap<>();
+        int[][] groupChar = new int[len][26];
         for (int i = 0; i < len; i++) {
             int root = find(i);
 
-            indexToRootMap.putIfAbsent(root, new ArrayList<>());
-            indexToRootMap.get(root).add(i);
+            groupChar[root][s.charAt(i) - 'a']++;
         }
 
-        char[] result = new char[len];
-        for (List<Integer> list : indexToRootMap.values()) {
-            List<Character> charList = new ArrayList<>();
+        char[] charArr = s.toCharArray();
+        for (int i = 0; i < len; i++) {
+            int root = find(i);
+            int idx = 0;
 
-            for (int vertex : list) {
-                charList.add(s.charAt(vertex));
-            }
-            Collections.sort(charList);
+            while (groupChar[root][idx] == 0)
+                idx++;
 
-            for (int i = 0; i < list.size(); i++) {
-                result[list.get(i)] = charList.get(i);
-            }
+            charArr[i] = (char)(idx + 'a');
+            groupChar[root][idx]--;
         }
 
-        return String.valueOf(result);
+        return String.valueOf(charArr);
     }
 
     private int find(int x) {
