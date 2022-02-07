@@ -11,19 +11,48 @@ public class _1506_FindRootNary {
      * SC: O(n) = O(5 x 10^4)
      * ===========================================================================================
      */
-    public NaryNode findRoot(List<NaryNode> tree) {
-        int[] seen = new int[50001];
-
+    public NaryNode findRootSet(List<NaryNode> tree) {
+        // int[] seen = new int[50001];
+        HashSet<Integer> seen = new HashSet<>();
         for (NaryNode node : tree) {
-            if (node.children != null) {
-                for (NaryNode child : node.children) {
-                    seen[child.val]++;
-                }
+            for(NaryNode child : node.children) {
+                seen.add(child.val);
             }
         }
 
         for (NaryNode node : tree) {
-            if (seen[node.val] == 0)
+            if (!seen.contains(node.val))
+                return node;
+        }
+
+        return null;
+    }
+
+    /* ===========================================================================================
+     * Approach 2: In-Degree Approach
+     *
+     * TC: O(2n) = O(n)
+     * SC: O(n)
+     * ===========================================================================================
+     */
+    public NaryNode findRootInDegree(List<NaryNode> tree) {
+        // node = in-degree count
+        Map<NaryNode, Integer> map = new HashMap<>();
+
+        for (NaryNode node: tree) {
+            map.put(node, 0);
+        }
+
+        for (NaryNode node: tree) {
+            // Increment in-degree for child nodes
+            for (NaryNode child : node.children) {
+                map.put(child, map.get(child) + 1);
+            }
+        }
+
+        for (NaryNode node : map.keySet()) {
+            // A root node won't have any in-degree
+            if (map.get(node) == 0)
                 return node;
         }
 
@@ -54,7 +83,12 @@ public class _1506_FindRootNary {
         nodeList.add(root.children.get(1));
         nodeList.add(root.children.get(2));
 
-        NaryNode foundRoot = frn.findRoot(nodeList);
+        // Approach 1 - Using auxiliary set
+        NaryNode foundRoot = frn.findRootSet(nodeList);
+        System.out.println(foundRoot);
+
+        // Approach 2 - Using auxiliary set
+        foundRoot = frn.findRootInDegree(nodeList);
         System.out.println(foundRoot);
     }
 }
