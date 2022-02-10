@@ -2,9 +2,7 @@ package graph;
 
 import util.PrintHypens;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class _797_AllPathSourceToTarget {
 
@@ -16,12 +14,46 @@ public class _797_AllPathSourceToTarget {
      *
      * where n = number of nodes
      */
-    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+    public List<List<Integer>> allPathsDfs(int[][] graph) {
         List<List<Integer>> res = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
         path.add(0);
         dfs(graph, 0, path, new boolean[graph.length], res);
         return res;
+    }
+
+    /* ========================================================================
+     * Approach 2: BFS Approach
+     * ========================================================================
+     * TC: O(2^n x n)
+     * SC: O(n)
+     *
+     * where n = number of nodes
+     */
+    public List<List<Integer>> allPathsBfs(int[][] graph) {
+        List<List<Integer>> result = new ArrayList<>();
+        int n = graph.length;
+        Deque<List<Integer>> paths = new ArrayDeque<>();
+        List<Integer> currentPath = new ArrayList<>();
+        currentPath.add(0);
+        paths.offer(currentPath);
+
+        while (!paths.isEmpty()) {
+            currentPath = paths.poll();
+            int vertex = currentPath.get(currentPath.size() - 1);
+
+            if (vertex == n - 1) {
+                result.add(currentPath);
+            } else {
+                for (int neighbor : graph[vertex]) {
+                    List<Integer> nextPath = new ArrayList<>(currentPath);
+                    nextPath.add(neighbor);
+                    paths.offer(nextPath);
+                }
+            }
+        }
+
+        return result;
     }
 
     private void dfs(int[][] graph, int vertex, List<Integer> path, boolean[] visited, List<List<Integer>> res) {
@@ -52,7 +84,7 @@ public class _797_AllPathSourceToTarget {
 
         for (int i = 0; i < graphs.length; i++) {
             System.out.printf("\n%d.\tMatrix= %s\n", (i + 1), Arrays.deepToString(graphs[i]));
-            System.out.println("\tAll path from source to target: " + apst.allPathsSourceTarget(graphs[i]));
+            System.out.println("\tAll path from source to target: " + (i == 0 ? apst.allPathsBfs(graphs[i]) : apst.allPathsDfs(graphs[i])));
             System.out.println(PrintHypens.generate());
         }
     }
