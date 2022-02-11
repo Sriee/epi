@@ -7,7 +7,54 @@ import java.util.*;
 public class _1971_PathExists {
 
     /* ========================================================================
-     * Approach 1: DFS Approach
+     * Approach 1: Union Find Approach
+     * ========================================================================
+     * TC: O(n)
+     * SC: O(1)
+     */
+    int[] root, rank;
+
+    public boolean validPathUF(int n, int[][] edges, int source, int destination) {
+        root = new int[n];
+        rank = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            root[i] = i;
+            rank[i] = 1;
+        }
+
+        for (int[] edge: edges) {
+            union(edge[0], edge[1]);
+        }
+
+        return find(source) == find(destination);
+    }
+
+    private void union(int x, int y) {
+        int rootX = find(x), rootY = find(y);
+
+        if (rootX != rootY) {
+            if (rank[rootX] > rank[rootY]) {
+                root[rootY] = rootX;
+            } else if (rank[rootX] < rank[rootY]) {
+                root[rootX] = rootY;
+            } else {
+                root[rootY] = rootX;
+                rank[rootX]++;
+            }
+        }
+    }
+
+    private int find(int x) {
+        if (x == root[x]) {
+            return x;
+        }
+
+        return root[x] = find(root[x]);
+    }
+
+    /* ========================================================================
+     * Approach 2: DFS Approach
      * ========================================================================
      * TC: O(V + E)
      * SC: O(V + E)
@@ -47,7 +94,7 @@ public class _1971_PathExists {
     }
 
     /* ========================================================================
-     * Approach 2: BFS Approach
+     * Approach 3: BFS Approach
      * ========================================================================
      * TC: O(V + E)
      * SC: O(V + E)
@@ -94,21 +141,18 @@ public class _1971_PathExists {
                 {{0, 1}, {0, 2}, {3, 5}, {5, 4}, {4, 3}}
         };
         int[] sources = {0, 0, 1};
-        int[] destination = {2, 5, 3};
+        int[] destination = {2, 2, 3};
 
         for (int i = 0; i < graphs.length; i++) {
             System.out.printf("\n%d.\tGraph= %s\n", (i + 1), Arrays.deepToString(graphs[i]));
-            boolean res = false;
+            boolean res = switch (i) {
+                case 0 -> pe.validPathDfs(3, graphs[i], sources[i], destination[i]);
+                case 1 -> pe.validPathBfs(6, graphs[i], sources[i], destination[i]);
+                case 2 -> pe.validPathUF(6, graphs[i], sources[i], destination[i]);
+                default -> false;
+            };
 
-            switch (i) {
-                case 0:
-                    res = pe.validPathDfs(graphs[i].length, graphs[i], sources[i], destination[i]);
-                    break;
-                case 1:
-                    res = pe.validPathBfs(graphs[i].length, graphs[i], sources[i], destination[i]);
-                    break;
-            }
-            System.out.printf("\tDoes path exists from %d to %d? %s", sources[i], destination[i], res);
+            System.out.printf("\tDoes path exists from %d to %d? %s\n", sources[i], destination[i], res);
             System.out.println(PrintHypens.generate());
         }
     }
