@@ -6,6 +6,14 @@ import java.util.*;
 
 public class _1059_LeadToDestination {
 
+    enum Color {GRAY, BLACK}
+
+    /**
+     * DFS Node coloring variant approach
+     *
+     * TC: O(V + E)
+     * SC: O(V + E)
+     */
     public boolean leadsToDestination(int n, int[][] edges, int source, int destination) {
         List<List<Integer>> graph = new ArrayList<>();
 
@@ -13,32 +21,32 @@ public class _1059_LeadToDestination {
             graph.add(new ArrayList<>());
         }
 
-        for (int[] edge: edges) {
+        for (int[] edge : edges) {
             graph.get(edge[0]).add(edge[1]);
         }
 
-        return dfs(graph, source, destination, new int[n]);
+        return dfs(graph, source, destination, new Color[n]);
     }
 
     // 0 - White, 1 - Gray, 2 - Black
-    private boolean dfs(List<List<Integer>> graph, int vertex, int destination, int[] state) {
+    private boolean dfs(List<List<Integer>> graph, int vertex, int destination, Color[] state) {
         // Have reached an already visited node
-        if (state[vertex] != 0) {
-            return state[vertex] == 2;
+        if (state[vertex] != null) {
+            return state[vertex] == Color.BLACK;
         }
 
         if (graph.get(vertex).isEmpty()) {
             return vertex == destination;
         }
 
-        state[vertex] = 1;
+        state[vertex] = Color.GRAY;
         for (int neighbor : graph.get(vertex)) {
             if (!dfs(graph, neighbor, destination, state)) {
                 return false;
             }
         }
 
-        state[vertex] = 2;
+        state[vertex] = Color.BLACK;
         return true;
     }
 
