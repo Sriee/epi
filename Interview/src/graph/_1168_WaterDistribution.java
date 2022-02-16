@@ -2,7 +2,6 @@ package graph;
 
 import javafx.util.Pair;
 import util.PrintHypens;
-
 import java.util.*;
 
 public class _1168_WaterDistribution {
@@ -11,10 +10,23 @@ public class _1168_WaterDistribution {
      * Approach 1: Minimum Spanning Tree - Kruskal Algorithm
      * ===========================================================================================
      */
+    class Node implements Comparable<Node>{
+        int x, y, weight;
+
+        public Node(int x, int y, int weight) {
+            this.x = x;
+            this.y = y;
+            this.weight = weight;
+        }
+
+        @Override
+        public int compareTo(Node other) {
+            return Integer.compare(this.weight, other.weight);
+        }
+    }
+
     int[] root, rank;
     public int minCostToSupplyWater(int n, int[] wells, int[][] pipes) {
-        PriorityQueue<int[]> graph = new PriorityQueue<>((a, b) -> Integer.compare(a[2], b[2]));
-
         root = new int[n + 1];
         rank = new int[n + 1];
         for (int i = 0; i <= n; i++) {
@@ -22,22 +34,22 @@ public class _1168_WaterDistribution {
             rank[i] = 1;
         }
 
+        List<Node> graph = new ArrayList<>();
         // Add node 0
         for (int i = 0; i < wells.length; i++) {
-            graph.offer(new int[] { 0, i + 1, wells[i] });
+            graph.add(new Node(0, i + 1, wells[i]));
         }
 
         // Add remaining pipes
         for (int[] pipe : pipes) {
-            graph.offer(new int[] { pipe[0], pipe[1], pipe[2] });
+            graph.add(new Node(pipe[0], pipe[1], pipe[2]));
         }
 
-        int minCost = 0, numComponents = n;
-        while (!graph.isEmpty() && numComponents > 0) {
-            int[] edge = graph.poll();
-            if (union(edge[0], edge[1])) {
-                minCost += edge[2];
-                numComponents--;
+        Collections.sort(graph);
+        int minCost = 0;
+        for (Node vertex : graph) {
+            if (union(vertex.x, vertex.y)) {
+                minCost += vertex.weight;
             }
         }
 
@@ -135,7 +147,7 @@ public class _1168_WaterDistribution {
             } else {
                 res = wd.minCostToSupplyWater(ns[i], wells[i], pipes[i]);
             }
-            System.out.println("\tMinimum cost to supply water= " + res);
+            System.out.println("\tMinimum cost to supply water = " + res);
             System.out.println(PrintHypens.generate());
         }
     }
