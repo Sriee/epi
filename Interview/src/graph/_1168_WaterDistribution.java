@@ -1,15 +1,81 @@
 package graph;
 
 import javafx.util.Pair;
+import util.PrintHypens;
+
 import java.util.*;
 
 public class _1168_WaterDistribution {
 
     /* ===========================================================================================
-     * Approach 1: Minimum Spanning Tree - Prims Algorithm
+     * Approach 1: Minimum Spanning Tree - Kruskal Algorithm
      * ===========================================================================================
      */
+    int[] root, rank;
     public int minCostToSupplyWater(int n, int[] wells, int[][] pipes) {
+        PriorityQueue<int[]> graph = new PriorityQueue<>((a, b) -> Integer.compare(a[2], b[2]));
+
+        root = new int[n + 1];
+        rank = new int[n + 1];
+        for (int i = 0; i <= n; i++) {
+            root[i] = i;
+            rank[i] = 1;
+        }
+
+        // Add node 0
+        for (int i = 0; i < wells.length; i++) {
+            graph.offer(new int[] { 0, i + 1, wells[i] });
+        }
+
+        // Add remaining pipes
+        for (int[] pipe : pipes) {
+            graph.offer(new int[] { pipe[0], pipe[1], pipe[2] });
+        }
+
+        int minCost = 0, numComponents = n;
+        while (!graph.isEmpty() && numComponents > 0) {
+            int[] edge = graph.poll();
+            if (union(edge[0], edge[1])) {
+                minCost += edge[2];
+                numComponents--;
+            }
+        }
+
+        return minCost;
+    }
+
+    private int find(int x) {
+        if (x == root[x]) {
+            return x;
+        }
+
+        return root[x] = find(root[x]);
+    }
+
+    private boolean union(int x, int y) {
+        int rootX = find(x), rootY = find(y);
+
+        if (rootX == rootY) {
+            return false;
+        }
+
+        if (rank[rootX] > rank[rootY]) {
+            root[rootY] = rootX;
+        } else if (rank[rootX] < rank[rootY]) {
+            root[rootX] = rootY;
+        } else {
+            root[rootY] = rootX;
+            rank[rootX]++;
+        }
+
+        return true;
+    }
+
+    /* ===========================================================================================
+     * Approach 2: Minimum Spanning Tree - Prims Algorithm
+     * ===========================================================================================
+     */
+    public int minCostToSupplyWaterPrims(int n, int[] wells, int[][] pipes) {
         List<List<Pair<Integer, Integer>>> graph = new ArrayList<>();
         for (int i = 0; i <= n; i++)
             graph.add(new ArrayList<>());
@@ -51,8 +117,26 @@ public class _1168_WaterDistribution {
     public static void main(String[] args) {
         _1168_WaterDistribution wd = new _1168_WaterDistribution();
 
-        // Test case 1
-        int optimizedCost = wd.minCostToSupplyWater(3, new int[]{1, 2, 2}, new int[][]{{1, 2, 1}, {2, 3, 1}});
-        System.out.println(optimizedCost);
+        int[] ns = {3, 2};
+        int[][] wells = {
+                {1, 2, 2},
+                {1, 1}
+        };
+        int[][][] pipes = {
+                {{1, 2, 1}, {2, 3, 1}},
+                {{1, 2, 1}, {1, 2, 2}}
+        };
+
+        int res;
+        for (int i = 0; i < ns.length; i++) {
+            System.out.printf("%d.\tn=%d wells=%s pipes=%s\n", (i + 1), ns[i], Arrays.toString(wells[i]), Arrays.deepToString(pipes[i]));
+            if (i == 0) {
+                res = wd.minCostToSupplyWaterPrims(ns[i], wells[i], pipes[i]);
+            } else {
+                res = wd.minCostToSupplyWater(ns[i], wells[i], pipes[i]);
+            }
+            System.out.println("\tMinimum cost to supply water= " + res);
+            System.out.println(PrintHypens.generate());
+        }
     }
 }
