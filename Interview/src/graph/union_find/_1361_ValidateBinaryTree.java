@@ -64,6 +64,56 @@ public class _1361_ValidateBinaryTree {
         return true;
     }
 
+    /* ===========================================================================================
+     * Approach 2: DFS
+     * ===========================================================================================
+     */
+    public boolean validateBinaryTreeNodesDfs(int n, int[] leftChild, int[] rightChild) {
+        int root = findRoot(n, leftChild, rightChild);
+        if (root == -1)
+            return false;
+
+        int visitedCount = dfs(root, leftChild, rightChild, new int[n]);
+        return visitedCount == n;
+    }
+
+    private int findRoot(int n, int[] left, int[] right) {
+        boolean[] seen = new boolean[n + 1];
+
+        for (int i = 0; i < n; i++) {
+            seen[left[i] + 1] = true;
+            seen[right[i] + 1] = true;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (!seen[i + 1]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int dfs(int node, int[] left, int[] right, int[] visited) {
+        if (visited[node] != 0)
+            return visited[node];
+
+        visited[node] = -1;
+        int[] neighbors = {left[node], right[node]};
+        int vc = 1;
+
+        for (int neighbor: neighbors) {
+            if (neighbor == -1)
+                continue;
+            // Cycle
+            int len = dfs(neighbor, left, right, visited);
+            if (len == -1)
+                return -1;
+            vc += len;
+        }
+        visited[node] = 1;
+        return vc;
+    }
+
     public static void main(String[] args) {
         _1361_ValidateBinaryTree vbt = new _1361_ValidateBinaryTree();
         int[] ns = {6, 3, 4, 4};
@@ -82,7 +132,16 @@ public class _1361_ValidateBinaryTree {
 
         for (int i = 0; i < ns.length; i++) {
             System.out.printf("%d.\tn=%d, leftChild=%s, rightChild=%s\n", (i + 1), ns[i], Arrays.toString(leftChilds[i]), Arrays.toString(rightChilds[i]));
-            System.out.println("\tIs Valid Binary Tree = " + vbt.validateBinaryTreeNodesUf(ns[i], leftChilds[i], rightChilds[i]));
+            boolean isValidTree = false;
+            switch (i) {
+                case 0:
+                    isValidTree = vbt.validateBinaryTreeNodesUf(ns[i], leftChilds[i], rightChilds[i]);
+                    break;
+                case 1:
+                    isValidTree = vbt.validateBinaryTreeNodesDfs(ns[i], leftChilds[i], rightChilds[i]);
+                    break;
+            }
+            System.out.println("\tIs Valid Binary Tree = " + isValidTree);
             System.out.println(PrintHypens.generate());
         }
     }
