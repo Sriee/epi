@@ -22,6 +22,25 @@ public class _797_AllPathSourceToTarget {
         return res;
     }
 
+    private void dfs(int[][] graph, int vertex, List<Integer> path, boolean[] visited, List<List<Integer>> res) {
+        if (vertex == graph.length - 1) {
+            res.add(new ArrayList<>(path));
+            return;
+        }
+
+        visited[vertex] = true;
+
+        for (int neighbor : graph[vertex]) {
+            if (!visited[neighbor]) {
+                path.add(neighbor);
+                dfs(graph, neighbor, path, visited, res);
+                path.remove(path.size() - 1);
+            }
+        }
+
+        visited[vertex] = false;
+    }
+
     /* ========================================================================
      * Approach 2: BFS Approach
      * ========================================================================
@@ -54,25 +73,6 @@ public class _797_AllPathSourceToTarget {
         }
 
         return result;
-    }
-
-    private void dfs(int[][] graph, int vertex, List<Integer> path, boolean[] visited, List<List<Integer>> res) {
-        if (vertex == graph.length - 1) {
-            res.add(new ArrayList<>(path));
-            return;
-        }
-
-        visited[vertex] = true;
-
-        for (int neighbor : graph[vertex]) {
-            if (!visited[neighbor]) {
-                path.add(neighbor);
-                dfs(graph, neighbor, path, visited, res);
-                path.remove(path.size() - 1);
-            }
-        }
-
-        visited[vertex] = false;
     }
 
     public static void main(String[] args) {
