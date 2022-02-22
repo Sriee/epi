@@ -11,9 +11,12 @@ public class _743_NetworkDelayTime {
      * Dijstra's Shortest path Algorithm
      */
     public int networkDelayTime(int[][] times, int n, int k) {
-        Map<Integer, List<Pair<Integer, Integer>>> graph = new HashMap<>();
+        List<List<Pair<Integer, Integer>>> graph = new ArrayList<>();
+        for (int i = 0; i <= n; i++) {
+            graph.add(new ArrayList<>());
+        }
+
         for (int[] time : times) {
-            graph.putIfAbsent(time[0], new ArrayList<>());
             graph.get(time[0]).add(new Pair<>(time[1], time[2]));
         }
 
@@ -29,7 +32,7 @@ public class _743_NetworkDelayTime {
             Pair<Integer, Integer> top = pq.poll();
             int node = top.getKey(), time = top.getValue();
 
-            if (time > dist[node] || !graph.containsKey(node))
+            if (time > dist[node])
                 continue;
 
             for (Pair<Integer, Integer> neighbor : graph.get(node)) {
