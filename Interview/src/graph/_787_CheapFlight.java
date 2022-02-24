@@ -14,32 +14,30 @@ public class _787_CheapFlight {
      * SC: O(N)
      */
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-        if (src == dst) {
+        if (src == dst)
             return 0;
-        }
 
-        int[] previous = new int[n];
-        int[] current = new int[n];
-        for (int i = 0; i < n; i++) {
-            previous[i] = Integer.MAX_VALUE;
-            current[i] = Integer.MAX_VALUE;
-        }
-        previous[src] = 0;
-        for (int i = 1; i < k + 2; i++) {
-            current[src] = 0;
+        int[] curr = new int[n];
+        Arrays.fill(curr, Integer.MAX_VALUE);
+        curr[src] = 0;
+        boolean isRoutePossible = false;
+
+        for (int i = 0; i <= k && !isRoutePossible; i++) {
+            int[] prev = curr.clone();
+            isRoutePossible = true;
+
             for (int[] flight : flights) {
-                int previous_flight = flight[0];
-                int current_flight = flight[1];
-                int cost = flight[2];
+                int source = flight[0], destination = flight[1], cost = flight[2];
 
-                if (previous[previous_flight] < Integer.MAX_VALUE) {
-                    current[current_flight] = Math.min(current[current_flight],
-                            previous[previous_flight] + cost);
+                // Short circuit
+                if (prev[source] != Integer.MAX_VALUE && curr[destination] > prev[source] + cost) {
+                    curr[destination] = prev[source] + cost;
+                    isRoutePossible = false;
                 }
             }
-            previous = current.clone();
         }
-        return current[dst] == Integer.MAX_VALUE ? -1 : current[dst];
+
+        return curr[dst] == Integer.MAX_VALUE ? -1 : curr[dst];
     }
 
     public static void main(String[] args) {
