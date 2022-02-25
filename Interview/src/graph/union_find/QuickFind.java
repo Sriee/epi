@@ -1,22 +1,39 @@
 package graph.union_find;
 
+/*
+ * SC for Quick Find: O(n) -> Size required for the root array
+ */
 public class QuickFind {
 
     int[] root;
+
+    /**
+     * TC: O(n) - to initialize the root array
+     */
     public QuickFind(int size) {
         root = new int[size];
         for (int i = 0; i < size; i++)
             root[i] = i;
     }
 
+    /**
+     * TC: O(1)
+     */
     public int find(int x) {
         return root[x];
     }
 
+    /**
+     * TC: O(1)
+     */
     public boolean isConnected(int x, int y) {
         return find(x) == find(y);
     }
 
+    /**
+     * TC: O(n) - Iterate through root array and update the root vertices for all vertices that is going to be merged
+     * into another set.
+     */
     public void union(int x, int y) {
         int rootX = root[x], rootY = root[y];
 
