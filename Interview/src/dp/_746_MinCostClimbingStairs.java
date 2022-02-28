@@ -13,7 +13,7 @@ public class _746_MinCostClimbingStairs {
      * TC: O(n)
      * SC: O(n)
      */
-    public int minCostClimbingStairs(int[] cost) {
+    public int minCostClimbingStairsTopDown(int[] cost) {
         mem = new HashMap<>();
 
         return dp(cost, cost.length);
@@ -31,6 +31,24 @@ public class _746_MinCostClimbingStairs {
         return mem.get(i);
     }
 
+    /**
+     * Bottom-up Dynamic Programming Approach
+     *
+     * TC: O(n)
+     * SC: O(n)
+     */
+    public int minCostClimbingStairs(int[] cost) {
+        int prev1 = 0, prev2 = 0;
+
+        for (int i = 2; i <= cost.length; i++) {
+            int temp = prev1;
+            prev1 = Math.min(prev2 + cost[i - 2], prev1 + cost[i - 1]);
+            prev2 = temp;
+        }
+
+        return prev1;
+    }
+
     public static void main(String[] args) {
         _746_MinCostClimbingStairs mc = new _746_MinCostClimbingStairs();
 
@@ -44,7 +62,7 @@ public class _746_MinCostClimbingStairs {
 
         for (int i = 0; i < costs.length; i++) {
             System.out.println((i + 1) + ".\t Input Array: '" + Arrays.toString(costs[i]) + "'");
-            int actualResult = mc.minCostClimbingStairs(costs[i]);
+            int actualResult = (i & 1) == 0 ? mc.minCostClimbingStairsTopDown(costs[i]) : mc.minCostClimbingStairs(costs[i]);
             System.out.println("\t Minimum cost for climbing stairs: " + actualResult);
             assert mc.minCostClimbingStairs(costs[i]) == expectedResults[i];
             Stream.generate(() -> "-").limit(100).forEach(System.out::print);
