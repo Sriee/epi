@@ -7,11 +7,8 @@ import java.util.*;
 public class _1494_ParallelCourse2 {
 
     // Using globals to avoid passing these values are parameters.
-    int[] inDegree;
+    int[] inDegree, mem;
     int n, k;
-
-    // For memoization in DP
-    Map<Integer, Integer> mem;
 
     /**
      * Topological sort won't work for this problem. Try out the first example.
@@ -26,7 +23,10 @@ public class _1494_ParallelCourse2 {
         this.inDegree = new int[n];
         this.n = n;
         this.k = k;
-        this.mem = new HashMap<>();
+
+        // For memoization in DP. use array instead of map to improve time and space complexity.
+        this.mem = new int[1 << n];
+        Arrays.fill(mem, -1);
 
         // Calculate mask
         int mask = 0;
@@ -67,8 +67,8 @@ public class _1494_ParallelCourse2 {
     private int dp(int currentMask) {
         if (currentMask == 0) {
             return currentMask;
-        } else if (mem.containsKey(currentMask)) {
-            return mem.get(currentMask);
+        } else if (mem[currentMask] != -1) {
+            return mem[currentMask];
         }
 
         // Select courses for current semester. i.e. courses with 0 inDegree's
@@ -90,7 +90,7 @@ public class _1494_ParallelCourse2 {
             for (int combination : maskCombinations) {
                 ans = Math.min(ans, 1 + dp(combination));
             }
-            mem.put(currentMask, ans);
+            mem[currentMask] = ans;
         } else {
             // Mark courses as taken. 1 -> 0
             int newMask = currentMask;
@@ -98,9 +98,10 @@ public class _1494_ParallelCourse2 {
                 newMask ^= (1 << course);
             }
 
-            mem.put(currentMask, 1 + dp(newMask));
+            mem[currentMask] = 1 + dp(newMask);
         }
-        return mem.get(currentMask);
+
+        return mem[currentMask];
     }
 
     /**
