@@ -49,9 +49,9 @@ public class BaseConversion {
                         return null;
 
                     dec += this.getValue(Character.toLowerCase(inputChar[len]))
-                            * (new Double(Math.pow(base1, index)).intValue());
+                            * (Double.valueOf(Math.pow(base1, index)).intValue());
                 } else {
-                    dec += Character.getNumericValue(inputChar[len]) * (new Double(Math.pow(base1, index)).intValue());
+                    dec += Character.getNumericValue(inputChar[len]) * (Double.valueOf(Math.pow(base1, index)).intValue());
                 }
                 len--;
                 index++;

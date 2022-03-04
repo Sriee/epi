@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class BinarySearchTree {
 
-    private ListNode<Integer> head = null;
+    private ListNode head = null;
     private int[] result = null;
     private int top = -1;
 
@@ -74,7 +74,7 @@ public class BinarySearchTree {
      * @param head sorted linked list
      * @return root of constructed binary search tree
      */
-    public TreeNode sortedListToBST(ListNode<Integer> head) {
+    public TreeNode sortedListToBST(ListNode head) {
         int len = ListUtil.length(head);
         this.head = head;
 

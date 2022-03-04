@@ -14,7 +14,7 @@ public class PrimeGen {
      * @return list of primes
      */
     public String generate(long n) {
-        int len = -1, size = new Double(Math.floor(0.5 * (n - 3)) + 1).intValue();
+        int len = -1, size = Double.valueOf(Math.floor(0.5 * (n - 3)) + 1).intValue();
         List<Integer> primes = new ArrayList<>();
         int value;
 
