@@ -5,8 +5,8 @@ public class AddTwo {
     /**
      * Leetcode problem. Solution -> Accepted
      */
-    public boolean hasLoop(ListNode<Integer> head) {
-        ListNode<Integer> slow = head, fast = head;
+    public boolean hasLoop(ListNode head) {
+        ListNode slow = head, fast = head;
 
         while (slow != null && fast != null && fast.next != null) {
             slow = slow.next;
@@ -19,8 +19,8 @@ public class AddTwo {
         return false;
     }
 
-    private ListNode<Integer> removeLoop(ListNode<Integer> head, ListNode<Integer> node) {
-        ListNode<Integer> first = head, second = node;
+    private ListNode removeLoop(ListNode head, ListNode node) {
+        ListNode first = head, second = node;
 
         while (second.next != first.next) {
             first = first.next;
@@ -33,19 +33,19 @@ public class AddTwo {
     /**
      * Leetcode problem. Solution -> Accepted
      */
-    public void reorderList(ListNode<Integer> head) {
+    public void reorderList(ListNode head) {
         if (head == null || head.next == null)
             return;
 
-        ListNode<Integer> slow = head, fast = head;
+        ListNode slow = head, fast = head;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
-        ListNode<Integer> reversed = ListUtil.reverse(slow.next);
+        ListNode reversed = ListUtil.reverse(slow.next);
 
         slow.next = null;
-        ListNode<Integer> reverseIter = reversed, iter = head, temp, temp2;
+        ListNode reverseIter = reversed, iter = head, temp, temp2;
         while (reverseIter != null) {
             temp = iter.next;
             temp2 = reverseIter.next;
@@ -68,9 +68,9 @@ public class AddTwo {
      * @param l2 second list with numbers in MSB
      * @return head of the two list summed and in MSB
      */
-    public ListNode<Integer> addMSB(ListNode<Integer> l1, ListNode<Integer> l2) {
+    public ListNode addMSB(ListNode l1, ListNode l2) {
         long lenA = 0, lenB = 0, diff = 0;
-        ListNode<Integer> cursor = l1, a, b;
+        ListNode cursor = l1, a, b;
         while (cursor != null) {
             lenA++;
             cursor = cursor.next;
@@ -92,7 +92,7 @@ public class AddTwo {
             b = l1;
         }
 
-        ListNode<Integer> newHead = new ListNode<>(1);
+        ListNode newHead = new ListNode(1);
         newHead.next = addHelper(a, b, diff);
 
         if (newHead.next.val > 9) {
@@ -103,8 +103,8 @@ public class AddTwo {
         return newHead;
     }
 
-    private ListNode<Integer> addHelper(ListNode<Integer> a, ListNode<Integer> b, long diff) {
-        ListNode<Integer> temp = null;
+    private ListNode addHelper(ListNode a, ListNode b, long diff) {
+        ListNode temp = null;
         int carry = 0;
 
         if (diff > 0) {
@@ -121,39 +121,39 @@ public class AddTwo {
                 temp.val -= 10;
             }
         }
-        ListNode<Integer> newNode = new ListNode<>(((a == null) ? 0 : a.val) + ((b == null) ? 0 : b.val) + carry);
+        ListNode newNode = new ListNode(((a == null) ? 0 : a.val) + ((b == null) ? 0 : b.val) + carry);
         newNode.next = temp;
         return newNode;
     }
 
     public static void main(String[] args) {
         AddTwo at = new AddTwo();
-        ListNode<Integer> first = new ListNode<>(9);
+        ListNode first = new ListNode(9);
 
-        ListNode<Integer> second = new ListNode<>(1);
-        second.next = new ListNode<>(9);
-        second.next.next = new ListNode<>(9);
-        second.next.next.next = new ListNode<>(9);
-        second.next.next.next.next = new ListNode<>(9);
-        second.next.next.next.next.next = new ListNode<>(9);
-        second.next.next.next.next.next.next = new ListNode<>(9);
-        second.next.next.next.next.next.next.next = new ListNode<>(9);
-        second.next.next.next.next.next.next.next.next = new ListNode<>(9);
-        second.next.next.next.next.next.next.next.next.next = new ListNode<>(9);
+        ListNode second = new ListNode(1);
+        second.next = new ListNode(9);
+        second.next.next = new ListNode(9);
+        second.next.next.next = new ListNode(9);
+        second.next.next.next.next = new ListNode(9);
+        second.next.next.next.next.next = new ListNode(9);
+        second.next.next.next.next.next.next = new ListNode(9);
+        second.next.next.next.next.next.next.next = new ListNode(9);
+        second.next.next.next.next.next.next.next.next = new ListNode(9);
+        second.next.next.next.next.next.next.next.next.next = new ListNode(9);
 
-        ListNode<Integer> looped = new ListNode<>(2);
-        looped.next = new ListNode<>(567);
-        looped.next.next = new ListNode<>(48);
-        looped.next.next.next = new ListNode<>(74);
-        looped.next.next.next.next = new ListNode<>(5);
-        looped.next.next.next.next.next = new ListNode<>(9);
+        ListNode looped = new ListNode(2);
+        looped.next = new ListNode(567);
+        looped.next.next = new ListNode(48);
+        looped.next.next.next = new ListNode(74);
+        looped.next.next.next.next = new ListNode(5);
+        looped.next.next.next.next.next = new ListNode(9);
         looped.next.next.next.next.next.next = looped.next.next;
 
         System.out.println(at.hasLoop(looped));
         ListUtil.print(looped);
 
         System.out.println("\nAdd MSB");
-        ListNode<Integer> msb = at.addMSB(first, second);
+        ListNode msb = at.addMSB(first, second);
         ListUtil.print(msb);
     }
 }

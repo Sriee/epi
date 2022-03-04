@@ -6,17 +6,17 @@ import java.util.Random;
 
 class _109_ListToBST {
     Random rand = new Random();
-    ListNode<Integer> lstNode;
+    ListNode lstNode;
 
-    public BSTNode naiveApproach(ListNode<Integer> head) {
+    public BSTNode naiveApproach(ListNode head) {
         int length = findLength(head);
         lstNode = head;
 
         return construct(0, length - 1);
     }
 
-    private int findLength(ListNode<Integer> head) {
-        ListNode<Integer> iter = head;
+    private int findLength(ListNode head) {
+        ListNode iter = head;
         int len = 0;
 
         /*
@@ -53,9 +53,9 @@ class _109_ListToBST {
      * <p>
      * See <a href="https://csactor.blogspot.com/2018/08/dsw-day-stout-warren-algorithm-dsw.html">DSW Algorithm</a>
      */
-    public BSTNode dswAlgorithm(ListNode<Integer> head) {
+    public BSTNode dswAlgorithm(ListNode head) {
         BSTNode dummy = new BSTNode(-1);
-        ListNode<Integer> iter = head;
+        ListNode iter = head;
         BSTNode treeIter = dummy;
 
         // Step 1: Make Vine
@@ -99,7 +99,7 @@ class _109_ListToBST {
         }
     }
 
-    public BSTNode sortedListToBST(ListNode<Integer> head) {
+    public BSTNode sortedListToBST(ListNode head) {
         BSTNode res = null;
         switch (rand.nextInt(2)) {
             case 0:
@@ -118,12 +118,12 @@ class _109_ListToBST {
     public static void main(String[] args) {
         _109_ListToBST bsl = new _109_ListToBST();
         // [-10,-3,0,5,9]
-        ListNode<Integer> dummy = new ListNode<>();
-        ListNode<Integer> iter = dummy;
+        ListNode dummy = new ListNode();
+        ListNode iter = dummy;
         int[] nums = {-10, -3, 0, 5, 9};
 
         for (int i : nums) {
-            iter.next = new ListNode<>(i);
+            iter.next = new ListNode(i);
             iter = iter.next;
         }
 

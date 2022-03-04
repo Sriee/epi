@@ -1,30 +1,25 @@
 package list;
 
-public class ListNode<T extends Comparable<T>> implements Comparable<ListNode<T>> {
-    public T val;
-    public ListNode<T> next;
+public class ListNode {
+    public int val;
+    public ListNode next;
 
     public ListNode() {
-        this.val = null;
         this.next = null;
     }
 
-    public ListNode(T val) {
+    public ListNode(int val) {
         this.val = val;
+        this.next = null;
     }
 
-    public ListNode(T val, ListNode<T> next) {
+    public ListNode(int val, ListNode next) {
         this.val = val;
         this.next = next;
     }
 
     @Override
-    public int compareTo(ListNode<T> other) {
-        return this.val.compareTo(other.val);
-    }
-
-    @Override
     public String toString() {
-        return "ListNode(" + val + ")";
+        return String.format("%d -> ", val);
     }
 }

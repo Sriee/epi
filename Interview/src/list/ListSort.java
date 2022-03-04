@@ -8,8 +8,8 @@ public class ListSort {
      * @param head: Head of the list to be sorted
      * @return sorted linked list
      */
-    public <T extends Comparable<T>> ListNode<T> insertionSort(ListNode<T> head) {
-        ListNode<T> newHead = new ListNode<>(), temp = head, toInsert = null, prev = null, iter = null;
+    public <T extends Comparable<T>> ListNode insertionSort(ListNode head) {
+        ListNode newHead = new ListNode(), temp = head, toInsert = null, prev = null, iter = null;
         boolean isInserted = false;
 
         while (temp != null) {
@@ -25,7 +25,7 @@ public class ListSort {
                 if (iter == null) {
                     prev.next = toInsert;
                     isInserted = true;
-                } else if (toInsert.val.compareTo(iter.val) <= 0) {
+                } else if (toInsert.val <= iter.val) {
                     prev.next = toInsert;
                     toInsert.next = iter;
                     isInserted = true;
@@ -44,20 +44,20 @@ public class ListSort {
      * @param head: Head of the list to be sorted
      * @return sorted linked list
      */
-    public <T extends Comparable<T>> ListNode<T> mergeSort(ListNode<T> head) {
+    public <T extends Comparable<T>> ListNode mergeSort(ListNode head) {
         if (head == null || head.next == null)
             return head;
 
-        ListNode<T> slow = head, fast = head;
+        ListNode slow = head, fast = head;
 
         while (fast.next != null && fast.next.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
 
-        ListNode<T> right = this.mergeSort(slow.next);
+        ListNode right = this.mergeSort(slow.next);
         slow.next = null;
-        ListNode<T> left = this.mergeSort(head);
+        ListNode left = this.mergeSort(head);
 
         return ListUtil.merge(left, right);
     }
@@ -66,15 +66,15 @@ public class ListSort {
         ListSort s = new ListSort();
         System.out.println("Before Sorting:");
         // To sort
-        ListNode<Integer> toSort = new ListNode<>(21);
-        toSort.next = new ListNode<>(0);
-        toSort.next.next = new ListNode<>(-41);
-        toSort.next.next.next = new ListNode<>(-1);
-        toSort.next.next.next.next = new ListNode<>(77);
+        ListNode toSort = new ListNode(21);
+        toSort.next = new ListNode(0);
+        toSort.next.next = new ListNode(-41);
+        toSort.next.next.next = new ListNode(-1);
+        toSort.next.next.next.next = new ListNode(77);
         ListUtil.print(toSort);
 
         System.out.println("After sorted:");
-        ListNode<Integer> sorted = s.mergeSort(toSort);
+        ListNode sorted = s.mergeSort(toSort);
         ListUtil.print(sorted);
     }
 

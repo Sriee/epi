@@ -16,13 +16,13 @@ public class ListProblems {
      * @param G    subset
      * @return number of sub components
      */
-    public int numComponents(ListNode<Integer> head, int[] G) {
+    public int numComponents(ListNode head, int[] G) {
         int components = 0, run = 0;
 
         if (head == null || G.length == 0)
             return components;
 
-        ListNode<Integer> current = head;
+        ListNode current = head;
         Set<Integer> set = new HashSet<>();
         for (int i : G)
             set.add(i);
@@ -51,11 +51,11 @@ public class ListProblems {
      * @param head of the Linked List
      * @return array of next greater elements
      */
-    public int[] nextLargerNodes(ListNode<Integer> head) {
+    public int[] nextLargerNodes(ListNode head) {
         int len = 0, pos = -1;
 
         // Find the length of Linked List
-        ListNode<Integer> current = head;
+        ListNode current = head;
         while (current != null) {
             current = current.next;
             len++;
@@ -93,11 +93,11 @@ public class ListProblems {
      * @param head of the Linked List
      * @return array of next greater elements
      */
-    public int[] nextLargerNodesOptimal(ListNode<Integer> head) {
+    public int[] nextLargerNodesOptimal(ListNode head) {
         int len = 0, pos = -1;
 
         // Find the length of Linked List
-        ListNode<Integer> current = head;
+        ListNode current = head;
         while (current != null) {
             current = current.next;
             len++;

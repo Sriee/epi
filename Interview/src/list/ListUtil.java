@@ -1,9 +1,21 @@
 package list;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class ListUtil {
+
+    public static ListNode construct(int[] nums) {
+        ListNode head = new ListNode();
+        ListNode iter = head;
+        for (int i : nums) {
+            iter.next = new ListNode(i);
+            iter = iter.next;
+        }
+
+        return head.next;
+    }
 
     /**
      * Delete a node in a linked list
@@ -11,8 +23,8 @@ public class ListUtil {
      * @param head     Linked List head
      * @param toDelete the node to be deleted
      */
-    public static <D extends Comparable<D>> void delete(ListNode<D> head, ListNode<D> toDelete) {
-        ListNode<D> cursor = head, previous = null;
+    public static <D extends Comparable<D>> void delete(ListNode head, ListNode toDelete) {
+        ListNode cursor = head, previous = null;
         while (cursor != null && cursor != toDelete) {
             previous = cursor;
             cursor = cursor.next;
@@ -33,11 +45,11 @@ public class ListUtil {
     /**
      * Leetcode problem. Solution -> Accepted
      */
-    public static <T extends Comparable<T>> ListNode<T> merge(ListNode<T> list1, ListNode<T> list2) {
-        ListNode<T> dummy = new ListNode<>(null, null);
-        ListNode<T> c1 = list1, c2 = list2, current = dummy;
+    public static <T extends Comparable<T>> ListNode merge(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode();
+        ListNode c1 = list1, c2 = list2, current = dummy;
         while (c1 != null && c2 != null) {
-            if (c1.val.compareTo(c2.val) <= 0) {
+            if (c1.val <= c2.val) {
                 current.next = c1;
                 c1 = c1.next;
             } else {
@@ -62,13 +74,13 @@ public class ListUtil {
      * @param list Array of lists to be merged
      * @return merged list
      */
-    public static <S extends Comparable<S>> ListNode<S> mergeKSortedList(ArrayList<ListNode<S>> list) {
-        ListNode<S> dummyHead = new ListNode<>(null, null);
-        ListNode<S> cursor = dummyHead;
+    public static <S extends Comparable<S>> ListNode mergeKSortedList(ArrayList<ListNode> list) {
+        ListNode dummyHead = new ListNode();
+        ListNode cursor = dummyHead;
         int j = 1;
-        PriorityQueue<ListNode<S>> queue = new PriorityQueue<>();
+        PriorityQueue<ListNode> queue = new PriorityQueue<>();
         for (int i = 0; i < list.size(); i++) {
-            ListNode<S> temp = list.get(i);
+            ListNode temp = list.get(i);
             if (temp != null)
                 queue.add(temp);
         }
@@ -88,8 +100,8 @@ public class ListUtil {
      * Leetcode problem. Solution -> Accepted Solution does not uses recursion and
      * does not require the length of the lists to be known
      */
-    public <I extends Comparable<I>> ListNode<I> getIntersectionNode(ListNode<I> headA, ListNode<I> headB) {
-        ListNode<I> first = headA, second = headB;
+    public <I extends Comparable<I>> ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode first = headA, second = headB;
         while (first != second) {
             first = (first == null) ? headB : first.next;
             second = (second == null) ? headA : second.next;
@@ -113,7 +125,7 @@ public class ListUtil {
     }
      */
 
-    private <I extends Comparable<I>> ListNode<I> intersectionHelper(ListNode<I> first, ListNode<I> second, int diff) {
+    private <I extends Comparable<I>> ListNode intersectionHelper(ListNode first, ListNode second, int diff) {
         if (diff != 0) {
             diff--;
             return this.intersectionHelper(first, second.next, diff);
@@ -131,14 +143,14 @@ public class ListUtil {
     /**
      * Leetcode problem. Solution -> Accepted
      */
-    public static <S extends Comparable<S>> ListNode<S> reverseSublist(ListNode<S> head, int start, int finish) {
-        ListNode<S> dummy = new ListNode<>(null, head);
-        ListNode<S> sublistHead = dummy;
+    public static <S extends Comparable<S>> ListNode reverseSublist(ListNode head, int start, int finish) {
+        ListNode dummy = new ListNode(-1, head);
+        ListNode sublistHead = dummy;
         int k = 1;
         while (k++ < start) {
             sublistHead = sublistHead.next;
         }
-        ListNode<S> sublistIter = sublistHead.next, temp = null;
+        ListNode sublistIter = sublistHead.next, temp = null;
 
         while (start++ < finish) {
             temp = sublistIter.next;
@@ -153,12 +165,12 @@ public class ListUtil {
     /**
      * Leetcode problem. Solution -> Accepted
      */
-    public static ListNode<Integer> reverseKSublist(ListNode<Integer> head, int k) {
+    public static ListNode reverseKSublist(ListNode head, int k) {
         int length = length(head);
         int c = 0, subs = length / k;
-        ListNode<Integer> dummyHead = new ListNode<>(null, head);
-        ListNode<Integer> sublistHead = dummyHead;
-        ListNode<Integer> sublistIterator = sublistHead.next, temp = null;
+        ListNode dummyHead = new ListNode(-1, head);
+        ListNode sublistHead = dummyHead;
+        ListNode sublistIterator = sublistHead.next, temp = null;
         while (c++ < subs) {
             int start = 0;
             while (start++ < k - 1 && sublistIterator.next != null) {
@@ -176,10 +188,10 @@ public class ListUtil {
     /**
      * Leetcode problem. Solution -> Accepted
      */
-    public static <S extends Comparable<S>> ListNode<S> reverse(ListNode<S> head) {
-        ListNode<S> dummy = new ListNode<>(null, null);
+    public static <S extends Comparable<S>> ListNode reverse(ListNode head) {
+        ListNode dummy = new ListNode();
         dummy.next = head;
-        ListNode<S> iter = dummy.next, temp = null;
+        ListNode iter = dummy.next, temp = null;
         while (iter.next != null) {
             temp = iter.next;
             iter.next = temp.next;
@@ -196,11 +208,11 @@ public class ListUtil {
      * @param head
      * @return
      */
-    public static <S extends Comparable<S>> ListNode<S> reverseRecursive(ListNode<S> head) {
+    public static <S extends Comparable<S>> ListNode reverseRecursive(ListNode head) {
         if (head == null || head.next == null)
             return head;
 
-        ListNode<S> reverseNode = reverseRecursive(head.next);
+        ListNode reverseNode = reverseRecursive(head.next);
         head.next.next = head;
         head.next = null;
 
@@ -213,10 +225,10 @@ public class ListUtil {
      *
      * @param head List head
      */
-    public static <S extends Comparable<S>> void print(ListNode<S> head) {
+    public static <S extends Comparable<S>> void print(ListNode head) {
         if (head == null)
             return;
-        ListNode<S> cursor = head;
+        ListNode cursor = head;
         while (cursor.next != null) {
             System.out.print(cursor.val + " -> ");
             cursor = cursor.next;
@@ -230,8 +242,8 @@ public class ListUtil {
      * @param head Linked List head
      * @return length of the list
      */
-    public static <T extends Comparable<T>> int length(ListNode<T> head) {
-        ListNode<T> cursor = head;
+    public static <T extends Comparable<T>> int length(ListNode head) {
+        ListNode cursor = head;
         int count = 0;
         while (cursor != null) {
             count++;
@@ -248,11 +260,11 @@ public class ListUtil {
      * @param k    should be shifted k times
      * @return list right shifted k times
      */
-    public static <C extends Comparable<C>> ListNode<C> rightCyclicShift(ListNode<C> head, int k) {
+    public static <C extends Comparable<C>> ListNode rightCyclicShift(ListNode head, int k) {
         if (head == null)
             return head;
 
-        ListNode<C> cursor = head;
+        ListNode cursor = head;
         int len = 1;
 
         while (cursor.next != null) {
@@ -265,14 +277,14 @@ public class ListUtil {
             return head;
 
         cursor.next = head; // Making a cycle
-        ListNode<C> tail = cursor;
+        ListNode tail = cursor;
         int stepsToNewHead = len - k;
 
         while (stepsToNewHead-- > 0) {
             tail = tail.next;
         }
 
-        ListNode<C> newHead = tail.next;
+        ListNode newHead = tail.next;
         tail.next = null;
 
         return newHead;
@@ -288,8 +300,8 @@ public class ListUtil {
      * @param head list
      * @return true if list is a palindrome false otherwise
      */
-    public <C extends Comparable<C>> boolean isPalindrome(ListNode<C> head) {
-        ListNode<C> slow = head, fast = head;
+    public <C extends Comparable<C>> boolean isPalindrome(ListNode head) {
+        ListNode slow = head, fast = head;
 
         // Find mid
         while (fast != null && fast.next != null) {
@@ -303,7 +315,7 @@ public class ListUtil {
 
         // Another variation for reversing a list without using dummy head
         // Reverse second half
-        ListNode<C> prev = null, temp;
+        ListNode prev = null, temp;
 
         while (slow != null) {
             temp = slow.next;
@@ -326,19 +338,19 @@ public class ListUtil {
     }
 
     public static void main(String[] args) {
-        ListNode<Integer> temp = new ListNode<>(25);
-        ListNode<Integer> l1 = new ListNode<>(5);
-        l1.next = new ListNode<>(3);
-        l1.next.next = new ListNode<>(10);
-        l1.next.next.next = new ListNode<>(1);
+        ListNode temp = new ListNode(25);
+        ListNode l1 = new ListNode(5);
+        l1.next = new ListNode(3);
+        l1.next.next = new ListNode(10);
+        l1.next.next.next = new ListNode(1);
         l1.next.next.next.next = temp;
-        l1.next.next.next.next.next = new ListNode<>(60);
-        l1.next.next.next.next.next.next = new ListNode<>(77);
+        l1.next.next.next.next.next = new ListNode(60);
+        l1.next.next.next.next.next.next = new ListNode(77);
 
         /*
          * delete(l1, temp); print(l1); ListNode<Integer> reversed = reverseKSublist(l1,
-         * 3); print(reversed); ListNode<Integer> l2 = new ListNode<>(5); l2.next = new
-         * ListNode<>(3); ListNode<Integer> shifted = rightCyclicShift(l2, 3);
+         * 3); print(reversed); ListNode<Integer> l2 = new ListNode(5); l2.next = new
+         * ListNode(3); ListNode<Integer> shifted = rightCyclicShift(l2, 3);
          * print(shifted);
          */
     }
