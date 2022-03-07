@@ -1,9 +1,12 @@
-package list;
+package linkedlist;
+
+import list.ListNode;
+import list.ListUtil;
 
 public class _19_RemNFromEnd {
 
-    public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode end = head, start = head;
+    public list.ListNode removeNthFromEnd(list.ListNode head, int n) {
+        list.ListNode end = head, start = head;
 
         for (int i = 0; i < n && end != null; i++) end = end.next;
         if (end == null) {
@@ -17,8 +20,8 @@ public class _19_RemNFromEnd {
     }
 
     public static void main(String[] args) {
-        ListNode head = new ListNode(1);
-        head.next = new ListNode(2);
+        list.ListNode head = new list.ListNode(1);
+        head.next = new list.ListNode(2);
 
         _19_RemNFromEnd re = new _19_RemNFromEnd();
         ListNode newHead = re.removeNthFromEnd(head, 2);
