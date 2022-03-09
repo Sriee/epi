@@ -4,6 +4,13 @@ import java.util.*;
 import util.PrintHypens;
 
 public class _2231_DigitSwapByParity {
+
+    /**
+     * TC: We add all the digits to either even or odd heap. If d is the number of digits in a number, then
+     *     TC = O(d log d)
+     *
+     * SC: O(d) since we store all the digits.
+     */
     public int largestInteger(int num) {
         int[] pos = new int[10];
         int idx = 0;

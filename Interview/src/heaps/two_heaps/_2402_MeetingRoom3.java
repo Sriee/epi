@@ -4,6 +4,26 @@ import util.PrintHypens;
 import java.util.*;
 
 public class _2402_MeetingRoom3 {
+
+    /**
+     * TC
+     * ==
+     * Sorting the meeting rooms based on start times => O(m log m) where m is the number of meeting rooms
+     * We perform multiple push and pop operations for each room. Push/Pop in a heap = O(log n) where n is the number of
+     * rooms.
+     * We push and pop for each meeting => O(m log n)
+     *
+     * Total TC: O(m log m + m log n)
+     *
+     * SC
+     * ==
+     * Counter array = O(n)
+     * Sorting the intervals = O(m)
+     * Available & Used = In worst case, we can have n rooms in either heaps, So available heap size -> O(n) &
+     * used heap size -> O(n)
+     *
+     * Total SC: O(m + n)
+     */
     public int mostBooked(int rooms, int[][] meetings) {
         int[] counter = new int[rooms], roomInUse;
         int max = 0;

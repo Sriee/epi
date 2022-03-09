@@ -20,6 +20,19 @@ public class _502_Ipo {
         }
     }
 
+    /**
+     * For problems where there are two arrays and needs sorting based these two arrays, it's better to create a
+     * separate class and have the comparison logic there. There are three advantages to this approach.
+     *   1. It is easier to follow while implementing the solution
+     *   2. This does not impact the run-time in any way
+     *   3. This makes the code readable and the interviewers prefer this.
+     *
+     * TC: n log n -> for the initialization
+     *     k log n -> to select the projects with maximum profits for the running capitals
+     *     Total TC: O ((n + k) log n)
+     *
+     * SC: We store all the profits, capitals pair inside the heap. O(n)
+     */
     public int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {
         PriorityQueue<Project> minHeap = new PriorityQueue<>();
         PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
