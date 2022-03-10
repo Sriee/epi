@@ -5,6 +5,20 @@ import java.util.*;
 
 public class _2402_MeetingRoom3 {
 
+    private class MeetingRoom implements Comparable<MeetingRoom>{
+        int roomNo, endTime;
+
+        public MeetingRoom(int roomNo, int endTime) {
+            this.roomNo = roomNo;
+            this.endTime = endTime;
+        }
+
+        @Override
+        public int compareTo(MeetingRoom other) {
+            return this.endTime == other.endTime ? this.roomNo - other.roomNo : this.endTime - other.endTime;
+        }
+    }
+
     /**
      * TC
      * ==
@@ -25,41 +39,38 @@ public class _2402_MeetingRoom3 {
      * Total SC: O(m + n)
      */
     public int mostBooked(int rooms, int[][] meetings) {
-        int[] counter = new int[rooms], roomInUse;
+        int[] counter = new int[rooms];
         int max = 0;
-
         Arrays.sort(meetings, (a, b) -> a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]);
-        PriorityQueue<int[]> available = new PriorityQueue<>((a, b) -> a[1] == b[1] ? a[0] - b[0] : a[1] - b[1]);
-        PriorityQueue<int[]> used = new PriorityQueue<>((a, b) -> a[1] == b[1] ? a[0] - b[0] : a[1] - b[1]);
-        // available & used [] = {room, end time}
+
+        // Compare this version to the previous version where we use primitive int[]
+        PriorityQueue<MeetingRoom> available = new PriorityQueue<>();
+        PriorityQueue<MeetingRoom> used = new PriorityQueue<>();
 
         for (int i = 0; i < rooms; i++) {
-            available.offer(new int[]{i, 0});
+            available.offer(new MeetingRoom(i, 0));
         }
 
+        MeetingRoom room;
         for (int[] meeting : meetings) {
-            while (!used.isEmpty() && meeting[0] >= used.peek()[1]) {
-                roomInUse = used.poll();
-                roomInUse[1] = 0;
-                available.offer(roomInUse);
+            while(!used.isEmpty() && meeting[0] >= used.peek().endTime) {
+                room = used.poll();
+                room.endTime = 0;
+                available.offer(room);
             }
 
             if (available.isEmpty()) {
-                roomInUse = used.poll();
-                // Extend the end time
-                meeting[1] = roomInUse[1] + meeting[1] - meeting[0];
-                roomInUse[1] = 0;
-                available.offer(roomInUse);
+                room = used.poll();
+                room.endTime += meeting[1] - meeting[0];
+                available.offer(room);
             }
 
-            roomInUse = available.poll();
-            roomInUse[1] = meeting[1];
-            used.offer(roomInUse);
+            room = available.poll();
+            room.endTime = meeting[1];
+            used.offer(room);
 
-            // Update counter and max
-            counter[roomInUse[0]]++;
-
-            if (counter[roomInUse[0]] > max) max = counter[roomInUse[0]];
+            counter[room.roomNo]++;
+            max = Math.max(max, counter[room.roomNo]);
         }
 
         for (int i = 0; i < rooms; i++) {
@@ -67,6 +78,7 @@ public class _2402_MeetingRoom3 {
                 return i;
             }
         }
+
         return -1;
     }
 
@@ -86,8 +98,7 @@ public class _2402_MeetingRoom3 {
         for (int i = 0; i < meetings.length; i++) {
             System.out.println((i + 1) + ".\tMeetings: " + Arrays.deepToString(meetings[i]));
             System.out.println("\tRooms: " + rooms[i]);
-            int bookedRoom = mr.mostBooked(rooms[i], meetings[i]);
-            System.out.println("\tRoom that held the most meetings: " + bookedRoom);
+            System.out.println("\tRoom that held the most meetings: " + mr.mostBooked(rooms[i], meetings[i]));
             System.out.println(PrintHypens.generate());
         }
     }
